@@ -134,15 +134,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.comments',
-    'google_analytics',
+    # 'google_analytics',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'hip_engine'
+    # 'hip_engine',
 )
 
-AUTH_PROFILE_MODULE = 'hip_engine.UserProfile'
+# AUTH_PROFILE_MODULE = 'hip_engine.UserProfile'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
