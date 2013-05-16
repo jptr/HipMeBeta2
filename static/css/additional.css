@@ -1,0 +1,91 @@
+.row {
+  max-width: 100%;
+}
+
+.hipme_left_profile {
+  border-right: 2px solid black;
+}
+
+.mixtape_small_list {
+  display: inline;
+}
+
+.mixtape_header {
+  background-color: #FFFFAA;
+
+}
+
+.mixtape_info {
+  font-style: italic;
+}
+
+.mixtape_user {
+  font-size: 12px;
+  padding-left: 0;
+}
+
+.tag {
+  margin-bottom: 5px;
+}
+
+.track {
+  background-color: #EEEEEE;
+  color: #222222;
+  font-size: 16px;
+}
+
+.comment_zone {
+  background-color: #AAFFFF;
+}
+
+.userprofile {
+  background-color: pink;
+  padding-top: 16px;
+  margin-bottom: 16px;
+}
+
+.userprofile_nav {
+  background-color: gray;
+}
+
+.edit_profile {
+  font-size: 10px;
+}
+
+.mini_mixtape {
+  padding: 10px;
+  background-color: #99AADD;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.mini_profile_top {
+  padding-bottom: 20px;
+}
+
+.mini_profile_avatar {
+  padding-left: 0px;
+}
+
+.mini_profile_username {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+.mini_profile_links {
+  font-size: 12px;
+}
+
+.mini_profile_stats {
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+
+.no_padding_left {
+  padding-left: 0px;
+}
+
+.feed_nav_top {
+  font-size: 20px;
+  padding-left: 32px;
+}
