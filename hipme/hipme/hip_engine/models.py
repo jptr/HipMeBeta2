@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 import datetime
 from django.utils import timezone
-import PIL
+# import PIL
 
 # Create your models here.
 
@@ -12,8 +13,12 @@ def upload_to(instance, filename):
 class UserProfile(models.Model):
     # avatar = models.ImageField("Profile Pic", upload_to=upload_to, blank=True, null=True)
     user = models.OneToOneField(User)
+
+    follows = models.ManyToManyField('UserProfile', related_name='followed_by')
+
     reputation = models.IntegerField(default=0)
     url = models.URLField(blank=True)
+
     is_email_notified = models.BooleanField('get email notifications?', default=True)
     def __unicode__(self):
         return self.user.username
@@ -38,8 +43,10 @@ class Track(models.Model):
             return u"song %s - %s - unknown title" % (self.id, self.artist)
         elif  not self.artist and self.name:
             return u"song %s - unknown artist -%s" % (self.id, self.title)
+        elif  not self.artist and not self.name:
+            return u"song %s - unknown artist - unknown title" % (self.id, self.title)
         else:
-            return u"song %s - %s - %s - %s" % (self.id, self.artist, self.title, self.url)
+            return u"song %s - %s - %s" % (self.id, self.artist, self.title, self.url)
     def get_site_from(self):
         return get_streaming_site_from(self.url)
     get_site_from.short_description = 'Streaming source'
