@@ -13,13 +13,10 @@ def upload_to(instance, filename):
 class UserProfile(models.Model):
     # avatar = models.ImageField("Profile Pic", upload_to=upload_to, blank=True, null=True)
     user = models.OneToOneField(User)
-
     follows = models.ManyToManyField('UserProfile', related_name='followed_by')
     tracklist = models.ManyToManyField('Tracklist', related_name='followed_by')
-
     reputation = models.IntegerField(default=0)
     url = models.URLField(blank=True)
-
     is_email_notified = models.BooleanField('get email notifications?', default=True)
     def __unicode__(self):
         return self.user.username
@@ -40,9 +37,7 @@ class Track(models.Model):
     artist = models.CharField(max_length=200, blank=True)
     name = models.CharField(max_length=200, blank=True)
     bundle = models.ManyToManyField('Bundle', related_name='followed_by', null=True, blank=True)
-
     date_added = models.DateTimeField('date of creation', default=timezone.now())
-
     def __unicode__(self):
         if self.artist and not self.name:
             return u"song %s - %s - unknown name" % (self.id, self.artist)
@@ -60,7 +55,7 @@ class Track(models.Model):
 class Bundle(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='bundles_created')
     tracks = models.ManyToManyField('Track', related_name='bundle_from')
-
+    is_bundlego = models.BooleanField('bundlego?', default=False)
     date_created = models.DateTimeField('date of creation', default=timezone.now())
 
     def __unicode__(self):
@@ -70,13 +65,10 @@ class Tracklist(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='tracklists_created')
     title = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=200, blank=True)
-
     date_created = models.DateTimeField('date of creation', default=timezone.now())
     date_last_edit = models.DateTimeField('date of last edit', default=timezone.now())
-
     bundlego = models.ForeignKey(Bundle, related_name='tracklist_created')
     bundlebacks = models.ManyToManyField('Bundle', related_name='tracklist_from', null=True, blank=True)
-
     is_finished = models.BooleanField('finished?', default=False)
 
     def __unicode__(self):
