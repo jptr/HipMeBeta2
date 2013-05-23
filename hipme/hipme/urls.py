@@ -7,7 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'', include('hipme.hip_engine.urls')),
+    url(r'', include('hip_engine.urls')),
 )
 
 #if settings.DEBUG:
