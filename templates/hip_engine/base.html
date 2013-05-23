@@ -12,12 +12,14 @@
   <title> HipMe! </title>
 
   <!-- Included CSS Files -->
-  
-  <link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css" />
-  <link rel="stylesheet" href="{{STATIC_URL}}css/foundation.css" />
-  <link rel="stylesheet" href="{{STATIC_URL}}css/additional.css" />
 
-  <script src="{{STATIC_URL}}js/vendor/custom.modernizr.js"></script>
+  {% load staticfiles %}
+
+  <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/additional.css" %}"/>
+
+  <script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
 </head>
 
