@@ -3,4 +3,4 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 
 def test(request):
-    return render_to_response('test.html', context_instance=RequestContext(request))
+    return render_to_response('hip_engine/base.html', context_instance=RequestContext(request))

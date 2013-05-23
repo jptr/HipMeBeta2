@@ -1,9 +1,13 @@
+.page_content {
+  margin-top: 16px;
+}
+
 .row {
   max-width: 100%;
 }
 
-.hipme_left_profile {
-  border-right: 2px solid black;
+.hipme_left_profile a {
+  color: #EEEEEE;
 }
 
 .mixtape_small_list {
@@ -11,7 +15,7 @@
 }
 
 .mixtape_header {
-  background-color: #FFFFAA;
+  background-color: #EEEEEE;
 
 }
 
@@ -35,17 +39,20 @@
 }
 
 .comment_zone {
-  background-color: #AAFFFF;
+  background-color: #EEEEEE;
 }
 
 .userprofile {
-  background-color: pink;
   padding-top: 16px;
-  margin-bottom: 16px;
+  background-color: #EEEEEE;
 }
 
-.userprofile_nav {
-  background-color: gray;
+.userprofile_name {
+  color: #111111;
+}
+
+ .label_link a {
+  color: white;
 }
 
 .edit_profile {
@@ -88,4 +95,56 @@
 .feed_nav_top {
   font-size: 20px;
   padding-left: 32px;
+}
+
+.profile_avatar {
+  border-radius: 8px;
+}
+
+.score {
+  background-color: #FF94B8;
+  color: #111111;
+  font-size: 18px;
+}
+
+.tag {
+  background-color: #94B8FF;
+}
+
+.user_nav li a {
+  background-color: #BBBBFF;
+  color: #111111;
+}
+
+.user_nav li a.active {
+  background-color: #8888FF;
+  color: #111111;
+}
+
+.user_sub_nav dd {
+  margin-right: 1em;
+}
+
+.tag_list {
+  margin-left: 0px;
+}
+
+.hipme_stats li {
+  font-style: italic;
+  font-size: 12px;
+}
+
+.panel {
+  background: #063360;
+  color: #EEEEEE;
+  border: none;
+}
+
+.panel h5 {
+  color: #EEEEEE;
+}
+
+.search_button {
+  background: #063360;
+  border: none;
 }

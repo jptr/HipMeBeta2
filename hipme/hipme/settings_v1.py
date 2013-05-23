@@ -12,7 +12,8 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'C:/Patry/Dev/HipMeBeta2/hipme/database/sqlite3.db',
+        #'NAME': 'C:/Patry/Dev/HipMeBeta2/hipme/database/sqlite3.db',
+        'NAME': 'C:/Users/People Slide/Desktop/HipMe/GitHub/HipMeBeta2/hipme/database/sqlite3.db',
         #'NAME': '/home/hipme/hipMeBeta_II/database/sqlite3.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
@@ -49,7 +50,8 @@ LOGIN_URL = '/login/'
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 
-MEDIA_ROOT = 'C:/Patry/Dev/HipMeBeta2/media/'
+#MEDIA_ROOT = 'C:/Patry/Dev/HipMeBeta2/media/'
+MEDIA_ROOT = 'C:/Users/People Slide/Desktop/HipMe/GitHub/HipMeBeta2/media/'
 #MEDIA_ROOT = '/home/hipme/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -63,7 +65,8 @@ MEDIA_URL = '/media/'
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 
-STATIC_ROOT = 'C:/Patry/Dev/HipMeBeta2/static/'
+#STATIC_ROOT = 'C:/Patry/Dev/HipMeBeta2/static/'
+STATIC_ROOT = 'C:/Users/People Slide/Desktop/HipMe/GitHub/HipMeBeta2/static/'
 #STATIC_ROOT = '/home/hipme/static/'
 
 # URL prefix for static files.
@@ -123,7 +126,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #'/home/hipme/templates_II'
-    'C:/Patry/Dev/HipMeBeta2/templates'
+    'C:/Users/People Slide/Desktop/HipMe/GitHub/HipMeBeta2/templates'
 )
 
 INSTALLED_APPS = (
