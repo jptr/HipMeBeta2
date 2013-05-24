@@ -52,7 +52,7 @@
       <!-- Right Nav Section -->
       <ul class="right">
         <li class="divider"></li>
-        <li> <a href="#"> <img src="img/HMProfile.jpg" width="32"/> Simon Frr </a> </li>
+        <li> <a href="#"> <img src="{% static "img/HMProfile.jpg" %}" width="32"/> Simon Frr </a> </li>
         <li class="divider"></li>
         <li class="has-form">
           <form>
@@ -133,16 +133,16 @@
           <div class="row mini_mixtape_user_list">
             <ul class="small-block-grid-4">
               <li>
-                <img src="img/HMProfile.jpg" />
+                <img src="{% static "img/HMProfile.jpg" %}" />
               </li>
               <li>
-                <img src="img/HMProfile.jpg" />
+                <img src="{% static "img/HMProfile.jpg" %}" />
               </li>
               <li>
-                <img src="img/HMProfile.jpg" />
+                <img src="{% static "img/HMProfile.jpg" %}" />
               </li>
               <li>
-                <img src="img/HMProfile.jpg" />
+                <img src="{% static "img/HMProfile.jpg" %}" />
               </li>
             </ul>
           </div>
@@ -164,7 +164,7 @@
       <div class="panel">
         <div class="row mini_profile_top">
           <div class="small-5 columns mini_profile_avatar">
-            <a href="#"><img src="img/HMProfile.jpg"/></a>
+            <a href="#"><img src="{% static "img/HMProfile.jpg" %}"/></a>
           </div>
           <div class="small-7 columns no_padding_left">
             <div class="mini_profile_username">
@@ -249,11 +249,11 @@
   </footer>
 
   <script>
-  document.write('<script src=js/vendor/' +
+  document.write('<script src={% static "js/vendor/" %}' +
   ('__proto__' in {} ? 'zepto' : 'jquery') +
   '.js><\/script>')
   </script>
-  <script src="js/foundation.min.js"></script>
+  <script src="{% static "js/foundation.min.js" %}"></script>
   <script>
     $(document).foundation();
   </script>
