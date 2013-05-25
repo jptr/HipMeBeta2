@@ -1,0 +1,21 @@
+{% load hip_extras %}
+{% for field in form %}
+  <div class="row">
+    <div class="small-8">
+      <div class="row">
+        <div class="small-3 columns">
+          <label for="right-label" class="right inline">{{ field.label }}</label>
+        </div>
+        <div class="small-9 columns">
+          {%if field|field_type in "CharField" %}
+            <input type="text" id="right-label" placeholder="{{ field.help_text }}">
+          {% elif field|field_type = "ChosenModelChoiceField" %}
+            {{ form.media }}
+          {% else %}
+            {{ field }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}

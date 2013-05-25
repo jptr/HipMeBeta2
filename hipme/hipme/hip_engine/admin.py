@@ -33,8 +33,7 @@ class TrackAdmin(admin.ModelAdmin):
     list_display = ('__unicode__','get_site_from','artist','name', 'date_added')
 
 class BundleAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__','is_bundlego','date_created')
-    list_filter = ('is_bundlego',)
+    list_display = ('__unicode__','date_created')
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

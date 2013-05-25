@@ -33,9 +33,9 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 class Track(models.Model):
-    url = models.URLField()
-    artist = models.CharField(max_length=200, blank=True)
-    name = models.CharField(max_length=200, blank=True)
+    url = models.URLField(help_text='from soundcloud, youtube, hypemachine, grooveshark, deezer')
+    artist = models.CharField(max_length=200, blank=True, help_text='optionnal')
+    name = models.CharField(max_length=200, blank=True, help_text='optionnal')
     bundle = models.ManyToManyField('Bundle', related_name='followed_by', null=True, blank=True)
     date_added = models.DateTimeField('date of creation', default=timezone.now())
     def __unicode__(self):
@@ -44,18 +44,18 @@ class Track(models.Model):
         elif  not self.artist and self.name:
             return u"song %s - unknown artist -%s" % (self.id, self.name)
         elif  not self.artist and not self.name:
-            return u"song %s - unknown artist - unknown name" % (self.id, self.name)
+            return u"song %s - unknown artist - unknown name" % (self.id)
         else:
             return u"song %s - %s - %s" % (self.id, self.artist, self.name, self.url)
     def get_site_from(self):
-        return get_streaming_site_from(self.url)
+        # return get_streaming_site_from(self.url)
+        return u'unknown'
     get_site_from.short_description = 'Streaming source'
     site_from = property(get_site_from)
 
 class Bundle(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='bundles_created')
-    tracks = models.ManyToManyField('Track', related_name='bundle_from')
-    is_bundlego = models.BooleanField('bundlego?', default=False)
+    tracks = models.ManyToManyField('Track', related_name='bundle_from', blank=True)
     date_created = models.DateTimeField('date of creation', default=timezone.now())
 
     def __unicode__(self):
@@ -63,11 +63,12 @@ class Bundle(models.Model):
 
 class Tracklist(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='tracklists_created')
-    title = models.CharField(max_length=50, blank=True)
-    description = models.CharField(max_length=200, blank=True)
+    userto = models.ManyToManyField('UserProfile', verbose_name=u'to', related_name='tracklists_contributed', help_text='type any username')
+    title = models.CharField(max_length=50, blank=True, help_text='max 50 characters')
+    description = models.CharField(max_length=200, blank=True, help_text='max 200 characters')
     date_created = models.DateTimeField('date of creation', default=timezone.now())
     date_last_edit = models.DateTimeField('date of last edit', default=timezone.now())
-    bundlego = models.ForeignKey(Bundle, related_name='tracklist_created')
+    tracks = models.ManyToManyField('Track', related_name='tracklist_from', blank=True)
     bundlebacks = models.ManyToManyField('Bundle', related_name='tracklist_from', null=True, blank=True)
     is_finished = models.BooleanField('finished?', default=False)
 

@@ -1,0 +1,156 @@
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title> Forms </title>
+
+  <!-- Included CSS Files -->
+
+  {% load staticfiles %}
+
+  <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/additional.css" %}"/>
+
+  <link rel="stylesheet" href="{% static "css/chosen.css" %}"/>
+
+  <link rel="stylesheet" href="{% static "js/chosen.jquery.js" %}"/>
+  <link rel="stylesheet" href="{% static "js/chosen.jquery.min.js" %}"/>
+  <link rel="stylesheet" href="{% static "js/chosen.jquery_ready.js" %}"/>
+
+  <script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
+
+</head>
+
+<body>
+
+  <p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset>
+          <legend>Update Email</legend>
+        {% for field in email_form %}
+          <div class="row">
+            <div class="small-8">
+              <div class="row">
+                <div class="small-3 columns">
+                  <label for="right-label" class="right inline">{{ field.label }}</label>
+                </div>
+                <div class="small-9 columns">
+                  <div class="small-10 columns">
+                    <input type="text" id="right-label" value={{ request.user.email }} placeholder="{{ field.help_text }}">
+                  </div>
+                  <div class="small-2 columns">
+                    <a href="#" class="button prefix">Update</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </fieldset>
+    </form>
+  </p>
+
+  <p>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <fieldset>
+        <legend>Toggle Email Notification</legend>
+        {% for field in email_notif_form %}
+          <div class="row">
+            <div class="small-8">
+              <div class="row">
+                <div class="small-3 columns">
+                  <label for="right-label" class="right inline">{{ field.label }}</label>
+                </div>
+                <div class="small-9 columns">
+                  <div class="large-6 columns">
+                    <div class="switch">
+                      {% if field.value == "True" %}
+                        <input id="x" name="switch-x" type="radio" checked>
+                        <label for="x" onclick="">No</label>
+
+                        <input id="x1" name="switch-x" type="radio">
+                        <label for="x1" onclick="">Yes</label>
+                      {% else %}
+                        <input id="x" name="switch-x" type="radio">
+                        <label for="x" onclick="">No</label>
+
+                        <input id="x1" name="switch-x" type="radio" checked>
+                        <label for="x1" onclick="">Yes</label>
+                      {% endif %}
+                      <span></span>
+                    </div>    
+                  </div>  
+                  <div class="large-6 columns">    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </fieldset>
+    </form>
+  </p>
+
+  <p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset>
+          <legend>New tracklist</legend>
+          {% include "hip_engine/snippet_form.html" with form=tracklist_form %}
+          <div class="row">
+            <div class="small-8">
+              <div class="row">
+                <div class="small-3 columns">
+                </div>
+                <div class="small-9 columns">
+                  <input type="hidden" name="form-type" value="new-tracklist" />
+                  <input type="submit" class="small button" value="Add tracks"/>
+                  <input type="submit" class="small button" value="Create tracklist"/> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+    </form>
+  </p>
+
+  <p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset>
+          <legend>Add track</legend>
+          {% include "hip_engine/snippet_form.html" with form=track_form %}
+          <div class="row">
+            <div class="small-8">
+              <div class="row">
+                <div class="small-3 columns">
+                </div>
+                <div class="small-9 columns">
+                  <input type="hidden" name="form-type" value="add-track" />
+                  <input type="submit" class="small button" value="Add track"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+    </form>
+  </p>
+
+  <script>
+  document.write('<script src={% static "js/vendor/" %}' +
+  ('__proto__' in {} ? 'zepto' : 'jquery') +
+  '.js><\/script>')
+  </script>
+  <script src="{% static "js/foundation.min.js" %}"></script>
+  <script>
+    $(document).foundation();
+    $(".chzn-select").chosen()
+    {{ tracklist_form.media }}
+  </script>
+
+</body>
