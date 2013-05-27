@@ -1,0 +1,26 @@
+{% extends "hip_engine/base.html" %}
+{% load staticfiles %}
+
+{% block feed_header %}
+
+  <!-- Profile -->
+
+{% include "hip_engine/snippet_profile.html" %}
+
+  <!-- End Profile -->
+
+{% endblock feed_header %}
+
+{% block feed_nav %}
+
+  <!-- Feed Top Nav -->
+
+<ul class="button-group radius even-3 user_nav">
+  <li><a href="#" class="button {% block profile_nav1 %}{% endblock profile_nav1 %}"> Activity </a></li>
+  <li><a href="#" class="button {% block profile_nav2 %}{% endblock profile_nav2 %}"> Pending mixtapes (3) </a></li>
+  <li><a href="#" class="button {% block profile_nav3 %}{% endblock profile_nav3 %}"> Pending contributions (5) </a></li>
+</ul>
+
+<!-- End Feed Top Nav -->
+
+{% endblock feed_nav %}

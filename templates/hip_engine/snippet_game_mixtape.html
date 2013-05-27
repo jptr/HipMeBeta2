@@ -1,0 +1,118 @@
+{% load staticfiles %}
+
+<!-- Mixtape header -->
+
+<div class="row">
+  <div class="small-12 columns mixtape_header">
+    <h4>Mixtape Title - great mixtape</h4>
+    <ul class="inline-list">
+      <li class="label radius"> Soul </li>
+      <li class="label radius"> Funk </li>
+    </ul>
+    <p class="mixtape_info">
+      22 hours left - 1 free spot
+    </p>
+  </div>
+</div>
+
+<!-- End Mixtape header -->
+
+<!-- Mixtape tracks -->
+
+<div class="row">
+  <div class="small-12 columns">
+    <ul class="no-bullet">
+      <li>
+        <div class="row">
+          <div class="small-1 columns">
+            <img src="{% static "img/HMProfile.jpg" %}"/>
+          </div>
+          <div class="small-2 columns">
+            <div class="mixtape_user">
+              Simon (99) +20!
+            </div>
+          </div>
+          <div class="small-9 columns">
+            <ul class="no-bullet">
+              <li>
+                <div class="row">
+                <a href="#" class="label track left"> Track name - Artist name </a>
+                <a href="#" class="button tiny right"> Keep </a>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                <a href="#" class="label track left"> Track name - Artist name </a>
+                <a href="#" class="button tiny right"> Keep </a>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                <a href="#" class="label track left"> Track name - Artist name </a>
+                <a href="#" class="button tiny right"> Keep </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- End Mixtape tracks -->
+
+<!-- Mixtape interaction -->
+
+<div class="row">
+  <div class="small-12 columns comment_zone">
+    <ul class="no-bullet">
+      <li>
+        <div class="small-1 small-offset-2 columns">
+          <img src="{% static "img/HMProfile.jpg" %}"/>
+        </div>
+        <div class="small-1 columns">
+          <div class="mixtape_user">
+            Simon
+          </div>
+          <div class="mixtape_user">
+            999
+          </div>
+        </div>
+        <div class="small-8 columns">
+          Comment j'ai fait pour les courses ? J'ai divisé en prenant une somme pour l'alcool et le reste pour un certain nombre de repas. C'est donc par...
+        </div>
+        <hr/>
+      </li>
+      <li>
+        <div class="small-1 small-offset-2 columns">
+          <img src="{% static "img/HMProfile.jpg" %}"/>
+        </div>
+        <div class="small-1 columns">
+          <div class="mixtape_user">
+            Simon
+          </div>
+          <div class="mixtape_user">
+            999
+          </div>
+        </div>
+        <div class="small-8 columns">
+          <div class="row">
+            <form>
+              <div class="small-10 columns">
+                <input type="text" id="comment" placeholder="Add a comment" />
+              </div>
+              <div class="small-2 columns">
+                <button type="submit" class="radius button tiny"> Submit </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- End Mixtape interaction -->
+
+<hr/>

@@ -1,0 +1,26 @@
+{% extends "hip_engine/listen_base.html" %}
+{% load staticfiles %}
+
+{% block listen_nav1 %}
+success
+{% endblock listen_nav1 %}
+
+{% block listen_subnav1 %}
+active
+{% endblock listen_subnav1 %}
+
+{% block main_feed %}
+
+  <!-- Feed Entry = finished mixtapes -->
+
+  <ul class="small-block-grid-3">
+    <li>
+      {% include "hip_engine/snippet_mini_mixtape.html" %}
+    </li>
+  </ul>
+
+  <!-- End Feed Entry = finished mixtapes -->
+
+{% endblock main_feed %}
+
+  <!-- End Main Feed -->

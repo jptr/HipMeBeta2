@@ -9,11 +9,11 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 
-  <title> HipMe! </title>
+  <title> hipMe! </title>
 
   <!-- Included CSS Files -->
 
-  {% load staticfiles %}
+    {% load staticfiles %}
 
   <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
   <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
@@ -26,12 +26,13 @@
 <body>
 
   <!-- Header and Nav -->
+
 <div class="fixed">
   <nav class="top-bar">
     <ul class="title-area">
       <!-- Title Area -->
       <li class="name">
-        <h1><a href="#"> HipMe! </a></h1>
+        <h1><a href="#"> hipMe! </a></h1>
       </li>
       <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
       <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -43,7 +44,7 @@
         <li class="divider"></li>
         <li><a href="#"> Newsfeed </a></li>
         <li class="divider"></li>
-        <li class="active"><a href="#"> Listen to mixtapes </a></li>
+        <li><a href="#"> Listen to mixtapes </a></li>
         <li class="divider"></li>
         <li><a href="#"> Start a mixtape </a></li>
         <li class="divider"></li>
@@ -51,9 +52,6 @@
 
       <!-- Right Nav Section -->
       <ul class="right">
-        <li class="divider"></li>
-        <li> <a href="#"> <img src="{% static "img/HMProfile.jpg" %}" width="32"/> Simon Frr </a> </li>
-        <li class="divider"></li>
         <li class="has-form">
           <form>
             <div class="row collapse">
@@ -78,88 +76,25 @@
 <div class="page_content">
 
   <!-- Main Feed -->
+
   <div class="large-8 columns push-2">
 
-    <!-- Feed Entry = Listen header -->
+    {% block feed_header %}
+    {% endblock feed_header %}
 
-    <!-- End Feed Entry = Listen header -->
+    {% block feed_nav %}
+    {% endblock feed_nav %}
 
-    <!-- Feed Top Nav -->
-
-      <ul class="button-group radius even-3 listen_nav">
-        <li><a href="#" class="button small active"> My music </a></li>
-        <li><a href="#" class="button small"> Around me </a></li>
-        <li><a href="#" class="button small"> Explore </a></li>
-      </ul>
-
-      <dl class="sub-nav listen_sub_nav">
-        <dd class="active"><a href="#"> All pinned </a></dd>
-        <dd><a href="#"> My mixtapes </a></dd>
-      </dl>
-
-        <!-- In Network section of listen_nav
-
-      <dl class="sub-nav listen_sub_nav">
-        <dd class="active"><a href="#"> Newest </a></dd>
-        <dd><a href="#"> Popular </a></dd>
-      </dl>
-
-        -->
-
-        <!-- In Explore section of listen_nav
-
-      Enter tags
-
-        -->
-
-    <!-- End Feed Top Nav -->
-
-    <!-- Feed Entry = finished mixtapes -->
-
-    <ul class="small-block-grid-3">
-      <li>
-        <div class="mini_mixtape">
-          <div class="row mini_mixtape_title">
-            <h6> Mixtape title </h6>
-          </div>
-          <div class="row mini_mixtape_tag_list">
-            <ul class="inline-list">
-              <li class="label radius tag"> Soul </li>
-              <li class="label radius tag"> Funk </li>
-              <li class="label radius tag"> Jazz </li>
-              <li class="label radius tag"> Hip-hop </li>
-            </ul>
-          </div>
-          <div class="row mini_mixtape_user_list">
-            <ul class="small-block-grid-4">
-              <li>
-                <img src="{% static "img/HMProfile.jpg" %}" />
-              </li>
-              <li>
-                <img src="{% static "img/HMProfile.jpg" %}" />
-              </li>
-              <li>
-                <img src="{% static "img/HMProfile.jpg" %}" />
-              </li>
-              <li>
-                <img src="{% static "img/HMProfile.jpg" %}" />
-              </li>
-            </ul>
-          </div>
-          <div class="row mini_mixtape_info">
-            999 kept it - 999 commented
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <!-- End Feed Entry = finished mixtapes -->
-
-    <!-- End Main Feed -->
+    {% block main_feed %}
+    {% endblock main_feed %}
 
   </div>
 
-    <!-- This is source ordered to be pulled to the left on larger screens -->
+  <!-- End Main Feed -->
+
+  <!--   Left nav -->
+  <!-- This is source ordered to be pulled to the left on larger screens -->
+    
     <div class="small-2 columns pull-8 hipme_left_profile">
       <div class="panel">
         <div class="row mini_profile_top">
@@ -209,9 +144,9 @@
       </div>
     </div>
  
- 
     <!-- Right Sidebar -->
     <!-- On small devices this column is hidden -->
+
     <aside class="large-2 columns hide-for-small">
       <div class="panel hipme_stats">
         <h5> hipMe! </h5>
@@ -225,6 +160,7 @@
       <div class="panel hipme_stats">
       </div>
     </aside>
+
   </div>
 
 
