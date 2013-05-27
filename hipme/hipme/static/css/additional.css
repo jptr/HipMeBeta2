@@ -92,11 +92,6 @@
   padding-left: 0px;
 }
 
-.feed_nav_top {
-  font-size: 20px;
-  padding-left: 32px;
-}
-
 .profile_avatar {
   border-radius: 8px;
 }
@@ -109,16 +104,6 @@
 
 .tag {
   background-color: #94B8FF;
-}
-
-.user_nav li a {
-  background-color: #BBBBFF;
-  color: #111111;
-}
-
-.user_nav li a.active {
-  background-color: #8888FF;
-  color: #111111;
 }
 
 .user_sub_nav dd {

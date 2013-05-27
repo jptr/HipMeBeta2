@@ -1,0 +1,33 @@
+{% extends "hip_engine/base.html" %}
+
+{% block main_feed %}
+
+  <!-- Feed Top Nav -->
+
+    <ul class="button-group radius even-3 listen_nav">
+      <li><a href="#" class="button"> My music </a></li>
+      <li><a href="#" class="button"> Around me </a></li>
+      <li><a href="#" class="button success"> Explore </a></li>
+    </ul>
+
+      <!-- In Explore section of listen_nav
+
+    Enter tags
+
+      -->
+
+  <!-- End Feed Top Nav -->
+
+  <!-- Feed Entry = finished mixtapes -->
+
+  <ul class="small-block-grid-3">
+    <li>
+      {% include "hip_engine/snippet_mini_mixtape.html" %}
+    </li>
+  </ul>
+
+  <!-- End Feed Entry = finished mixtapes -->
+
+{% endblock main_feed %}
+
+  <!-- End Main Feed -->
