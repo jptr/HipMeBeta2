@@ -14,17 +14,94 @@
   <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
   <link rel="stylesheet" href="{% static "css/additional.css" %}"/>
 
-  <link rel="stylesheet" href="{% static "css/chosen.css" %}"/>
+  <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
-  <link rel="stylesheet" href="{% static "js/chosen.jquery.js" %}"/>
-  <link rel="stylesheet" href="{% static "js/chosen.jquery.min.js" %}"/>
-  <link rel="stylesheet" href="{% static "js/chosen.jquery_ready.js" %}"/>
+  <link href="{% static 'css/chosen.css' %}" rel="stylesheet">
+  <script type="text/javascript" src="{% static 'js/chosen.jquery.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/chosen.jquery_ready.js' %}"></script>
 
-  <script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
+  {{ form.media.css }}
+
+  {{ form.media.js }}
 
 </head>
 
 <body>
+
+<div id="myModal" class="reveal-modal">
+  <h2>Awesome. I have it.</h2>
+  <p class="lead">Your couch.  It is mine.</p>
+  <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+  <p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset>
+          <legend>Sign Up</legend>
+          <div class="row">
+            <div class="small-8">
+              <div class="row collapse">
+                <div class="small-3 columns">
+                  <label for="right-label" class="right inline"></label>
+                </div>
+                <div class="small-9 columns">
+                  <input type="text" id="right-label" value="" placeholder="Username">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="small-8">
+              <div class="row collapse">
+                <div class="small-3 columns">
+                  <label for="right-label" class="right inline"></label>
+                </div>
+                <div class="small-9 columns">
+                  <input type="text" id="right-label" value="" placeholder="Email">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="small-8">
+              <div class="row collapse">
+                <div class="small-3 columns">
+                  <label for="right-label" class="right inline"></label>
+                </div>
+                <div class="small-9 columns">
+                  <input type="text" id="right-label" value="" placeholder="Repeat Email">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="small-8">
+              <div class="row collapse">
+                <div class="small-3 columns">
+                  <label for="right-label" class="right inline"></label>
+                </div>
+                <div class="small-9 columns">
+                  <div class="small-5 columns">
+                    <input type="password" id="right-label" value="" placeholder="Password">    
+                  </div>
+                  <div class="small-1 columns">    
+                  </div>
+                  <div class="small-6 columns">
+                    <input type="submit" class="button postfix" value="Sign Up"/>  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
+    </form>
+  </p>
 
   <p>
     <form action="" method="POST">
@@ -36,14 +113,14 @@
             <div class="small-8">
               <div class="row">
                 <div class="small-3 columns">
-                  <label for="right-label" class="right inline">{{ field.label }}</label>
+                  <label for="right-label" class="right inline"></label>
                 </div>
                 <div class="small-9 columns">
-                  <div class="small-10 columns">
-                    <input type="text" id="right-label" value={{ request.user.email }} placeholder="{{ field.help_text }}">
+                  <div class="small-9 columns">
+                    <input type="text" id="right-label" value="" placeholder="New Email Address">
                   </div>
-                  <div class="small-2 columns">
-                    <a href="#" class="button prefix">Update</a>
+                  <div class="small-3 columns">
+                    <a href="#" class="button postfix">Update</a>
                   </div>
                 </div>
               </div>
@@ -64,10 +141,12 @@
             <div class="small-8">
               <div class="row">
                 <div class="small-3 columns">
-                  <label for="right-label" class="right inline">{{ field.label }}</label>
                 </div>
                 <div class="small-9 columns">
-                  <div class="large-6 columns">
+                  <div class="large-4 columns">
+                    <span class="prefix">{{ field.label }}</span>    
+                  </div>
+                  <div class="large-8 columns">
                     <div class="switch">
                       {% if field.value == "True" %}
                         <input id="x" name="switch-x" type="radio" checked>
@@ -85,8 +164,6 @@
                       <span></span>
                     </div>    
                   </div>  
-                  <div class="large-6 columns">    
-                  </div>
                 </div>
               </div>
             </div>
@@ -96,49 +173,112 @@
     </form>
   </p>
 
-  <p>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <fieldset>
-          <legend>New tracklist</legend>
-          {% include "hip_engine/snippet_form.html" with form=tracklist_form %}
-          <div class="row">
-            <div class="small-8">
-              <div class="row">
-                <div class="small-3 columns">
-                </div>
-                <div class="small-9 columns">
-                  <input type="hidden" name="form-type" value="new-tracklist" />
-                  <input type="submit" class="small button" value="Add tracks"/>
-                  <input type="submit" class="small button" value="Create tracklist"/> 
-                </div>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-    </form>
-  </p>
+<form action="" method="POST">
+  <select data-placeholder="Type de restaurant" class="chzn-select chzn-add" multiple name="other_types">
+    <option value="1">test</option>
+    <option value="2">coucou</option>
+  </select>
+</form >
 
   <p>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <fieldset>
-          <legend>Add track</legend>
-          {% include "hip_engine/snippet_form.html" with form=track_form %}
+    <fieldset>
+      <legend>New tracklist</legend>
+      <div class="row">
+        <div class="small-8">
           <div class="row">
-            <div class="small-8">
-              <div class="row">
-                <div class="small-3 columns">
-                </div>
-                <div class="small-9 columns">
-                  <input type="hidden" name="form-type" value="add-track" />
-                  <input type="submit" class="small button" value="Add track"/>
-                </div>
-              </div>
+            <div class="small-3 small-centered columns">
+              <a class="button" data-reveal-id="tracklistModal" >New Tracklist</a>
             </div>
           </div>
-        </fieldset>
-    </form>
+        </div>
+      </div>
+    </fieldset>
+
+      <div id="tracklistModal" class="reveal-modal">
+        <p>
+          <form>
+            <fieldset>
+              <legend>New Tracklist</legend>
+              {% include "hip_engine/snippet_form.html" with form=tracklist_form %}
+              <div class="row">
+                <div class="small-8">
+                  <div class="row">
+                    <div class="small-3 columns">
+                    </div>
+                    <div class="small-9 columns">
+                      <a class="small button" data-reveal-id="trackModal" >Add Track</a>
+                      <input type="hidden" name="form-type" value="new-tracklist" />
+                      <input type="submit" class="small button" value="Create Tracklist"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </p>
+        <a class="close-reveal-modal">&#215;</a>
+      </div>
+
+      <div id="trackModal" class="reveal-modal">
+        <p>
+          <form>
+            <fieldset>
+              <legend>Add track</legend>
+              <div class="row">
+                <div class="small-8">
+                  <div class="row">
+                    <div class="small-3 columns">
+                      <label for="right-label" class="right inline"></label>
+                    </div>
+                    <div class="small-9 columns">
+                      <div class="row collapse">
+                        <div class="small-3 columns">
+                          <span class="prefix">http://</span>
+                        </div>
+                        <div class="small-9 columns">
+                          <input type="text" placeholder="Enter your URL...">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="small-8">
+                  <div class="row">
+                    <div class="small-3 columns">
+                      <label for="right-label" class="right inline"></label>
+                    </div>
+                    <div class="small-9 columns">
+                      <div class="row">
+                        <div class="large-6 columns">
+                          <input type="text" id="right-label" placeholder="Artist - optionnal">
+                        </div>
+                        <div class="large-6 columns">
+                          <input type="text" id="right-label" placeholder="Name - optionnal">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="small-8">
+                  <div class="row">
+                    <div class="small-3 columns">
+                    </div>
+                    <div class="small-9 columns">
+                      <input type="hidden" name="form-type" value="add-track" />
+                      <input type="submit" class="small button" value="Add Track"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </p>
+        <a data-reveal-id="tracklistModal" class="close-reveal-modal">&#215;</a>
+      </div>
   </p>
 
   <script>
@@ -150,7 +290,6 @@
   <script>
     $(document).foundation();
     $(".chzn-select").chosen()
-    {{ tracklist_form.media }}
   </script>
 
 </body>

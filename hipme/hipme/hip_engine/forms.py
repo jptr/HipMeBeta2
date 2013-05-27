@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from hip_engine.models import UserProfile, User, Track, Tracklist, Bundle
 
-from chosen import forms as chosenforms
+# from chosen import forms as chosenforms
 
 class ChosenModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -29,7 +29,7 @@ class UserRegistrationForm(ModelForm):
         model = User
         fields = ('username','email','password',)
 
-class TracklistForm(ChosenModelForm):
+class TracklistForm(ModelForm):
     class Meta:
         model = Tracklist
         fields = ('userto', 'title','description')
