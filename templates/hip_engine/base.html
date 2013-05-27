@@ -81,8 +81,16 @@
   <!-- Main Feed -->
 
   <div class="large-8 columns push-2">
+
+    {% block feed_header %}
+    {% endblock feed_header %}
+
+    {% block feed_nav %}
+    {% endblock feed_nav %}
+
     {% block main_feed %}
     {% endblock main_feed %}
+
   </div>
 
   <!-- End Main Feed -->

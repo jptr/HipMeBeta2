@@ -1,0 +1,20 @@
+{% extends "hip_engine/base.html" %}
+
+{% block feed_nav %}
+
+  <!-- Feed Top Nav -->
+
+    <ul class="button-group radius even-3 feed_nav">
+      <li><a href="#" class="button {% block listen_nav1 %}{% endblock listen_nav1 %}"> My music </a></li>
+      <li><a href="#" class="button {% block listen_nav2 %}{% endblock listen_nav2 %}"> Around me </a></li>
+      <li><a href="#" class="button {% block listen_nav3 %}{% endblock listen_nav3 %}"> Explore </a></li>
+    </ul>
+
+    <dl class="sub-nav feed_sub_nav">
+      <dd class="{% block listen_subnav1 %}{% endblock listen_subnav1 %}"><a href="#"> All pinned </a></dd>
+      <dd class="{% block listen_subnav2 %}{% endblock listen_subnav2 %}"><a href="#"> My mixtapes </a></dd>
+    </dl>
+
+  <!-- End Feed Top Nav -->
+
+{% endblock feed_nav %}

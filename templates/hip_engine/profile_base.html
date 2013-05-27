@@ -1,0 +1,52 @@
+{% extends "hip_engine/base.html" %}
+
+{% block feed_header %}
+
+  <!-- Profile -->
+
+  <div class="row userprofile">
+    <div class="small-2 columns">
+      <a href="#"> <img src="img/HMProfile.jpg" class="profile_avatar"/> </a>
+    </div>
+    <div class="small-5 columns">
+      <h4><a href="#" class="userprofile_name"> Simon Frr </a></h4>
+      <ul class="inline-list">
+        <li class="label radius tag"> Soul Expert </li>
+        <li class="label radius tag"> Funk Emperor </li>
+        <li class="label radius tag"> Funk Emperor </li>
+        <li class="label radius tag"> Funk Emperor </li>
+        <li class="label radius tag"> Funk Emperor </li>
+      </ul>
+    </div>
+    <div class="small-3 columns">
+      <ul class="no-bullet">
+        <li class="label radius tag label_link"><a href="#"> 999 points </a></li>
+        <li class="label radius tag label_link"><a href="#"> 130 followers </a></li>
+        <li class="label radius tag label_link"><a href="#"> Follows 234 </a></li>
+        <li class="button tiny label_link"><a href="#"> See stats & ranking </a></li>
+      </ul>
+    </div>
+    <div class="small-2 columns">
+      <a href="#" class="button expand"> Follow </a>
+      <a href="#" class="button expand success"> My music </a>
+      <a href="#" class="button expand alert"> Find spots! </a>
+    </div>
+  </div>
+
+  <!-- End Profile -->
+
+{% endblock feed_header %}
+
+{% block feed_nav %}
+
+  <!-- Feed Top Nav -->
+
+<ul class="button-group radius even-3 user_nav">
+  <li><a href="#" class="button small {% block profile_nav1 %}{% endblock profile_nav1 %}"> All my activity </a></li>
+  <li><a href="#" class="button small {% block profile_nav2 %}{% endblock profile_nav2 %}"> My pending mixtapes (3) </a></li>
+  <li><a href="#" class="button small {% block profile_nav3 %}{% endblock profile_nav3 %}"> Pending contributions (5) </a></li>
+</ul>
+
+<!-- End Feed Top Nav -->
+
+{% endblock feed_nav %}

@@ -1,0 +1,19 @@
+{% extends "hip_engine/profile_base.html" %}
+
+{% block profile_nav2 %}
+success
+{% endblock profile_nav2 %}
+
+{% block main_feed %}
+
+<!-- Feed = games -->
+
+<ul class="no-bullet">
+  <li>
+    {% include "hip_engine/snippet_game_mixtape.html" %}
+  </li>
+</ul>
+
+<!-- End Feed Games-->
+
+{% endblock main_feed %}

@@ -18,7 +18,7 @@ def login_form(request):
         return test(request)
 
 def test(request):
-    return render_to_response('hip_engine/listen22_network_music_popular.html', context_instance=RequestContext(request))
+    return render_to_response('hip_engine/listen11_my_music_all.html', context_instance=RequestContext(request))
 
 # @login_required
 # def test_forms(request):
