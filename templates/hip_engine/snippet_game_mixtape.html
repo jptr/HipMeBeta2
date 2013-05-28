@@ -33,50 +33,67 @@
             </div>
           </div>
           <div class="small-9 columns">
-            <ul class="no-bullet">
-              <li>
-                <div class="row">
-                <a href="#" class="label track left"> Track name - Artist name </a>
-                <a href="#" class="button tiny right"> Keep </a>
-                </div>
-              </li>
-              <li>
-                <div class="row">
-                <a href="#" class="label track left"> Track name - Artist name </a>
-                <a href="#" class="button tiny right"> Keep </a>
-                </div>
-              </li>
-              <li>
-                <div class="row">
-                  <input type="button" id="toggle_add_track_btn" value="Add track" class="button small expand" />
-                </div>
-              </li>
-              <li>
-                <div class="row">
-                  <form id="mixtape_add_track_form">
-                    <div class="row collapse">
-                      <div class="small-2 columns">
-                        <span class="prefix">http://</span>
+            <div class="row">
+              <ul class="no-bullet">
+                <li>
+                  <div class="row">
+                    <div class="small-10 columns">
+                      <a href="#" class="label secondary left"> Track name - Artist name </a>
+                    </div>
+                    <div class="small-2 columns">
+                      <a href="#" class="button tiny right"> Keep </a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="row">
+                    <div class="small-10 columns">
+                      <a href="#" class="label secondary left"> Track name - Artist name </a>
+                    </div>
+                    <div class="small-2 columns">
+                      <a href="#" class="button tiny right"> Keep </a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="row">
+                    <div class="small-12 columns">
+                      <input type="button" value="Add a track to the mixtape" class="button expand toggle_add_track_btn" />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <form class="mixtape_add_track_form">
+                    <div class="row">
+                      <div class="small-10 columns">
+                        <div class="row collapse">
+                          <div class="small-3 columns">
+                            <span class="prefix">http://</span>
+                          </div>
+                          <div class="small-9 columns">
+                            <input type="text" placeholder="Track URL" />
+                          </div>
+                        </div>
                       </div>
-                      <div class="small-8 columns">
-                        <input type="text" placeholder="Enter your URL...">
-                      </div>
                       <div class="small-2 columns">
-                        <input type="submit" class="small button" value="Add Track"/>
+                        <input type="submit" class="button small expand success add_track_btn" value="Add"/>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="small-6 columns">
-                        <input type="text" id="right-label" placeholder="Artist (optional)">
+                      <div class="small-5 columns">
+                        <input type="text" id="right-label" placeholder="Artist (optional)" />
                       </div>
-                      <div class="small-6 columns">
-                        <input type="text" id="right-label" placeholder="Name (optional)">
+                      <div class="small-5 columns">
+                        <input type="text" id="right-label" placeholder="Name (optional)" />
+                      </div>
+                      <div class="small-2 columns">
+                        <input type="button" value="Cancel" class="button small secondary expand toggle_cancel" />
                       </div>
                     </div>
                   </form>
-                </div>
-              </li>
-            </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </li>
