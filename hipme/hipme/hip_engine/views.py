@@ -21,7 +21,7 @@ def test(request):
     return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
 
 def profile(request):
-    return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))à)
+    return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
 
 @login_required
 def test_forms(request):

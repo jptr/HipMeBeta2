@@ -48,8 +48,32 @@
               </li>
               <li>
                 <div class="row">
-                <a href="#" class="label track left"> Track name - Artist name </a>
-                <a href="#" class="button tiny right"> Keep </a>
+                  <input type="button" id="toggle_add_track_btn" value="Add track" class="button small expand" />
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <form id="mixtape_add_track_form">
+                    <div class="row collapse">
+                      <div class="small-2 columns">
+                        <span class="prefix">http://</span>
+                      </div>
+                      <div class="small-8 columns">
+                        <input type="text" placeholder="Enter your URL...">
+                      </div>
+                      <div class="small-2 columns">
+                        <input type="submit" class="small button" value="Add Track"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="small-6 columns">
+                        <input type="text" id="right-label" placeholder="Artist (optional)">
+                      </div>
+                      <div class="small-6 columns">
+                        <input type="text" id="right-label" placeholder="Name (optional)">
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </li>
             </ul>

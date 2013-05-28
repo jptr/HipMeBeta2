@@ -189,11 +189,20 @@
   ('__proto__' in {} ? 'zepto' : 'jquery') +
   '.js><\/script>')
   </script>
+
   <script src="{% static "js/foundation.min.js" %}"></script>
+
   <script>
     $(document).foundation();
     $(".chzn-select").chosen()
   </script>
 
+  <script>
+  $('#toggle_add_track_btn').click(function () {
+           $("#mixtape_add_track_form").toggle();
+           $("#toggle_add_track_btn").toggle();
+        });
+  </script>
+  
 </body>
 </html>
