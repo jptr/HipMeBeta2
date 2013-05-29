@@ -114,31 +114,33 @@
           </div>
         </div>
         <div class="row mini_profile_stats">
-          <div>
-            <a href="#"> 999 points </a>
-          </div>
-          <br/>
-          <div>
-            <a href="#"> badge 1 </a>
-          </div>
-          <div>
-            <a href="#"> badge 2 </a>
-          </div>
-          <div>
-            <a href="#"> badge 3 </a>
-          </div>
-          <br/>
-          <div>
-            <a href="#"> Games </a>
-          </div>
-          <div>
-            <a href="#"> Collection </a>
-          </div>
-          <div>
-            <a href="#"> People </a>
-          </div>
-          <div>
-            <a href="#"> Stats & Ranking </a>
+          <div class="small-12 columns">
+            <div>
+              <a href="#"> 999 points </a>
+            </div>
+            <br/>
+            <div>
+              <a href="#"> badge 1 </a>
+            </div>
+            <div>
+              <a href="#"> badge 2 </a>
+            </div>
+            <div>
+              <a href="#"> badge 3 </a>
+            </div>
+            <br/>
+            <div>
+              <a href="#"> Games </a>
+            </div>
+            <div>
+              <a href="#"> Collection </a>
+            </div>
+            <div>
+              <a href="#"> People </a>
+            </div>
+            <div>
+              <a href="#"> Stats & Ranking </a>
+            </div>
           </div>
         </div>
       </div>
@@ -201,7 +203,7 @@
     $('.toggle_add_track_btn').click(function () {
       $(".mixtape_add_track_form").toggle();
       $(".toggle_add_track_btn").toggle();
-      document.getElementById('cacatest').focus();
+      document.getElementById('input_url').focus();
     });
   </script>
 
@@ -209,6 +211,13 @@
     $('.toggle_cancel').click(function () {
       $(".mixtape_add_track_form").toggle();
       $(".toggle_add_track_btn").toggle();
+    });
+  </script>
+
+  <script>
+    $('.toggle_comment_zone_btn').click(function () {
+      $(".mixtape_comment_container").toggle();
+      document.getElementById('input_comment').focus();
     });
   </script>
   
