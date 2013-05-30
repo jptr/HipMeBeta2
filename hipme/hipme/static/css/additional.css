@@ -1,5 +1,10 @@
 .mixtape_add_track_form {
   display:none;
+  padding-top: 0.8em;
+}
+
+.toggle_add_track_btn {
+  margin-top: 0.8em;
 }
 
 .page_content {
@@ -32,7 +37,7 @@
 }
 
 .mixtape_header h4 {
-  color: #EEEEEE;
+  color: white;
 }
 
 .mixtape_tracklist {
@@ -42,7 +47,6 @@
 }
 
 .bundle {
-  margin-bottom: 1em;
 }
 
 .mixtape_track {
@@ -88,8 +92,17 @@
   margin-top: 0.8em;
 }
 
-.mixtape_user_zone {
-  padding-bottom: 1em;
+.mixtape_user {
+  padding-bottom: 0.5em;
+}
+
+.mixtape_bundlego {
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.mixtape_bundleback {
+  padding-top: 0.5em;
+  border-bottom: 1px solid #DDDDDD;
 }
 
 .user_score {

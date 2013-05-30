@@ -193,12 +193,7 @@
   </script>
 
   <script src="{% static "js/foundation.min.js" %}"></script>
-
-  <script>
-    $(document).foundation();
-    $(".chzn-select").chosen()
-  </script>
-
+  
   <script>
     $('.toggle_add_track_btn').click(function () {
       $(".mixtape_add_track_form").toggle();
@@ -219,6 +214,11 @@
       $(".mixtape_comment_container").toggle();
       document.getElementById('input_comment').focus();
     });
+  </script>
+
+  <script>
+    $(document).foundation();
+    $(".chzn-select").chosen()
   </script>
   
 </body>
