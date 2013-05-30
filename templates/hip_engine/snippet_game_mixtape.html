@@ -29,25 +29,36 @@
 
     <div class="small-12 columns mixtape_tracklist">
       <ul class="no-bullet">
-        <li>
+        <li class="mixtape_user_zone">
           <div class="row">
             <div class="small-1 columns mixtape_user">
               <img src="{% static "img/HMProfile.jpg" %}"/>
             </div>
             <div class="small-2 columns mixtape_user">
-              <a href="#" class="mini_profile_username">
-                Simon Frr
-              </a>
-              <div class="label radius mixtape_score">
-                99 / +20!
+              <div class="row">
+                <div class="small-12 columns">
+                  <a href="#" class="mini_profile_username">
+                    Simon Frr
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="small-12 columns">
+                  <div class="label radius user_score">
+                    99
+                  </div>
+                  <div class="label radius mixtape_score">
+                    +20!
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="small-9 columns">
+            <div class="small-9 columns bundle">
               <ul class="no-bullet">
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
-                      <a href="#" class="label secondary"> Track name - Artist name </a>
+                      <a href="#" class="label mixtape_track secondary"> Track name - Artist name </a>
                     </div>
                     <div class="small-2 columns">
                       <a href="#" class="button tiny right"> Keep </a>
@@ -71,12 +82,12 @@
                 99 / +20!
               </div>
             </div>
-            <div class="small-9 columns">
+            <div class="small-9 columns bundle">
               <ul class="no-bullet">
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
-                      <a href="#" class="label secondary"> Track name - Artist name </a>
+                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
                     </div>
                     <div class="small-2 columns">
                       <a href="#" class="button tiny right"> Keep </a>
@@ -86,7 +97,7 @@
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
-                      <a href="#" class="label secondary"> Track name - Artist name </a>
+                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
                     </div>
                     <div class="small-2 columns">
                       <a href="#" class="button tiny right"> Keep </a>
@@ -110,12 +121,12 @@
                 99 / +20!
               </div>
             </div>
-            <div class="small-9 columns">
+            <div class="small-9 columns bundle">
               <ul class="no-bullet">
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
-                      <a href="#" class="label secondary"> Track name - Artist name </a>
+                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
                     </div>
                     <div class="small-2 columns">
                       <a href="#" class="button tiny right"> Keep </a>
@@ -125,7 +136,7 @@
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
-                      <a href="#" class="label secondary"> Track name - Artist name </a>
+                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
                     </div>
                     <div class="small-2 columns">
                       <a href="#" class="button tiny right"> Keep </a>
@@ -134,12 +145,26 @@
                 </li>
                 <li>
                   <div class="row">
-                    <div class="small-12 columns">
-                      <input type="button" value="Add a track to the mixtape!" class="button small expand toggle_add_track_btn" />
+                    <div class="small-10 columns">
+                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
+                    </div>
+                    <div class="small-2 columns">
+                      <a href="#" class="button tiny right"> Keep </a>
                     </div>
                   </div>
                 </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="small-1 columns mixtape_user"></div>
+            <div class="small-2 columns mixtape_user"></div>
+            <div class="small-9 columns">
+              <ul class="no-bullet">
                 <li>
+                  <input type="button" value="Add a track to the mixtape!" class="button small expand toggle_add_track_btn" />
                   <form class="mixtape_add_track_form">
                     <div class="row">
                       <div class="small-10 columns">
@@ -178,18 +203,17 @@
 
 <!-- End Mixtape tracks -->
 
+<!-- Mixtape interaction -->
+
     <div class="small-3 columns mixtape_comment_zone_toggle left">
       <input type="button" value="3 comments" class="button small expand secondary toggle_comment_zone_btn" />
     </div>
-
-<!-- Mixtape interaction -->
-
     <div class="small-12 columns mixtape_comment_container left">
       <ul class="no-bullet">
         <li>
           <div class="small-12 columns mixtape_comment_zone">
             <div class="small-1 columns mixtape_user">
-              <img src="{% static "img/HMProfile.jpg" %}"/>
+              <img src="{% static "img/HMProfile.jpg" %}" width="30px" class="right"/>
             </div>
             <div class="small-2 columns mixtape_user">
               <div>
@@ -198,14 +222,14 @@
               </div>
             </div>
             <div class="small-9 columns">
-              Comment j'ai fait pour les courses ? J'ai acheté du pain
+              Comment j'ai fait pour les courses ? J'ai acheté du pain les courses ? J'ai acheté du pain
             </div>
           </div>
         </li>
         <li>
           <div class="small-12 columns mixtape_comment_zone">
             <div class="small-1 columns mixtape_user">
-              <img src="{% static "img/HMProfile.jpg" %}"/>
+              <img src="{% static "img/HMProfile.jpg" %}" width="30px" class="right"/>
             </div>
             <div class="small-2 columns mixtape_user">
               <div>

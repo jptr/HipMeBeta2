@@ -19,7 +19,8 @@
 }
 
 .mixtape {
-  margin-bottom: 2em;
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
 
 .mixtape_header {
@@ -40,9 +41,17 @@
   border-left: 1em solid #9FCADF;
 }
 
+.bundle {
+  margin-bottom: 1em;
+}
+
+.mixtape_track {
+  font-size: 1em;
+}
+
 .toggle_comment_zone_btn {
-  margin-top: 0.3em;
-  margin-bottom: 0.3em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
 }
 
 .mixtape_comment_zone_toggle {
@@ -67,11 +76,6 @@
   padding-left: 0;
 }
 
-.mixtape_user .label {
-  font: bolder 16px;
-  background: yellow;
-}
-
 .mixtape_user img {
   padding: 0em;
 }
@@ -84,7 +88,19 @@
   margin-top: 0.8em;
 }
 
+.mixtape_user_zone {
+  padding-bottom: 1em;
+}
+
+.user_score {
+  font: bolder 16px;
+  background: green;
+  color: white;
+}
+
 .mixtape_score {
+  font: bolder 16px;
+  background: yellow;
   color: black;
 }
 
