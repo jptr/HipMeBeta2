@@ -17,6 +17,9 @@ def login_form(request):
     else:
         return test(request)
 
+def profile(request):
+    return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
+
 def profile_activity(request):
     return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
 
