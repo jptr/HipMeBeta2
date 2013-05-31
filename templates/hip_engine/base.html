@@ -212,12 +212,16 @@
     });
   </script>
 
+
   <script>
-    $('.toggle_comment_zone_btn').click(function () {
-      $(".mixtape_comment_container").toggle();
-      document.getElementById('input_comment').focus();
+    $('.toggle_comment_zone_btn').each(function(i){
+        $(this).click(function(){
+          $(".mixtape_comment_container:eq("+ i + ")").toggle();
+          $(".input_comment:eq("+ i + ")").focus();
+      });
     });
   </script>
+
 
   <script>
     $(document).foundation();
