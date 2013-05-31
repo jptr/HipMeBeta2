@@ -17,11 +17,26 @@ def login_form(request):
     else:
         return test(request)
 
-def test(request):
+def profile_activity(request):
     return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
 
-def profile(request):
-    return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
+def profile_my_pending(request):
+    return render_to_response('hip_engine/profile_my_pending.html', context_instance=RequestContext(request))
+
+def profile_pending_contributions(request):
+    return render_to_response('hip_engine/profile_pending_contributions.html', context_instance=RequestContext(request))
+
+def my_music_all(request):
+    return render_to_response('hip_engine/listen11_my_music_all.html', context_instance=RequestContext(request))
+
+def my_music_my(request):
+    return render_to_response('hip_engine/listen12_my_music_my.html', context_instance=RequestContext(request))
+
+def network_newest(request):
+    return render_to_response('hip_engine/listen21_network_newest.html', context_instance=RequestContext(request))
+
+def network_popular(request):
+    return render_to_response('hip_engine/listen22_network_popular.html', context_instance=RequestContext(request))
 
 @login_required
 def test_forms(request):

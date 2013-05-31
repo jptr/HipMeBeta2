@@ -5,9 +5,14 @@
 success
 {% endblock listen_nav2 %}
 
-{% block listen_subnav2 %}
-active
-{% endblock listen_subnav2 %}
+{% block feed_subnav %}
+
+    <dl class="sub-nav feed_sub_nav">
+      <dd><a href="/listen/newest/"> Newest </a></dd>
+      <dd class="active"><a href="/listen/popular/"> Popular </a></dd>
+    </dl>
+
+{% endblock feed_subnav %}
 
 {% block main_feed %}
  
