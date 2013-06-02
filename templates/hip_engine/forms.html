@@ -32,6 +32,67 @@
 {% endif %}
 
   <p>
+    <form action="/login/" method="POST">
+        {% csrf_token %}
+        <fieldset>
+          <legend>Sign In</legend>
+
+          <div class="row">
+            <div class="small-8">
+              <div class="row">
+                <div class="small-3 columns">
+                  <label for="right-label" class="right inline"></label>
+                </div>
+                <div class="small-9 columns">
+                  <div class="small-5 columns">
+                    <input type="text" id="right-label" value="{{username}}" name="username" placeholder="Username">
+                  </div>
+                  <div class="small-5 columns">
+                    <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
+                  </div>
+                  <div class="small-2 columns">
+                    <input type="submit" class="button postfix" value="Sign In"/>  
+                    <input type="hidden" name="form-type" value="sign-in" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
+    </form>
+  </p>
+
+  <p>
+    <form action="/login/" method="POST">
+        {% csrf_token %}
+        <fieldset>
+          <legend>Log out</legend>
+
+          <div class="row">
+            <div class="small-8">
+              <div class="row">
+                <div class="small-3 columns">
+                  <label for="right-label" class="right inline"></label>
+                </div>
+                <div class="small-9 columns">
+                  <div class="small-8 columns">
+                    <span class="prefix">Logged as {{request.user.username}}</span>
+                  </div>
+                  <div class="small-4 columns">
+                    <input type="submit" class="button postfix" value="Log out"/>  
+                    <input type="hidden" name="form-type" value="sign-in" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
+    </form>
+  </p>
+
+  <p>
     <form action="/register/" method="POST">
         {% csrf_token %}
         <fieldset>
@@ -185,12 +246,14 @@
     </form>
   </p>
 
+{% comment %}
 <form action="" method="POST">
   <select data-placeholder="Type de restaurant" class="chzn-select chzn-add" multiple name="other_types">
     <option value="1">test</option>
     <option value="2">coucou</option>
   </select>
 </form >
+{% endcomment %}
 
   <p>
     <fieldset>

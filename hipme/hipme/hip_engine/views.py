@@ -57,7 +57,11 @@ def test_forms(request):
     return render_to_response('hip_engine/forms.html', {'email_form':email_form, 'email_notif_form':email_notif_form, 'tracklist_form':tracklist_form, 'track_form':track_form}, context_instance=RequestContext(request))
 
 # action views
-def login(request):
+def logout_process(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('hip_engine.views.login_form'))
+
+def login_process(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
@@ -85,7 +89,7 @@ def register(request):
                 if email_1==email_2:
                     if validateEmail(email_1):
                         user = User.objects.create_user(username, email_1, password)
-                        login(request)
+                        login_process(request)
                         return HttpResponseRedirect(reverse('hip_engine.views.test_forms'))
                     else:
                         return render_to_response('hip_engine/forms.html', {'username':username, 'email_1':email_1, 'email_2':email_2, 'password':password, 'error_message_email': "Your email is not valid. Please try again",}, context_instance=RequestContext(request))
