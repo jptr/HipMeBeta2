@@ -1,10 +1,21 @@
 .mixtape_add_track_form {
-  display:none;
+  display: none;
   padding-top: 0.8em;
 }
 
 .toggle_add_track_btn {
   margin-top: 0.8em;
+}
+
+.comment_zone_show {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+.comment_zone_hide {
+  display: none;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
 }
 
 .page_content {
@@ -51,11 +62,6 @@
 
 .mixtape_track {
   font-size: 1em;
-}
-
-.toggle_comment_zone_btn {
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
 }
 
 .mixtape_comment_zone_toggle {
