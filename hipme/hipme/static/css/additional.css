@@ -27,7 +27,7 @@
 }
 
 .hipme_left_profile a {
-  color: #EEEEEE;
+  color: #263248;
 }
 
 .mixtape_small_list {
@@ -43,18 +43,19 @@
   /*background-color: #600606;*/
 /*  background-color: #892929;*/
 /*  background-color: #3F99F3;*/
-  background-color: #9FCADF;
+  background-color: #263248;
   padding: 0.5em;
 }
 
 .mixtape_header h4 {
-  color: white;
+  color: #E5E5E5;
 }
 
 .mixtape_tracklist {
   padding: 1em;
   padding-bottom: 0em;
-  border-left: 1em solid #9FCADF;
+  border-left: 0.5em solid #263248;
+  background: #E5E5E5;
 }
 
 .bundle {
@@ -65,7 +66,7 @@
 }
 
 .mixtape_comment_zone_toggle {
-  background-color: #9FCADF;
+  background-color: #E5E5E5;
 }
 
 .mixtape_comment_container {
@@ -92,10 +93,14 @@
 
 .mixtape_info_time {
   margin-top: 1.2em;
+  background: #E5E5E5;
+  color: #263248;
 }
 
 .mixtape_info_spots {
   margin-top: 0.8em;
+  background: #E5E5E5;
+  color: #263248;
 }
 
 .mixtape_user {
@@ -125,6 +130,8 @@
 
 .tag {
   margin-bottom: 5px;
+  background-color: #CFD6E5;
+  color: #263248;
 }
 
 .track {
@@ -195,13 +202,9 @@
 }
 
 .score {
-  background-color: #FF94B8;
+  background-color: #FFAA00;
   color: #111111;
   font-size: 18px;
-}
-
-.tag {
-  background-color: #94B8FF;
 }
 
 .user_sub_nav dd {
@@ -218,16 +221,11 @@
 }
 
 .panel {
-  background: #003F66;
-  color: #EEEEEE;
+  background: #E5E5E5;
+  color: #263248;
   border: none;
 }
 
 .panel h5 {
-  color: #EEEEEE;
-}
-
-.search_button {
-  background: #063360;
-  border: none;
+  color: #263248;
 }
