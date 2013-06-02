@@ -196,22 +196,22 @@
   
   <script>
     $('.toggle_add_track_btn').click(function () {
-      $(".mixtape_add_track_form").toggle();
-      $(".toggle_add_track_btn").toggle();
+      $(".mixtape_add_track_form").fadeToggle('slow');
+      $(".toggle_add_track_btn").fadeToggle('slow');
       document.getElementById('input_url').focus();
     });
   </script>
 
   <script>
     $('.toggle_cancel').click(function () {
-      $(".mixtape_add_track_form").toggle();
-      $(".toggle_add_track_btn").toggle();
+      $(".mixtape_add_track_form").fadeToggle('slow');
+      $(".toggle_add_track_btn").fadeToggle('slow');
     });
   </script>
 
   <script>
     $('.toggle_comment_zone_btn').click(function () {
-      $(".mixtape_comment_container").toggle();
+      $(".mixtape_comment_container").fadeToggle('slow');
       document.getElementById('input_comment').focus();
     });
   </script>
