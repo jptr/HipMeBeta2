@@ -13,8 +13,8 @@ def upload_to(instance, filename):
 class UserProfile(models.Model):
     # avatar = models.ImageField("Profile Pic", upload_to=upload_to, blank=True, null=True)
     user = models.OneToOneField(User)
-    follows = models.ManyToManyField('UserProfile', related_name='followed_by')
-    tracklist = models.ManyToManyField('Tracklist', related_name='followed_by')
+    follows = models.ManyToManyField('UserProfile', related_name='followed_by', blank=True)
+    tracklist = models.ManyToManyField('Tracklist', related_name='followed_by', blank=True)
     reputation = models.IntegerField(default=0)
     url = models.URLField(blank=True)
     is_email_notified = models.BooleanField('get email notifications?', default=True)
