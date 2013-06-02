@@ -19,4 +19,7 @@ urlpatterns = patterns('hip_engine.views',
     url(r'^forms/$','test_forms'),
     url(r'^login/$','login_form'),
     url(r'^people/$', 'profile'),
+
+    # action views
+    url(r'^register/$', 'register'),
 )

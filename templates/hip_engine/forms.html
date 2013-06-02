@@ -27,16 +27,12 @@
 </head>
 
 <body>
-
-<div id="myModal" class="reveal-modal">
-  <h2>Awesome. I have it.</h2>
-  <p class="lead">Your couch.  It is mine.</p>
-  <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
+{% if info_message %}} 
+  <p> {{info_message}} </p>
+{% endif %}
 
   <p>
-    <form action="" method="POST">
+    <form action="/register/" method="POST">
         {% csrf_token %}
         <fieldset>
           <legend>Sign Up</legend>
@@ -47,7 +43,12 @@
                   <label for="right-label" class="right inline"></label>
                 </div>
                 <div class="small-9 columns">
-                  <input type="text" id="right-label" value="" placeholder="Username">
+                  {% if error_message_username %}
+                    <input type="text" class="error" id="right-label" value="{{username}}" name="username" placeholder="Username">
+                    <small class="error">{{error_message_username}}</small>
+                  {% else %}                    
+                    <input type="text" id="right-label" value="{{username}}" name="username" placeholder="Username">
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -60,7 +61,12 @@
                   <label for="right-label" class="right inline"></label>
                 </div>
                 <div class="small-9 columns">
-                  <input type="text" id="right-label" value="" placeholder="Email">
+                  {% if error_message_email %}
+                    <input type="text" class="error" id="right-label" name="email_1" value="{{email_1}}" placeholder="Email">
+                    <small class="error">{{error_message_email}}</small>
+                  {% else %}
+                    <input type="text" id="right-label" value="{{email_1}}" name="email_1" placeholder="Email">                  
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -73,7 +79,12 @@
                   <label for="right-label" class="right inline"></label>
                 </div>
                 <div class="small-9 columns">
-                  <input type="text" id="right-label" value="" placeholder="Repeat Email">
+                  {% if error_message_email %}
+                    <input type="text" class="error" id="right-label" name="email_2" value="{{email_2}}" placeholder="Repeat Email">
+                    <small class="error">{{error_message_email}}</small>
+                  {% else %}
+                    <input type="text" id="right-label" value="{{email_2}}" name="email_2" placeholder="Repeat Email">
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -87,12 +98,13 @@
                 </div>
                 <div class="small-9 columns">
                   <div class="small-5 columns">
-                    <input type="password" id="right-label" value="" placeholder="Password">    
+                    <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">    
                   </div>
-                  <div class="small-1 columns">    
+                  <div class="small-1 columns">
                   </div>
                   <div class="small-6 columns">
                     <input type="submit" class="button postfix" value="Sign Up"/>  
+                    <input type="hidden" name="form-type" value="sign-up" />
                   </div>
                 </div>
               </div>
