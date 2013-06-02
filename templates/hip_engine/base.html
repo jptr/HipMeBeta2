@@ -44,7 +44,7 @@
         <li class="divider"></li>
         <li><a href="#"> Newsfeed </a></li>
         <li class="divider"></li>
-        <li><a href="#"> Listen to mixtapes </a></li>
+        <li><a href="/listen/"> Listen to mixtapes </a></li>
         <li class="divider"></li>
         <li><a href="#"> Start a mixtape </a></li>
         <li class="divider"></li>
@@ -52,6 +52,9 @@
 
       <!-- Right Nav Section -->
       <ul class="right">
+        <li class="divider"></li>
+        <li><a href="/profile/"> Simon Frr </a></li>
+        <li class="divider"></li>
         <li class="has-form">
           <form>
             <div class="row collapse">
@@ -99,11 +102,11 @@
       <div class="panel">
         <div class="row mini_profile_top">
           <div class="small-5 columns mini_profile_avatar">
-            <a href="#"><img src="{% static "img/HMProfile.jpg" %}"/></a>
+            <a href="/profile/"><img src="{% static "img/HMProfile.jpg" %}"/></a>
           </div>
           <div class="small-7 columns no_padding_left">
             <div class="mini_profile_username">
-              <a href="#"> Simon Frr </a>
+              <a href="/profile/"> Simon Frr </a>
             </div>
             <div class="mini_profile_links">
               <a href="#"> Edit Profile </a>
@@ -130,10 +133,10 @@
             </div>
             <br/>
             <div>
-              <a href="#"> Games </a>
+              <a href="/profile/"> Games </a>
             </div>
             <div>
-              <a href="#"> Collection </a>
+              <a href="/listen/"> Collection </a>
             </div>
             <div>
               <a href="#"> People </a>
@@ -209,12 +212,16 @@
     });
   </script>
 
+
   <script>
-    $('.toggle_comment_zone_btn').click(function () {
-      $(".mixtape_comment_container").fadeToggle('slow');
-      document.getElementById('input_comment').focus();
+    $('.toggle_comment_zone_btn').each(function(i){
+        $(this).click(function(){
+          $(".mixtape_comment_container:eq("+ i + ")").toggle();
+          $(".input_comment:eq("+ i + ")").focus();
+      });
     });
   </script>
+
 
   <script>
     $(document).foundation();

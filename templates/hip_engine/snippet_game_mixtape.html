@@ -1,6 +1,5 @@
 {% load staticfiles %}
 
-
   <div class="small-12 columns mixtape">
 
 <!-- Mixtape header -->
@@ -99,23 +98,40 @@
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
-                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
-                    </div>
-                    <div class="small-2 columns">
-                      <a href="#" class="button tiny right"> Keep </a>
+                      <div class="label secondary mixtape_track"> No track yet </div>
                     </div>
                   </div>
                 </li>
-                <li>
-                  <div class="row">
-                    <div class="small-10 columns">
-                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
-                    </div>
-                    <div class="small-2 columns">
-                      <a href="#" class="button tiny right"> Keep </a>
-                    </div>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="mixtape_bundleback">
+          <div class="row">
+            <div class="small-1 columns mixtape_user">
+              <img src="{% static "img/HMProfile.jpg" %}"/>
+            </div>
+            <div class="small-2 columns mixtape_user">
+              <div class="row">
+                <div class="small-12 columns">
+                  <a href="#" class="mini_profile_username">
+                    Simon Frr
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="small-12 columns">
+                  <div class="label radius user_score">
+                    999
                   </div>
-                </li>
+                  <div class="label radius mixtape_score">
+                    +20!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="small-9 columns bundle">
+              <ul class="no-bullet">
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
@@ -156,6 +172,26 @@
             </div>
             <div class="small-9 columns bundle">
               <ul class="no-bullet">
+                <li>
+                  <div class="row">
+                    <div class="small-10 columns">
+                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
+                    </div>
+                    <div class="small-2 columns">
+                      <a href="#" class="button tiny right"> Keep </a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="row">
+                    <div class="small-10 columns">
+                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
+                    </div>
+                    <div class="small-2 columns">
+                      <a href="#" class="button tiny right"> Keep </a>
+                    </div>
+                  </div>
+                </li>
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
@@ -219,7 +255,7 @@
 <!-- Mixtape interaction -->
 
     <div class="small-3 columns mixtape_comment_zone_toggle left">
-      <input type="button" value="3 comments" class="button small expand secondary toggle_comment_zone_btn" />
+      <input type="button" value="3 comments" class="button small expand secondary toggle_comment_zone_btn{{id_mixtape}}" />
     </div>
     <div class="small-12 columns mixtape_comment_container left">
       <ul class="no-bullet">
@@ -254,7 +290,7 @@
               <div class="row">
                 <form>
                   <div class="small-9 columns">
-                    <input type="text" id="input_comment" placeholder="Add a comment" class="comment_form"/>
+                    <input type="text" placeholder="Add a comment" class="comment_form input_comment"/>
                   </div>
                   <div class="small-3 columns">
                     <button type="submit" class="radius button small comment_form"> Submit </button>
