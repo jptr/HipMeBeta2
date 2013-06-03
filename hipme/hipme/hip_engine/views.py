@@ -17,10 +17,12 @@ def login_form(request):
         redirect_to = request.GET.get('next','')
         return render_to_response('hip_engine/login.html', {'redirect_to': redirect_to}, context_instance=RequestContext(request))
     else:
-        return test(request)
+        return profile(request)
 
 def profile(request):
-    return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
+    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    track_form = TrackForm()
+    return render_to_response('hip_engine/profile_activity.html', {'tracklist_form':tracklist_form, 'track_form':track_form}, context_instance=RequestContext(request))
 
 def profile_activity(request):
     return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
