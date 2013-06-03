@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title> hipMe! </title>
+
+  <!-- Included CSS Files -->
+
+  {% load staticfiles %}
+
+  <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/additional.css" %}"/>
+
+  <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
+
+  <link href="{% static 'css/chosen.css' %}" rel="stylesheet">
+  <script type="text/javascript" src="{% static 'js/chosen.jquery.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/chosen.jquery_ready.js' %}"></script>
+
+  {{ form.media.css }}
+
+  {{ form.media.js }}
+
+</head>
+
+<body>
+
+  <!-- Header and Nav -->
+
+<div class="fixed">
+  <nav class="top-bar">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1><a href="#"> hipMe! </a></h1>
+      </li>
+      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li class="divider"></li>
+        <li><a href="#"> Home </a></li>
+        <li class="divider"></li>
+        <li><a href="/listen/"> How it works </a></li>
+        <li class="divider"></li>
+        <li><a href="#"> About </a></li>
+        <li class="divider"></li>
+      </ul>
+
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-form">
+          <form>
+            <div class="row">
+              <div class="small-2 columns right">
+                <a href="#" class="alert button"> Login </a>
+              </div>
+              <div class="small-4 columns right">
+                <input type="text" placeholder="Password">
+              </div>
+              <div class="small-4 columns right">
+                <input type="text" placeholder="Username">
+              </div>
+            </div>
+          </form>
+        </li>
+      </ul>
+    </section>
+  </nav>
+</div>
+
+  <!-- End Header and Nav -->
+
+  <!-- Landing Content -->
+
+<div class="row landing_content">
+  <div class="small-5 push-1 columns">
+    <img src="{% static "img/logo_big.png" %}">
+    <h3 class="text-center"> The social game for music discovery </h3>
+    <div class="panel">
+      <h5> 1) Start a mixtape </h5></li>
+      <h5> 2) Ask friends to fill it </h5>
+      <h5> 3) Choose the songs your like </h5>
+      <h5> 4) Each song you choose gives them points! </h5>
+    </div>
+  </div>
+  <div class="small-4 pull-1 columns">
+    <form action="/login/" method="POST">
+      {% csrf_token %}
+      <fieldset>
+        <legend class="sign_up_legend"> Sign up! </legend>
+        <div class="row">
+          <div class="small-10 small-offset-1 columns">
+            {% if error_message_username %}
+              <input type="text" class="error" id="right-label" value="{{username}}" name="username" placeholder="Username">
+              <small class="error">{{error_message_username}}</small>
+            {% else %}                    
+              <input type="text" id="right-label" value="{{username}}" name="username" placeholder="Username">
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-10 small-offset-1 columns">
+            <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-10 small-offset-1 columns">
+            {% if error_message_email %}
+              <input type="text" class="error" id="right-label" name="email_1" value="{{email_1}}" placeholder="Email">
+              <small class="error">{{error_message_email}}</small>
+            {% else %}
+              <input type="text" id="right-label" value="{{email_1}}" name="email_1" placeholder="Email">
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-10 small-offset-1 columns">
+            {% if error_message_email %}
+              <input type="text" class="error" id="right-label" name="email_2" value="{{email_2}}" placeholder="Repeat Email">
+              <small class="error">{{error_message_email}}</small>
+            {% else %}
+              <input type="text" id="right-label" value="{{email_2}}" name="email_2" placeholder="Repeat Email">
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-10 small-offset-1 columns">
+            <input type="submit" class="button large expand" value="Sign Up"/>  
+            <input type="hidden" name="form-type" value="sign-up" />
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+  </div>
+
+  <!-- End Landing Content -->
+
+  <!-- Footer -->
+
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-5 columns">
+          <p>&copy; Copyright HipMe.</p>
+        </div>
+        <div class="large-7 columns">
+          <ul class="inline-list right">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Media</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <script>
+  document.write('<script src={% static "js/vendor/" %}' +
+  ('__proto__' in {} ? 'zepto' : 'jquery') +
+  '.js><\/script>')
+  </script>
+
+  <script src="{% static "js/foundation.min.js" %}"></script>
+  
+</body>
+</html>
