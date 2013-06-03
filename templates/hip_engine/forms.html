@@ -255,106 +255,23 @@
 </form >
 {% endcomment %}
 
-  <p>
-    <fieldset>
-      <legend>New tracklist</legend>
-      <div class="row">
-        <div class="small-8">
-          <div class="row">
-            <div class="small-3 small-centered columns">
-              <a class="button" data-reveal-id="tracklistModal" >New Tracklist</a>
-            </div>
+<p>
+  <fieldset>
+    <legend>New tracklist</legend>
+    <div class="row">
+      <div class="small-8">
+        <div class="row">
+          <div class="small-3 small-centered columns">
+            <a class="button" data-reveal-id="tracklistModal" >New Tracklist</a>
           </div>
         </div>
       </div>
-    </fieldset>
+    </div>
+  </fieldset>
 
-      <div id="tracklistModal" class="reveal-modal">
-        <p>
-          <form>
-            <fieldset>
-              <legend>New Tracklist</legend>
-              {% include "hip_engine/snippet_form.html" with form=tracklist_form %}
-              <div class="row">
-                <div class="small-8">
-                  <div class="row">
-                    <div class="small-3 columns">
-                    </div>
-                    <div class="small-9 columns">
-                      <a class="small button" data-reveal-id="trackModal" >Add Track</a>
-                      <input type="hidden" name="form-type" value="new-tracklist" />
-                      <input type="submit" class="small button" value="Create Tracklist"/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-        </p>
-        <a class="close-reveal-modal">&#215;</a>
-      </div>
+{% include "hip_engine/snippet_form/snippet_form_tracklist.html" %}
 
-      <div id="trackModal" class="reveal-modal">
-        <p>
-          <form>
-            <fieldset>
-              <legend>Add track</legend>
-              <div class="row">
-                <div class="small-8">
-                  <div class="row">
-                    <div class="small-3 columns">
-                      <label for="right-label" class="right inline"></label>
-                    </div>
-                    <div class="small-9 columns">
-                      <div class="row collapse">
-                        <div class="small-3 columns">
-                          <span class="prefix">http://</span>
-                        </div>
-                        <div class="small-9 columns">
-                          <input type="text" placeholder="Enter your URL...">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-8">
-                  <div class="row">
-                    <div class="small-3 columns">
-                      <label for="right-label" class="right inline"></label>
-                    </div>
-                    <div class="small-9 columns">
-                      <div class="row">
-                        <div class="large-6 columns">
-                          <input type="text" id="right-label" placeholder="Artist - optionnal">
-                        </div>
-                        <div class="large-6 columns">
-                          <input type="text" id="right-label" placeholder="Name - optionnal">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-8">
-                  <div class="row">
-                    <div class="small-3 columns">
-                    </div>
-                    <div class="small-9 columns">
-                      <input type="hidden" name="form-type" value="add-track" />
-                      <input type="submit" class="small button" value="Add Track"/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-        </p>
-        <a data-reveal-id="tracklistModal" class="close-reveal-modal">&#215;</a>
-      </div>
-  </p>
+</p>
 
   <script>
   document.write('<script src={% static "js/vendor/" %}' +

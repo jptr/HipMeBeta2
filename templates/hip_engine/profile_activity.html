@@ -20,6 +20,18 @@ success
 	</ul>
 </div>
 
+{% if tracklist_list %}
+<div class="row">
+    <ul class="no-bullet">
+        {% for tracklist in tracklist_list %}
+        <li>
+            {% include "hip_engine/snippet_game_mixtape.html" %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 <!-- End Feed Games-->
 
 {% endblock main_feed %}

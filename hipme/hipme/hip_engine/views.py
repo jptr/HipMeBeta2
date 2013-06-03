@@ -12,6 +12,8 @@ from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist
 
 from hip_engine.validation_tools import validateEmail, validateUsername
 
+from django.core.urlresolvers import reverse
+
 def login_form(request):
     if not request.user.is_authenticated():
         redirect_to = request.GET.get('next','')
@@ -19,18 +21,31 @@ def login_form(request):
     else:
         return profile(request)
 
+@login_required
 def profile(request):
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
-    track_form = TrackForm()
-    return render_to_response('hip_engine/profile_activity.html', {'tracklist_form':tracklist_form, 'track_form':track_form}, context_instance=RequestContext(request))
-
-def profile_activity(request):
     return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
 
+def profile_activity(request):
+    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    track_form = TrackForm()
+
+    tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile())|Tracklist.objects.filter(userto = request.user.get_profile())
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_last_edit')[:10]
+
+    return render_to_response('hip_engine/profile_activity.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form}, context_instance=RequestContext(request))
+
 def profile_my_pending(request):
-    return render_to_response('hip_engine/profile_my_pending.html', context_instance=RequestContext(request))
+
+    tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
+
+    return render_to_response('hip_engine/profile_my_pending.html', {'tracklist_list':tracklist_list,}, context_instance=RequestContext(request))
 
 def profile_pending_contributions(request):
+
+    tracklist_queryset = Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
+
     return render_to_response('hip_engine/profile_pending_contributions.html', context_instance=RequestContext(request))
 
 def my_music_all(request):

@@ -6,7 +6,11 @@
 
     <div class="small-12 columns mixtape_header">
       <div class="small-9 columns">
-        <h4> Cool summer party on the beach </h4>
+        {% if tracklist.title %}
+          <h4> {{tracklist.title}} </h4>
+        {% else %}
+          <h4> Cool Summer Party On The Beach </h4>
+        {% endif %}
         <ul class="inline-list">
           <li class="label radius tag_mixtape"> Soul </li>
           <li class="label radius tag_mixtape"> Funk </li>

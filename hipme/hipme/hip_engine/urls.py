@@ -22,4 +22,5 @@ urlpatterns = patterns('hip_engine.views',
 
     # action views
     url(r'^register/$', 'register'),
+    url(r'^login/process/$','login_process'),
 )

@@ -36,7 +36,7 @@ class TracklistForm(ModelForm):
     def __init__(self,*args, **kwargs):
         username = kwargs.pop('username', '')
         super(TracklistForm, self).__init__(*args, **kwargs)
-        self.fields['userto'].choices = UserProfile.objects.filter(user__username__startswith="hip").values_list('id','user__username')
+        self.fields['userto'].choices = UserProfile.objects.exclude(user__username=username).values_list('id','user__username')
 
 class TrackForm(ModelForm):
     class Meta:
