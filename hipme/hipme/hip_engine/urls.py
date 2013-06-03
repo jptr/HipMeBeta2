@@ -4,7 +4,7 @@ urlpatterns = patterns('hip_engine.views',
     
     # classic views
 
-    url(r'^$','profile_activity'),
+    url(r'^$','landing_page'),
     url(r'^profile/$','profile_activity'),
     url(r'^profile/activity/$','profile_activity'),
     url(r'^profile/pendingmixtapes/$','profile_my_pending'),

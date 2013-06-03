@@ -34,6 +34,9 @@ def profile_activity(request):
 
     return render_to_response('hip_engine/profile_activity.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form}, context_instance=RequestContext(request))
 
+def landing_page(request):
+    return render_to_response('hip_engine/landing_page.html', context_instance=RequestContext(request))
+
 def profile_my_pending(request):
 
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
