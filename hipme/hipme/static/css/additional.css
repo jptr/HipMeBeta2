@@ -55,6 +55,7 @@
   padding: 1em;
   padding-bottom: 0em;
   border-left: 0.5em solid #263248;
+/*  border-bottom: 0.5em solid #263248;*/
   background: #E5E5E5;
 }
 
@@ -128,10 +129,17 @@
   color: black;
 }
 
-.tag {
+.tag_mixtape {
   margin-bottom: 5px;
   background-color: #CFD6E5;
   color: #263248;
+}
+
+.tag_profile {
+  width: 9em;
+  margin-bottom: 5px;
+  background-color: #E03817;
+  color: white;
 }
 
 .track {
