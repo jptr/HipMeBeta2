@@ -27,6 +27,9 @@ def profile(request):
 def profile_activity(request):
     return render_to_response('hip_engine/profile_activity.html', context_instance=RequestContext(request))
 
+def landing_page(request):
+    return render_to_response('hip_engine/landing_page.html', context_instance=RequestContext(request))
+
 def profile_my_pending(request):
     return render_to_response('hip_engine/profile_my_pending.html', context_instance=RequestContext(request))
 

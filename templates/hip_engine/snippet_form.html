@@ -7,7 +7,7 @@
           <label for="right-label" class="right inline"></label>
         </div>
         <div class="small-9 columns">
-          {%if field|field_type in "CharField" %}
+          {% if field|field_type in "CharField" %}
               <input type="text" id="right-label" placeholder="{{ field.label }} - {{ field.help_text }}">
           {% elif field|field_type = "ChosenModelChoiceField" %}
             <div class="row collapse">
