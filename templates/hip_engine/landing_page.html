@@ -61,16 +61,18 @@
       <!-- Right Nav Section -->
       <ul class="right">
         <li class="has-form">
-          <form>
+          <form action="/login/" method="POST">
+            {% csrf_token %}
             <div class="row">
-              <div class="small-2 columns right">
-                <a href="#" class="alert button"> Login </a>
+              <div class="small-4 small-offset-2 columns">
+                <input type="text" id="right-label" value="{{username}}" name="username" placeholder="Username">
               </div>
-              <div class="small-4 columns right">
-                <input type="text" placeholder="Password">
+              <div class="small-4 columns">
+                <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
               </div>
-              <div class="small-4 columns right">
-                <input type="text" placeholder="Username">
+              <div class="small-2 columns">
+                <input type="submit" class="alert button" value="Log In"/>  
+                <input type="hidden" name="form-type" value="sign-in" />
               </div>
             </div>
           </form>
@@ -84,15 +86,15 @@
 
   <!-- Landing Content -->
 
+
+
 <div class="row landing_content">
   <div class="small-5 push-1 columns">
     <img src="{% static "img/logo_big.png" %}">
     <h3 class="text-center"> The social game for music discovery </h3>
     <div class="panel">
-      <h5> 1) Start a mixtape </h5></li>
-      <h5> 2) Ask friends to fill it </h5>
-      <h5> 3) Choose the songs your like </h5>
-      <h5> 4) Each song you choose gives them points! </h5>
+      <h5> Start a mixtape and invite friends to put their best songs in! </h5></li>
+      <h5> Or try to be the best contributor to your friends' playlists! Each song they take gives you points! </h5>
     </div>
   </div>
   <div class="small-4 pull-1 columns">
@@ -145,8 +147,6 @@
     </form>
   </div>
 </div>
-
-  </div>
 
   <!-- End Landing Content -->
 
