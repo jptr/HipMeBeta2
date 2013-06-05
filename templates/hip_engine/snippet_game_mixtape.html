@@ -161,13 +161,15 @@
             </div>
           </li>
         {% endfor %}
+
+<!-- End Mixtape tracks -->
+
+<!-- Add track section -->
+
+        {% if user in tracklist.userto_list %}
           <li>
             <div class="row">
-              <div class="small-3 columns mixtape_comment_zone_toggle left">
-                <input type="button" value="Show 3 comments" class="button small expand secondary comment_zone_show" />
-                <input type="button" value="Hide 3 comments" class="button small expand secondary comment_zone_hide" />
-              </div>
-              <div class="small-9 columns">
+              <div class="small-9 small-offset-3 columns">
                 <ul class="no-bullet">
                   <li>
                     <input type="button" value="Add a track to the mixtape!" class="button small expand toggle_add_track_btn" />
@@ -204,13 +206,19 @@
               </div>
             </div>
           </li>
-        </ul>
-      </div>
+        {% endif %}
 
-<!-- End Mixtape tracks -->
+<!-- End add track section -->
 
-<!-- Mixtape interaction -->
+      </ul>
+    </div>
 
+<!-- Comment section -->
+
+    <div class="small-3 columns mixtape_comment_zone_toggle left">
+      <input type="button" value="Show 3 comments" class="button tiny expand secondary comment_zone_show" />
+      <input type="button" value="Hide 3 comments" class="button tiny expand secondary comment_zone_hide" />
+    </div>
     <div class="small-12 columns mixtape_comment_container left">
       <ul class="no-bullet">
         <li>
@@ -225,7 +233,7 @@
               </div>
             </div>
             <div class="small-9 columns">
-              Comment j'ai fait pour les courses ? J'ai acheté du pain les courses ? J'ai acheté du pain
+              Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
             </div>
           </div>
         </li>
@@ -255,9 +263,8 @@
           </div>
         </li>
       </ul>
-      <hr/>
     </div>
 
-<!-- End Mixtape interaction -->
+<!-- End comment section -->
 
   </div>
