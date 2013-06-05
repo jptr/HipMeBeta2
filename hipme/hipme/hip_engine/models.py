@@ -72,5 +72,37 @@ class Tracklist(models.Model):
     bundlebacks = models.ManyToManyField('Bundle', related_name='tracklist_from', null=True, blank=True)
     is_finished = models.BooleanField('finished?', default=False)
 
+    def get_time_delta(self):   
+        timeDiff = timezone.now() - self.date_created
+        days = timeDiff.days
+        hours = timeDiff.seconds/3600
+        minutes = timeDiff.seconds%3600/60
+        seconds = timeDiff.seconds%3600%60
+        str = ""
+        tStr = ""
+        if days > 0:
+            if days == 1:   tStr = "day ago"
+            else:           tStr = "days ago"
+            str = str + "%s %s" %(days, tStr)
+            return str
+        elif hours > 0:
+            if hours == 1:  tStr = "hour ago"
+            else:           tStr = "hours ago"
+            str = str + "%s %s" %(hours, tStr)
+            return str
+        elif minutes > 0:
+            if minutes == 1:tStr = "min ago"
+            else:           tStr = "mins ago"           
+            str = str + "%s %s" %(minutes, tStr)
+            return str
+        elif seconds > 0:
+            if seconds == 1:tStr = "sec ago"
+            else:           tStr = "secs ago"
+            str = str + "%s %s" %(seconds, tStr)
+            return str
+        else:
+            return "1 sec ago"
+    time_delta = property(get_time_delta)
+
     def __unicode__(self):
         return u"tracklist %s created by %s - %s" % (self.id, self.owner, self.title)
