@@ -1,0 +1,129 @@
+/* General */
+
+.mixtape {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+/* Header */
+
+.mixtape_header {
+/*  background-color: #600606;*/
+/*  background-color: #892929;*/
+/*  background-color: #3F99F3;*/
+  background-color: #263248;
+  padding: 0.5em;
+}
+
+.mixtape_header h4 {
+  color: #E5E5E5;
+}
+
+.mixtape_info_time {
+  margin-top: 1.2em;
+  background: #E5E5E5;
+  color: #263248;
+}
+
+.mixtape_info_spots {
+  margin-top: 0.8em;
+  background: #E5E5E5;
+  color: #263248;
+}
+
+.tag_mixtape {
+  margin-bottom: 5px;
+  background-color: #CFD6E5;
+  color: #263248;
+}
+
+/* Tracklist */
+
+.mixtape_tracklist {
+  padding: 1em;
+  padding-bottom: 0em;
+  border-left: 0.5em solid #263248;
+/*  border-bottom: 0.5em solid #263248;*/
+  background: #E5E5E5;
+}
+
+.mixtape_user {
+  padding-left: 0;
+  padding-bottom: 0.5em;
+}
+
+.mixtape_user img {
+  padding: 0em;
+}
+
+.mixtape_score {
+  font: bolder 16px;
+  background: yellow;
+  color: black;
+}
+
+.bundle {
+}
+
+.track {
+  background-color: #EEEEEE;
+  color: #222222;
+  font-size: 1em;
+}
+
+.toggle_add_track_btn {
+  margin-top: 0.8em;
+}
+
+.mixtape_add_track_form {
+  display: none;
+  padding-top: 0.8em;
+}
+
+.mixtape_bundlego {
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.mixtape_bundleback {
+  padding-top: 0.5em;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+/* Comments */
+
+.comment_zone_show {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+.comment_zone_hide {
+  display: none;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+.mixtape_comment_zone_toggle {
+}
+
+.mixtape_comment_container {
+  display: none;
+}
+
+.mixtape_comment_zone {
+  background-color: white;
+  padding-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.comment_form {
+  padding-bottom: 0em;
+}
+
+/* Mini mixtape */
+
+.mini_mixtape {
+  padding: 10px;
+  background-color: #99AADD;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}

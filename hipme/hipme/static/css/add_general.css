@@ -1,0 +1,76 @@
+.page_content {
+  margin-top: 16px;
+}
+
+.landing_content {
+  margin-top: 120px;
+  margin-bottom: 100px;
+}
+
+.row {
+  max-width: 100%;
+}
+
+.user_score {
+  font: bolder 16px;
+  background: green;
+  color: white;
+}
+
+.tag_profile {
+  width: 9em;
+  margin-bottom: 5px;
+  background-color: #E03817;
+  color: white;
+}
+
+.profile {
+  padding-left: 3em;
+  padding-right: 3em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+
+.userprofile_name {
+  color: #111111;
+}
+
+.label_link a {
+  color: white;
+}
+
+.edit_profile {
+  font-size: 10px;
+}
+
+.mini_profile_username {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+.no_padding_left {
+  padding-left: 0px;
+}
+
+.profile_avatar {
+  border-radius: 8px;
+}
+
+.hipme_site_stats li {
+  font-style: italic;
+  font-size: 12px;
+}
+
+.panel {
+  background: #E5E5E5;
+  color: #263248;
+  border: none;
+}
+
+.panel h5 {
+  color: #263248;
+}
+
+.coul {
+  border: solid 1px fuchsia;
+}

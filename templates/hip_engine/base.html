@@ -17,7 +17,10 @@
 
   <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
   <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
-  <link rel="stylesheet" href="{% static "css/additional.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_general.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_mixtape.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_left_profile.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
 
   <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
@@ -106,25 +109,25 @@
   <!--   Left nav -->
   <!-- This is source ordered to be pulled to the left on larger screens -->
     
-    <div class="small-2 columns pull-8 hipme_left_profile">
+    <div class="small-2 columns pull-8 left_profile">
       <div class="panel">
-        <div class="row mini_profile_top">
-          <div class="small-5 columns mini_profile_avatar">
+        <div class="row left_profile_top">
+          <div class="small-5 columns">
             <a href="/profile/"><img src="{% static "img/HMProfile.jpg" %}"/></a>
           </div>
           <div class="small-7 columns no_padding_left">
-            <div class="mini_profile_username">
+            <div class="left_profile_username">
               <a href="/profile/"> Simon Frr </a>
             </div>
-            <div class="mini_profile_links">
+            <div class="left_profile_link">
               <a href="#"> Edit Profile </a>
             </div>
-            <div class="mini_profile_links">
+            <div class="left_profile_link">
               <a href="#"> Logout </a>
             </div>
           </div>
         </div>
-        <div class="row mini_profile_stats">
+        <div class="row left_profile_stats">
           <div class="small-12 columns">
             <div>
               <a href="#"> 999 points </a>
@@ -161,7 +164,7 @@
     <!-- On small devices this column is hidden -->
 
     <aside class="large-2 columns hide-for-small">
-      <div class="panel hipme_stats">
+      <div class="panel hipme_site_stats">
         <h5> hipMe! </h5>
         <ul class="no-bullet">
           <li> 945 mixtapes created </li>
