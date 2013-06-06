@@ -92,17 +92,13 @@
 <div class="row landing_content">
   <div class="small-5 push-1 columns">
     <img src="{% static "img/logo_big.png" %}">
-    <h3 class="text-center"> The social game for music discovery </h3>
-    <div class="panel">
-      <h5> Start a mixtape and invite friends to put their best songs in! </h5></li>
-      <h5> Or try to be the best contributor to your friends' playlists! Each song they take gives you points! </h5>
-    </div>
+    <h1 class="text-center"> The social game for music discovery. </h1>
   </div>
   <div class="small-4 pull-1 columns">
     <form action="/login/" method="POST">
       {% csrf_token %}
       <fieldset>
-        <legend class="sign_up_legend"> Sign up! </legend>
+        <legend class="sign_up_legend"> Jump in! </legend>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
             {% if error_message_username %}
@@ -124,7 +120,7 @@
               <input type="text" class="error" id="right-label" name="email_1" value="{{email_1}}" placeholder="Email">
               <small class="error">{{error_message_email}}</small>
             {% else %}
-              <input type="text" id="right-label" value="{{email_1}}" name="email_1" placeholder="Email">
+              <input type="text" id="right-label" value="{{email_1}}" name="email_1" placeholder="Email (you won't get spammed)">
             {% endif %}
           </div>
         </div>
@@ -134,7 +130,7 @@
               <input type="text" class="error" id="right-label" name="email_2" value="{{email_2}}" placeholder="Repeat Email">
               <small class="error">{{error_message_email}}</small>
             {% else %}
-              <input type="text" id="right-label" value="{{email_2}}" name="email_2" placeholder="Repeat Email">
+              <input type="text" id="right-label" value="{{email_2}}" name="email_2" placeholder="Repeat Email (no spam either...)">
             {% endif %}
           </div>
         </div>
@@ -152,7 +148,22 @@
   <!-- End Landing Content -->
 
   <div id="howItWorks" class="reveal-modal">
-    <p> test </p>
+    <h2> How does hipMe work? </h2>
+    <h4> Here is the gist of it. </h4>
+    <p>
+      1 - Start a mixtape with a few tracks you like, taken from YouTube or SoundCloud. <br/>
+      2 - Ask friends to fill in the mixtape with other tracks. </br>
+      3 - You select the tracks you want to keep in your playlist. </br>
+      4 - Each track you keep gets points to the contributor. Easy, right? </br>
+    </p>
+    <p>
+      <strong> You get a great mixtape, handcrafted by your friends.</strong> <br/> They know you well, they know best what you like.
+    </p>
+    <p>
+      <strong> They get public recognition as great music advisors. </strong> <br/> And special badges such as 
+        <text class="tag_howitworks"> deep-house emperor </text> or <text class="tag_howitworks"> post-rock starfighter </text> for everyone to see.
+        
+    </p>
     <a class="close-reveal-modal"> &#215; </a>
   </div>
 
@@ -161,20 +172,23 @@
     <a class="close-reveal-modal"> &#215; </a>
   </div>
 
+  <div id="contact" class="reveal-modal">
+    <h2> Let's get in touch! </h2>
+    <h4> We love feedback, advice, congratulations etc. </h4>
+    <p> E-mail us at <a href="mailto:hipmail.me@gmail.com"> hipmail.me@gmail.com</a>, or ping us on <a href="https://www.facebook.com/hipmemusic" target="_blank">Facebook</a> and Twitter! We'll get back to you so very very soon. </p>
+    <a class="close-reveal-modal"> &#215; </a>
+  </div>
+
+
   <!-- Footer -->
 
   <footer class="row">
     <div class="large-12 columns">
       <hr />
       <div class="row">
-        <div class="large-5 columns">
-          <p>&copy; Copyright HipMe.</p>
-        </div>
-        <div class="large-7 columns">
+        <div class="large-12 columns">
           <ul class="inline-list right">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Media</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#" data-reveal-id="contact"> Contact </a></li>
           </ul>
         </div>
       </div>
@@ -190,6 +204,11 @@
   </script>
 
   <script src="{% static "js/foundation.min.js" %}"></script>
-  
+
+  <script>
+    $(document).foundation();
+    $(".chzn-select").chosen()
+  </script>
+
 </body>
 </html>
