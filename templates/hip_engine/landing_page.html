@@ -38,7 +38,7 @@
 
   <!-- Header and Nav -->
 
-<div class="fixed">
+<div class="fixed contain-to-grid">
   <nav class="top-bar">
     <ul class="title-area">
       <!-- Title Area -->
@@ -88,11 +88,11 @@
   <!-- Landing Content -->
 
 <div class="row landing_content">
-  <div class="small-5 push-1 columns text-center">
+  <div class="small-7 columns text-center">
     <img src="{% static "img/logo_new.png" %}" class="landing_logo">
     <h1> The social game for music discovery. </h1>
   </div>
-  <div class="small-4 pull-1 columns">
+  <div class="small-5 columns">
     <form action="/login/" method="POST">
       {% csrf_token %}
       <fieldset>
@@ -145,7 +145,7 @@
 
   <!-- End Landing Content -->
 
-  <div id="howItWorks" class="reveal-modal small">
+  <div id="howItWorks" class="reveal-modal medium">
     <h2> It's all just a game. </h2>
     <h4> Here is the gist of it. </h4>
     <p>
@@ -165,13 +165,13 @@
     <a class="close-reveal-modal"> &#215; </a>
   </div>
 
-  <div id="about" class="reveal-modal small">
+  <div id="about" class="reveal-modal medium">
     <h2> It's just the beginning... </h2>
     <h4> So buckle up, Jimbo. </h4>
     <a class="close-reveal-modal"> &#215; </a>
   </div>
 
-  <div id="contact" class="reveal-modal small">
+  <div id="contact" class="reveal-modal medium">
     <h2> Let's get in touch! </h2>
     <h4> We love feedback, advice, congratulations etc. </h4>
     <p> E-mail us at <a href="mailto:hipmail.me@gmail.com"> hipmail.me@gmail.com</a>, or ping us on <a href="https://www.facebook.com/hipmemusic" target="_blank">Facebook</a> and Twitter! We'll get back to you so very very soon. </p>

@@ -1,13 +1,11 @@
-{% extends "hip_engine/profile_base.html" %}
+{% extends "hip_engine/search_base.html" %}
 {% load staticfiles %}
 
-{% block profile_nav1 %}
-active
-{% endblock profile_nav1 %}
+{% block search_nav_2 %} active {% endblock search_nav_2 %}
 
 {% block main_feed %}
 
-<!-- Feed = games -->
+<!-- Results in people -->
 
 {% if tracklist_list %}
     <ul class="no-bullet">
@@ -21,6 +19,6 @@ active
 <p> There are no mixtapes to be shown at the moment. </p>
 {% endif %}
 
-<!-- End Feed Games-->
+<!-- End Feed -->
 
 {% endblock main_feed %}

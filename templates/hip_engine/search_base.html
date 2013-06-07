@@ -1,0 +1,40 @@
+{% extends "hip_engine/base.html" %}
+{% load staticfiles %}
+
+{% block feed_header %}
+
+<h3> Search results for "test": </h3>
+
+{% endblock feed_header %}
+
+{% block feed_nav %}
+
+<dl class="sub-nav feed_sub_nav">
+  <dd class="{% block search_nav_1 %} {% endblock search_nav_1 %}"><a href="/search/people/"> People </a></dd>
+  <dd class="{% block search_nav_2 %} {% endblock search_nav_2 %}"><a href="/search/mixtapes/"> Mixtapes </a></dd>
+</dl>
+
+{% endblock feed_nav %}
+
+
+{% block main_feed %}
+
+<!-- Results in people -->
+
+{% if tracklist_list %}
+<div class="row">
+    <ul class="no-bullet">
+        {% for tracklist in tracklist_list %}
+        <li>
+            {% include "hip_engine/snippet_game_mixtape.html" %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<p> There are no mixtapes to be shown at the moment. </p>
+{% endif %}
+
+<!-- End Feed -->
+
+{% endblock main_feed %}
