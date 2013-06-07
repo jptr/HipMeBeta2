@@ -244,6 +244,24 @@
   </script>
 
   <script>
+    $('.profile_flw_btn').each(function(i){
+        $(this).click(function(){
+          $(".profile_flw_btn:eq("+ i + ")").hide();
+          $(".profile_unflw_btn:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+    <script>
+    $('.profile_unflw_btn').each(function(i){
+        $(this).click(function(){
+          $(".profile_flw_btn:eq("+ i + ")").show();
+          $(".profile_unflw_btn:eq("+ i + ")").hide();
+      });
+    });
+  </script>
+
+  <script>
     $(document).foundation();
     $(".chzn-select").chosen()
   </script>

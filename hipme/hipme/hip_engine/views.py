@@ -45,6 +45,7 @@ def profile_collection(request):
 
     return render_to_response('hip_engine/profile_collection.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
 
+@login_required
 def profile_pending(request):
 
     tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
@@ -53,18 +54,6 @@ def profile_pending(request):
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
 
     return render_to_response('hip_engine/profile_pending.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
-
-def my_music_all(request):
-    return render_to_response('hip_engine/listen11_my_music_all.html', context_instance=RequestContext(request))
-
-def my_music_my(request):
-    return render_to_response('hip_engine/listen12_my_music_my.html', context_instance=RequestContext(request))
-
-def network_newest(request):
-    return render_to_response('hip_engine/listen21_network_newest.html', context_instance=RequestContext(request))
-
-def network_popular(request):
-    return render_to_response('hip_engine/listen22_network_popular.html', context_instance=RequestContext(request))
 
 @login_required
 def test_forms(request):
