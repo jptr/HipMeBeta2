@@ -2,8 +2,12 @@
   margin-top: 16px;
 }
 
-.row {
-  max-width: 100%;
+.top_bar_button {
+  margin-top: 0.5em;
+}
+
+.contain-to-grid .top-bar {
+  margin-bottom: 0em;
 }
 
 .user_score {

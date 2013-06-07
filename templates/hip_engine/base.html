@@ -38,7 +38,7 @@
 
   <!-- Header and Nav -->
 
-<div class="fixed">
+<div class="fixed contain-to-grid">
   <nav class="top-bar">
     <ul class="title-area">
       <!-- Title Area -->
@@ -53,19 +53,24 @@
       <!-- Left Nav Section -->
       <ul class="left">
         <li class="divider"></li>
-        <li><a href="#"> Newsfeed </a></li>
         <li class="divider"></li>
-        <li><a href="/listen/"> Listen to mixtapes </a></li>
+        <li>
+          <a href="/profile/"> 
+            {% if user.avatar %}
+              <img src="adresse de l'avatar" alt="profile_top_img" class="profile_top_img" width="32"/>
+            {% else %}
+              <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="profile_top_img" width="32"/>
+            {% endif %}
+            Simon Frr
+          </a>
+        </li>
         <li class="divider"></li>
-        <li><a href="#" data-reveal-id="tracklistModal"> New Mixtape </a></li>
         <li class="divider"></li>
+        <li class="has-form"><button class="small top_bar_button" data-reveal-id="tracklistModal"> New Mixtape </button></li>
       </ul>
 
       <!-- Right Nav Section -->
       <ul class="right">
-        <li class="divider"></li>
-        <li><a href="/profile/"> Simon Frr </a></li>
-        <li class="divider"></li>
         <li class="has-form">
           <form>
             <div class="row collapse">
@@ -89,27 +94,9 @@
 
 <div class="row page_content">
 
-  <!-- Main Feed -->
-
-  <div class="large-8 columns push-2">
-
-    {% block feed_header %}
-    {% endblock feed_header %}
-
-    {% block feed_nav %}
-    {% endblock feed_nav %}
-
-    {% block main_feed %}
-    {% endblock main_feed %}
-
-  </div>
-
-  <!-- End Main Feed -->
-
   <!--   Left nav -->
-  <!-- This is source ordered to be pulled to the left on larger screens -->
     
-    <div class="small-2 columns pull-8 left_profile">
+    <div class="small-3 columns left_profile">
       <div class="panel">
         <div class="row left_profile_top">
           <div class="small-5 columns">
@@ -158,12 +145,6 @@
           </div>
         </div>
       </div>
-    </div>
- 
-    <!-- Right Sidebar -->
-    <!-- On small devices this column is hidden -->
-
-    <aside class="large-2 columns hide-for-small">
       <div class="panel hipme_site_stats">
         <h5> hipMe! </h5>
         <ul class="no-bullet">
@@ -173,10 +154,24 @@
           <li> Keep da hip... </li>
         </ul>
       </div>
-    </aside>
+    </div>
+
+  <!-- Main Feed -->
+
+  <div class="large-9 columns">
+
+    {% block feed_header %}
+    {% endblock feed_header %}
+
+    {% block feed_nav %}
+    {% endblock feed_nav %}
+
+    {% block main_feed %}
+    {% endblock main_feed %}
 
   </div>
 
+  <!-- End Main Feed -->
 
   <!-- Footer -->
 
