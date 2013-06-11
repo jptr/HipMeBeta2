@@ -11,6 +11,8 @@ from hip_engine.forms import ProfileEmailNotificationForm, UserEmailForm, Trackl
 from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist
 
 from hip_engine.validation_tools import validateEmail, validateUsername
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
 
 from django.core.urlresolvers import reverse
 
@@ -24,8 +26,7 @@ def landing(request):
 
 @login_required
 def feed(request):
-
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -35,7 +36,7 @@ def feed(request):
 @login_required
 def profile(request):
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -45,7 +46,7 @@ def profile(request):
 @login_required
 def profile_activity(request):
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -55,7 +56,7 @@ def profile_activity(request):
 @login_required
 def profile_collection(request):
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -65,7 +66,7 @@ def profile_collection(request):
 @login_required
 def profile_pending(request):
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -75,7 +76,7 @@ def profile_pending(request):
 @login_required
 def profile_followers(request):
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -84,7 +85,7 @@ def profile_followers(request):
 @login_required
 def profile_following(request):
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -94,7 +95,7 @@ def profile_following(request):
 @login_required
 def search_people(request):
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -104,7 +105,7 @@ def search_people(request):
 @login_required
 def search_mixtapes(request):
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -116,7 +117,7 @@ def test_forms(request):
     email_form = UserEmailForm(instance=request.user)
     email_notif_form = ProfileEmailNotificationForm(instance=request.user)
 
-    tracklist_form = TracklistForm(instance=request.user, username=request.user.username)
+    tracklist_form = TracklistForm(username=request.user.username)
 
     track_form = TrackForm()
 
@@ -127,17 +128,43 @@ def test_forms(request):
 # action views
 @login_required
 def create_mixtape(request):
-    pass
+    initial_tracks = []
+    for i_str in ["_1","_2","_3"]:
+        url = request.POST['url'+i_str]
+        artist = request.POST['artist'+i_str]
+        title = request.POST['title'+i_str]
+        if url:
+            validate = URLValidator()
+            try:
+                validate(url)
+                track = Track(url=url)
+                if artist:
+                    track.artist = artist
+                if title:
+                    track.title = title
+                track.save()
+                initial_tracks.append(track)
+            except ValidationError, e:
+                return render_to_response('hip_engine/feed.html', {'error_message': "Some track urls are not valid. Please check the url fields.",}, context_instance=RequestContext(request))
 
-@login_required
-def add_track(request):
-    url = request.POST['url']
-    artist = request.POST['artist']
-    title = request.POST['title']
-    if url:
-        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+    tracklist_form = TracklistForm(request.POST)
+    if tracklist_form.is_valid():
+        tracklist = Tracklist(
+            owner = request.user.get_profile(),
+            userto = tracklist_form.cleaned_data['userto'],
+            title = tracklist_form.cleaned_data['title'],
+            description = tracklist_form.cleaned_data['description'],
+        )
+        if initial_tracks:
+            for track in initial_tracks:
+                tracklist.add(track)
+        tracklist.save()
+
+    if request.POST.get('next'):
+        url_next = request.POST['next']
+        return HttpResponseRedirect(url_next)
     else:
-        return render_to_response('hip_engine/forms.html', {'error_message': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 def logout_process(request):
     logout(request)

@@ -127,3 +127,35 @@
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
+.add_track_form_1 {
+  display: none;
+}
+
+.add_track_form_2 {
+  display: none;
+}
+
+.add_track_form_3 {
+  display: none;
+}
+
+.add_track_btn_2 {
+  display: none;
+}
+
+.add_track_btn_3 {
+  display: none;
+}
+
+.remove_track_btn_1 {
+  display: none;
+}
+
+.remove_track_btn_2 {
+  display: none;
+}
+
+.remove_track_btn_3 {
+  display: none;
+}

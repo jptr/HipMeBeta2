@@ -272,7 +272,35 @@
   </script>
 
   <script src="{% static "js/foundation.min.js" %}"></script>
-  
+
+  <script>
+    $('.add_track_btn_1').click(function(){
+      $(".add_track_form_1").show();
+      $(".add_track_btn_1").hide();
+      $(".add_track_btn_2").show();
+      $(".remove_track_btn_1").show();        
+    });
+  </script>
+
+  <script>
+    $('.add_track_btn_2').click(function(){
+      $(".add_track_form_2").show();
+      $(".add_track_btn_2").hide();
+      $(".add_track_btn_3").show();
+      $(".remove_track_btn_1").hide();
+      $(".remove_track_btn_2").show(); 
+    });
+  </script>
+
+  <script>
+    $('.add_track_btn_3').click(function(){
+      $(".add_track_form_3").show();
+      $(".add_track_btn_3").hide();
+      $(".remove_track_btn_2").hide();
+      $(".remove_track_btn_3").show(); 
+    });
+  </script>
+
   <script>
     $('.toggle_add_track_btn').each(function (i) {
         $(this).click(function(){

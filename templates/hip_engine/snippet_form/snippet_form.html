@@ -1,12 +1,7 @@
 {% load hip_extras %}
 {% for field in form %}
   <div class="row">
-    {% comment %}
-    <div class="small-3 columns">
-      <label for="right-label" class="right inline"></label>
-    </div>
-    {% endcomment %}
-    <div class="small-8 small-offset-2 columns">
+    <div class="small-10 small-offset-1 columns">
       {% if field|field_type in "CharField" %}
         <input type="text" id="right-label" placeholder="{{ field.label }} - {{ field.help_text }}">
       {% elif field|field_type = "ChosenModelChoiceField" %}

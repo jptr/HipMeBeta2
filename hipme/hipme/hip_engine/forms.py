@@ -32,7 +32,7 @@ class UserRegistrationForm(ModelForm):
 class TracklistForm(ModelForm):
     class Meta:
         model = Tracklist
-        fields = ('userto', 'title','description')
+        fields = ('userto', 'title', 'description')
     def __init__(self,*args, **kwargs):
         username = kwargs.pop('username', '')
         super(TracklistForm, self).__init__(*args, **kwargs)
