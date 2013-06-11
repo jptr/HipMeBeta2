@@ -125,6 +125,20 @@ def test_forms(request):
     return render_to_response('hip_engine/forms.html', {'email_form':email_form, 'email_notif_form':email_notif_form, 'tracklist_form':tracklist_form, 'track_form':track_form}, context_instance=RequestContext(request))
 
 # action views
+@login_required
+def create_mixtape(request):
+    pass
+
+@login_required
+def add_track(request):
+    url = request.POST['url']
+    artist = request.POST['artist']
+    title = request.POST['title']
+    if url:
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+    else:
+        return render_to_response('hip_engine/forms.html', {'error_message': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
+
 def logout_process(request):
     logout(request)
     return HttpResponseRedirect(reverse('hip_engine.views.login_form'))
@@ -169,3 +183,4 @@ def register(request):
             return render_to_response('hip_engine/forms.html', {'username':username, 'email_1':email_1, 'email_2':email_2, 'password':password, 'error_message_username': "Username is not valid. Please use only letters, numbers, '-' and '_'.",}, context_instance=RequestContext(request))
     else:
         return render_to_response('hip_engine/forms.html', {'username':username, 'email_1':email_1, 'email_2':email_2, 'password':password, 'error_message_fields': "You must fill in all of the fields.",}, context_instance=RequestContext(request))
+

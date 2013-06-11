@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_general.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_mixtape.css" %}"/>
-  <link rel="stylesheet" href="{% static "css/add_left_profile.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_left_nav.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
 
   <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
@@ -98,11 +98,121 @@
 
 <div class="row page_content">
 
-  <!--   Left nav -->
+  <!-- Left nav -->
     
-    <div class="small-3 columns left_profile">
-      <div class="panel left_ranking">
+    <div class="small-3 columns">
+
+  <!-- Left-ranking -->
+
+      <div class="panel">
+        <ul class="no-bullet">
+          <li class="left_ranking_1">
+            <div class="row">
+              <div class="small-12 columns">
+                <div class="small-3 columns mixtape_user">
+                  <a href="#">
+                    <img src="{% static "img/HMProfile.jpg" %}"/>
+                  </a>
+                </div>
+                <div class="small-9 columns mixtape_user">
+                  <div class="label radius user_score">
+                    133
+                  </div>
+                  <a href="#" class="mini_profile_username">
+                    Sam
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="left_ranking_2">
+            <div class="row">
+              <div class="small-12 columns">
+                <div class="small-3 columns mixtape_user">
+                  <a href="#">
+                    <img src="{% static "img/HMProfile.jpg" %}"/>
+                  </a>
+                </div>
+                <div class="small-9 columns mixtape_user">
+                  <div class="label radius user_score">
+                    110
+                  </div>
+                  <a href="#" class="mini_profile_username">
+                    Bob
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="left_ranking_3">
+            <div class="row">
+              <div class="small-12 columns">
+                <div class="small-3 columns mixtape_user">
+                  <a href="#">
+                    <img src="{% static "img/HMProfile.jpg" %}"/>
+                  </a>
+                </div>
+                <div class="small-9 columns mixtape_user">
+                  <div class="label radius user_score">
+                    99
+                  </div>
+                  <a href="#" class="mini_profile_username">
+                    Simon Frr
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="left_ranking_4">
+            <div class="row ">
+              <div class="small-12 columns">
+                <div class="small-3 columns mixtape_user">
+                  <a href="#">
+                    <img src="{% static "img/HMProfile.jpg" %}"/>
+                  </a>
+                </div>
+                <div class="small-9 columns mixtape_user">
+                  <div class="label radius user_score">
+                    89
+                  </div>
+                  <a href="#" class="mini_profile_username">
+                    Vic
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="left_ranking_5">
+            <div class="row">
+              <div class="small-12 columns">
+                <div class="small-3 columns mixtape_user">
+                  <a href="#">
+                    <img src="{% static "img/HMProfile.jpg" %}"/>
+                  </a>
+                </div>
+                <div class="small-9 columns mixtape_user">
+                  <div class="label radius user_score">
+                    75
+                  </div>
+                  <a href="#" class="mini_profile_username">
+                    Art
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="row">
+          <div class="small-12 columns text-center">
+            <a href="#" class="full_ranking_link"> See full ranking </a>
+          </div>
+        </div>
       </div>
+
+        <!-- End Left-ranking -->
+
+        <!-- Left stats -->
+
       <div class="panel hipme_site_stats">
         <h5> hipMe! </h5>
         <ul class="no-bullet">
@@ -113,6 +223,8 @@
         </ul>
       </div>
     </div>
+
+  <!-- End Left stats -->
 
   <!-- Main Feed -->
 

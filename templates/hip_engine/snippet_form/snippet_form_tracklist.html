@@ -1,18 +1,19 @@
-<div id="tracklistModal" class="reveal-modal">
+<div id="tracklistModal" class="reveal-modal medium">
   <p>
     <form>
+      {% csrf_token %}
       <fieldset>
-        <legend>New Tracklist</legend>
+        <legend> Create a new mixtape </legend>
         {% include "hip_engine/snippet_form/snippet_form.html" with form=tracklist_form %}
         <div class="row">
-          <div class="small-8">
+          <div class="small-8 small-offset-2 columns">
             <div class="row">
-              <div class="small-3 columns">
+              <div class="small-6 columns">
+                <a class="small button expand" data-reveal-id="trackModal" > Add Track </a>
               </div>
-              <div class="small-9 columns">
-                <a class="small button" data-reveal-id="trackModal" >Add Track</a>
+              <div class="small-6 columns">
                 <input type="hidden" name="form-type" value="new-tracklist" />
-                <input type="submit" class="small button" value="Create Tracklist"/>
+                <input type="submit" class="small button expand" value="Create mixtape"/>
               </div>
             </div>
           </div>
@@ -23,57 +24,71 @@
   <a class="close-reveal-modal">&#215;</a>
 </div>
 
-<div id="trackModal" class="reveal-modal">
+<div id="trackModal" class="reveal-modal medium">
   <p>
-    <form>
+    <form action="/add/track/" method="POST">
+      {% csrf_token %}
       <fieldset>
-        <legend>Add track</legend>
+        <legend> Add a track to your mixtape </legend>
         <div class="row">
-          <div class="small-8">
+          <div class="small-8 small-offset-2 columns">
             <div class="row">
+              {% comment %}
               <div class="small-3 columns">
                 <label for="right-label" class="right inline"></label>
               </div>
-              <div class="small-9 columns">
+              {% endcomment %}
+              <div class="small-12 columns">
                 <div class="row collapse">
                   <div class="small-3 columns">
                     <span class="prefix">http://</span>
                   </div>
                   <div class="small-9 columns">
-                    <input type="text" placeholder="Enter your URL...">
+                    <input type="text" name="url" placeholder="Enter your URL...">
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-8">
             <div class="row">
-              <div class="small-3 columns">
-                <label for="right-label" class="right inline"></label>
-              </div>
-              <div class="small-9 columns">
+              <div class="small-12 columns">
                 <div class="row">
+<<<<<<< HEAD
                   <div class="large-6 columns">
-                    <input type="text" id="right-label" placeholder="Artist - optionnal">
+                    <input type="text" id="right-label" name="artist" placeholder="Artist - optionnal">
                   </div>
                   <div class="large-6 columns">
-                    <input type="text" id="right-label" placeholder="Name - optionnal">
+                    <input type="text" id="right-label" name="title" placeholder="Name - optionnal">
+                  {% comment %}
+                  <div class="small-3 columns">
+                    <label for="right-label" class="right inline"></label>
+                  </div>
+                  {% endcomment %}
+                  <div class="small-6 columns">
+                    <input type="text" id="right-label" placeholder="Artist - optional">
+                  </div>
+=======
+                  {% comment %}
+                  <div class="small-3 columns">
+                    <label for="right-label" class="right inline"></label>
+                  </div>
+                  {% endcomment %}
+                  <div class="small-6 columns">
+                    <input type="text" id="right-label" placeholder="Artist - optional">
+                  </div>
+>>>>>>> 84deac306e6a200433243b3cd836a55a7a53e43c
+                  <div class="small-6 columns">
+                    <input type="text" id="right-label" placeholder="Name - optional">
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-8">
             <div class="row">
-              <div class="small-3 columns">
-              </div>
               <div class="small-9 columns">
                 <input type="hidden" name="form-type" value="add-track" />
-                <input type="submit" class="small button" value="Add Track"/>
+                <input type="submit" class="small button expand" value="Add this track to your mixtape"/>
+              </div>
+              <div class="small-3 columns">
+                <input type="submit" class="small button secondary expand" value="Cancel"/>
               </div>
             </div>
           </div>

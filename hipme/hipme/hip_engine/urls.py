@@ -25,4 +25,6 @@ urlpatterns = patterns('hip_engine.views',
     url(r'^search/$','search_people'),
     url(r'^search/people/$','search_people'),
     url(r'^search/mixtapes/$','search_mixtapes'),
+
+    url(r'^add/track/$', 'add_track'),
 )

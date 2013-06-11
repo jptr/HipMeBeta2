@@ -1,0 +1,31 @@
+.left_ranking_1 {
+	border-bottom: 1px solid gray;
+	padding-top: 0.5em;
+	opacity: 0.35;
+}
+
+.left_ranking_2 {
+	border-bottom: 1px solid gray;
+	padding-top: 0.5em;
+	opacity: 0.75;
+}
+
+.left_ranking_3 {
+	border-bottom: 1px solid gray;
+	padding-top: 0.5em;
+}
+
+.left_ranking_4 {
+	border-bottom: 1px solid gray;
+	padding-top: 0.5em;
+	opacity: 0.75;
+}
+
+.left_ranking_5 {
+	padding-top: 0.5em;
+	opacity: 0.35;
+}
+
+.full_ranking_link {
+	font-size: 0.8em;
+}

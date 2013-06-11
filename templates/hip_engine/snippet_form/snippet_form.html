@@ -1,37 +1,35 @@
 {% load hip_extras %}
 {% for field in form %}
   <div class="row">
-    <div class="small-8">
-      <div class="row">
-        <div class="small-3 columns">
-          <label for="right-label" class="right inline"></label>
+    {% comment %}
+    <div class="small-3 columns">
+      <label for="right-label" class="right inline"></label>
+    </div>
+    {% endcomment %}
+    <div class="small-8 small-offset-2 columns">
+      {% if field|field_type in "CharField" %}
+        <input type="text" id="right-label" placeholder="{{ field.label }} - {{ field.help_text }}">
+      {% elif field|field_type = "ChosenModelChoiceField" %}
+        <div class="row collapse">
+          <div class="large-3 columns">
+            <span class="prefix">{{ field.label }}</span>
+          </div>
+          <div class="large-8 large-offset-1 columns">
+            {{ field }}
+          </div>
         </div>
-        <div class="small-9 columns">
-          {% if field|field_type in "CharField" %}
-              <input type="text" id="right-label" placeholder="{{ field.label }} - {{ field.help_text }}">
-          {% elif field|field_type = "ChosenModelChoiceField" %}
-            <div class="row collapse">
-              <div class="large-3 columns">
-                <span class="prefix">{{ field.label }}</span>
-              </div>
-              <div class="large-8 large-offset-1 columns">
-                {{ field }}
-              </div>
-            </div>
-          {% elif field|field_type = "URLField" %}
-            <div class="row collapse">
-              <div class="small-3 columns">
-                <span class="prefix">http://</span>
-              </div>
-              <div class="small-9 columns">
-                <input type="text" placeholder="Enter your URL...">
-              </div>
-            </div>
-          {% else %}
-            {{ field }}           
-          {% endif %}
+      {% elif field|field_type = "URLField" %}
+        <div class="row collapse">
+          <div class="small-3 columns">
+            <span class="prefix">http://</span>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" placeholder="Enter your URL...">
+          </div>
         </div>
-      </div>
+      {% else %}
+        {{ field }}           
+      {% endif %}
     </div>
   </div>
 {% endfor %}
