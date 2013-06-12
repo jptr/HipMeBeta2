@@ -277,16 +277,16 @@
   <script>
     $('.add_track_btn_1').click(function(){
       $(".add_track_form_1").show();
-      $(".add_track_row_2").show();
       $(".add_track_row_1").hide();
+      $("#create_url_1").focus();
     });
   </script>
 
   <script>
     $('.add_track_btn_2').click(function(){
       $(".add_track_form_2").show();
-      $(".add_track_row_3").show();
       $(".add_track_row_2").hide();
+      $("#create_url_2").focus();
     });
   </script>
 
@@ -294,37 +294,48 @@
     $('.add_track_btn_3').click(function(){
       $(".add_track_form_3").show();
       $(".add_track_row_3").hide();
-    });
-  </script>
-
-
-{% comment %}
-
-  <script>
-    $('.add_track_btn_1').click(function(){
-      $(".add_track_form_1").show();
-      $(".add_track_btn_1").hide();
-      $(".add_track_btn_2").show();
-      $(".remove_track_btn_1").show();        
+      $("#create_url_3").focus();
     });
   </script>
 
   <script>
-    $('.add_track_btn_2').click(function(){
-      $(".add_track_form_2").show();
-      $(".add_track_btn_2").hide();
-      $(".add_track_btn_3").show();
-      $(".remove_track_btn_1").hide();
-      $(".remove_track_btn_2").show(); 
+    $('.add_track_cancel_1').click(function(){
+      $(".add_track_form_1").hide();
+      $(".add_track_row_1").show();
+      document.getElementById('create_url_1').value = '';
+      document.getElementById('create_artist_1').value = '';
+      document.getElementById('create_track_1').value = '';
     });
   </script>
 
   <script>
-    $('.add_track_btn_3').click(function(){
-      $(".add_track_form_3").show();
-      $(".add_track_btn_3").hide();
-      $(".remove_track_btn_2").hide();
-      $(".remove_track_btn_3").show(); 
+    $('.add_track_cancel_2').click(function(){
+      $(".add_track_form_2").hide();
+      $(".add_track_row_2").show();
+      document.getElementById('create_url_2').value = '';
+      document.getElementById('create_artist_2').value = '';
+      document.getElementById('create_track_2').value = '';
+    });
+  </script>
+
+  <script>
+    $('.add_track_cancel_3').click(function(){
+      $(".add_track_form_3").hide();
+      $(".add_track_row_3").show();
+      document.getElementById('create_url_3').value = '';
+      document.getElementById('create_artist_3').value = '';
+      document.getElementById('create_track_3').value = '';
+    });
+  </script>
+
+  <script>
+    $('.close_mixtape_form').click(function(){
+      $(".add_track_form_1").hide();
+      $(".add_track_form_2").hide();
+      $(".add_track_form_3").hide();
+      $(".add_track_row_1").show();
+      $(".add_track_row_2").show();
+      $(".add_track_row_3").show();
     });
   </script>
 
@@ -337,9 +348,6 @@
       });
     });
   </script>
-
-
-{% endcomment %}
   
   <script>
     $('.toggle_cancel').each(function (i) {
