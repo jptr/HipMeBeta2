@@ -26,7 +26,8 @@ def landing(request):
 
 @login_required
 def feed(request):
-    tracklist_form = TracklistForm(username=request.user.username)
+    new_tracklist = Tracklist(owner = request.user.get_profile())
+    tracklist_form = TracklistForm(prefix='tracklist', instance=new_tracklist, username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
@@ -128,36 +129,27 @@ def test_forms(request):
 # action views
 @login_required
 def create_mixtape(request):
-    initial_tracks = []
-    for i_str in ["_1","_2","_3"]:
-        url = request.POST['url'+i_str]
-        artist = request.POST['artist'+i_str]
-        title = request.POST['title'+i_str]
-        if url:
-            validate = URLValidator()
-            try:
-                validate(url)
-                track = Track(url=url)
-                if artist:
-                    track.artist = artist
-                if title:
-                    track.title = title
-                track.save()
-                initial_tracks.append(track)
-            except ValidationError, e:
-                return render_to_response('hip_engine/feed.html', {'error_message': "Some track urls are not valid. Please check the url fields.",}, context_instance=RequestContext(request))
-
-    tracklist_form = TracklistForm(request.POST)
+    
+    tracklist_form = TracklistForm(request.POST, prefix='tracklist')
     if tracklist_form.is_valid():
-        tracklist = Tracklist(
-            owner = request.user.get_profile(),
-            userto = tracklist_form.cleaned_data['userto'],
-            title = tracklist_form.cleaned_data['title'],
-            description = tracklist_form.cleaned_data['description'],
-        )
-        if initial_tracks:
-            for track in initial_tracks:
-                tracklist.add(track)
+        tracklist = tracklist_form.save()
+        for i_str in ["_1","_2","_3"]:
+                url = request.POST['url'+i_str]
+                artist = request.POST['artist'+i_str]
+                title = request.POST['title'+i_str]
+                if url:
+                    validate = URLValidator()
+                    try:
+                        validate(url)
+                        track = Track(url=url)
+                        if artist:
+                            track.artist = artist
+                        if title:
+                            track.title = title
+                        track.save()
+                        tracklist.tracks.add(track)
+                    except ValidationError, e:
+                        return render_to_response('hip_engine/forms.html', {'error_message': "Some track urls are not valid. Please check the url fields.",}, context_instance=RequestContext(request))
         tracklist.save()
 
     if request.POST.get('next'):

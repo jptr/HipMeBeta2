@@ -2,7 +2,7 @@
 {% for field in form %}
   <div class="row">
     <div class="small-10 small-offset-1 columns">
-      {% if field|field_type in "CharField" %}
+      {% if field|field_type = "CharField" %}
         <input type="text" id="right-label" placeholder="{{ field.label }} - {{ field.help_text }}">
       {% elif field|field_type = "ChosenModelChoiceField" %}
         <div class="row collapse">
@@ -19,7 +19,7 @@
             <span class="prefix">http://</span>
           </div>
           <div class="small-9 columns">
-            <input type="text" placeholder="Enter your URL...">
+            <input type="text" placeholder="Enter your URL... - {{ field.help_text }}">
           </div>
         </div>
       {% else %}

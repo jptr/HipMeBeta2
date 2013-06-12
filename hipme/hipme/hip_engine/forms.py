@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, HiddenInput
 from hip_engine.models import UserProfile, User, Track, Tracklist, Bundle
 
 # from chosen import forms as chosenforms
@@ -32,7 +32,10 @@ class UserRegistrationForm(ModelForm):
 class TracklistForm(ModelForm):
     class Meta:
         model = Tracklist
-        fields = ('userto', 'title', 'description')
+        fields = ('owner', 'userto', 'title', 'description')
+        widgets = {
+            'owner': HiddenInput(),
+        }
     def __init__(self,*args, **kwargs):
         username = kwargs.pop('username', '')
         super(TracklistForm, self).__init__(*args, **kwargs)
