@@ -1,96 +1,102 @@
 <div id="tracklistModal" class="reveal-modal medium">
-  <h2> Create a new mixtape </h2>
-  <p>
-    <form action="/create/mixtape/" method="post">
-      {% csrf_token %}
-        {% include "hip_engine/snippet_form/snippet_form.html" with form=tracklist_form %}
-        <div class="row">
-          <div class="small-10 small-offset-1 columns">
-            <div class="row add_track_form_1">
-              <fieldset>
-              <div class="row">
-                <div class="small-3 columns">
-                  <span class="prefix">Track 1</span>
-                </div>
-                <div class="small-9 columns">
-                  <input type="text" name="url_1" placeholder="Enter your URL...">
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-6 columns">
-                  <input type="text" id="right-label" name="artist_1" placeholder="Artist - optionnal">
-                </div>
-                <div class="small-6 columns">
-                  <input type="text" id="right-label" name="title_1" placeholder="Name - optionnal">
-                </div>
-              </div>
-              </fieldset>
-            </div>
-            <div class="row add_track_form_2">
-              <fieldset>
-              <div class="row">
-                <div class="small-3 columns">
-                  <span class="prefix">Track 2</span>
-                </div>
-                <div class="small-9 columns">
-                  <input type="text" name="url_2" placeholder="Enter your URL...">
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-6 columns">
-                  <input type="text" id="right-label" name="artist_2" placeholder="Artist - optionnal">
-                </div>
-                <div class="small-6 columns">
-                  <input type="text" id="right-label" name="title_2" placeholder="Name - optionnal">
-                </div>
-              </div>
-              </fieldset>
-            </div>
-            <div class="row add_track_form_3">
-              <fieldset>
-              <div class="row">
-                <div class="small-3 columns">
-                  <span class="prefix">Track 3</span>
-                </div>
-                <div class="small-9 columns">
-                  <input type="text" name="url_3" placeholder="Enter your URL...">
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-6 columns">
-                  <input type="text" id="right-label" name="artist_3" placeholder="Artist - optionnal">
-                </div>
-                <div class="small-6 columns">
-                  <input type="text" id="right-label" name="title_3" placeholder="Name - optionnal">
-                </div>
-              </div>
-              </fieldset>
-            </div>
-            <div class="row">
-              <div class="small-6 columns">
-                <input type="button" value="Add a track to your mixtape" class="small button expand secondary add_track_btn_1" />
-                <div class="small-6 columns">
-                  <input type="button" value="Add a second track" class="small button expand secondary add_track_btn_2" />
-                </div>
-                <div class="small-6 columns">
-                  <input type="button" value="Remove track" class="small button disabled expand secondary remove_track_btn_1" />
-                </div>
-                <div class="small-6 columns">
-                  <input type="button" value="Add a third track" class="small button expand secondary add_track_btn_3" />
-                </div>
-                <div class="small-6 columns">
-                  <input type="button" value="Remove track" class="small button disabled expand secondary remove_track_btn_2" />
-                </div>
-                <input type="button" value="Remove track" class="small button disabled expand secondary remove_track_btn_3" />
-              </div>
-              <div class="small-6 columns">
-                <input type="hidden" name="form-type" value="new-tracklist" />
-                <input type="submit" class="small button expand" value="Create mixtape"/>
-              </div>
-            </div>
+  <div class="row">
+    <div class="small-10 small-offset-1 columns">
+      <h3> New mixtape. Ignition. </h3>
+    </div>
+  </div>
+  <form action="/create/mixtape/" method="post">
+  {% csrf_token %}
+
+    {% include "hip_engine/snippet_form/snippet_form.html" with form=tracklist_form %}
+
+    <div class="row add_track_row_1">
+      <div class="small-8 small-offset-2 columns">
+        <input type="button" value="Add a track" class="small button expand secondary add_track_btn_1"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-8 small-offset-2 columns add_track_form_1">
+        <div class="row collapse">
+          <div class="small-3 columns">
+            <span class="prefix"> Track 1 </span>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" name="url_1" placeholder="Enter your URL...">
           </div>
         </div>
-    </form>
-  </p>
+        <div class="row">
+          <div class="small-6 columns">
+            <input type="text" id="right-label" name="artist_1" placeholder="Artist - optional">
+          </div>
+          <div class="small-6 columns">
+            <input type="text" id="right-label" name="title_1" placeholder="Track name - optional">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row add_track_row_2">
+      <div class="small-8 small-offset-2 columns">
+        <input type="button" value="Add another track" class="small button expand secondary add_track_btn_2"/>
+      </div>
+    </div>
+        
+    <div class="row">
+      <div class="small-8 small-offset-2 columns add_track_form_2">
+        <div class="row collapse">
+          <div class="small-3 columns">
+            <span class="prefix"> Track 2 </span>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" name="url_2" placeholder="Enter your URL...">
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <input type="text" id="right-label" name="artist_2" placeholder="Artist - optional">
+          </div>
+          <div class="small-6 columns">
+            <input type="text" id="right-label" name="title_2" placeholder="Track name - optional">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row add_track_row_3">
+      <div class="small-8 small-offset-2 columns">
+        <input type="button" value="Add one last track" class="small button expand secondary add_track_btn_3"/>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="small-8 small-offset-2 columns add_track_form_3">
+        <div class="row collapse">
+          <div class="small-3 columns">
+            <span class="prefix"> Track 3 </span>
+          </div>
+          <div class="small-9 columns">
+            <input type="text" name="url_3" placeholder="Enter your URL...">
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <input type="text" id="right-label" name="artist_3" placeholder="Artist - optional">
+          </div>
+          <div class="small-6 columns">
+            <input type="text" id="right-label" name="title_3" placeholder="Track name - optional">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="small-10 small-offset-1 columns">
+        <input type="hidden" name="form-type" value="new-tracklist" />
+        <input type="submit" class="button expand create_mixtape_btn" value="Launch this mixtape"/>
+      </div>
+    </div>
+  </form>
   <a class="close-reveal-modal">&#215;</a>
 </div>

@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_general.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_mixtape.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_mixtape_form.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_left_nav.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
 
@@ -276,6 +277,32 @@
   <script>
     $('.add_track_btn_1').click(function(){
       $(".add_track_form_1").show();
+      $(".add_track_row_2").show();
+      $(".add_track_row_1").hide();
+    });
+  </script>
+
+  <script>
+    $('.add_track_btn_2').click(function(){
+      $(".add_track_form_2").show();
+      $(".add_track_row_3").show();
+      $(".add_track_row_2").hide();
+    });
+  </script>
+
+  <script>
+    $('.add_track_btn_3').click(function(){
+      $(".add_track_form_3").show();
+      $(".add_track_row_3").hide();
+    });
+  </script>
+
+
+{% comment %}
+
+  <script>
+    $('.add_track_btn_1').click(function(){
+      $(".add_track_form_1").show();
       $(".add_track_btn_1").hide();
       $(".add_track_btn_2").show();
       $(".remove_track_btn_1").show();        
@@ -310,6 +337,9 @@
       });
     });
   </script>
+
+
+{% endcomment %}
   
   <script>
     $('.toggle_cancel').each(function (i) {
