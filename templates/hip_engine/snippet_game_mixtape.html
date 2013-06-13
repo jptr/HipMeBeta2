@@ -348,7 +348,7 @@
               <div class="small-9 small-offset-3 columns">
                 <ul class="no-bullet">
                   <li>
-                    <input type="button" value="Add a track to the mixtape!" class="button small expand toggle_add_track_btn" />
+                    <input type="button" value="Add a track to the mixtape!" class="button small expand game_add_track_btn" />
                     <form class="mixtape_add_track_form">
                       <div class="row">
                         <div class="small-10 columns">
@@ -357,7 +357,7 @@
                               <span class="prefix">http://</span>
                             </div>
                             <div class="small-10 columns">
-                              <input type="text" placeholder="Track URL" class="input_url"/>
+                              <input type="text" placeholder="Track URL" class="input_url" id="input_url"/>
                             </div>
                           </div>
                         </div>
@@ -373,7 +373,7 @@
                           <input type="text" id="right-label" placeholder="Track (optional)" />
                         </div>
                         <div class="small-2 columns">
-                          <input type="button" value="X" class="button postfix secondary expand toggle_cancel" />
+                          <input type="button" value="X" class="button postfix secondary expand game_add_track_cancel" />
                         </div>
                       </div>
                     </form>
@@ -391,7 +391,11 @@
 
 <!-- Comment section -->
 
-    <div class="small-3 columns mixtape_comment_zone_toggle left">
+    <div class="small-3 columns left">
+      <input type="button" value="Show tracks" class="button tiny expand secondary tracklist_show" />
+      <input type="button" value="Hide tracks" class="button tiny expand secondary tracklist_hide" />
+    </div>
+    <div class="small-3 columns left">
       <input type="button" value="Show 3 comments" class="button tiny expand secondary comment_zone_show" />
       <input type="button" value="Hide 3 comments" class="button tiny expand secondary comment_zone_hide" />
     </div>

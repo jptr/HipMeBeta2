@@ -40,6 +40,7 @@
 /* Tracklist */
 
 .mixtape_tracklist {
+  display: none;
   padding: 1em;
   padding-bottom: 0em;
   border-left: 0.5em solid #263248;
@@ -71,7 +72,7 @@
   font-size: 1em;
 }
 
-.toggle_add_track_btn {
+.game_add_track_btn {
   margin-top: 0.8em;
 }
 
@@ -89,6 +90,17 @@
   border-bottom: 1px solid #DDDDDD;
 }
 
+.tracklist_show {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+.tracklist_hide {
+  display: none;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
 /* Comments */
 
 .comment_zone_show {
@@ -100,9 +112,6 @@
   display: none;
   margin-top: 0.8em;
   margin-bottom: 0.8em;
-}
-
-.mixtape_comment_zone_toggle {
 }
 
 .mixtape_comment_container {
