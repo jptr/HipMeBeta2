@@ -43,6 +43,10 @@
   padding-bottom: 0em;
 }
 
+.feed_sub_nav {
+  margin-top: 1em;
+}
+
 .userprofile_name {
   color: #111111;
 }

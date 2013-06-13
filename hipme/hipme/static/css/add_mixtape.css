@@ -1,8 +1,8 @@
 /* General */
 
 .mixtape {
-  margin-top: 0em;
-  margin-bottom: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 /* Header */
@@ -13,19 +13,52 @@
 /*  background-color: #3F99F3;*/
   background-color: #263248;
   padding: 0.5em;
+  border-top: 0.5em solid #3F99F3;
 }
 
 .mixtape_header h4 {
   color: #E5E5E5;
 }
 
+.mixtape_header h6 {
+  color: #E5E5E5;
+}
+
+.mixtape_info {
+  margin-bottom: 0.8em;
+}
+
 .mixtape_info_time {
-  margin-top: 1.2em;
+  margin-top: 0.8em;
   background: #E5E5E5;
   color: #263248;
 }
 
-.mixtape_info_spots {
+.mixtape_info_freespot {
+  margin-top: 0.8em;
+  background: orange;
+  color: #263248;
+}
+
+.mixtape_info_youin {
+  margin-top: 0.8em;
+  background: green;
+  color: white;
+}
+
+.mixtape_info_owner {
+  margin-top: 0.8em;
+  background: red;
+  color: white;
+}
+
+.mixtape_info_full {
+  margin-top: 0.8em;
+  background: #E5E5E5;
+  color: #263248;
+}
+
+.mixtape_info_keeps {
   margin-top: 0.8em;
   background: #E5E5E5;
   color: #263248;

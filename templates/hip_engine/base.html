@@ -353,6 +353,7 @@
         $(this).click(function(){
           $(".mixtape_add_track_form:eq("+ i + ")").show();
           $(".game_add_track_btn:eq("+ i + ")").hide();
+          $(".input_url:eq("+ i + ")").focus();
       });
     });
   </script>
@@ -372,6 +373,8 @@
           $(".mixtape_tracklist:eq("+ i + ")").show();
           $(".tracklist_show:eq("+ i + ")").hide();
           $(".tracklist_hide:eq("+ i + ")").show();
+          $(".mixtape_header_users:eq("+ i + ")").hide();
+          $(".mixtape_header_feat:eq("+ i + ")").hide();
       });
     });
   </script>
@@ -382,6 +385,8 @@
           $(".mixtape_tracklist:eq("+ i + ")").hide();
           $(".tracklist_show:eq("+ i + ")").show();
           $(".tracklist_hide:eq("+ i + ")").hide();
+          $(".mixtape_header_users:eq("+ i + ")").show();
+          $(".mixtape_header_feat:eq("+ i + ")").show();
       });
     });
   </script>
