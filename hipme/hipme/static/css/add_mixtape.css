@@ -14,14 +14,20 @@
   background-color: #263248;
   padding: 0.5em;
   border-top: 0.5em solid #3F99F3;
+  min-height: 140px;
 }
 
-.mixtape_header h4 {
+.mixtape_header h3 {
   color: #E5E5E5;
 }
 
 .mixtape_header h6 {
   color: #E5E5E5;
+}
+
+.mixtape_play_keep {
+  display: none;
+  margin-top: 0.8em;
 }
 
 .mixtape_info {
@@ -62,6 +68,10 @@
   margin-top: 0.8em;
   background: #E5E5E5;
   color: #263248;
+}
+
+.mixtape_tag_list {
+  margin-left: -1.2em;
 }
 
 .tag_mixtape {

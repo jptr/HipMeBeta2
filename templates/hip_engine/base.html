@@ -349,6 +349,24 @@
   </script>
 
   <script>
+    $('.mixtape_header').each(function(i){
+      $(this).mouseover(function(){
+        $(".mixtape_info:eq("+ i + ")").hide();
+        $(".mixtape_play_keep:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+  <script>
+    $('.mixtape_header').each(function(i){
+      $(this).mouseout(function(){
+        $(".mixtape_info:eq("+ i + ")").show();
+        $(".mixtape_play_keep:eq("+ i + ")").hide();
+      });
+    });
+  </script>
+
+  <script>
     $('.game_add_track_btn').each(function (i) {
         $(this).click(function(){
           $(".mixtape_add_track_form:eq("+ i + ")").show();

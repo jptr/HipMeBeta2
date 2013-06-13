@@ -6,15 +6,15 @@
 <!-- Mixtape header -->
 
     <div class="small-12 columns mixtape_header">
-      <div class="small-9 large-10 columns">
-        <h4>
+      <div class="small-9 columns">
+        <h3>
           {% if tracklist.title %}
             {{tracklist.title}}
           {% else %}
             #Untitled
           {% endif %}
-        </h4>
-        <ul class="inline-list">
+        </h3>
+        <ul class="inline-list mixtape_tag_list">
           <li class="label radius tag_mixtape"> Soul </li>
           <li class="label radius tag_mixtape"> Funk </li>
           <li class="label radius tag_mixtape"> Hip-hop </li>
@@ -28,7 +28,7 @@
         </ul>
         <h6 class="mixtape_header_feat"> Featuring: De La Soul, Synapson, Vincent Delerm... </h6>
       </div>
-      <div class="large-2 small-3 columns mixtape_info">
+      <div class="small-3 columns mixtape_info">
         <div class="label right mixtape_info_time">
           34 hours left
         </div>
@@ -49,6 +49,10 @@
         <div class="label right mixtape_info_keeps">
           27 keeps
         </div>
+      </div>
+      <div class="small-3 columns mixtape_play_keep">
+        <a href="#" class="button expand mixtape_play_btn"> Listen now </a>
+        <a href="#" class="button tiny secondary expand mixtape_keep_btn"> Keep in your collection </a>
       </div>
     </div>
 
@@ -414,7 +418,7 @@
 <!-- Comment section -->
 
     <div class="small-3 columns left">
-      <input type="button" value="Show tracks" class="button tiny expand secondary tracklist_show" />
+      <input type="button" value="Show tracks" class="button tiny expand alert tracklist_show" />
       <input type="button" value="Hide tracks" class="button tiny expand secondary tracklist_hide" />
     </div>
     <div class="small-3 columns left">
