@@ -14,7 +14,7 @@
   background-color: #263248;
   padding: 0.5em;
   border-top: 0.5em solid #3F99F3;
-  min-height: 140px;
+  min-height: 130px;
 }
 
 .mixtape_header h3 {
@@ -91,22 +91,43 @@
   background: #E5E5E5;
 }
 
-.mixtape_user {
-  padding-left: 0;
+.mixtape_user_profile {
+  padding: 0;
   padding-bottom: 0.5em;
 }
 
-.mixtape_user img {
-  padding: 0em;
+.mini_profile_avatar {
+  display: inline-block;
+  width: 50px;
 }
 
-.mixtape_score {
+.mini_profile_right_section {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mini_profile_username {
+  display: inline-block;
+  vertical-align: top;
+  padding-bottom: 0px;
+}
+
+.mini_profile_score {
+  display: inline-block;
+  font: bolder 16px;
+  background: green;
+  color: white;
+}
+
+.mini_profile_scoreplus {
+  display: inline-block;
   font: bolder 16px;
   background: yellow;
   color: black;
 }
 
 .bundle {
+  padding-left: 0px;
 }
 
 .track {
