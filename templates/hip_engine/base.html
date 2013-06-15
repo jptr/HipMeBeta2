@@ -27,11 +27,14 @@
 
   <link href="{% static 'css/chosen.css' %}" rel="stylesheet">
   <script type="text/javascript" src="{% static 'js/chosen.jquery.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/chosen.jquery_ready.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery-1.4.1.js' %}"></script>
 
-  {{ form.media.css }}
-
-  {{ form.media.js }}
+  <script>
+   $(document).ready( function() { 
+        // chosen select
+        $(".chzn-select").chosen({no_results_text: "No results matched"});
+    });
+    </script>
 
 </head>
 
