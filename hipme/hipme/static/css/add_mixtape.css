@@ -1,8 +1,8 @@
 /* General */
 
 .mixtape {
-  margin-top: 0em;
-  margin-bottom: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 /* Header */
@@ -13,22 +13,65 @@
 /*  background-color: #3F99F3;*/
   background-color: #263248;
   padding: 0.5em;
+  border-top: 0.5em solid #3F99F3;
+  min-height: 130px;
 }
 
-.mixtape_header h4 {
+.mixtape_header h3 {
   color: #E5E5E5;
 }
 
+.mixtape_header h6 {
+  color: #E5E5E5;
+}
+
+.mixtape_play_keep {
+  display: none;
+  margin-top: 0.8em;
+}
+
+.mixtape_info {
+  margin-bottom: 0.8em;
+}
+
 .mixtape_info_time {
-  margin-top: 1.2em;
+  margin-top: 0.8em;
   background: #E5E5E5;
   color: #263248;
 }
 
-.mixtape_info_spots {
+.mixtape_info_freespot {
+  margin-top: 0.8em;
+  background: orange;
+  color: #263248;
+}
+
+.mixtape_info_youin {
+  margin-top: 0.8em;
+  background: green;
+  color: white;
+}
+
+.mixtape_info_owner {
+  margin-top: 0.8em;
+  background: red;
+  color: white;
+}
+
+.mixtape_info_full {
   margin-top: 0.8em;
   background: #E5E5E5;
   color: #263248;
+}
+
+.mixtape_info_keeps {
+  margin-top: 0.8em;
+  background: #E5E5E5;
+  color: #263248;
+}
+
+.mixtape_tag_list {
+  margin-left: -1.2em;
 }
 
 .tag_mixtape {
@@ -40,6 +83,7 @@
 /* Tracklist */
 
 .mixtape_tracklist {
+  display: none;
   padding: 1em;
   padding-bottom: 0em;
   border-left: 0.5em solid #263248;
@@ -47,22 +91,43 @@
   background: #E5E5E5;
 }
 
-.mixtape_user {
-  padding-left: 0;
+.mixtape_user_profile {
+  padding: 0;
   padding-bottom: 0.5em;
 }
 
-.mixtape_user img {
-  padding: 0em;
+.mini_profile_avatar {
+  display: inline-block;
+  width: 50px;
 }
 
-.mixtape_score {
+.mini_profile_right_section {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mini_profile_username {
+  display: inline-block;
+  vertical-align: top;
+  padding-bottom: 0px;
+}
+
+.mini_profile_score {
+  display: inline-block;
+  font: bolder 16px;
+  background: green;
+  color: white;
+}
+
+.mini_profile_scoreplus {
+  display: inline-block;
   font: bolder 16px;
   background: yellow;
   color: black;
 }
 
 .bundle {
+  padding-left: 0px;
 }
 
 .track {
@@ -71,7 +136,7 @@
   font-size: 1em;
 }
 
-.toggle_add_track_btn {
+.game_add_track_btn {
   margin-top: 0.8em;
 }
 
@@ -89,6 +154,17 @@
   border-bottom: 1px solid #DDDDDD;
 }
 
+.tracklist_show {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+.tracklist_hide {
+  display: none;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
 /* Comments */
 
 .comment_zone_show {
@@ -100,9 +176,6 @@
   display: none;
   margin-top: 0.8em;
   margin-bottom: 0.8em;
-}
-
-.mixtape_comment_zone_toggle {
 }
 
 .mixtape_comment_container {

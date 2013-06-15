@@ -10,12 +10,6 @@
   margin-bottom: 0em;
 }
 
-.user_score {
-  font: bolder 16px;
-  background: green;
-  color: white;
-}
-
 .tag_profile {
   width: 9em;
   margin-bottom: 5px;
@@ -43,6 +37,10 @@
   padding-bottom: 0em;
 }
 
+.feed_sub_nav {
+  margin-top: 1em;
+}
+
 .userprofile_name {
   color: #111111;
 }
@@ -65,6 +63,7 @@
 }
 
 .mini_profile_username {
+  color: black;
   font-weight: bold;
   padding-bottom: 5px;
 }
