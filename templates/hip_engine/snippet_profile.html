@@ -9,13 +9,25 @@
       <div class="small-10 columns">
         <div class="row">
           <div class="small-12 columns">
-            <h3><a href="#" class="userprofile_name left"> Simon Frr </a></h3>
+            <h3><a href="#" class="userprofile_name left"> {{ profile_focused.user.username }} </a></h3>
             <button class="tiny left profile_flw_btn"> Follow </button>
             <button class="tiny secondary left profile_unflw_btn"> Unfollow </button>
           </div>
         </div>
         <h6>
-          999 points | <a href="/profile/followers/"> 130 followers </a> | <a href="/profile/following/"> 234 following </a>
+          {{ profile_focused.reputation }} point{{ profile_focused.reputation|pluralize }}
+          &nbsp;|&nbsp;
+          {% if nb_followers == 0 %}
+            no followers
+          {% else %}
+            <a href="/profile/{{ profile_focused.user.username }}/followers/"> {{nb_followers}} follower{{ nb_followers|pluralize }}</a>
+          {% endif %}
+          &nbsp;|&nbsp;
+          {% if nb_following == 0 %}
+            no following
+          {% else %}
+            <a href="/profile/{{ profile_focused.user.username }}/followers/"> {{nb_followers}} following </a>
+          {% endif %}
         </h6>
         <ul class="inline-list">
           <li class="label radius tag_profile"> Soul Expert </li>

@@ -16,7 +16,21 @@ from django.core.exceptions import ValidationError
 
 from django.core.urlresolvers import reverse
 
+# generic context methods
+def get_profile_context(username):
+    profile_focused = get_object_or_404(UserProfile,user__username=username)
+    nb_followers = profile_focused.followed_by.count()
+    nb_following = profile_focused.follows.count()
+    return {'profile_focused':profile_focused, 'nb_followers':nb_followers, 'nb_following':nb_following,}
 
+def get_tracklist_form_context(request):
+    new_tracklist = Tracklist(owner = request.user.get_profile())
+    tracklist_form = TracklistForm(prefix='tracklist', instance=new_tracklist, username=request.user.username)
+    track_form = TrackForm()
+    context = {'tracklist_form':tracklist_form, 'track_form': track_form,}
+    return context
+
+# display views
 def landing(request):
     if not request.user.is_authenticated():
         redirect_to = request.GET.get('next','')
@@ -26,72 +40,88 @@ def landing(request):
 
 @login_required
 def feed(request):
-    new_tracklist = Tracklist(owner = request.user.get_profile())
-    tracklist_form = TracklistForm(prefix='tracklist', instance=new_tracklist, username=request.user.username)
-    track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
 
-    return render_to_response('hip_engine/feed.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+    context = {
+        'tracklist_list':tracklist_list,
+    }
+    context.update(get_tracklist_form_context(request))
+
+    return render_to_response('hip_engine/feed.html', context, context_instance=RequestContext(request))
 
 @login_required
-def profile(request):
-
-    tracklist_form = TracklistForm(username=request.user.username)
-    track_form = TrackForm()
-    tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
-
-    return render_to_response('hip_engine/profile_activity.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+def profile(request, username):
+    return profile_activity(request, username)
 
 @login_required
-def profile_activity(request):
-
-    tracklist_form = TracklistForm(username=request.user.username)
-    track_form = TrackForm()
+def profile_activity(request, username):
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
 
-    return render_to_response('hip_engine/profile_activity.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+    context = {
+        'tracklist_list':tracklist_list,
+    }
+    context.update(get_profile_context(username))
+    context.update(get_tracklist_form_context(request))
+
+    return render_to_response('hip_engine/profile_activity.html', context, context_instance=RequestContext(request))
 
 @login_required
-def profile_collection(request):
-
-    tracklist_form = TracklistForm(username=request.user.username)
-    track_form = TrackForm()
+def profile_collection(request, username):
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
 
-    return render_to_response('hip_engine/profile_collection.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+    context = {
+        'tracklist_list':tracklist_list,
+    }
+    context.update(get_profile_context(username))
+    context.update(get_tracklist_form_context(request))
+
+    return render_to_response('hip_engine/profile_collection.html', context, context_instance=RequestContext(request))
 
 @login_required
-def profile_pending(request):
-
-    tracklist_form = TracklistForm(username=request.user.username)
-    track_form = TrackForm()
+def profile_pending(request, username):
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
 
-    return render_to_response('hip_engine/profile_pending.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+    context = {
+        'tracklist_list':tracklist_list,
+    }
+    context.update(get_profile_context(username))
+    context.update(get_tracklist_form_context(request))
+
+    return render_to_response('hip_engine/profile_pending.html', context, context_instance=RequestContext(request))
 
 @login_required
-def profile_followers(request):
-
-    tracklist_form = TracklistForm(username=request.user.username)
-    track_form = TrackForm()
+def profile_followers(request, username):
+    followers_list = profile_focused.followed_by.all()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
 
-    return render_to_response('hip_engine/profile_followers.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+    context = {
+        'tracklist_list':tracklist_list,
+        'followers_list':follwing_list,
+    }
+    context.update(get_profile_context(username))
+    context.update(get_tracklist_form_context(request))
+
+    return render_to_response('hip_engine/profile_followers.html', context, context_instance=RequestContext(request))
+
 @login_required
-def profile_following(request):
-
-    tracklist_form = TracklistForm(username=request.user.username)
-    track_form = TrackForm()
+def profile_following(request, username):
+    following_list = profile_focused.follows.all()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
 
-    return render_to_response('hip_engine/profile_following.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+    context = {
+        'tracklist_list':tracklist_list,
+        'following_list':follwing_list,
+    }
+    context.update(get_profile_context(username))
+    context.update(get_tracklist_form_context(request))
+
+    return render_to_response('hip_engine/profile_following.html', context, context_instance=RequestContext(request))
 
 @login_required
 def search_people(request):
@@ -129,7 +159,6 @@ def test_forms(request):
 # action views
 @login_required
 def create_mixtape(request):
-    
     tracklist_form = TracklistForm(request.POST, prefix='tracklist')
     if tracklist_form.is_valid():
         tracklist = tracklist_form.save()

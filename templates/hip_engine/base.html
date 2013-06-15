@@ -62,13 +62,13 @@
         </li>
         <li class="divider"></li>
         <li>
-          <a href="/profile/"> 
+          <a href="/profile/{{ request.user.username }}/"> 
             {% if user.avatar %}
               <img src="adresse de l'avatar" alt="profile_top_img" class="profile_top_img" width="32"/>
             {% else %}
               <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="profile_top_img" width="32"/>
             {% endif %}
-            Simon Frr
+            {{ request.user.username }}
           </a>
         </li>
         <li class="divider"></li>
