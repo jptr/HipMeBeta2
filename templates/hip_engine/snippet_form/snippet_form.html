@@ -4,14 +4,12 @@
     <div class="small-10 small-offset-1 columns">
       {% if field|field_type = "CharField" %}
         <input type="text" id="right-label" placeholder="{{ field.label }} - {{ field.help_text }}">
-      {% elif field|field_type = "ChosenModelChoiceField" %}
-        <div class="row collapse">
-          <div class="large-3 columns">
-            <span class="prefix">{{ field.label }}</span>
-          </div>
-          <div class="large-8 large-offset-1 columns">
+      {% elif field|field_type = "ModelMultipleChoiceField " %}
+        <div class="row">
+            <span>{{ field.label }}</span>
+        </div>
+        <div class="row">
             {{ field }}
-          </div>
         </div>
       {% elif field|field_type = "URLField" %}
         <div class="row collapse">

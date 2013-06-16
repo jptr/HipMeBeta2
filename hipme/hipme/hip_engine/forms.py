@@ -1,19 +1,6 @@
 from django.forms import ModelForm, HiddenInput
 from hip_engine.models import UserProfile, User, Track, Tracklist, Bundle
 
-# from chosen import forms as chosenforms
-
-class ChosenModelForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ChosenModelForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            if self.fields[field].__class__.__name__ in ['ChoiceField', 'TypedChoiceField', 'MultipleChoiceField']:
-                choices = self.fields[field].choices
-                self.fields[field] = chosenforms.ChosenChoiceField(choices=choices)
-            elif self.fields[field].__class__.__name__ in ['ModelChoiceField', 'ModelMultipleChoiceField']:
-                queryset = self.fields[field].queryset
-                self.fields[field] = chosenforms.ChosenModelChoiceField(queryset=queryset)
-
 class UserEmailForm(ModelForm):
     class Meta:
         model = User

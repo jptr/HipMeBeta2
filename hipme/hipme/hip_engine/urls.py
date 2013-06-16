@@ -4,12 +4,12 @@ urlpatterns = patterns('hip_engine.views',
     
     # classic views
 
-    url(r'^profile/$','profile_activity'),
-    url(r'^profile/activity/$','profile_activity'),
-    url(r'^profile/collection/$','profile_collection'),
-    url(r'^profile/pending/$','profile_pending'),
-    url(r'^profile/followers/$','profile_followers'),
-    url(r'^profile/following/$','profile_following'),
+    url(r'^profile/(?P<username>\w+)/$','profile_activity'),
+    url(r'^profile/(?P<username>\w+)/activity/$','profile_activity'),
+    url(r'^profile/(?P<username>\w+)/collection/$','profile_collection'),
+    url(r'^profile/(?P<username>\w+)/pending/$','profile_pending'),
+    url(r'^profile/(?P<username>\w+)/followers/$','profile_followers'),
+    url(r'^profile/(?P<username>\w+)/following/$','profile_following'),
 
     url(r'^$','landing'),
     url(r'^feed/$','feed'),

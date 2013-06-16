@@ -7,26 +7,79 @@
 
     <div class="small-12 columns mixtape_header">
       <div class="small-9 columns">
-        <h4>
+        <h3>
           {% if tracklist.title %}
             {{tracklist.title}}
           {% else %}
             #Untitled
           {% endif %}
-        </h4>
-        <ul class="inline-list">
+        </h3>
+        <ul class="inline-list mixtape_tag_list">
           <li class="label radius tag_mixtape"> Soul </li>
           <li class="label radius tag_mixtape"> Funk </li>
           <li class="label radius tag_mixtape"> Hip-hop </li>
         </ul>
+        <ul class="inline-list mixtape_header_users">
+            <li><a href="#"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="60px"/></a></li>
+          {% for user_profile in tracklist.userto.all %}
+            <li><a href="#"><img title="{{user_profile.user.username}}" src="{% static "img/default.jpg" %}" width="40px"/></a></li>
+          {% endfor %}
+        </ul>
+        <h6 class="mixtape_header_feat">
+          {% if tracklist.bundlebacks.all %}
+            featuring:&nbsp;
+            {% for bundleback in tracklist.bundlebacks.all %}
+              {% if forloop.last %}
+
+                {% for track in bundleback.tracks.all %}
+                  {% if track.artist %}
+                    {% if forloop.last %}
+                      {{ track.artist }} ...
+                    {% else %}
+                      {{ track.artist }},&nbsp;
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+              {% else %}
+
+                {% for track in bundleback.tracks.all %}
+                  {% if track.artist %}
+                    {{ track.artist }},&nbsp;
+                  {% endif %}
+                {% endfor %}
+
+              {% endif %}
+
+            {% endfor %}
+          {% endif %}
+        </h6>
       </div>
-      <div class="large-2 small-3 columns">
+      <div class="small-3 columns mixtape_info">
         <div class="label right mixtape_info_time">
-          {{tracklist.time_delta}}
+          Started {{ tracklist.date_created|timesince }} ago
         </div>
-        <div class="label right mixtape_info_spots">
+        <div class="label right mixtape_info_freespot">
           1 free spot
         </div>
+        {% comment %}
+        <div class="label right mixtape_info_youin">
+          Contributor
+        </div>
+        <div class="label right mixtape_info_full">
+          Full
+        </div>
+        <div class="label right mixtape_info_owner">
+          Owner
+        </div>
+        {% endcomment %}
+        <div class="label right mixtape_info_keeps">
+          27 keeps
+        </div>
+      </div>
+      <div class="small-3 columns mixtape_play_keep">
+        <a href="#" class="button small expand mixtape_play_btn"> Listen now </a>
+        <a href="#" class="button tiny secondary expand mixtape_keep_btn"> Keep in your collection </a>
       </div>
     </div>
 
@@ -94,7 +147,7 @@
             </div>
           </li>
         {% endif %}
-        {% for bundle in tracklist.bundlebacks_list %}
+        {% for bundle in tracklist.bundlebacks.all %}
           <li class="mixtape_bundleback">
             <div class="row">
               <div class="small-1 columns mixtape_user">
@@ -164,27 +217,8 @@
         {% endfor %}
         <li class="mixtape_bundlego">
           <div class="row">
-            <div class="small-1 columns mixtape_user">
-              <img src="{% static "img/HMProfile.jpg" %}"/>
-            </div>
-            <div class="small-2 columns mixtape_user">
-              <div class="row">
-                <div class="small-12 columns">
-                  <a href="#" class="mini_profile_username">
-                    Simon Frr
-                  </a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-12 columns">
-                  <div class="label radius user_score">
-                    99
-                  </div>
-                  <div class="label radius mixtape_score">
-                    +20!
-                  </div>
-                </div>
-              </div>
+            <div class="small-3 columns mixtape_user_profile">
+              {% include "hip_engine/snippet_mini_profile.html" %}
             </div>
             <div class="small-9 columns bundle">
               <ul class="no-bullet">
@@ -204,27 +238,8 @@
         </li>
         <li class="mixtape_bundleback">
           <div class="row">
-            <div class="small-1 columns mixtape_user">
-              <img src="{% static "img/HMProfile.jpg" %}"/>
-            </div>
-            <div class="small-2 columns mixtape_user">
-              <div class="row">
-                <div class="small-12 columns">
-                  <a href="#" class="mini_profile_username">
-                    Simon Frr
-                  </a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-12 columns">
-                  <div class="label radius user_score">
-                    99
-                  </div>
-                  <div class="label radius mixtape_score">
-                    +20!
-                  </div>
-                </div>
-              </div>
+            <div class="small-3 columns mixtape_user_profile">
+              {% include "hip_engine/snippet_mini_profile.html" %}
             </div>
             <div class="small-9 columns bundle">
               <ul class="no-bullet">
@@ -241,27 +256,8 @@
         </li>
         <li class="mixtape_bundleback">
           <div class="row">
-            <div class="small-1 columns mixtape_user">
-              <img src="{% static "img/HMProfile.jpg" %}"/>
-            </div>
-            <div class="small-2 columns mixtape_user">
-              <div class="row">
-                <div class="small-12 columns">
-                  <a href="#" class="mini_profile_username">
-                    Simon Frr
-                  </a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-12 columns">
-                  <div class="label radius user_score">
-                    999
-                  </div>
-                  <div class="label radius mixtape_score">
-                    +20!
-                  </div>
-                </div>
-              </div>
+            <div class="small-3 columns mixtape_user_profile">
+              {% include "hip_engine/snippet_mini_profile.html" %}
             </div>
             <div class="small-9 columns bundle">
               <ul class="no-bullet">
@@ -281,48 +277,11 @@
         </li>
         <li class="mixtape_bundleback">
           <div class="row">
-            <div class="small-1 columns mixtape_user">
-              <img src="{% static "img/HMProfile.jpg" %}"/>
-            </div>
-            <div class="small-2 columns mixtape_user">
-              <div class="row">
-                <div class="small-12 columns">
-                  <a href="#" class="mini_profile_username">
-                    Simon Frr
-                  </a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-12 columns">
-                  <div class="label radius user_score">
-                    999
-                  </div>
-                  <div class="label radius mixtape_score">
-                    +20!
-                  </div>
-                </div>
-              </div>
+            <div class="small-3 columns mixtape_user_profile">
+              {% include "hip_engine/snippet_mini_profile.html" %}
             </div>
             <div class="small-9 columns bundle">
               <ul class="no-bullet">
-                <li>
-                  <div class="row">
-                    <div class="small-10 columns">
-                    </div>
-                    <div class="small-2 columns">
-                      <a href="#" class="button tiny right"> Keep </a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="row">
-                    <div class="small-10 columns">
-                    </div>
-                    <div class="small-2 columns">
-                      <a href="#" class="button tiny right"> Keep </a>
-                    </div>
-                  </div>
-                </li>
                 <li>
                   <div class="row">
                     <div class="small-10 columns">
@@ -348,8 +307,8 @@
               <div class="small-9 small-offset-3 columns">
                 <ul class="no-bullet">
                   <li>
-                    <input type="button" value="Add a track to the mixtape!" class="button small expand toggle_add_track_btn" />
-                    <form class="mixtape_add_track_form">
+                    <input type="button" value="Add a track to the mixtape!" class="button small expand game_add_track_btn" />
+                    <form action="/mixtape/add/track/" class="mixtape_add_track_form" method="post">
                       <div class="row">
                         <div class="small-10 columns">
                           <div class="row collapse">
@@ -357,7 +316,7 @@
                               <span class="prefix">http://</span>
                             </div>
                             <div class="small-10 columns">
-                              <input type="text" placeholder="Track URL" class="input_url"/>
+                              <input type="text" name="url" placeholder="Track URL" class="input_url" id="input_url"/>
                             </div>
                           </div>
                         </div>
@@ -367,13 +326,13 @@
                       </div>
                       <div class="row">
                         <div class="small-5 columns">
-                          <input type="text" id="right-label" placeholder="Artist (optional)" />
+                          <input type="text" name="artist" id="right-label" placeholder="Artist (optional)" />
                         </div>
                         <div class="small-5 columns">
-                          <input type="text" id="right-label" placeholder="Track (optional)" />
+                          <input type="text" name="name" id="right-label" placeholder="Name (optional)" />
                         </div>
                         <div class="small-2 columns">
-                          <input type="button" value="X" class="button postfix secondary expand toggle_cancel" />
+                          <input type="button" value="X" class="button postfix secondary expand game_add_track_cancel" />
                         </div>
                       </div>
                     </form>
@@ -391,9 +350,13 @@
 
 <!-- Comment section -->
 
-    <div class="small-3 columns mixtape_comment_zone_toggle left">
-      <input type="button" value="Show 3 comments" class="button tiny expand secondary comment_zone_show" />
-      <input type="button" value="Hide 3 comments" class="button tiny expand secondary comment_zone_hide" />
+    <div class="small-3 columns left">
+      <input type="button" value="Show tracks" class="button tiny expand alert tracklist_show" />
+      <input type="button" value="Hide tracks" class="button tiny expand secondary tracklist_hide" />
+    </div>
+    <div class="small-3 columns left">
+      <input type="button" value="Show comments (3)" class="button tiny expand secondary comment_zone_show" />
+      <input type="button" value="Hide comments" class="button tiny expand secondary comment_zone_hide" />
     </div>
     <div class="small-12 columns mixtape_comment_container left">
       <ul class="no-bullet">
