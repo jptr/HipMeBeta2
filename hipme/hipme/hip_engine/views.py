@@ -10,11 +10,13 @@ from hip_engine.forms import ProfileEmailNotificationForm, UserEmailForm, Trackl
 
 from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag
 
-from hip_engine.validation_tools import validateEmail, validateUsername
+from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
 from django.core.urlresolvers import reverse
+
+from django.utils.html import escape
 
 # generic context methods
 def get_nav_context():
@@ -81,6 +83,8 @@ def populate_db(request):
 
                 if instance["tags"]:
                     for tag_name in instance["tags"]:
+                        tag_name = tag_name.title()
+                        tag_name = " ".join(tag_name.split())
                         tag = Tag(name=tag_name)
                         tag.save()
                         tracklist.tags.add(tag)
@@ -239,9 +243,9 @@ def create_mixtape(request):
     if tracklist_form.is_valid():
         tracklist = tracklist_form.save()
         for i_str in ["_1","_2","_3"]:
-                url = request.POST['url'+i_str]
-                artist = request.POST['artist'+i_str]
-                title = request.POST['title'+i_str]
+                url = request.POST.get('url'+i_str)
+                artist = request.POST.get('artist'+i_str)
+                title = request.POST.get('title'+i_str)
                 if url:
                     validate = URLValidator()
                     try:
@@ -255,6 +259,27 @@ def create_mixtape(request):
                         tracklist.tracks.add(track)
                     except ValidationError, e:
                         return render_to_response('hip_engine/forms.html', {'error_message': "Some track urls are not valid. Please check the url fields.",}, context_instance=RequestContext(request))
+    
+        title = request.POST.get('title')
+        if title:
+            tracklist.title = title
+
+        description = request.POST.get('description')
+        if description:
+            tracklist.description = description
+
+        string_tags = request.POST.get('tags')
+        if string_tags:
+            tags = parseTags(string_tags)
+            for tag_name in tags:
+                if Tag.objects.filter(name=tag_name):
+                    tag = get_object_or_404(Tag, name=tag_name)
+                    tracklist.tags.add(tag)
+                else:
+                    tag = Tag(name=tag_name)
+                    tag.save()
+                    tracklist.tags.add(tag)
+
         tracklist.save()
 
     if request.POST.get('next'):
@@ -262,6 +287,30 @@ def create_mixtape(request):
         return HttpResponseRedirect(url_next)
     else:
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+
+def add_track(request, tracklist_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+    # if tracklist.userto.filter(user=request.user):
+    url = request.POST.get('url')
+    artist = request.POST.get('artist')
+    name = request.POST.get('name')
+    track = Track(url=url, artist=artist, name=name)
+    track.save()
+    if tracklist.bundlebacks.filter(owner=request.user.get_profile()):
+        bundleback = get_object_or_404(Bundle, owner=request.user.get_profile())
+    else:
+        bundleback = Bundle(owner=request.user.get_profile())
+        bundleback.save()
+    bundleback.tracks.add(track)
+    bundleback.save()
+    tracklist.bundlebacks.add(bundleback)
+    tracklist.save()
+
+    if request.POST.get('next'):
+        url_next = request.POST['next']
+        return HttpResponseRedirect(url_next)
+    else:
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))   
 
 def logout_process(request):
     logout(request)

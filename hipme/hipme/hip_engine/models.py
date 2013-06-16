@@ -47,7 +47,7 @@ class Track(models.Model):
         elif  not self.artist and not self.name:
             return u"song %s - unknown artist - unknown name" % (self.id)
         else:
-            return u"song %s - %s - %s" % (self.id, self.artist, self.name, self.url)
+            return u"song %s - %s - %s" % (self.id, self.artist, self.name)
     def get_site_from(self):
         # return get_streaming_site_from(self.url)
         return u'unknown'

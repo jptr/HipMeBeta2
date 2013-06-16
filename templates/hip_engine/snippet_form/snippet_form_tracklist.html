@@ -9,6 +9,24 @@
 
     {% include "hip_engine/snippet_form/snippet_form.html" with form=tracklist_form %}
 
+  <div class="row">
+    <div class="small-10 small-offset-1 columns">
+        <input type="text" name="title" id="right-label" placeholder="Title - max 50 characters">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-10 small-offset-1 columns">
+      <input type="text" name="description" placeholder="Description - max 200 characters">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-10 small-offset-1 columns">
+      <input type="text" name="tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"'>
+    </div>
+  </div>
+
     <div class="row add_track_row_1">
       <div class="small-8 small-offset-2 columns">
         <input type="button" value="Add track" class="small button expand secondary add_track_btn_1"/>

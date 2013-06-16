@@ -28,6 +28,7 @@ urlpatterns = patterns('hip_engine.views',
     url(r'^search/mixtapes/$','search_mixtapes'),
 
     url(r'^create/mixtape/$', 'create_mixtape'),
+    url(r'^mixtape/(?P<tracklist_id>\d+)/add/track/$', 'add_track'),
 
     #admin action views
     url(r'^populate/db/$', 'populate_db'),

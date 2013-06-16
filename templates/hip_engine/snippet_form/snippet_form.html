@@ -3,7 +3,7 @@
   <div class="row">
     <div class="small-10 small-offset-1 columns">
       {% if field|field_type = "CharField" %}
-        <input type="text" id="right-label" placeholder="{{ field.label }} - {{ field.help_text }}">
+        <input type="text" name="{{field.label}}" id="right-label" placeholder="{{ field.label }} - {{ field.help_text }}">
       {% elif field|field_type = "ModelMultipleChoiceField " %}
         <div class="row">
             <span>{{ field.label }}</span>

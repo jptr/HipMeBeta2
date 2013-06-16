@@ -16,3 +16,16 @@ def validateUsername(username):
         return True
     else:
         return False
+
+def parseTags(string_tags):
+    regex_tag = '^[a-zA-Z0-9\-_ ]+$'
+    array_tags = string_tags.split(',')
+    tags = []
+
+    for tag in array_tags:
+        if re.search(regex_tag, tag):
+            tag = tag.title()
+            tag = " ".join(tag.split())
+            tags.append(tag)
+
+    return tags

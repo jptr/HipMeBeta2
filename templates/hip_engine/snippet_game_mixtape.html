@@ -297,7 +297,8 @@
                 <ul class="no-bullet">
                   <li>
                     <input type="button" value="Add a track to the mixtape!" class="button small expand game_add_track_btn" />
-                    <form action="/mixtape/add/track/" class="mixtape_add_track_form" method="post">
+                    <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
+                      {% csrf_token %}
                       <div class="row">
                         <div class="small-10 columns">
                           <div class="row collapse">
