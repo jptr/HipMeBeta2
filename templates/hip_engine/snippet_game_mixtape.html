@@ -15,9 +15,9 @@
           {% endif %}
         </h3>
         <ul class="inline-list mixtape_tag_list">
-          <li class="label radius tag_mixtape"> Soul </li>
-          <li class="label radius tag_mixtape"> Funk </li>
-          <li class="label radius tag_mixtape"> Hip-hop </li>
+          {% for tag in tracklist.tags.all %}
+            <li class="label radius tag_mixtape"> {{tag.name}} </li>
+          {% endfor %}
         </ul>
         <ul class="inline-list mixtape_header_users">
             <li><a href="#"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="60px"/></a></li>
@@ -29,27 +29,16 @@
           {% if tracklist.bundlebacks.all %}
             featuring:&nbsp;
             {% for bundleback in tracklist.bundlebacks.all %}
-              {% if forloop.last %}
 
                 {% for track in bundleback.tracks.all %}
-                  {% if track.artist %}
-                    {% if forloop.last %}
+                  {% if track.artist and forloop.counter == 1 and forloop.parentloop.counter < 4 %}
+                    {% if forloop.parentloop.counter == 3 %}
                       {{ track.artist }} ...
                     {% else %}
                       {{ track.artist }},&nbsp;
                     {% endif %}
                   {% endif %}
                 {% endfor %}
-
-              {% else %}
-
-                {% for track in bundleback.tracks.all %}
-                  {% if track.artist %}
-                    {{ track.artist }},&nbsp;
-                  {% endif %}
-                {% endfor %}
-
-              {% endif %}
 
             {% endfor %}
           {% endif %}

@@ -63,7 +63,7 @@
       <!-- Right Nav Section -->
       <ul class="right">
         <li class="has-form">
-          <form action="/login/" method="POST">
+          <form action="/login/process/" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="small-4 small-offset-2 columns">
@@ -94,15 +94,15 @@
     <h1> The social game for music discovery. </h1>
   </div>
   <div class="small-5 columns">
-    <form action="/login/" method="POST">
+    <form action="/register/" method="POST">
       {% csrf_token %}
       <fieldset>
         <legend class="sign_up_legend"> Jump in! </legend>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            {% if error_message_username %}
+            {% if error_message_username%}
               <input type="text" class="error" id="right-label" value="{{username}}" name="username" placeholder="Username">
-              <small class="error">{{error_message_username}}</small>
+              <small class="error">{{error_message_username}}</small>  
             {% else %}                    
               <input type="text" id="right-label" value="{{username}}" name="username" placeholder="Username">
             {% endif %}

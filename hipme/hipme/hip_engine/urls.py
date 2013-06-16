@@ -22,9 +22,13 @@ urlpatterns = patterns('hip_engine.views',
     # action views
     url(r'^register/$', 'register'),
     url(r'^login/process/$','login_process'),
+    url(r'^logout/process/$','logout_process'),
     url(r'^search/$','search_people'),
     url(r'^search/people/$','search_people'),
     url(r'^search/mixtapes/$','search_mixtapes'),
 
     url(r'^create/mixtape/$', 'create_mixtape'),
+
+    #admin action views
+    url(r'^populate/db/$', 'populate_db'),
 )

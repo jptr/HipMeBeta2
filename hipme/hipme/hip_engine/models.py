@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 import datetime
 from django.utils import timezone
+
 # import PIL
 
 # Create your models here.
@@ -71,6 +72,7 @@ class Tracklist(models.Model):
     tracks = models.ManyToManyField('Track', related_name='tracklist_from', blank=True)
     bundlebacks = models.ManyToManyField('Bundle', related_name='tracklist_from', null=True, blank=True)
     is_finished = models.BooleanField('finished?', default=False)
+    tags = models.ManyToManyField('Tag', related_name='tracklist_from', null=True, blank=True)
 
     def get_time_delta(self):   
         timeDiff = timezone.now() - self.date_created
@@ -106,3 +108,8 @@ class Tracklist(models.Model):
 
     def __unicode__(self):
         return u"tracklist %s created by %s - %s" % (self.id, self.owner, self.title)
+
+class Tag(models.Model):
+    name = models.CharField(max_length=40, help_text='optionnal')
+    def __unicode__(self):
+        return self.name

@@ -125,7 +125,7 @@ INSTANCES = [
                     },
                     {
                         "artist":"CasioKids",
-                        "name":"Verdens Største Land",
+                        "name":"Verdens Storste Land",
                         "url":"http://www.youtube.com/watch?v=jz0pEUI9CtA",
                     },
                 ],
@@ -162,7 +162,7 @@ INSTANCES = [
                     },
                     {
                         "artist":"Smokey Joe & The Kid feat Youthstar",
-                        "name":"Smokey Joe's Café",
+                        "name":"Smokey Joe's Cafe",
                         "url":"https://www.youtube.com/watch?v=oEZP5Y8HQI0",
                     },
                 ],
@@ -196,7 +196,7 @@ INSTANCES = [
             },
             {
                 "artist":"CasioKids",
-                "name":"Verdens Største Land",
+                "name":"Verdens Storste Land",
                 "url":"http://www.youtube.com/watch?v=jz0pEUI9CtA",
             },
         ],
@@ -255,7 +255,7 @@ INSTANCES = [
                     },
                     {
                         "artist":"Smokey Joe & The Kid feat Youthstar",
-                        "name":"Smokey Joe's Café",
+                        "name":"Smokey Joe's Cafe",
                         "url":"https://www.youtube.com/watch?v=oEZP5Y8HQI0",
                     },
                 ],
@@ -286,7 +286,7 @@ INSTANCES = [
             },
             {
                 "artist":"CasioKids",
-                "name":"Verdens Største Land",
+                "name":"Verdens Storste Land",
                 "url":"http://www.youtube.com/watch?v=jz0pEUI9CtA",
             },
         ],
@@ -319,17 +319,17 @@ INSTANCES = [
             },
             {
                 "artist":"CasioKids",
-                "name":"Verdens Største Land",
+                "name":"Verdens Storste Land",
                 "url":"http://www.youtube.com/watch?v=jz0pEUI9CtA",
             },
             {
                 "artist":"CasioKids",
-                "name":"Verdens Største Land",
+                "name":"Verdens Storste Land",
                 "url":"http://www.youtube.com/watch?v=jz0pEUI9CtA",
             },
             {
                 "artist":"CasioKids",
-                "name":"Verdens Største Land",
+                "name":"Verdens Storste Land",
                 "url":"http://www.youtube.com/watch?v=jz0pEUI9CtA",
             },
         ],
@@ -392,7 +392,7 @@ INSTANCES = [
                     },
                     {
                         "artist":"CasioKids",
-                        "name":"Verdens Største Land",
+                        "name":"Verdens Storste Land",
                         "url":"http://www.youtube.com/watch?v=jz0pEUI9CtA",
                     },
                 ],
@@ -429,7 +429,7 @@ INSTANCES = [
                     },
                     {
                         "artist":"Smokey Joe & The Kid feat Youthstar",
-                        "name":"Smokey Joe's Café",
+                        "name":"Smokey Joe's Cafe",
                         "url":"https://www.youtube.com/watch?v=oEZP5Y8HQI0",
                     },
                 ],
