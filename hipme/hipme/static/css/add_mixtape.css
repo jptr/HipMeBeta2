@@ -7,22 +7,35 @@
 
 /* Header */
 
+.mixtape_sub_header {
+  background-color: #3F99F3;
+  padding-top: 16px;
+  display: none;
+}
+
+.aaa, .bbb {
+}
+
 .mixtape_header {
 /*  background-color: #600606;*/
 /*  background-color: #892929;*/
 /*  background-color: #3F99F3;*/
   background-color: #263248;
   padding: 0.5em;
-  border-top: 0.5em solid #3F99F3;
+/*  border-top: 0.5em solid #3F99F3; */
   min-height: 130px;
 }
 
-.mixtape_header h3 {
+.mixtape_title {
   color: #E5E5E5;
 }
 
-.mixtape_header h6 {
+.mixtape_header a {
   color: #E5E5E5;
+}
+
+.mixtape_header_contributor {
+  margin-top: 10px;
 }
 
 .mixtape_play_keep {
@@ -38,36 +51,54 @@
   margin-top: 0.8em;
   background: #E5E5E5;
   color: #263248;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
 }
 
 .mixtape_info_freespot {
   margin-top: 0.8em;
   background: orange;
   color: #263248;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
 }
 
 .mixtape_info_youin {
   margin-top: 0.8em;
   background: green;
   color: white;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
 }
 
 .mixtape_info_owner {
   margin-top: 0.8em;
   background: red;
   color: white;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
 }
 
 .mixtape_info_full {
   margin-top: 0.8em;
   background: #E5E5E5;
   color: #263248;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
 }
 
 .mixtape_info_keeps {
   margin-top: 0.8em;
   background: #E5E5E5;
   color: #263248;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
 }
 
 .mixtape_tag_list {
