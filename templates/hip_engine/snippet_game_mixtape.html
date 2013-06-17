@@ -5,16 +5,18 @@
 
 <!-- Mixtape header -->
 
+      {% comment %}
     <div class="small-12 columns mixtape_sub_header">
       <div class="row">
-        <div class="small-3 columns left aaa">
+        <div class="small-3 columns left">
           <a href="#" class="button small alert expand mixtape_play_btn"> Listen now </a>
         </div>
-        <div class="small-5 columns left bbb">
+        <div class="small-5 columns left">
           <a href="#" class="button small secondary expand mixtape_keep_btn"> Keep in your collection </a>
         </div>
       </div>
     </div>
+      {% endcomment %}
     <div class="small-12 columns mixtape_header">
       <div class="small-9 columns">
         <h3>
@@ -80,11 +82,25 @@
           27 keeps
         </div>
       </div>
-      <div class="small-3 columns mixtape_play_keep">
         {% comment %}
+      <div class="small-3 columns mixtape_play_keep">
         <a href="#" class="button small expand mixtape_play_btn"> Listen now </a>
         <a href="#" class="button tiny secondary expand mixtape_keep_btn"> Keep in your collection </a>
+      </div>
         {% endcomment %}
+      <div class="small-12 columns mixtape_buttons">
+        <div class="button-bar">
+          <ul class="button-group">
+            <li class="tracklist_show_li"><button class="button small alert tracklist_show"> Show tracklist </button></li>
+            <li class="tracklist_hide_li"><button class="button small alert tracklist_hide"> Hide tracklist </button></li>
+            <li class="comment_zone_show_li"><button class="button small alert comment_zone_show"> Show comments (3) </button></li>
+            <li class="comment_zone_hide_li"><button class="button small alert comment_zone_hide"> Hide comments </button></li>
+          </ul>
+          <ul class="button-group">
+            <li><button class="small button mixtape_listen"> Listen </button></li>
+            <li><button class="small button mixtape_keep"> Keep in your collection </button></li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -356,14 +372,6 @@
 
 <!-- Comment section -->
 
-    <div class="small-3 columns">
-      <input type="button" value="Show tracks" class="button tiny expand alert tracklist_show" />
-      <input type="button" value="Hide tracks" class="button tiny expand secondary tracklist_hide" />
-    </div>
-    <div class="small-3 columns">
-      <input type="button" value="Show comments (3)" class="button tiny expand secondary comment_zone_show" />
-      <input type="button" value="Hide comments" class="button tiny expand secondary comment_zone_hide" />
-    </div>
     <div class="small-12 columns mixtape_comment_container left">
       <ul class="no-bullet">
         <li>

@@ -300,11 +300,6 @@
 <!-- scripts mixtape game -->
 
   <script>
-    $('.mixtape_header').each(function(i){
-    });
-  </script>
-
-  <script>
     $('.mixtape').each(function(i){
       /*
       $(this).mouseover(function(){
@@ -325,12 +320,14 @@
         $(".mixtape_header_feat:eq("+ i + ")").toggle();
       });
       */
+      /*
       $(this).mouseover(function(){
         $(".mixtape_sub_header:eq("+ i + ")").show();
       });
       $(this).mouseout(function(){
         $(".mixtape_sub_header:eq("+ i + ")").hide();
       });
+*/
     });
   </script>
 
@@ -381,8 +378,8 @@
     $('.tracklist_show').each(function(i){
       $(this).click(function(){
         $(".mixtape_tracklist:eq("+ i + ")").show();
-        $(".tracklist_show:eq("+ i + ")").hide();
-        $(".tracklist_hide:eq("+ i + ")").show();
+        $(".tracklist_show_li:eq("+ i + ")").hide();
+        $(".tracklist_hide_li:eq("+ i + ")").show();
         $(".mixtape_header_users:eq("+ i + ")").hide();
         $(".mixtape_header_feat:eq("+ i + ")").hide();
       });
@@ -393,8 +390,8 @@
     $('.tracklist_hide').each(function(i){
       $(this).click(function(){
         $(".mixtape_tracklist:eq("+ i + ")").hide();
-        $(".tracklist_show:eq("+ i + ")").show();
-        $(".tracklist_hide:eq("+ i + ")").hide();
+        $(".tracklist_show_li:eq("+ i + ")").show();
+        $(".tracklist_hide_li:eq("+ i + ")").hide();
         $(".mixtape_header_users:eq("+ i + ")").show();
         $(".mixtape_header_feat:eq("+ i + ")").show();
       });
@@ -405,8 +402,8 @@
     $('.comment_zone_show').each(function(i){
       $(this).click(function(){
         $(".mixtape_comment_container:eq("+ i + ")").show();
-        $(".comment_zone_show:eq("+ i + ")").hide();
-        $(".comment_zone_hide:eq("+ i + ")").show();
+        $(".comment_zone_show_li:eq("+ i + ")").hide();
+        $(".comment_zone_hide_li:eq("+ i + ")").show();
         $(".input_comment:eq("+ i + ")").focus();
       });
     });
@@ -416,8 +413,8 @@
     $('.comment_zone_hide').each(function(i){
       $(this).click(function(){
         $(".mixtape_comment_container:eq("+ i + ")").hide();
-        $(".comment_zone_show:eq("+ i + ")").show();
-        $(".comment_zone_hide:eq("+ i + ")").hide();
+        $(".comment_zone_show_li:eq("+ i + ")").show();
+        $(".comment_zone_hide_li:eq("+ i + ")").hide();
       });
     });
   </script>

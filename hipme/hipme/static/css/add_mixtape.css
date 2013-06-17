@@ -8,12 +8,9 @@
 /* Header */
 
 .mixtape_sub_header {
-  background-color: #3F99F3;
+  background-color: #263248;
   padding-top: 16px;
-  display: none;
-}
-
-.aaa, .bbb {
+  /*display: none;*/
 }
 
 .mixtape_header {
@@ -22,7 +19,7 @@
 /*  background-color: #3F99F3;*/
   background-color: #263248;
   padding: 0.5em;
-/*  border-top: 0.5em solid #3F99F3; */
+  border-top: 0.5em solid #3F99F3;
   min-height: 130px;
 }
 
@@ -111,6 +108,18 @@
   color: #263248;
 }
 
+.mixtape_buttons {
+  margin-top: 0.5em;
+}
+
+.tracklist_hide_li {
+  display: none;
+}
+
+.comment_zone_hide_li {
+  display: none;
+}
+
 /* Tracklist */
 
 .mixtape_tracklist {
@@ -185,29 +194,7 @@
   border-bottom: 1px solid #DDDDDD;
 }
 
-.tracklist_show {
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
-}
-
-.tracklist_hide {
-  display: none;
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
-}
-
 /* Comments */
-
-.comment_zone_show {
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
-}
-
-.comment_zone_hide {
-  display: none;
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
-}
 
 .mixtape_comment_container {
   display: none;
