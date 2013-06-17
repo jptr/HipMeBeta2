@@ -112,100 +112,40 @@
 
   <!-- Left-ranking -->
 
-      <div class="panel">
+      <div class="panel left_ranking">
         <ul class="no-bullet">
-          <li class="left_ranking_1">
+          <li class="left_ranking_1 left_ranking_opacity_low">
             <div class="row">
               <div class="small-12 columns">
-                <div class="small-3 columns mixtape_user">
-                  <a href="#">
-                    <img src="{% static "img/HMProfile.jpg" %}"/>
-                  </a>
-                </div>
-                <div class="small-9 columns mixtape_user">
-                  <div class="label radius user_score">
-                    133
-                  </div>
-                  <a href="#" class="mini_profile_username">
-                    Sam
-                  </a>
-                </div>
+              {% include "hip_engine/snippet_mini_profile_ranking.html" %}
               </div>
             </div>
           </li>
-          <li class="left_ranking_2">
+          <li class="left_ranking_2 left_ranking_opacity_med">
             <div class="row">
               <div class="small-12 columns">
-                <div class="small-3 columns mixtape_user">
-                  <a href="#">
-                    <img src="{% static "img/HMProfile.jpg" %}"/>
-                  </a>
-                </div>
-                <div class="small-9 columns mixtape_user">
-                  <div class="label radius user_score">
-                    110
-                  </div>
-                  <a href="#" class="mini_profile_username">
-                    Bob
-                  </a>
-                </div>
+              {% include "hip_engine/snippet_mini_profile_ranking.html" %}
               </div>
             </div>
           </li>
           <li class="left_ranking_3">
             <div class="row">
               <div class="small-12 columns">
-                <div class="small-3 columns mixtape_user">
-                  <a href="#">
-                    <img src="{% static "img/HMProfile.jpg" %}"/>
-                  </a>
-                </div>
-                <div class="small-9 columns mixtape_user">
-                  <div class="label radius user_score">
-                    99
-                  </div>
-                  <a href="#" class="mini_profile_username">
-                    Simon Frr
-                  </a>
-                </div>
+              {% include "hip_engine/snippet_mini_profile_ranking.html" %}
               </div>
             </div>
           </li>
-          <li class="left_ranking_4">
+          <li class="left_ranking_4 left_ranking_opacity_med">
             <div class="row ">
               <div class="small-12 columns">
-                <div class="small-3 columns mixtape_user">
-                  <a href="#">
-                    <img src="{% static "img/HMProfile.jpg" %}"/>
-                  </a>
-                </div>
-                <div class="small-9 columns mixtape_user">
-                  <div class="label radius user_score">
-                    89
-                  </div>
-                  <a href="#" class="mini_profile_username">
-                    Vic
-                  </a>
-                </div>
+              {% include "hip_engine/snippet_mini_profile_ranking.html" %}
               </div>
             </div>
           </li>
-          <li class="left_ranking_5">
+          <li class="left_ranking_5 left_ranking_opacity_low">
             <div class="row">
               <div class="small-12 columns">
-                <div class="small-3 columns mixtape_user">
-                  <a href="#">
-                    <img src="{% static "img/HMProfile.jpg" %}"/>
-                  </a>
-                </div>
-                <div class="small-9 columns mixtape_user">
-                  <div class="label radius user_score">
-                    75
-                  </div>
-                  <a href="#" class="mini_profile_username">
-                    Art
-                  </a>
-                </div>
+              {% include "hip_engine/snippet_mini_profile_ranking.html" %}
               </div>
             </div>
           </li>
@@ -281,6 +221,8 @@
 
   <script src="{% static "js/foundation.min.js" %}"></script>
 
+<!-- scripts mixtape creation modal-->
+
   <script>
     $('.add_track_btn_1').click(function(){
       $(".add_track_form_1").show();
@@ -355,103 +297,170 @@
     });
   </script>
 
+<!-- scripts mixtape game -->
+
   <script>
     $('.mixtape_header').each(function(i){
+    });
+  </script>
+
+  <script>
+    $('.mixtape').each(function(i){
+      /*
       $(this).mouseover(function(){
         $(".mixtape_info:eq("+ i + ")").hide();
         $(".mixtape_play_keep:eq("+ i + ")").show();
+      });
+      $(this).mouseout(function(){
+        $(".mixtape_info:eq("+ i + ")").show();
+        $(".mixtape_play_keep:eq("+ i + ")").hide();
+      });
+      */
+      /*
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").toggle();
+        $(".tracklist_show:eq("+ i + ")").toggle();
+        $(".tracklist_hide:eq("+ i + ")").toggle();
+        $(".mixtape_header_users:eq("+ i + ")").toggle();
+        $(".mixtape_header_feat:eq("+ i + ")").toggle();
+      });
+      */
+      $(this).mouseover(function(){
+        $(".aaa:eq("+ i + ")").show();
+        $(".bbb:eq("+ i + ")").show();
+      });
+      $(this).mouseout(function(){
+        $(".aaa:eq("+ i + ")").hide();
+        $(".bbb:eq("+ i + ")").hide();
       });
     });
   </script>
 
   <script>
-    $('.mixtape_header').each(function(i){
-      $(this).mouseout(function(){
-        $(".mixtape_info:eq("+ i + ")").show();
-        $(".mixtape_play_keep:eq("+ i + ")").hide();
+    $('.mixtape_title').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").toggle();
+        $(".tracklist_show:eq("+ i + ")").toggle();
+        $(".tracklist_hide:eq("+ i + ")").toggle();
+        $(".mixtape_header_users:eq("+ i + ")").toggle();
+        $(".mixtape_header_feat:eq("+ i + ")").toggle();
+      });
+    });
+  </script>
+
+  <script>
+    $('.mixtape_header_feat').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").show();
+        $(".tracklist_show:eq("+ i + ")").hide();
+        $(".tracklist_hide:eq("+ i + ")").show();
+        $(".mixtape_header_users:eq("+ i + ")").hide();
+        $(".mixtape_header_feat:eq("+ i + ")").hide();
       });
     });
   </script>
 
   <script>
     $('.game_add_track_btn').each(function (i) {
-        $(this).click(function(){
-          $(".mixtape_add_track_form:eq("+ i + ")").show();
-          $(".game_add_track_btn:eq("+ i + ")").hide();
-          $(".input_url:eq("+ i + ")").focus();
+      $(this).click(function(){
+        $(".mixtape_add_track_form:eq("+ i + ")").show();
+        $(".game_add_track_btn:eq("+ i + ")").hide();
+        $(".input_url:eq("+ i + ")").focus();
       });
     });
   </script>
   
   <script>
     $('.game_add_track_cancel').each(function (i) {
-        $(this).click(function(){
-          $(".mixtape_add_track_form:eq("+ i + ")").hide();
-          $(".game_add_track_btn:eq("+ i + ")").show();
+      $(this).click(function(){
+        $(".mixtape_add_track_form:eq("+ i + ")").hide();
+        $(".game_add_track_btn:eq("+ i + ")").show();
       });
     });
   </script>
 
   <script>
     $('.tracklist_show').each(function(i){
-        $(this).click(function(){
-          $(".mixtape_tracklist:eq("+ i + ")").show();
-          $(".tracklist_show:eq("+ i + ")").hide();
-          $(".tracklist_hide:eq("+ i + ")").show();
-          $(".mixtape_header_users:eq("+ i + ")").hide();
-          $(".mixtape_header_feat:eq("+ i + ")").hide();
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").show();
+        $(".tracklist_show:eq("+ i + ")").hide();
+        $(".tracklist_hide:eq("+ i + ")").show();
+        $(".mixtape_header_users:eq("+ i + ")").hide();
+        $(".mixtape_header_feat:eq("+ i + ")").hide();
       });
     });
   </script>
 
   <script>
     $('.tracklist_hide').each(function(i){
-        $(this).click(function(){
-          $(".mixtape_tracklist:eq("+ i + ")").hide();
-          $(".tracklist_show:eq("+ i + ")").show();
-          $(".tracklist_hide:eq("+ i + ")").hide();
-          $(".mixtape_header_users:eq("+ i + ")").show();
-          $(".mixtape_header_feat:eq("+ i + ")").show();
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").hide();
+        $(".tracklist_show:eq("+ i + ")").show();
+        $(".tracklist_hide:eq("+ i + ")").hide();
+        $(".mixtape_header_users:eq("+ i + ")").show();
+        $(".mixtape_header_feat:eq("+ i + ")").show();
       });
     });
   </script>
 
   <script>
     $('.comment_zone_show').each(function(i){
-        $(this).click(function(){
-          $(".mixtape_comment_container:eq("+ i + ")").show();
-          $(".comment_zone_show:eq("+ i + ")").hide();
-          $(".comment_zone_hide:eq("+ i + ")").show();
-          $(".input_comment:eq("+ i + ")").focus();
+      $(this).click(function(){
+        $(".mixtape_comment_container:eq("+ i + ")").show();
+        $(".comment_zone_show:eq("+ i + ")").hide();
+        $(".comment_zone_hide:eq("+ i + ")").show();
+        $(".input_comment:eq("+ i + ")").focus();
       });
     });
   </script>
 
   <script>
     $('.comment_zone_hide').each(function(i){
-        $(this).click(function(){
-          $(".mixtape_comment_container:eq("+ i + ")").hide();
-          $(".comment_zone_show:eq("+ i + ")").show();
-          $(".comment_zone_hide:eq("+ i + ")").hide();
+      $(this).click(function(){
+        $(".mixtape_comment_container:eq("+ i + ")").hide();
+        $(".comment_zone_show:eq("+ i + ")").show();
+        $(".comment_zone_hide:eq("+ i + ")").hide();
       });
     });
   </script>
 
+<!-- scripts profile -->
+
   <script>
     $('.profile_flw_btn').each(function(i){
-        $(this).click(function(){
-          $(".profile_flw_btn:eq("+ i + ")").hide();
-          $(".profile_unflw_btn:eq("+ i + ")").show();
+      $(this).click(function(){
+        $(".profile_flw_btn:eq("+ i + ")").hide();
+        $(".profile_unflw_btn:eq("+ i + ")").show();
       });
     });
   </script>
 
     <script>
     $('.profile_unflw_btn').each(function(i){
-        $(this).click(function(){
-          $(".profile_flw_btn:eq("+ i + ")").show();
-          $(".profile_unflw_btn:eq("+ i + ")").hide();
+      $(this).click(function(){
+        $(".profile_flw_btn:eq("+ i + ")").show();
+        $(".profile_unflw_btn:eq("+ i + ")").hide();
       });
+    });
+  </script>
+
+<!-- scripts left ranking -->
+
+  <script>
+    $('.left_ranking').mouseover(function(){
+      $(".left_ranking_1").removeClass('left_ranking_opacity_low');
+      $(".left_ranking_2").removeClass('left_ranking_opacity_med');
+      $(".left_ranking_4").removeClass('left_ranking_opacity_med');
+      $(".left_ranking_5").removeClass('left_ranking_opacity_low');
+    });
+  </script>
+
+  <script>
+    $('.left_ranking').mouseout(function(){
+      $(".left_ranking_1").addClass('left_ranking_opacity_low');
+      $(".left_ranking_2").addClass('left_ranking_opacity_med');
+      $(".left_ranking_4").addClass('left_ranking_opacity_med');
+      $(".left_ranking_5").addClass('left_ranking_opacity_low');
     });
   </script>
 
