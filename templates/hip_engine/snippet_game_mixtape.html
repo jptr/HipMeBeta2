@@ -40,7 +40,7 @@
           {% endfor %}
         </ul>
         <h6 class="mixtape_header_feat">
-          <a href="#" class="mixtape_header_feat">
+          <a href="#">
             {% if tracklist.bundlebacks.all %}
               featuring:&nbsp;
               {% for bundleback in tracklist.bundlebacks.all %}
@@ -113,35 +113,12 @@
         {% if tracklist.track_list %}
           <li class="mixtape_bundlego">
             <div class="row">
-              <div class="small-1 columns mixtape_user">
-                {% if tracklist.owner.avatar %}
-                  <img src="adresse de l'avatar" alt="profile_top_img" class="profile_top_img" />
-                {% else %}
-                  <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="profile_top_img"/>
-                {% endif %}
-              </div>
-              <div class="small-2 columns mixtape_user">
-                <div class="row">
-                  <div class="small-12 columns">
-                    <a href="#" class="mini_profile_username">
-                      {{ tracklist.owner.user.username }}
-                    </a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="small-12 columns">
-                    <div class="label radius user_score">
-                      {{ tracklist.owner.reputation }}
-                    </div>
-                    <div class="label radius mixtape_score">
-                      +20!
-                    </div>
-                  </div>
-                </div>
+              <div class="small-3 columns mixtape_user_profile">
+                {% include "hip_engine/snippet_mini_profile_mixtape_owner.html" %}
               </div>
               <div class="small-9 columns bundle">
                 <ul class="no-bullet">
-                  {% for track in track_list %}
+                  {% for track in tracklist.track_list %}
                     <li>
                       <div class="row">
                         <div class="small-10 columns">
@@ -171,63 +148,52 @@
         {% for bundle in tracklist.bundlebacks.all %}
           <li class="mixtape_bundleback">
             <div class="row">
-              <div class="small-1 columns mixtape_user">
-                {% if bundle.owner.avatar %}
-                  <img src="adresse de l'avatar" alt="profile_top_img" class="profile_top_img" />
-                {% else %}
-                  <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="profile_top_img"/>
-                {% endif %}
-              </div>
-              <div class="small-2 columns mixtape_user">
-                <div class="row">
-                  <div class="small-12 columns">
-                    <a href="#" class="mini_profile_username">
-                      {{ bundle.owner.user.username }}
-                    </a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="small-12 columns">
-                    <div class="label radius user_score">
-                      {{ tracklist.owner.reputation }}
-                    </div>
-                    <div class="label radius mixtape_score">
-                      +20!
-                    </div>
-                  </div>
-                </div>
+              <div class="small-3 columns mixtape_user_profile">
+                {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
               </div>
               <div class="small-9 columns bundle">
                 <ul class="no-bullet">
                   {% if bundle.track_list %}
-                    {% for track in track_list %}
+                    {% for track in bundle.track_list %}
                       <li>
-                        <div class="row">
-                          <div class="small-10 columns">
-                            <a href="#" class="label mixtape_track secondary">
-                              {% if track.name and track.artist %}
-                                {{ track.artist }} - {{ track.name }}
-                              {% elif track.name %}
-                                Unknown artist - {{ track.name }}
-                              {% elif track.artist %}
-                                {{ track.artist }} - Unknown title
-                              {% else %}
-                                {{ track.url }}
-                              {% endif%}
-                            </a>
-                          </div>
-                          <div class="small-2 columns">
-                            <a href="#" class="button tiny right"> Keep </a>
-                          </div>
+                        <div class="small-10 columns">
+                          <a href="#" class="mixtape_track">
+                            {% if track.name and track.artist %}
+                              {{ track.artist }} - {{ track.name }}
+                            {% elif track.name %}
+                              Unknown artist - {{ track.name }}
+                            {% elif track.artist %}
+                              {{ track.artist }} - Unknown title
+                            {% else %}
+                              {{ track.url }}
+                            {% endif%}
+                          </a>
+                        </div>
+                        <div class="small-2 columns">
+                          <a href="#" class="button tiny right"> Keep </a>
                         </div>
                       </li>
                     {% endfor %}
                   {% else %}
                     <li>
-                      <div class="row">
-                        <div class="small-10 columns">
-                          No track yet...
-                        </div>
+                      <div class="small-10 columns mixtape_track">
+                        <a href="#">
+                          Great Track - Motherfucking artist
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="small-10 columns mixtape_track">
+                        <a href="#">
+                          Great Track - Motherfucking artist 2
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="small-10 columns mixtape_track">
+                        <a href="#">
+                          Great Track - Motherfucking
+                        </a>
                       </div>
                     </li>
                   {% endif %}
@@ -236,93 +202,13 @@
             </div>
           </li>
         {% endfor %}
-        <li class="mixtape_bundlego">
-          <div class="row">
-            <div class="small-3 columns mixtape_user_profile">
-              {% include "hip_engine/snippet_mini_profile_mixtape.html" %}
-            </div>
-            <div class="small-9 columns bundle">
-              <ul class="no-bullet">
-                <li>
-                  <div class="row">
-                    <div class="small-10 columns">
-                      <a href="#" class="label mixtape_track secondary"> Track name - Artist name </a>
-                    </div>
-                    <div class="small-2 columns">
-                      <a href="#" class="button tiny right"> Keep </a>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </li>
-        <li class="mixtape_bundleback">
-          <div class="row">
-            <div class="small-3 columns mixtape_user_profile">
-              {% include "hip_engine/snippet_mini_profile_mixtape.html" %}
-            </div>
-            <div class="small-9 columns bundle">
-              <ul class="no-bullet">
-                <li>
-                  <div class="row">
-                    <div class="small-10 columns">
-                      <div class="label secondary mixtape_track"> No track yet </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </li>
-        <li class="mixtape_bundleback">
-          <div class="row">
-            <div class="small-3 columns mixtape_user_profile">
-              {% include "hip_engine/snippet_mini_profile_mixtape.html" %}
-            </div>
-            <div class="small-9 columns bundle">
-              <ul class="no-bullet">
-                <li>
-                  <div class="row">
-                    <div class="small-10 columns">
-                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
-                    </div>
-                    <div class="small-2 columns">
-                      <a href="#" class="button tiny right"> Keep </a>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </li>
-        <li class="mixtape_bundleback">
-          <div class="row">
-            <div class="small-3 columns mixtape_user_profile">
-              {% include "hip_engine/snippet_mini_profile_mixtape.html" %}
-            </div>
-            <div class="small-9 columns bundle">
-              <ul class="no-bullet">
-                <li>
-                  <div class="row">
-                    <div class="small-10 columns">
-                      <a href="#" class="label secondary mixtape_track"> Track name - Artist name </a>
-                    </div>
-                    <div class="small-2 columns">
-                      <a href="#" class="button tiny right"> Keep </a>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </li>
 
 <!-- End Mixtape tracks -->
 
 <!-- Add track section -->
 
 {% comment %} {% if user in tracklist.userto_list %} {% endcomment %}
+
           <li>
             <div class="row">
               <div class="small-9 small-offset-3 columns">

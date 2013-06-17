@@ -124,7 +124,7 @@
 
 .mixtape_tracklist {
   display: none;
-  padding: 1em;
+  padding-top : 0.4em;
   padding-bottom: 0em;
   border-left: 0.5em solid #263248;
 /*  border-bottom: 0.5em solid #263248;*/
@@ -149,12 +149,13 @@
 .mini_profile_username {
   display: inline-block;
   vertical-align: top;
+  font-size: 16px;
   padding-bottom: 0px;
 }
 
 .mini_profile_score {
   display: inline-block;
-  font: bolder 16px;
+  font: bolder 14px;
   background: green;
   color: white;
 }
@@ -170,10 +171,15 @@
   padding-left: 0px;
 }
 
-.track {
-  background-color: #EEEEEE;
-  color: #222222;
-  font-size: 1em;
+.mixtape_track {
+  font-weight: bold;
+  border-top: 1px solid #EEEEEE;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+.mixtape_track a {
+  color: #444444;
 }
 
 .game_add_track_btn {
@@ -183,15 +189,17 @@
 .mixtape_add_track_form {
   display: none;
   padding-top: 0.8em;
+  margin-bottom: 0px;
 }
 
 .mixtape_bundlego {
-  border-bottom: 1px solid #DDDDDD;
+  border-bottom: 3px solid #FFFFFF;
 }
 
 .mixtape_bundleback {
   padding-top: 0.5em;
-  border-bottom: 1px solid #DDDDDD;
+  padding-bottom: 0.5em;
+  border-bottom: 3px solid #FFFFFF;
 }
 
 /* Comments */
