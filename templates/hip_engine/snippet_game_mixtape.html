@@ -62,7 +62,7 @@
       </div>
       <div class="small-3 columns mixtape_info">
         <div class="label right mixtape_info_time">
-          Started {{ tracklist.date_created|timesince }} ago
+          started {{ tracklist.time_delta }}
         </div>
         <div class="label right mixtape_info_freespot">
           1 free spot
@@ -95,7 +95,19 @@
             <li><button class="small button mixtape_keep"> Keep in your collection </button></li>
           </ul>
           <ul class="button-group">
-            <li class="tracklist_show_li"><button class="button small alert tracklist_show dropdown"> Show tracklist </button></li>
+            {% if tracklist.track.all or tracklist.bundlebacks.all %}
+              <li class="tracklist_show_li">
+                <button class="button small alert tracklist_show dropdown"> 
+                  Show tracklist (
+                  {% with tracklist.track.all|length as nb_initial_tracks %} 
+                  {% with tracklist.bundlebacks.all|length as nb_bundle_tracks %} 
+                    {{ nb_initial_tracks|add:nb_bundle_tracks }}+
+                  {% endwith %} 
+                  {% endwith %}
+                  ) 
+                </button>
+              </li>
+            {% endif %}
             <li class="tracklist_hide_li"><button class="button small alert tracklist_hide dropup"> Hide tracklist </button></li>
             <li class="comment_zone_show_li"><button class="button small alert comment_zone_show dropdown"> Show comments (3) </button></li>
             <li class="comment_zone_hide_li"><button class="button small alert comment_zone_hide dropup"> Hide comments </button></li>
@@ -118,7 +130,7 @@
               </div>
               <div class="small-9 columns bundle">
                 <ul class="no-bullet">
-                  {% for track in tracklist.track_list %}
+                  {% for track in tracklist.tracks %}
                     <li>
                       <div class="row">
                         <div class="small-10 columns">
@@ -153,28 +165,39 @@
               </div>
               <div class="small-9 columns bundle">
                 <ul class="no-bullet">
-                  {% if bundle.track_list %}
-                    {% for track in bundle.track_list %}
-                      <li>
-                        <div class="small-10 columns">
-                          <a href="#" class="mixtape_track">
-                            {% if track.name and track.artist %}
-                              {{ track.artist }} - {{ track.name }}
-                            {% elif track.name %}
-                              Unknown artist - {{ track.name }}
-                            {% elif track.artist %}
-                              {{ track.artist }} - Unknown title
+                  {% for track in bundle.tracks.all %}
+                    <li>
+                      <div class="small-10 columns">
+                        <a href="#" class="mixtape_track">
+                          {% if track.name and track.artist %}
+                            {{ track.artist }} - {{ track.name }}
+                          {% elif track.name %}
+                            Unknown artist - {{ track.name }}
+                          {% elif track.artist %}
+                            {{ track.artist }} - Unknown title
+                          {% else %}
+                            {{ track.url }}
+                          {% endif%}
+                        </a>
+                          {% if track.site_from %}
+                            {% if track.site_from == "youtube" %}
+                              <div style="position:relative;width:267px;height:25px;overflow:hidden;">
+                                <div style="position:absolute;top:-276px;left:-5px">
+                                  <iframe width="300" height="300" 
+                                    src="https://www.youtube.com/embed/{{track.web_id}}?color=white">
+                                  </iframe>
+                                </div>
+                              </div>
                             {% else %}
-                              {{ track.url }}
-                            {% endif%}
-                          </a>
-                        </div>
-                        <div class="small-2 columns">
-                          <a href="#" class="button tiny right"> Keep </a>
-                        </div>
-                      </li>
-                    {% endfor %}
-                  {% else %}
+                              from {{ track.site_from }} (player coming soon) {{track.web_id}}
+                            {% endif %}
+                          {% endif %}
+                      </div>
+                      <div class="small-2 columns">
+                        <a href="#" class="button tiny right"> Keep </a>
+                      </div>
+                    </li>
+                  {% empty %}
                     <li>
                       <div class="small-10 columns mixtape_track">
                         <a href="#">
@@ -196,7 +219,7 @@
                         </a>
                       </div>
                     </li>
-                  {% endif %}
+                  {% endfor %}
                 </ul>
               </div>
             </div>

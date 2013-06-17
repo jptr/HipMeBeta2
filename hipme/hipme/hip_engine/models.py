@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 import datetime
 from django.utils import timezone
+from hip_engine.validation_tools import get_streaming_site_from
 
 # import PIL
 
@@ -15,7 +16,7 @@ class UserProfile(models.Model):
     # avatar = models.ImageField("Profile Pic", upload_to=upload_to, blank=True, null=True)
     user = models.OneToOneField(User)
     follows = models.ManyToManyField('UserProfile', related_name='followed_by', blank=True)
-    tracklist = models.ManyToManyField('Tracklist', related_name='followed_by', blank=True)
+    tracklist_kept = models.ManyToManyField('Tracklist', related_name='followed_by', blank=True)
     reputation = models.IntegerField(default=0)
     url = models.URLField(blank=True)
     is_email_notified = models.BooleanField('get email notifications?', default=True)
@@ -49,10 +50,13 @@ class Track(models.Model):
         else:
             return u"song %s - %s - %s" % (self.id, self.artist, self.name)
     def get_site_from(self):
-        # return get_streaming_site_from(self.url)
-        return u'unknown'
+        return get_streaming_site_from(self.url)
     get_site_from.short_description = 'Streaming source'
     site_from = property(get_site_from)
+    def get_track_web_id(self):
+        return get_web_id(self.url, site_from)
+    get_site_from.short_description = 'Web ID'
+    web_id = property(get_site_from)      
 
 class Bundle(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='bundles_created')
