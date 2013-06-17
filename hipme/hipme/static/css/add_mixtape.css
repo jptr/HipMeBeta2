@@ -218,3 +218,50 @@
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
+/* Dropup */
+
+.dropup.button {
+  position: relative;
+  padding-right: 3.1875em; }
+  .dropup.button:before {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    display: block;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+    top: 50%; }
+  .dropup.button:before {
+    border-width: 0.5625em;
+    right: 1.5em;
+    margin-top: -0.25em; }
+  .dropup.button:before {
+    border-color: transparent transparent white transparent; }
+  .dropup.button.tiny {
+    padding-right: 2.1875em; }
+    .dropup.button.tiny:before {
+      border-width: 0.4375em;
+      right: 0.875em;
+      margin-top: -0.15625em; }
+    .dropup.button.tiny:before {
+      border-color: transparent transparent white transparent; }
+  .dropup.button.small {
+    padding-right: 2.8125em; }
+    .dropup.button.small:before {
+      border-width: 0.5625em;
+      right: 1.125em;
+      margin-top: -0.7em; }
+    .dropup.button.small:before {
+      border-color: transparent transparent white transparent; }
+  .dropup.button.large {
+    padding-right: 4em; }
+    .dropup.button.large:before {
+      border-width: 0.625em;
+      right: 1.75em;
+      margin-top: -0.3125em; }
+    .dropup.button.large:before {
+      border-color: transparent transparent white transparent; }
+  .dropup.button.secondary:before {
+    border-color: transparent transparent #333333 transparent; }
