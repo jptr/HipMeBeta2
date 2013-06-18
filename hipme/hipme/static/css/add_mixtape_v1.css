@@ -1,82 +1,3 @@
-.top_line_grey {
-  border-top: 3px solid #444444;
-}
-
-.mixtape {
-  background-color: #DDDDDD;
-  padding-top: 0.875em;
-  padding-bottom: 0.875em;
-  margin-top: 1.375em;
-  margin-bottom: 1.375em;
-}
-
-.mixtape_header {
-}
-
-.mixtape_header a {
-  color: #444444;
-}
-
-.mixtape_info {
-  margin-left: -1.25em;
-  margin-bottom: 0.5em;
-  background-color: white;
-  color: #333333;
-  font-size: 12px;
-  font-weight: bold;
-  padding-left: 1.25em;
-}
-
-.mixtape_title {
-  font-size: 1.5em;
-}
-
-.mixtape_tag_list {
-  margin-left: -1.2em;
-  margin-top: 0.2em;
-}
-
-.tag_mixtape {
-  margin-bottom: 5px;
-  color: #444444;
-}
-
-.mixtape_summary {
-  background-color: white;
-  padding-top: 0.875em;
-  padding-bottom: 0.875em;
-  padding-left: 0.5em;
-}
-
-.mixtape_header_owner {
-  display: inline-block;
-}
-
-.mixtape_header_contributors {
-  display: inline-block;
-  margin-bottom: -6px;
-  margin-left: -2.85em;
-}
-
-.mixtape_featuring {
-  font-size: 12px;
-  font-style: italic;
-  display: inline-block;
-  margin-left: -2em;
-}
-
-.display_tracks_btn {
-  height: 65px;
-  margin-bottom: 0px;
-}
-
-
-
-
-
-
--------------------
-
 /* General */
 
 .mixtape {
@@ -92,18 +13,36 @@
   /*display: none;*/
 }
 
+.mixtape_header {
+/*  background-color: #600606;*/
+/*  background-color: #892929;*/
+/*  background-color: #3F99F3;*/
+  background-color: #263248;
+  padding: 0.5em;
+  border-top: 0.5em solid #3F99F3;
+  min-height: 130px;
+}
 
 .mixtape_title {
   color: #E5E5E5;
 }
 
+.mixtape_header a {
+  color: #E5E5E5;
+}
+
+.mixtape_header_contributor {
+  margin-top: 10px;
+}
 
 .mixtape_play_keep {
   display: none;
   margin-top: 0.8em;
 }
 
-
+.mixtape_info {
+  margin-bottom: 0.8em;
+}
 
 .mixtape_info_time {
   margin-top: 0.8em;
@@ -159,7 +98,15 @@
   text-align: left;
 }
 
+.mixtape_tag_list {
+  margin-left: -1.2em;
+}
 
+.tag_mixtape {
+  margin-bottom: 5px;
+  background-color: #CFD6E5;
+  color: #263248;
+}
 
 .mixtape_buttons {
   margin-top: 0.5em;
