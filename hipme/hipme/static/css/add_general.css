@@ -91,6 +91,46 @@
   color: #263248;
 }
 
+/* Mini-profiles */
+
+.mixtape_user_profile {
+  padding: 0;
+  padding-bottom: 0.5em;
+}
+
+.mini_profile_avatar {
+  display: inline-block;
+  width: 50px;
+}
+
+.mini_profile_right_section {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mini_profile_username {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  padding-bottom: 0px;
+}
+
+.mini_profile_score {
+  display: inline-block;
+  font: bolder 14px;
+  background: green;
+  color: white;
+}
+
+.mini_profile_scoreplus {
+  display: inline-block;
+  font: bolder 16px;
+  background: yellow;
+  color: black;
+}
+
+/* Mini-profiles */
+
 .coul {
   border: solid 1px fuchsia;
 }

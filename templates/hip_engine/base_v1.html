@@ -299,7 +299,125 @@
 
 <!-- scripts mixtape game -->
 
- 
+  <script>
+    $('.mixtape').each(function(i){
+      /*
+      $(this).mouseover(function(){
+        $(".mixtape_info:eq("+ i + ")").hide();
+        $(".mixtape_play_keep:eq("+ i + ")").show();
+      });
+      $(this).mouseout(function(){
+        $(".mixtape_info:eq("+ i + ")").show();
+        $(".mixtape_play_keep:eq("+ i + ")").hide();
+      });
+      */
+      /*
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").toggle();
+        $(".tracklist_show:eq("+ i + ")").toggle();
+        $(".tracklist_hide:eq("+ i + ")").toggle();
+        $(".mixtape_header_users:eq("+ i + ")").toggle();
+        $(".mixtape_header_feat:eq("+ i + ")").toggle();
+      });
+      */
+      /*
+      $(this).mouseover(function(){
+        $(".mixtape_sub_header:eq("+ i + ")").show();
+      });
+      $(this).mouseout(function(){
+        $(".mixtape_sub_header:eq("+ i + ")").hide();
+      });
+*/
+    });
+  </script>
+
+  <script>
+    $('.mixtape_title').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").toggle();
+        $(".tracklist_show:eq("+ i + ")").toggle();
+        $(".tracklist_hide:eq("+ i + ")").toggle();
+        $(".mixtape_header_users:eq("+ i + ")").toggle();
+        $(".mixtape_header_feat:eq("+ i + ")").toggle();
+      });
+    });
+  </script>
+
+  <script>
+    $('.mixtape_header_feat').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").show();
+        $(".tracklist_show:eq("+ i + ")").hide();
+        $(".tracklist_hide:eq("+ i + ")").show();
+        $(".mixtape_header_users:eq("+ i + ")").hide();
+        $(".mixtape_header_feat:eq("+ i + ")").hide();
+      });
+    });
+  </script>
+
+  <script>
+    $('.game_add_track_btn').each(function (i) {
+      $(this).click(function(){
+        $(".mixtape_add_track_form:eq("+ i + ")").show();
+        $(".game_add_track_btn:eq("+ i + ")").hide();
+        $(".input_url:eq("+ i + ")").focus();
+      });
+    });
+  </script>
+  
+  <script>
+    $('.game_add_track_cancel').each(function (i) {
+      $(this).click(function(){
+        $(".mixtape_add_track_form:eq("+ i + ")").hide();
+        $(".game_add_track_btn:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+  <script>
+    $('.tracklist_show').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").show();
+        $(".tracklist_show_li:eq("+ i + ")").hide();
+        $(".tracklist_hide_li:eq("+ i + ")").show();
+        $(".mixtape_header_users:eq("+ i + ")").hide();
+        $(".mixtape_header_feat:eq("+ i + ")").hide();
+      });
+    });
+  </script>
+
+  <script>
+    $('.tracklist_hide').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_tracklist:eq("+ i + ")").hide();
+        $(".tracklist_show_li:eq("+ i + ")").show();
+        $(".tracklist_hide_li:eq("+ i + ")").hide();
+        $(".mixtape_header_users:eq("+ i + ")").show();
+        $(".mixtape_header_feat:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+  <script>
+    $('.comment_zone_show').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_comment_container:eq("+ i + ")").show();
+        $(".comment_zone_show_li:eq("+ i + ")").hide();
+        $(".comment_zone_hide_li:eq("+ i + ")").show();
+        $(".input_comment:eq("+ i + ")").focus();
+      });
+    });
+  </script>
+
+  <script>
+    $('.comment_zone_hide').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_comment_container:eq("+ i + ")").hide();
+        $(".comment_zone_show_li:eq("+ i + ")").show();
+        $(".comment_zone_hide_li:eq("+ i + ")").hide();
+      });
+    });
+  </script>
 
 <!-- scripts profile -->
 
