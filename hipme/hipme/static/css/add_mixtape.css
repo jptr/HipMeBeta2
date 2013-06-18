@@ -15,7 +15,7 @@
 }
 
 .mixtape {
-  background-color: #DDDDDD;
+  background-color: #E5E5E5;
   padding-top: 0.875em;
   padding-bottom: 0.875em;
   margin-top: 1.375em;
@@ -32,15 +32,14 @@
 .mixtape_info {
   margin-left: -1.25em;
   margin-bottom: 0.5em;
-  background-color: white;
-  color: #333333;
+  background-color: #FAFAFA;
   font-size: 12px;
-  font-weight: bold;
+  font-style: italic;
   padding-left: 1.25em;
 }
 
 .mixtape_title {
-  font-size: 1.5em;
+  font-size: 2em;
 }
 
 .mixtape_tag_list {
@@ -80,37 +79,95 @@
   margin-bottom: 0px;
 }
 
+.bundle_ul {
+  margin-left: -0px;
+}
+
 .mixtape_bundle {
   margin-bottom: 1px;
-  background-color: white;
+  background-color: #FAFAFA;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.mixtape_bundlego {
+  margin-bottom: 3px;
+  background-color: #FAFAFA;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 .bundle_profile {
-  margin-top: 2.5em;
+  margin-top: 1em;
 }
+
+/* Mini-profiles */
+
+.mini_profile_avatar {
+  display: inline-block;
+  width: 60px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.mini_profile_right_section {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 5px;
+}
+
+.mini_profile_username {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12px;
+}
+
+.mini_profile_score_icon {
+  margin-left: 10px;
+}
+
+.mini_profile_score {
+  font-size: 12px;
+  font-weight: bold;
+  color: #444444;
+  margin-left: 10px;
+}
+
+/* En mini-profiles */
 
 .track_container {
   border-bottom: 1px solid #DDDDDD;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+
+.track_container_no_border-bottom {
+  border-bottom: none;
 }
 
 .track {
   padding-top: 3px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-.track_selector {
-  margin-right: 0.5em;
+.select_track_form {
+  margin: 0px;
+  padding: 0px;
+  margin-right: 20px;
 }
 
-.track_selector_btn {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+.keep_track_btn {
+  margin: 0px;
+  padding: 0px;
 }
 
-.score_box {
-  background-color: blue;
-  width: 50px;
-  height: 50px;
+.kept_track_btn {
+  margin: 0px;
+  padding: 0px;
+}
+
+.unkeep_track_btn {
+  display: none;
+  margin: 0px;
+  padding: 0px;
 }

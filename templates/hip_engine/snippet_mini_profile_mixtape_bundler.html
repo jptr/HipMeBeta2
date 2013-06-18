@@ -12,10 +12,8 @@
     {{ bundle.owner.user.username }}
   </a>
   <br/>
-  <div class="label radius mini_profile_score ">
+  <img src="{% static "img/round_icon.png" %}" class="mini_profile_score_icon" />
+  <text class="mini_profile_score">
     {{ bundle.owner.reputation }}
-  </div>
-  <div class="label radius mini_profile_scoreplus ">
-    +20!
-  </div>
+  </text>
 </div>

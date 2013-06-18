@@ -299,7 +299,23 @@
 
 <!-- scripts mixtape game -->
 
- 
+ <script>
+    $('.kept_track_btn').each(function(i){
+      $(this).mouseover(function(){
+        $(".kept_track_btn:eq("+ i + ")").hide();
+        $(".unkeep_track_btn:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+ <script>
+    $('.unkeep_track_btn').each(function(i){
+      $(this).mouseout(function(){
+        $(".kept_track_btn:eq("+ i + ")").show();
+        $(".unkeep_track_btn:eq("+ i + ")").hide();
+      });
+    });
+  </script>
 
 <!-- scripts profile -->
 

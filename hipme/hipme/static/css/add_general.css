@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'Graublau Web';
+  src: url('GraublauWeb.eot');
+  src: local('Graublau Web Regular'), local('Graublau Web'),
+    url("GraublauWeb.woff") format("woff"),
+    url("GraublauWeb.otf") format("opentype"),
+    url("GraublauWeb.svg#grablau") format("svg");
+}
+
+body {
+      font-family: 'Graublau Web', Fallback, sans-serif;
+}
+
+a {
+  color: #444444;
+}
+
 .page_content {
   margin-top: 16px;
 }
@@ -66,6 +83,7 @@
   color: black;
   font-weight: bold;
   padding-bottom: 5px;
+  font-size: 3px;
 }
 
 .no_padding_left {
@@ -91,45 +109,7 @@
   color: #263248;
 }
 
-/* Mini-profiles */
 
-.mixtape_user_profile {
-  padding: 0;
-  padding-bottom: 0.5em;
-}
-
-.mini_profile_avatar {
-  display: inline-block;
-  width: 50px;
-}
-
-.mini_profile_right_section {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.mini_profile_username {
-  display: inline-block;
-  vertical-align: top;
-  font-size: 16px;
-  padding-bottom: 0px;
-}
-
-.mini_profile_score {
-  display: inline-block;
-  font: bolder 14px;
-  background: green;
-  color: white;
-}
-
-.mini_profile_scoreplus {
-  display: inline-block;
-  font: bolder 16px;
-  background: yellow;
-  color: black;
-}
-
-/* Mini-profiles */
 
 .coul {
   border: solid 1px fuchsia;
