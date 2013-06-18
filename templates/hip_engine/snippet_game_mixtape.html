@@ -39,13 +39,12 @@
     </div>
   </div>
 
-  {% comment %}
   <div class="small-12 columns mixtape_summary">
     <div class="row">
       <div class="small-2 columns mixtape_header_owner">
         <a href="#"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="65px"/></a>
       </div>
-      <div class="small-6 columns">
+      <div class="small-6 columns mixtape_header_contributors_and_featuring">
         <ul class="inline-list mixtape_header_contributors">
           {% for user_profile in tracklist.userto.all %}
             <li class="mixtape_header_contributor">
@@ -70,15 +69,20 @@
           {% endif %}
         </div>
       </div>
-      <div class="small-4 columns">
+      <div class="small-8 columns add_track_btn_zone">
+        <button class="button expand radius success add_track_btn"> Add a track </button>
+      </div>
+      <div class="small-4 columns display_tracks_btn_zone">
         <button class="button expand radius display_tracks_btn"> Display tracks </button>
+      </div>
+      <div class="small-4 columns hide_tracks_btn_zone">
+        <button class="button expand radius secondary hide_tracks_btn"> Hide tracks </button>
       </div>
     </div>
   </div>
-  {% endcomment %}
 
   {# If owner has bundle #}
-  <ul class="no-bullet bundle_ul">
+  <ul class="no-bullet bundlego_ul">
     <li>
       <div class="small-12 columns mixtape_bundlego">
         <div class="row collapse">
@@ -104,7 +108,7 @@
   </ul>
   {# End if #}
 
-  <ul class="no-bullet bundle_ul">
+  <ul class="no-bullet bundleback_ul">
     {# for bundleback in bundleback_list #}
     <li>
       <div class="small-12 columns mixtape_bundle ">

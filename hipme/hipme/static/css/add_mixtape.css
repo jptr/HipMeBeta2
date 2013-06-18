@@ -53,8 +53,10 @@
 }
 
 .mixtape_summary {
+  margin-bottom: 1px;
   background-color: white;
   padding-top: 0.875em;
+  padding-bottom: 0.875em;
 }
 
 .mixtape_header_owner {
@@ -79,7 +81,29 @@
   margin-bottom: 0px;
 }
 
-.bundle_ul {
+.hide_tracks_btn_zone {
+  display: none;
+}
+
+.hide_tracks_btn {
+  margin-bottom: 0px;
+}
+
+.add_track_btn_zone {
+  display: none;
+}
+
+.add_track_btn {
+  margin-bottom: 0px;
+}
+
+.bundlego_ul {
+  display: none;
+  margin-left: -0px;
+}
+
+.bundleback_ul {
+  display: none;
   margin-left: -0px;
 }
 
