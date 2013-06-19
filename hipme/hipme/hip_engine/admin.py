@@ -27,7 +27,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_filter = ('is_email_notified',)
 
 class TracklistAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__','is_finished', 'date_created','date_last_edit')
+    list_display = ('__unicode__','is_finished', 'date_created','date_latest_edit')
 
 class TrackAdmin(admin.ModelAdmin):
     list_display = ('__unicode__','get_site_from','artist','name', 'date_added')

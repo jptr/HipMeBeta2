@@ -76,7 +76,7 @@ class Tracklist(models.Model):
     date_created = models.DateTimeField('date of creation', default=timezone.now())
     date_latest_event = models.DateTimeField('date of latest event', default=timezone.now())
     date_latest_edit = models.DateTimeField('date of latest edit', default=timezone.now())
-    latest_event = models.CharField(blank=True)
+    latest_event = models.CharField(max_length=200, blank=True)
 
     tracks_initial = models.ManyToManyField('Track', related_name='tracklist_from', blank=True)
     tracks_kept = models.ManyToManyField('Track', related_name='tracklist_kept_from', blank=True)
