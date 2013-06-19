@@ -25,7 +25,7 @@
           <button class="button success radius expand play_mxtp_btn"> <img src="{% static "img/round_icon.png" %}"/> Play </button>
         </div>
         <div class="small-6 columns">
-          <button class="button expand radius keep_mxtp_btn"> <img src="{% static "img/heart_white_32.png" %}" width="20px" /> Keep </button>
+          <button class="button expand radius keep_mxtp_btn"> <img src="{% static "img/heart_white_32.png" %}" width="20px" /> Like </button>
         </div>
         <div class="small-6 columns text-center play_mxtp_stats">
           <img src="{% static "img/round_icon.png" %}"/>
@@ -70,10 +70,50 @@
         </div>
       </div>
       <div class="small-4 columns display_tracks_btn_zone">
-        <button class="button expand radius display_tracks_btn"> Display tracks </button>
+        <button class="button expand radius display_tracks_btn"> Show tracks </button>
       </div>
       <div class="small-8 columns show_add_track_form_btn_zone">
+
+{% comment %} A enlever quand la suite est ajoutée ! {% endcomment %}
+
         <button class="button expand radius show_add_track_form_btn"> Add a track </button>
+
+{% comment %} A rajouter !
+
+        {# If mixtape over (> 72h) #}
+          <button class="button expand radius disabled cannot_show_add_track_form_btn"> Mixtape over - no tracks can be added </button>
+        {# Else if <72h #}
+          {# If exterior #}
+            {# If spots left #}
+              <button class="button expand radius show_add_track_form_btn"> Jump in and add a track </button>
+            {# Else #}
+              <button class="button expand radius disabled cannot_show_add_track_form_btn"> Mixtape full - you can't contribute </button>
+            {# Endif #}
+          {# If called (or already jumped in and added one track) #}
+            {# If added no track yet #}
+              <button class="button expand radius show_add_track_form_btn"> You were called - add your first track </button>
+            {# Elif added 1 track already #}
+              <button class="button expand radius show_add_track_form_btn"> Add another track </button>
+            {# Elif added 2 tracks already #}
+              <button class="button expand radius show_add_track_form_btn"> Add one last track </button>
+            {# Else (3 tracks) #}
+              <button class="button expand radius disabled cannot_show_add_track_form_btn"> You've already added 3 tracks </button>
+            {# Endif #}
+          {# Else (if owner) #}
+            {# If added no track yet #}
+              <button class="button expand radius show_add_track_form_btn"> Add a track to your mixtape </button>
+            {# Elif added 1 track already #}
+              <button class="button expand radius show_add_track_form_btn"> Add another track </button>
+            {# Elif added 2 tracks already #}
+              <button class="button expand radius show_add_track_form_btn"> Add one last track </button>
+            {# Else (3 tracks) #}
+              <button class="button expand radius disabled cannot_show_add_track_form_btn"> You've already added 3 tracks </button>
+            {# Endif #}
+          {# Endif #}
+        {# Endif #}
+
+{% endcomment %}
+
       </div>
       <div class="small-4 columns hide_tracks_btn_zone">
         <button class="button expand radius secondary hide_tracks_btn"> Hide tracks </button>
@@ -101,13 +141,13 @@
           </div>
           <div class="row ">
             <div class="small-5 columns ">
-              <input type="text" name="artist" placeholder="Artist (optional)" class="nooo"/>
+              <input type="text" name="artist" placeholder="Artist (optional)"/>
             </div>
             <div class="small-5 columns">
-              <input type="text" name="name" placeholder="Name (optional)" class="nooo"/>
+              <input type="text" name="name" placeholder="Name (optional)"/>
             </div>
             <div class="small-2 columns">
-              <input type="button" value="X" class="button postfix secondary expand mixtape_add_track_cancel nooo" />
+              <input type="button" value="X" class="button postfix secondary expand mixtape_add_track_cancel" />
             </div>
           </div>
         </form>
@@ -163,7 +203,16 @@
           </div>
         </div>
       </li>
-      {% endfor %}
+    {% endfor %}
+    {% if request.user.get_profile == tracklist.owner %}
+      <li>
+        <div class="small-12 columns close_mixtape_zone">
+          <form action="" class="" method="post">
+            <button class="button expand success close_mixtape_btn"> Close mixtape </button>
+          </form>
+        </div>
+      </li>
+    {% endif %}
   </ul>
 
 </div>

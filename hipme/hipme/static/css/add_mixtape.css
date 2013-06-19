@@ -122,10 +122,6 @@
   padding-bottom: 0px;
 }
 
-.nooo {
-  padding: 0em;
-}
-
 .bundle_list {
   display: none;
   margin-left: 0px;
@@ -233,4 +229,14 @@
   display: none;
   margin: 0px;
   padding: 0px;
+}
+
+.close_mixtape_zone {
+  background-color: #FAFAFA;
+  padding-bottom: 0px;
+  padding-top: 10px;
+}
+
+.close_mixtape_btn {
+  padding-top: 10px;
 }
