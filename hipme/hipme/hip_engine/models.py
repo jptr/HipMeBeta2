@@ -62,6 +62,7 @@ class Bundle(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='bundles_created')
     tracks = models.ManyToManyField('Track', related_name='bundle_from', blank=True)
     date_created = models.DateTimeField('date of creation', default=timezone.now())
+    nb_tracks_kept = models.IntegerField(default=0)
 
     def __unicode__(self):
         return u"bundle %s created by %s" % (self.id, self.owner)
@@ -71,15 +72,19 @@ class Tracklist(models.Model):
     userto = models.ManyToManyField('UserProfile', verbose_name=u'to', related_name='tracklists_contributed', help_text='type any username')
     title = models.CharField(max_length=50, blank=True, help_text='max 50 characters')
     description = models.CharField(max_length=200, blank=True, help_text='max 200 characters')
+
     date_created = models.DateTimeField('date of creation', default=timezone.now())
-    date_last_edit = models.DateTimeField('date of last edit', default=timezone.now())
-    tracks = models.ManyToManyField('Track', related_name='tracklist_from', blank=True)
+    date_latest_event = models.DateTimeField('date of latest event', default=timezone.now())
+    date_latest_edit = models.DateTimeField('date of latest edit', default=timezone.now())
+    latest_event = models.CharField(blank=True)
+
+    tracks_initial = models.ManyToManyField('Track', related_name='tracklist_from', blank=True)
+    tracks_kept = models.ManyToManyField('Track', related_name='tracklist_kept_from', blank=True)
     bundlebacks = models.ManyToManyField('Bundle', related_name='tracklist_from', null=True, blank=True)
     is_finished = models.BooleanField('finished?', default=False)
-    tags = models.ManyToManyField('Tag', related_name='tracklist_from', null=True, blank=True)
+    tags = models.ManyToManyField('Tag', null=True, blank=True)
 
-    def get_time_delta(self):   
-        timeDiff = timezone.now() - self.date_created
+    def get_time_string(timeDiff):
         days = timeDiff.days
         hours = timeDiff.seconds/3600
         minutes = timeDiff.seconds%3600/60
@@ -87,27 +92,51 @@ class Tracklist(models.Model):
         str = ""
         tStr = ""
         if days > 0:
-            if days == 1:   tStr = "day ago"
-            else:           tStr = "days ago"
+            if days == 1:   tStr = "day"
+            else:           tStr = "days"
             str = str + "%s %s" %(days, tStr)
             return str
         elif hours > 0:
-            if hours == 1:  tStr = "hour ago"
-            else:           tStr = "hours ago"
+            if hours == 1:  tStr = "hour"
+            else:           tStr = "hours"
             str = str + "%s %s" %(hours, tStr)
             return str
         elif minutes > 0:
-            if minutes == 1:tStr = "min ago"
-            else:           tStr = "mins ago"           
+            if minutes == 1:tStr = "min"
+            else:           tStr = "mins"           
             str = str + "%s %s" %(minutes, tStr)
             return str
         elif seconds > 0:
-            if seconds == 1:tStr = "sec ago"
-            else:           tStr = "secs ago"
+            if seconds == 1:tStr = "sec"
+            else:           tStr = "secs"
             str = str + "%s %s" %(seconds, tStr)
             return str
         else:
-            return "1 sec ago"
+            return "1 sec"
+
+    def get_time_left():
+        timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
+        seconds = timeDiff.seconds%3600%60
+        if timeDiff.seconds > 0:
+            return self.get_time_string(timeDiff)+" left"
+        else:
+            return ""
+
+    def get_time_out():
+        timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
+        seconds = timeDiff.seconds%3600%60
+        if timeDiff.seconds > 0:
+            return False
+        else:
+            return True
+
+    is_time_out = property(get_time_out)
+    time_left = property(get_time_left)
+
+    def get_time_delta(self):   
+        timeDiff = timezone.now() - self.date_created
+        return self.get_time_string(timeDiff)+" ago"
+
     time_delta = property(get_time_delta)
 
     def __unicode__(self):

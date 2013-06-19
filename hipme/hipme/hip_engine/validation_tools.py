@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- 
 import re
 
 def validateEmail(email):
@@ -18,12 +20,13 @@ def validateUsername(username):
         return False
 
 def parseTags(string_tags):
-    regex_tag = '^[a-zA-Z0-9\-_ ]+$'
+    regex_tag = '^[a-zA-ZÀ-ÿ0-9\-_ ]+$'
     array_tags = string_tags.split(',')
     tags = []
 
     for tag in array_tags:
         if re.search(regex_tag, tag):
+            tag = tag.lower()
             tag = tag.title()
             tag = " ".join(tag.split())
             tags.append(tag)

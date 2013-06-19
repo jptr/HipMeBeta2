@@ -9,6 +9,7 @@ from django.forms.models import inlineformset_factory, modelformset_factory
 from hip_engine.forms import ProfileEmailNotificationForm, UserEmailForm, TracklistForm, TrackForm
 
 from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag
+from hip_engine.search import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
 from django.core.validators import URLValidator
@@ -17,6 +18,8 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
 from django.utils.html import escape
+
+from django.utils import timezone
 
 # generic context methods
 def get_nav_context():
@@ -38,8 +41,20 @@ def get_tracklist_form_context(request):
     context = {'tracklist_form':tracklist_form, 'track_form': track_form,}
     return context
 
+def get_rankings(request):
+    profile_queryset = UserProfile.objects.filter(followed_by=request.user.get_profile())
+    profile_list = profile_queryset.distinct().order_by('-reputation')
+    for index in range(len(profile_list)):
+        if profile_list[index].reputation > request.user.get_profile().reputation:
+            profile_list = profile_list[index-2:index+2]
+            break
+    profile_list.insert(2, request.user.get_profile())
+    context = {'ranking_profile_list':profile_list,}
+    return context
+
 def get_generic_context(request):
-    context = get_tracklist_form_context(request)
+    context = {}
+    context.update(get_tracklist_form_context(request))
     context.update(get_nav_context())
     return context
 
@@ -68,13 +83,13 @@ def populate_db(request):
 
                 owner = get_object_or_404(UserProfile,user__username=instance["owner"])
                 title = instance["title"]
-                description = instance["description"]
+                # description = instance["description"]
                 is_finished = instance["is_finished"]
 
                 tracklist = Tracklist(
                     owner = owner, 
                     title = title, 
-                    description = description, 
+                    # description = description, 
                     is_finished=is_finished
                 )
                 tracklist.save()
@@ -96,7 +111,7 @@ def populate_db(request):
                         name = track_dic["name"]
                         track = Track(url=url, artist=artist, name=name)
                         track.save()
-                        tracklist.tracks.add(track)
+                        tracklist.tracks_initial.add(track)
 
                 if instance["bundlebacks"]:
                     for bundleback_dic in instance["bundlebacks"]:
@@ -121,7 +136,7 @@ def populate_db(request):
 def feed(request):
     # tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_queryset = Tracklist.objects.all()
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -137,7 +152,7 @@ def profile(request, username):
 @login_required
 def profile_activity(request, username):
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -150,7 +165,7 @@ def profile_activity(request, username):
 @login_required
 def profile_collection(request, username):
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -163,7 +178,7 @@ def profile_collection(request, username):
 @login_required
 def profile_pending(request, username):
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -177,7 +192,7 @@ def profile_pending(request, username):
 def profile_followers(request, username):
     followers_list = profile_focused.followed_by.all()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -192,7 +207,7 @@ def profile_followers(request, username):
 def profile_following(request, username):
     following_list = profile_focused.follows.all()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_created')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -204,8 +219,21 @@ def profile_following(request, username):
     return render_to_response('hip_engine/profile_following.html', context, context_instance=RequestContext(request))
 
 @login_required
-def search_people(request):
+def search(request):
+    query_string = ''
+    found_profiles = None
+    found_tracklists = None
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+        profile_query = get_query(query_string, ['user__username',])
+        tracklist_query = get_query(query_string, ['title', 'tags__name', 'owner__user__username', 'tracks_initial__artist', 'tracks_initial__name', 'tracks_kept__artist', 'tracks_kept__tracks__name'])
+        found_tracklists = Tracklist.objects.filter(message_query).order_by('-date_latest_event')
+        found_profiles = UserProfile.objects.filter(user_query).order_by('user__username')
 
+    return render_to_response('hip_engine/search_results.html', {'query_string': query_string, 'tracklist_list': found_tracklists, 'profile_list': found_profiles}, context_instance=RequestContext(request))
+
+@login_required
+def search_people(request):
     tracklist_form = TracklistForm(username=request.user.username)
     track_form = TrackForm()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
@@ -256,7 +284,7 @@ def create_mixtape(request):
                         if title:
                             track.title = title
                         track.save()
-                        tracklist.tracks.add(track)
+                        tracklist.tracks_initial.add(track)
                     except ValidationError, e:
                         return render_to_response('hip_engine/forms.html', {'error_message': "Some track urls are not valid. Please check the url fields.",}, context_instance=RequestContext(request))
     
@@ -264,9 +292,11 @@ def create_mixtape(request):
         if title:
             tracklist.title = title
 
-        description = request.POST.get('description')
-        if description:
-            tracklist.description = description
+        tracklist.latest_event = tracklist.owner__user__username + " created a new mixtape."
+
+        # description = request.POST.get('description')
+        # if description:
+        #     tracklist.description = description
 
         string_tags = request.POST.get('tags')
         if string_tags:
@@ -288,6 +318,7 @@ def create_mixtape(request):
     else:
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
+@login_required
 def add_track(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     # if tracklist.userto.filter(user=request.user):
@@ -301,16 +332,81 @@ def add_track(request, tracklist_id):
     else:
         bundleback = Bundle(owner=request.user.get_profile())
         bundleback.save()
+
     bundleback.tracks.add(track)
     bundleback.save()
+
     tracklist.bundlebacks.add(bundleback)
+    tracklist.date_latest_event = timezone.now()
+    tracklist.date_latest_edit = timezone.now()
+    tracklist.latest_event = request.user.username + " added a track to " + tracklist.owner__user__username +"'s mixtape."
     tracklist.save()
 
     if request.POST.get('next'):
         url_next = request.POST['next']
         return HttpResponseRedirect(url_next)
     else:
-        return HttpResponseRedirect(reverse('hip_engine.views.feed'))   
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+
+@login_required
+def keep_track(request, tracklist_id, bundle_id, track_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+    bundleback = get_object_or_404(Bundle, pk=bundle_id)
+    track = get_object_or_404(Track, pk=track_id)
+
+    tracklist.tracks_kept.add(track)
+    tracklist.date_latest_event = timezone.now()
+    tracklist.save()
+
+    bundleback.owner.reputation += 1
+    bundleback.owner.save()
+
+    bundleback.nb_tracks_kept += 1
+    bundleback.save()
+
+    if request.POST.get('next'):
+        url_next = request.POST['next']
+        return HttpResponseRedirect(url_next)
+    else:
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+
+@login_required
+def remove_track(request, tracklist_id, bundle_id, track_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+    bundleback = get_object_or_404(Bundle, pk=bundle_id)
+    track = get_object_or_404(Track, pk=track_id)
+
+    tracklist.tracks_kept.remove(track)
+    tracklist.date_latest_event = timezone.now()
+    tracklist.save()
+
+    bundleback.owner.reputation -= 1
+    bundleback.owner.save()
+
+    bundleback.nb_tracks_kept -= 1
+    bundleback.save()
+
+    if request.POST.get('next'):
+        url_next = request.POST['next']
+        return HttpResponseRedirect(url_next)
+    else:
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+
+@login_required
+def close_tracklist(request, tracklist_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+    if tracklist.owner == request.user.get_profile():
+        tracklist.is_finished = True
+        tracklist.date_latest_event = timezone.now()
+        tracklist.date_latest_edit = tracklist.date_latest_event
+        tracklist.latest_event = tracklist.owner__user__username + " finished his mixtape."
+        tracklist.save()
+
+    if request.POST.get('next'):
+        url_next = request.POST['next']
+        return HttpResponseRedirect(url_next)
+    else:
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 def logout_process(request):
     logout(request)
