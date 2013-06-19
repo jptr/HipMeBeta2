@@ -292,7 +292,7 @@ def create_mixtape(request):
         if title:
             tracklist.title = title
 
-        tracklist.latest_event = tracklist.owner__user__username + " created a new mixtape."
+        tracklist.latest_event = tracklist.owner.user.username + " created a new mixtape."
 
         # description = request.POST.get('description')
         # if description:
