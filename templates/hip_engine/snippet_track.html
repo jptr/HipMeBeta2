@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<div class="row track_container {# {% if last track %} #} track_container_no_border-bottom {# {% endif %} #}">
+  {# if owner #}
+    <div class="small-10 columns track">
+      <img src="{% static "img/round_icon.png" %}" />
+      <a href="#"> Tape and Money - Totally Enormous Extinct Dinosaurs </a>
+    </div>
+    <div class="small-2 columns">
+      <form class="select_track_form">
+        {# if unchosen yet or trashed #}
+          <input type="submit" class="tiny button right keep_track_btn" value="Keep">
+        {# else if kept #}
+          <input type="submit" class="tiny button right success kept_track_btn" value="Kept">
+          <input type="submit" class="tiny button right alert unkeep_track_btn" value="Unkeep">
+        {# endif #}
+      </form>
+    </div>
+  {# else #}
+  <div class="small-12 columns track">
+    <img src="{% static "img/round_icon.png" %}" />
+    <a href="#"> Tape and Money - Totally Enormous Extinct Dinosaurs </a>
+  </div>
+  {# endif #}
+</div>

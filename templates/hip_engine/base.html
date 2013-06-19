@@ -299,7 +299,51 @@
 
 <!-- scripts mixtape game -->
 
- 
+ <script>
+    $('.kept_track_btn').each(function(i){
+      $(this).mouseover(function(){
+        $(".kept_track_btn:eq("+ i + ")").hide();
+        $(".unkeep_track_btn:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+ <script>
+    $('.unkeep_track_btn').each(function(i){
+      $(this).mouseout(function(){
+        $(".kept_track_btn:eq("+ i + ")").show();
+        $(".unkeep_track_btn:eq("+ i + ")").hide();
+      });
+    });
+  </script>
+
+  <script>
+    $('.display_tracks_btn').each(function(i){
+      $(this).click(function(){
+        $(".mixtape_header_owner:eq("+ i + ")").hide();
+        $(".mixtape_header_contributors_and_featuring:eq("+ i + ")").hide();
+        $(".display_tracks_btn_zone:eq("+ i + ")").hide();
+        $(".add_track_btn_zone:eq("+ i + ")").show();
+        $(".hide_tracks_btn_zone:eq("+ i + ")").show();
+        $(".bundlego_ul:eq("+ i + ")").show();
+        $(".bundleback_ul:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+  <script>
+    $('.hide_tracks_btn').each(function(j){
+      $(this).click(function(){
+        $(".add_track_btn_zone:eq("+ j + ")").hide();
+        $(".hide_tracks_btn_zone:eq("+ j + ")").hide();
+        $(".bundlego_ul:eq("+ j + ")").hide();
+        $(".bundleback_ul:eq("+ j + ")").hide();
+        $(".mixtape_header_owner:eq("+ j + ")").show();
+        $(".mixtape_header_contributors_and_featuring:eq("+ j + ")").show();
+        $(".display_tracks_btn_zone:eq("+ j + ")").show();
+      });
+    });
+  </script>
 
 <!-- scripts profile -->
 

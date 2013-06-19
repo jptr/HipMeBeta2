@@ -1,135 +1,140 @@
 {% load staticfiles %}
 
-    <div class="small-12 columns mixtape top_line_green">
-      <div class="row mixtape_header">
-        <div class="small-8 columns">
-          <div class="small-6 mixtape_info">
-            1 free spot &nbsp / &nbsp started {{ tracklist.time_delta }} 
-          </div>
-          <a href="#" class="mixtape_title">
-            {% if tracklist.title %}
-              {{tracklist.title}}
-            {% else %}
-              #Untitled
-            {% endif %}
-          </a>
-          <ul class="inline-list mixtape_tag_list">
-            {% for tag in tracklist.tags.all %}
-              <li class="label radius tag_mixtape"> {{tag.name}} </li>
-            {% endfor %}
-          </ul>
+<div class="small-12 columns mixtape top_line_green">
+  <div class="row mixtape_header">
+    <div class="small-8 columns">
+      <div class="small-6 mixtape_info">
+        1 free spot &nbsp / &nbsp started {{ tracklist.time_delta }} 
+      </div>
+      <a href="#" class="mixtape_title">
+        {% if tracklist.title %}
+          {{tracklist.title}}
+        {% else %}
+          #Untitled
+        {% endif %}
+      </a>
+      <ul class="inline-list mixtape_tag_list">
+        {% for tag in tracklist.tags.all %}
+          <li class="label radius tag_mixtape"> {{tag.name}} </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="small-4 columns">
+      <div class="row">
+        <div class="small-6 columns">
+          <button class="button success radius expand play_mxtp_btn"> Listen </button>
         </div>
-        <div class="small-4 columns">
-          <div class="row">
-            <div class="small-6 columns">
-              <button class="button success radius expand play_mxtp_btn"> Listen </button>
-            </div>
-            <div class="small-6 columns">
-              <button class="button expand radius keep_mxtp_btn"> Keep </button>
-            </div>
-            <div class="small-6 columns text-center play_mxtp_stats">
-              54
-            </div>
-            <div class="small-6 columns text-center keep_mxtp_stats">
-              13
-            </div>
-          </div>
+        <div class="small-6 columns">
+          <button class="button expand radius keep_mxtp_btn"> <img src="{% static "img/round_icon.png" %}"/> </button>
+        </div>
+        <div class="small-6 columns text-center play_mxtp_stats">
+          <img src="{% static "img/round_icon.png" %}"/>
+          54
+        </div>
+        <div class="small-6 columns text-center keep_mxtp_stats">
+          <img src="{% static "img/round_icon.png" %}"/>
+          13
         </div>
       </div>
-      {% comment %}
-      <div class="small-12 columns mixtape_summary">
-        <div class="row">
-          <div class="small-2 columns mixtape_header_owner">
-            <a href="#"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="65px"/></a>
-          </div>
-          <div class="small-6 columns">
-            <ul class="inline-list mixtape_header_contributors">
-              {% for user_profile in tracklist.userto.all %}
-                <li class="mixtape_header_contributor">
-                  <a href="#"><img title="{{user_profile.user.username}}" src="{% static "img/default.jpg" %}" width="40px"/></a>
-                </li>
+    </div>
+  </div>
+
+  <div class="small-12 columns mixtape_summary">
+    <div class="row">
+      <div class="small-2 columns mixtape_header_owner">
+        <a href="#"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="65px"/></a>
+      </div>
+      <div class="small-6 columns mixtape_header_contributors_and_featuring">
+        <ul class="inline-list mixtape_header_contributors">
+          {% for user_profile in tracklist.userto.all %}
+            <li class="mixtape_header_contributor">
+              <a href="#"><img title="{{user_profile.user.username}}" src="{% static "img/default.jpg" %}" width="40px"/></a>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="mixtape_featuring">
+          {% if tracklist.bundlebacks.all %}
+            featuring&nbsp;
+            {% for bundleback in tracklist.bundlebacks.all %}
+              {% for track in bundleback.tracks.all %}
+                {% if track.artist and forloop.counter == 1 and forloop.parentloop.counter < 4 %}
+                  {% if forloop.parentloop.counter == 3 %}
+                    {{ track.artist }} ...
+                  {% else %}
+                    {{ track.artist }},&nbsp;
+                  {% endif %}
+                {% endif %}
               {% endfor %}
-            </ul>
-            <div class="mixtape_featuring">
-              {% if tracklist.bundlebacks.all %}
-                featuring&nbsp;
-                {% for bundleback in tracklist.bundlebacks.all %}
-                  {% for track in bundleback.tracks.all %}
-                    {% if track.artist and forloop.counter == 1 and forloop.parentloop.counter < 4 %}
-                      {% if forloop.parentloop.counter == 3 %}
-                        {{ track.artist }} ...
-                      {% else %}
-                        {{ track.artist }},&nbsp;
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                {% endfor %}
-              {% endif %}
-            </div>
-          </div>
-          <div class="small-4 columns">
-            <button class="button expand radius display_tracks_btn"> Display tracks </button>
-          </div>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
-      {% endcomment %}
-      <div class="small-12 columns mixtape_bundle">
+      <div class="small-8 columns add_track_btn_zone">
+        <button class="button expand radius success add_track_btn"> Add a track </button>
+      </div>
+      <div class="small-4 columns display_tracks_btn_zone">
+        <button class="button expand radius display_tracks_btn"> Display tracks </button>
+      </div>
+      <div class="small-4 columns hide_tracks_btn_zone">
+        <button class="button expand radius secondary hide_tracks_btn"> Hide tracks </button>
+      </div>
+    </div>
+  </div>
+
+  {# If owner has bundle #}
+  <ul class="no-bullet bundlego_ul">
+    <li>
+      <div class="small-12 columns mixtape_bundlego">
         <div class="row collapse">
           <div class="small-4 columns bundle_profile">
             {% include "hip_engine/snippet_mini_profile_mixtape_owner.html" %}
           </div>
-          <div class="small-8 columns">
-            <div class="row track_container">
-              {# if owner #}
-              <div class="small-6 columns track">
-                Love - cool band
-              </div>
-              <div class="button-bar">
-                {# If owner #}
-                <ul class="button-group round right track_selector">
-                  <li><a href="#" class="small button tiny success track_selector_btn"> Keep it </a></li>
-                  <li><a href="#" class="small button tiny alert track_selector_btn"> Trash it </a></li>
-                </ul>
-                {# Endif owner #}
-                <ul class="button-group round right track_selector">
-                  <li><a href="#" class="small button tiny track_selector_btn"> Listen </a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="row track_container">
-              <div class="small-8 columns track">
-                Love - cool band
-              </div>
-              <ul class="button-group round right track_selector">
-                <li><a href="#" class="small button tiny track_selector_btn"> Keep it </a></li>
-                <li><a href="#" class="small button tiny alert track_selector_btn"> Trash it </a></li>
-              </ul>
-            </div>
-            <div class="row track_container">
-              <div class="small-8 columns track">
-                Love - cool band
-              </div>
-              <ul class="button-group round right track_selector">
-                <li><a href="#" class="small button tiny track_selector_btn"> Keep it </a></li>
-                <li><a href="#" class="small button tiny alert track_selector_btn"> Trash it </a></li>
-              </ul>
-            </div>
+          <div class="small-8 columns bundle_tracklist">
+            <ul class="no-bullet">
+              <li>
+                {% include "hip_engine/snippet_track.html" %}
+              </li>
+              <li>
+                {% include "hip_engine/snippet_track.html" %}
+              </li>
+              <li>
+                {% include "hip_engine/snippet_track.html" %}
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="small-12 columns mixtape_bundle">
-        <div class="row">
-          <div class="small-4 columns">
+    </li>
+  </ul>
+  {# End if #}
+
+  <ul class="no-bullet bundleback_ul">
+    {# for bundleback in bundleback_list #}
+    <li>
+      <div class="small-12 columns mixtape_bundle ">
+        <div class="row collapse">
+          <div class="small-4 columns bundle_profile">
             {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
           </div>
-        </div>
-      </div>
-      <div class="small-12 columns mixtape_bundle">
-        <div class="row">
-          <div class="small-4 columns">
-            {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
+          <div class="small-8 columns bundle_tracklist">
+            <ul class="no-bullet">
+              <li>
+                {% include "hip_engine/snippet_track.html" %}
+              </li>
+              <li>
+                {% include "hip_engine/snippet_track.html" %}
+              </li>
+              <li>
+                {% include "hip_engine/snippet_track.html" %}
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+    </li>
+    {# endfor #}
+  </ul>
+
+</div>
 
 
