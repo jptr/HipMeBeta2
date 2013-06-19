@@ -66,7 +66,11 @@
 .mixtape_header_contributors {
   display: inline-block;
   margin-bottom: -6px;
-  margin-left: -2.85em;
+  margin-left: -33px;
+}
+
+.mixtape_header_contributors li {
+  margin-left: 10px;
 }
 
 .mixtape_featuring {

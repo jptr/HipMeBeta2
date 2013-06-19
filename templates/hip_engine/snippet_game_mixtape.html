@@ -42,13 +42,13 @@
   <div class="small-12 columns mixtape_summary">
     <div class="row">
       <div class="small-2 columns mixtape_header_owner">
-        <a href="#"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="65px"/></a>
+        <a href="#"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="82px"/></a>
       </div>
       <div class="small-6 columns mixtape_header_contributors_and_featuring">
         <ul class="inline-list mixtape_header_contributors">
           {% for user_profile in tracklist.userto.all %}
-            <li class="mixtape_header_contributor">
-              <a href="#"><img title="{{user_profile.user.username}}" src="{% static "img/default.jpg" %}" width="40px"/></a>
+            <li>
+              <a href="#"><img title="{{user_profile.user.username}}" src="{% static "img/default.jpg" %}" width="50px"/></a>
             </li>
           {% endfor %}
         </ul>
