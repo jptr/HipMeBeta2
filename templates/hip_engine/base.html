@@ -345,6 +345,29 @@
     });
   </script>
 
+  <script>
+    $('.add_track_btn').each(function(j){
+      $(this).click(function(){
+        $(".add_track_info:eq("+ j + ")").show();
+        $(".add_track_form_zone:eq("+ j + ")").show();
+        $(".add_track_btn_zone:eq("+ j + ")").hide();
+        $(".hide_tracks_btn_zone:eq("+ j + ")").hide();
+        $("#input_url").focus();
+      });
+    });
+  </script>
+
+  <script>
+    $('.mixtape_add_track_cancel').each(function(j){
+      $(this).click(function(){
+        $(".add_track_btn_zone:eq("+ j + ")").show();
+        $(".hide_tracks_btn_zone:eq("+ j + ")").show();
+        $(".add_track_info:eq("+ j + ")").hide();
+        $(".add_track_form_zone:eq("+ j + ")").hide();
+      });
+    });
+  </script>
+
 <!-- scripts profile -->
 
   <script>

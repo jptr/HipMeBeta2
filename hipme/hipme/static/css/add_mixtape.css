@@ -15,7 +15,7 @@
 }
 
 .mixtape {
-  background-color: #E5E5E5;
+  background-color: #DDDDDD;
   padding-top: 0.875em;
   padding-bottom: 0.875em;
   margin-top: 1.375em;
@@ -53,7 +53,7 @@
 }
 
 .mixtape_summary {
-  margin-bottom: 1px;
+  margin-bottom: 3px;
   background-color: white;
   padding-top: 0.875em;
   padding-bottom: 0.875em;
@@ -95,6 +95,18 @@
 
 .add_track_btn {
   margin-bottom: 0px;
+}
+
+.add_track_info {
+  display: none;
+}
+
+.add_track_form_zone {
+  display: none;
+}
+
+.add_track_form {
+  padding: 0px;
 }
 
 .bundlego_ul {
