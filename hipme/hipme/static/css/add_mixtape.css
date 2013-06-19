@@ -109,32 +109,19 @@
   padding: 0px;
 }
 
-.bundlego_ul {
+.bundle_list {
   display: none;
-  margin-left: -0px;
-}
-
-.bundleback_ul {
-  display: none;
-  margin-left: -0px;
+  margin-left: 0px;
 }
 
 .mixtape_bundle {
+  height: 124px;
   margin-bottom: 1px;
   background-color: #FAFAFA;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
-.mixtape_bundlego {
-  margin-bottom: 3px;
-  background-color: #FAFAFA;
-  padding-top: 1em;
-  padding-bottom: 1em;
 }
 
 .bundle_profile {
-  margin-top: 1em;
+  margin-top: 32px;
 }
 
 /* Mini-profiles */
@@ -169,12 +156,27 @@
   margin-left: 10px;
 }
 
-/* En mini-profiles */
+/* End mini-profiles */
+
+.bundle_tracklist_0 {
+}
+
+.bundle_tracklist_1 {
+  margin-top: 44px;
+}
+
+.bundle_tracklist_2 {
+  margin-top: 30px;
+}
+
+.bundle_tracklist_3 {
+  margin-top: 14px;
+}
 
 .track_container {
   border-bottom: 1px solid #DDDDDD;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .track_container_no_border-bottom {
@@ -185,8 +187,12 @@
   padding-top: 3px;
   font-size: 12px;
 }
-.track_text {
 
+.track_play_btn {
+  margin-bottom: 2px;
+}
+
+.track_text {
   margin-left: 5px;
 }
 

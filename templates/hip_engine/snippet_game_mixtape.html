@@ -115,58 +115,55 @@
     </div>
   </div>
 
-  {# If owner has bundle #}
-  <ul class="no-bullet bundlego_ul">
-    <li>
-      <div class="small-12 columns mixtape_bundlego">
-        <div class="row collapse">
-          <div class="small-4 columns bundle_profile">
-            {% include "hip_engine/snippet_mini_profile_mixtape_owner.html" %}
-          </div>
-          <div class="small-8 columns bundle_tracklist">
-            <ul class="no-bullet">
-              <li>
-                {% include "hip_engine/snippet_track.html" %}
-              </li>
-              <li>
-                {% include "hip_engine/snippet_track.html" %}
-              </li>
-              <li>
-                {% include "hip_engine/snippet_track.html" %}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-  {# End if #}
-
-  <ul class="no-bullet bundleback_ul">
-    {# for bundleback in bundleback_list #}
-    <li>
-      <div class="small-12 columns mixtape_bundle ">
-        <div class="row collapse">
-          <div class="small-4 columns bundle_profile">
-            {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
-          </div>
-          <div class="small-8 columns bundle_tracklist">
-            <ul class="no-bullet">
-              <li>
-                {% include "hip_engine/snippet_track.html" %}
-              </li>
-              <li>
-                {% include "hip_engine/snippet_track.html" %}
-              </li>
-              <li>
-                {% include "hip_engine/snippet_track.html" %}
-              </li>
-            </ul>
+  <ul class="no-bullet bundle_list">
+    {% if tracklist.tracks_initial %}
+      <li>
+        <div class="small-12 columns mixtape_bundle">
+          <div class="row collapse">
+            <div class="small-4 columns bundle_profile">
+              {% include "hip_engine/snippet_mini_profile_mixtape_owner.html" %}
+            </div>
+            <div class="small-8 columns
+              {% if tracklist.tracks_initial.all|length_is:"0" %} bundle_tracklist_0 {% endif %}
+              {% if tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1 {% endif %}
+              {% if tracklist.tracks_initial.all|length_is:"2" %} bundle_tracklist_2 {% endif %}
+              {% if tracklist.tracks_initial.all|length_is:"3" %} bundle_tracklist_3 {% endif %}">
+              <ul class="no-bullet">
+                {% for track in tracklist.tracks_initial.all %}
+                  <li>
+                    {% include "hip_engine/snippet_track.html" %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </li>
-    {# endfor #}
+      </li>
+    {% endif %}
+    {% for bundle in tracklist.bundlebacks.all %}
+      <li>
+        <div class="small-12 columns mixtape_bundle ">
+          <div class="row collapse">
+            <div class="small-4 columns bundle_profile">
+              {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
+            </div>
+            <div class="small-8 columns 
+              {% if bundle.tracks.all|length_is:"0" %} bundle_tracklist_0 {% endif %}
+              {% if bundle.tracks.all|length_is:"1" %} bundle_tracklist_1 {% endif %}
+              {% if bundle.tracks.all|length_is:"2" %} bundle_tracklist_2 {% endif %}
+              {% if bundle.tracks.all|length_is:"3" %} bundle_tracklist_3 {% endif %}">
+              <ul class="no-bullet">
+                {% for track in bundle.tracks.all %}
+                  <li>
+                    {% include "hip_engine/snippet_track.html" %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
   </ul>
 
 </div>
