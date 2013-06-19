@@ -4,7 +4,7 @@
   <div class="row mixtape_header">
     <div class="small-8 columns">
       <div class="small-6 mixtape_info">
-        1 free spot &nbsp / &nbsp started {{ tracklist.time_delta }} 
+        1 free spot &nbsp / &nbsp started {{ tracklist.time_left }} 
       </div>
       <text class="mixtape_title">
         {% if tracklist.title %}
@@ -69,20 +69,20 @@
           {% endif %}
         </div>
       </div>
-      <div class="small-8 columns add_track_btn_zone">
-        <button class="button expand radius add_track_btn"> Add a track </button>
-      </div>
       <div class="small-4 columns display_tracks_btn_zone">
         <button class="button expand radius display_tracks_btn"> Display tracks </button>
+      </div>
+      <div class="small-8 columns show_add_track_form_btn_zone">
+        <button class="button expand radius show_add_track_form_btn"> Add a track </button>
       </div>
       <div class="small-4 columns hide_tracks_btn_zone">
         <button class="button expand radius secondary hide_tracks_btn"> Hide tracks </button>
       </div>
-      <div class="small-4 columns add_track_info">
+      <div class="small-4 columns mixtape_add_track_info">
         /// info
       </div>
-      <div class="small-8 columns add_track_form_zone">
-        <form action="/mixtape/{{tracklist.id}}/add/track/" class="add_track_form" method="post">
+      <div class="small-8 columns mixtape_add_track_form_zone">
+        <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
           {% csrf_token %}
           <div class="row">
             <div class="small-10 columns">
@@ -96,18 +96,18 @@
               </div>
             </div>
             <div class="small-2 columns">
-              <input type="submit" class="button postfix expand add_track_btn" value="Add"/>
+              <input type="submit" class="button postfix expand mixtape_add_track_btn" value="Add"/>
             </div>
           </div>
-          <div class="row">
-            <div class="small-5 columns">
-              <input type="text" name="artist" placeholder="Artist (optional)" />
+          <div class="row ">
+            <div class="small-5 columns ">
+              <input type="text" name="artist" placeholder="Artist (optional)" class="nooo"/>
             </div>
             <div class="small-5 columns">
-              <input type="text" name="name" placeholder="Name (optional)" />
+              <input type="text" name="name" placeholder="Name (optional)" class="nooo"/>
             </div>
             <div class="small-2 columns">
-              <input type="button" value="X" class="button postfix secondary expand mixtape_add_track_cancel" />
+              <input type="button" value="X" class="button postfix secondary expand mixtape_add_track_cancel nooo" />
             </div>
           </div>
         </form>

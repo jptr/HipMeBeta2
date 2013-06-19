@@ -323,7 +323,7 @@
         $(".mixtape_header_owner:eq("+ i + ")").hide();
         $(".mixtape_header_contributors_and_featuring:eq("+ i + ")").hide();
         $(".display_tracks_btn_zone:eq("+ i + ")").hide();
-        $(".add_track_btn_zone:eq("+ i + ")").show();
+        $(".show_add_track_form_btn_zone:eq("+ i + ")").show();
         $(".hide_tracks_btn_zone:eq("+ i + ")").show();
         $(".bundle_list:eq("+ i + ")").show();
       });
@@ -331,37 +331,37 @@
   </script>
 
   <script>
-    $('.hide_tracks_btn').each(function(j){
+    $('.hide_tracks_btn').each(function(i){
       $(this).click(function(){
-        $(".add_track_btn_zone:eq("+ j + ")").hide();
-        $(".hide_tracks_btn_zone:eq("+ j + ")").hide();
-        $(".bundle_list:eq("+ j + ")").hide();
-        $(".mixtape_header_owner:eq("+ j + ")").show();
-        $(".mixtape_header_contributors_and_featuring:eq("+ j + ")").show();
-        $(".display_tracks_btn_zone:eq("+ j + ")").show();
+        $(".show_add_track_form_btn_zone:eq("+ i + ")").hide();
+        $(".hide_tracks_btn_zone:eq("+ i + ")").hide();
+        $(".bundle_list:eq("+ i + ")").hide();
+        $(".mixtape_header_owner:eq("+ i + ")").show();
+        $(".mixtape_header_contributors_and_featuring:eq("+ i + ")").show();
+        $(".display_tracks_btn_zone:eq("+ i + ")").show();
       });
     });
   </script>
 
   <script>
-    $('.add_track_btn').each(function(j){
+    $('.show_add_track_form_btn').each(function(i){
       $(this).click(function(){
-        $(".add_track_info:eq("+ j + ")").show();
-        $(".add_track_form_zone:eq("+ j + ")").show();
-        $(".add_track_btn_zone:eq("+ j + ")").hide();
-        $(".hide_tracks_btn_zone:eq("+ j + ")").hide();
+        $(".show_add_track_form_btn_zone:eq("+ i + ")").hide();
+        $(".hide_tracks_btn_zone:eq("+ i + ")").hide();
+        $(".mixtape_add_track_info:eq("+ i + ")").show();
+        $(".mixtape_add_track_form_zone:eq("+ i + ")").show();
         $("#input_url").focus();
       });
     });
   </script>
 
   <script>
-    $('.mixtape_add_track_cancel').each(function(j){
+    $('.mixtape_add_track_cancel').each(function(i){
       $(this).click(function(){
-        $(".add_track_btn_zone:eq("+ j + ")").show();
-        $(".hide_tracks_btn_zone:eq("+ j + ")").show();
-        $(".add_track_info:eq("+ j + ")").hide();
-        $(".add_track_form_zone:eq("+ j + ")").hide();
+        $(".mixtape_add_track_info:eq("+ i + ")").hide();
+        $(".mixtape_add_track_form_zone:eq("+ i + ")").hide();
+        $(".show_add_track_form_btn_zone:eq("+ i + ")").show();
+        $(".hide_tracks_btn_zone:eq("+ i + ")").show();
       });
     });
   </script>

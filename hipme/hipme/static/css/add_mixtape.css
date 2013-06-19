@@ -53,10 +53,10 @@
 }
 
 .mixtape_summary {
+/*  height: 124px;*/
   margin-bottom: 3px;
   background-color: white;
-  padding-top: 0.875em;
-  padding-bottom: 0.875em;
+  padding-top: 18px;
 }
 
 .mixtape_header_owner {
@@ -76,37 +76,50 @@
   margin-left: -2em;
 }
 
+.display_tracks_btn_zone {
+  margin-bottom: 18px;
+}
+
 .display_tracks_btn {
-  height: 65px;
+  height: 82px;
   margin-bottom: 0px;
 }
 
 .hide_tracks_btn_zone {
   display: none;
+  margin-bottom: 18px;
 }
 
 .hide_tracks_btn {
+  height: 82px;
   margin-bottom: 0px;
 }
 
-.add_track_btn_zone {
+.show_add_track_form_btn_zone {
   display: none;
 }
 
-.add_track_btn {
+.show_add_track_form_btn {
+  height: 82px;
   margin-bottom: 0px;
 }
 
-.add_track_info {
+.mixtape_add_track_info {
   display: none;
 }
 
-.add_track_form_zone {
+.mixtape_add_track_form_zone {
   display: none;
 }
 
-.add_track_form {
+.mixtape_add_track_form {
   padding: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.nooo {
+  padding: 0em;
 }
 
 .bundle_list {
