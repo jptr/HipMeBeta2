@@ -1,0 +1,19 @@
+<div id="closeTracklistModal" class="reveal-modal small">
+  <h3> Close mixtape </h3>
+  <p> Are you done selecting the tracks you want to keep in your mixtape 
+    <strong>
+      {% if tracklist.title %}
+        {{tracklist.title}}
+      {% else %}
+        #Untitled
+      {% endif %}
+    </strong>
+  ? </p>
+  <p><i> Use the <strong> Keep/Unkeep buttons </strong> next to the tracks to keep or dump propositions. </i></p>
+  <p> After the closing, you won't be able to modify this mixtape anymore. It will be ready for listening and sharing. </p>
+  <form action="/close/mixtape/" method="post">
+    {% csrf_token %}
+        <input type="submit" class="button expand radius" value="Close mixtape"/>
+  </form>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

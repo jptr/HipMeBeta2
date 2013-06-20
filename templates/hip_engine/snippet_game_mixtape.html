@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="small-4 columns display_tracks_btn_zone">
-        <button class="button expand radius display_tracks_btn"> Show tracks </button>
+        <button class="button expand radius display_tracks_btn dropdown"> Show tracks </button>
       </div>
       <div class="small-8 columns show_add_track_form_btn_zone">
 
@@ -116,7 +116,7 @@
 
       </div>
       <div class="small-4 columns hide_tracks_btn_zone">
-        <button class="button expand radius secondary hide_tracks_btn"> Hide tracks </button>
+        <button class="button expand radius secondary hide_tracks_btn dropup"> Hide tracks </button>
       </div>
       <div class="small-4 columns mixtape_add_track_info">
         /// info
@@ -207,9 +207,7 @@
     {% if request.user.get_profile == tracklist.owner %}
       <li>
         <div class="small-12 columns close_mixtape_zone">
-          <form action="" class="" method="post">
-            <button class="button expand success close_mixtape_btn"> Close mixtape </button>
-          </form>
+          <button class="button success expand radius close_mixtape_btn" data-reveal-id="closeTracklistModal"> Close mixtape </button>
         </div>
       </li>
     {% endif %}
