@@ -1,3 +1,9 @@
+.left_ranking {
+	background-color: #F6F6F6;
+	padding-top: 10px;
+	margin-top: 1.375em;
+}
+
 .left_ranking_opacity_med {
 	opacity: 0.75;
 }
@@ -7,32 +13,71 @@
 }
 
 .left_ranking_1 {
-	border-bottom: 1px solid gray;
+	border-bottom: 3px solid white;
 	padding-bottom: 0.5em;	
 }
 
 .left_ranking_2 {
-	border-bottom: 1px solid gray;
+	border-bottom: 3px solid white;
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
 }
 
 .left_ranking_3 {
-	border-bottom: 1px solid gray;
+	border-bottom: 3px solid white;
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
 }
 
 .left_ranking_4 {
-	border-bottom: 1px solid gray;
+	border-bottom: 3px solid white;
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
 }
 
 .left_ranking_5 {
 	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	border-bottom: 3px solid white;
+}
+
+.full_ranking_link_zone {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .full_ranking_link {
 	font-size: 0.8em;
 }
+
+
+
+/* Mini-profiles */
+
+.rkg_mini_profile_avatar {
+  display: inline-block;
+  width: 60px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.rkg_mini_profile_right_section {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 5px;
+}
+
+.rkg_mini_profile_username {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12px;
+}
+
+.rkg_mini_profile_score {
+  font-size: 12px;
+  font-weight: bold;
+  color: #444444;
+  margin-left: 10px;
+}
+
+/* End mini-profiles */

@@ -4,7 +4,7 @@
   {% if request.user.get_profile == tracklist.owner %}
     <div class="small-10 columns track">
       <img src="{% static "img/round_icon.png" %}" class="track_play_btn"/>
-      <a href="#" class="track_text">
+      <a href="{{ track.url }}" target="_blank" class="track_text">
         {% if track.name and track.artist %}
           {{ track.artist }} - {{ track.name }}
         {% elif track.name %}
@@ -29,7 +29,7 @@
   {% else %}
   <div class="small-12 columns track">
     <img src="{% static "img/round_icon.png" %}" class="track_play_btn" />
-      <a href="#" class="track_text">
+      <a href="{{ track.url }}" target="_blank" class="track_text">
         {% if track.name and track.artist %}
           {{ track.artist }} - {{ track.name }}
         {% elif track.name %}

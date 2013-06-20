@@ -1,14 +1,29 @@
 {% load staticfiles %}
 
 <a href="#">
-  <img src="{% static "img/HMProfile.jpg" %}" class="mini_profile_avatar"/>
+  {% comment %}
+  {% if user.avatar %}
+    <img src="adresse de l'avatar" alt="profile_top_img" class="mini_profile_avatar" />
+  {% else %}
+  {% endcomment %}
+    <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="rkg_mini_profile_avatar"/>
+  {% comment %}
+  {% endif %}
+  {% endcomment %}
 </a>
-<div class="mini_profile_right_section">
-  <a href="#" class="mini_profile_username">
-    Simon Frr
+<div class="rkg_mini_profile_right_section">
+  <a href="#" class="rkg_mini_profile_username">
+  {% comment %}
+    {{ user.username }}
+  {% endcomment %}
+  Bob 
   </a>
   <br/>
-  <div class="label radius mini_profile_score ">
-  99
-  </div>
+  <img src="{% static "img/round_icon.png" %}" />
+  <text class="rkg_mini_profile_score">
+  {% comment %}
+    {{ user.reputation }}
+  {% endcomment %}
+  345
+  </text>
 </div>
