@@ -1,6 +1,11 @@
 {% load staticfiles %}
 
-<div class="small-12 columns mixtape top_line_green">
+<div class="small-12 columns mixtape
+{# If <72h and owner or contributor or free spot #} top_line_red
+{# If <72h and exterior and no free spot #} top_line_green
+{# If >72h and not closed #} top_line_yellow
+{# If closed #} top_line_grey" >
+
   <div class="row mixtape_header">
     <div class="small-8 columns">
       <div class="small-6 mixtape_info">
@@ -52,6 +57,7 @@
             </li>
           {% endfor %}
         </ul>
+        <br/>
         <div class="mixtape_featuring">
           {% if tracklist.bundlebacks.all %}
             featuring&nbsp;

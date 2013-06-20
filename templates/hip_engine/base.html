@@ -367,6 +367,24 @@
     });
   </script>
 
+  <script>
+    $('.track_play_btn').each(function(i){
+      $(this).click(function(){
+        $(".track_play_btn:eq("+ i + ")").hide();
+        $(".track_pause_btn:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+  <script>
+    $('.track_pause_btn').each(function(i){
+      $(this).click(function(){
+        $(".track_pause_btn:eq("+ i + ")").hide();
+        $(".track_play_btn:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
 <!-- scripts profile -->
 
   <script>

@@ -1,9 +1,12 @@
 {% load staticfiles %}
 
-<div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
+<div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %} {# if playing : track_container_is_playing #}">
   {% if request.user.get_profile == tracklist.owner %}
     <div class="small-10 columns track">
-      <img src="{% static "img/round_icon.png" %}" class="track_play_btn"/>
+      <a href="#">
+        <img src="{% static "img/round_icon.png" %}" class="track_play_btn"/>
+        <img src="{% static "img/red.png" %}" class="track_pause_btn"/>
+      </a>
       <a href="{{ track.url }}" target="_blank" class="track_text">
         {% if track.name and track.artist %}
           {{ track.artist }} - {{ track.name }}
@@ -28,7 +31,10 @@
     </div>
   {% else %}
   <div class="small-12 columns track">
-    <img src="{% static "img/round_icon.png" %}" class="track_play_btn" />
+      <a href="#">
+        <img src="{% static "img/round_icon.png" %}" class="track_play_btn"/>
+        <img src="{% static "img/red.png" %}" class="track_pause_btn"/>
+      </a>
       <a href="{{ track.url }}" target="_blank" class="track_text">
         {% if track.name and track.artist %}
           {{ track.artist }} - {{ track.name }}

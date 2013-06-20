@@ -193,12 +193,21 @@
   border-bottom: none;
 }
 
+.track_container_is_playing {
+  font-weight: bold;
+}
+
 .track {
   padding-top: 3px;
   font-size: 12px;
 }
 
 .track_play_btn {
+  margin-bottom: 2px;
+}
+
+.track_pause_btn {
+  display: none;
   margin-bottom: 2px;
 }
 
