@@ -372,8 +372,10 @@
       $(this).click(function(){
         $(".track_pause_btn").hide();
         $(".track_play_btn").show();
+        $(".track_container").removeClass('track_container_is_playing');
         $(".track_play_btn:eq("+ i + ")").hide();
         $(".track_pause_btn:eq("+ i + ")").show();
+        $(".track_container:eq("+ i + ")").addClass('track_container_is_playing');
       });
     });
   </script>
@@ -383,6 +385,7 @@
       $(this).click(function(){
         $(".track_pause_btn:eq("+ i + ")").hide();
         $(".track_play_btn:eq("+ i + ")").show();
+        $(".track_container:eq("+ i + ")").removeClass('track_container_is_playing');
       });
     });
   </script>

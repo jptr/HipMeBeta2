@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %} {# if playing : track_container_is_playing #}">
+<div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
   {% if request.user.get_profile == tracklist.owner %}
     <div class="small-10 columns track">
       <a>
