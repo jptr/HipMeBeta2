@@ -49,35 +49,3 @@
 .full_ranking_link {
 	font-size: 0.8em;
 }
-
-
-
-/* Mini-profiles */
-
-.rkg_mini_profile_avatar {
-  display: inline-block;
-  width: 60px;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.rkg_mini_profile_right_section {
-  display: inline-block;
-  vertical-align: top;
-  padding-top: 5px;
-}
-
-.rkg_mini_profile_username {
-  display: inline-block;
-  vertical-align: top;
-  font-size: 12px;
-}
-
-.rkg_mini_profile_score {
-  font-size: 12px;
-  font-weight: bold;
-  color: #444444;
-  margin-left: 10px;
-}
-
-/* End mini-profiles */
