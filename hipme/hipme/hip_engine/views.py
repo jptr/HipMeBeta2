@@ -339,7 +339,7 @@ def add_track(request, tracklist_id):
     tracklist.bundlebacks.add(bundleback)
     tracklist.date_latest_event = timezone.now()
     tracklist.date_latest_edit = timezone.now()
-    tracklist.latest_event = request.user.username + " added a track to " + tracklist.owner__user__username +"'s mixtape."
+    tracklist.latest_event = request.user.username + " added a track to " + tracklist.owner.user.username +"'s mixtape."
     tracklist.save()
 
     if request.POST.get('next'):
