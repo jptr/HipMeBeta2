@@ -301,6 +301,25 @@
 <!-- scripts mixtape game -->
 
  <script>
+    $('.liked_mxtp_btn').each(function(i){
+      $(this).mouseover(function(){
+        $(".liked_mxtp_btn:eq("+ i + ")").hide();
+        $(".unlike_mxtp_btn:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+   <script>
+    $('.unlike_mxtp_btn').each(function(i){
+      $(this).mouseout(function(){
+        $(".unlike_mxtp_btn:eq("+ i + ")").hide();
+        $(".liked_mxtp_btn:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+
+ <script>
     $('.kept_track_btn').each(function(i){
       $(this).mouseover(function(){
         $(".kept_track_btn:eq("+ i + ")").hide();

@@ -49,6 +49,10 @@
   color: #444444;
 }
 
+.unlike_mxtp_btn {
+  display: none;
+}
+
 .mixtape_summary {
   margin-bottom: 3px;
   background-color: #FAFAFA;

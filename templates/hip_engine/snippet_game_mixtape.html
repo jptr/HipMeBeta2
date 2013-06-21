@@ -26,10 +26,18 @@
     <div class="small-4 columns">
       <div class="row">
         <div class="small-6 columns">
-          <button class="button success radius expand play_mxtp_btn"> <img src="{% static "img/round_icon.png" %}"/> Play </button>
+          <button class="button success radius expand play_mxtp_btn"> Play </button>
         </div>
         <div class="small-6 columns">
-          <button class="button expand radius keep_mxtp_btn"> <img src="{% static "img/heart_white_32.png" %}" width="20px" /> Like </button>
+          <form action="like" method="post">
+          {% csrf_token %}
+            {# If mixtape is not in liked mixtapes #}
+            {% comment %} <input type="submit" class="button expand radius like_mxtp_btn" value="Like"> {% endcomment %}
+            {# Else if liked already #}
+            <button class="button disabled radius expand liked_mxtp_btn"> Liked </button>
+            <input type="submit" class="button expand radius unlike_mxtp_btn" value="Unlike">
+            {# Endif #}
+          </form>
         </div>
         <div class="small-6 columns text-center play_mxtp_stats">
           <img src="{% static "img/round_icon.png" %}"/>
