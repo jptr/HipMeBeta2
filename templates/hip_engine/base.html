@@ -61,6 +61,11 @@
           <a href="/feed/"> Stream </a>
         </li>
         <li class="divider"></li>
+        <li class="has-form"><button class="small top_bar_button" data-reveal-id="tracklistModal"> New Mixtape </button></li>
+      </ul>
+
+      <!-- Right Nav Section -->
+      <ul class="right">
         <li>
           <a href="/profile/{{ request.user.username }}/"> 
             {% if user.avatar %}
@@ -72,11 +77,6 @@
           </a>
         </li>
         <li class="divider"></li>
-        <li class="has-form"><button class="small top_bar_button" data-reveal-id="tracklistModal"> New Mixtape </button></li>
-      </ul>
-
-      <!-- Right Nav Section -->
-      <ul class="right">
         <li class="has-form">
           <form>
             <div class="row collapse">
