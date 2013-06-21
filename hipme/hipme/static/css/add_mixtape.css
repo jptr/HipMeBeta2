@@ -10,10 +10,6 @@
   border-top: 5px solid #EEB300;
 }
 
-.top_line_red {
-  border-top: 5px solid #EE403F;
-}
-
 .mixtape {
   background-color: #DDDDDD;
   padding-top: 0.875em;
@@ -54,9 +50,8 @@
 }
 
 .mixtape_summary {
-/*  height: 124px;*/
   margin-bottom: 3px;
-  background-color: white;
+  background-color: #FAFAFA;
   padding-top: 18px;
 }
 
@@ -105,6 +100,11 @@
 }
 
 .show_add_track_form_btn {
+  height: 82px;
+  margin-bottom: 0px;
+}
+
+.cannot_show_add_track_form_btn {
   height: 82px;
   margin-bottom: 0px;
 }
