@@ -56,6 +56,7 @@ a {
 
 .feed_sub_nav {
   margin-top: 1em;
+  font-size: 18px;
 }
 
 .userprofile_name {
@@ -96,6 +97,7 @@ a {
 
 .profile_avatar {
   border-radius: 8px;
+  margin-top: 9px;
 }
 
 .hipme_site_stats li {
@@ -112,8 +114,6 @@ a {
 .panel h5 {
   color: #263248;
 }
-
-
 
 .coul {
   border: solid 1px fuchsia;
