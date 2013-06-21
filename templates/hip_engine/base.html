@@ -108,40 +108,20 @@
 
   <!-- Left nav -->
     
-    <div class="small-3 columns">
+    <div class="small-3 columns left_nav">
+
+  <!-- Player -->
+{% comment %}
+      <div class="small-12 columns player_zone">
+        <iframe width="200" height="200" src="http://www.youtube.com/embed/NLTbvd_zFHY" frameborder="0"></iframe>
+      </div>
+{% endcomment %}
+  <!-- Player -->
 
   <!-- Left-ranking -->
 
       <ul class="no-bullet left_ranking">
-        <li class="left_ranking_1 left_ranking_opacity_low">
-          <div class="row">
-            <div class="small-12 columns">
-            {% include "hip_engine/snippet_mini_profile_ranking.html" %}
-            </div>
-          </div>
-        </li>
-        <li class="left_ranking_2 left_ranking_opacity_med">
-          <div class="row">
-            <div class="small-12 columns">
-            {% include "hip_engine/snippet_mini_profile_ranking.html" %}
-            </div>
-          </div>
-        </li>
-        <li class="left_ranking_3">
-          <div class="row">
-            <div class="small-12 columns">
-            {% include "hip_engine/snippet_mini_profile_ranking.html" %}
-            </div>
-          </div>
-        </li>
-        <li class="left_ranking_4 left_ranking_opacity_med">
-          <div class="row ">
-            <div class="small-12 columns">
-            {% include "hip_engine/snippet_mini_profile_ranking.html" %}
-            </div>
-          </div>
-        </li>
-        <li class="left_ranking_5 left_ranking_opacity_low">
+        <li>
           <div class="row">
             <div class="small-12 columns">
             {% include "hip_engine/snippet_mini_profile_ranking.html" %}
@@ -150,8 +130,29 @@
         </li>
         <li>
           <div class="row">
-            <div class="small-12 columns text-center full_ranking_link_zone">
-              <a href="#" class="full_ranking_link"> See full ranking </a>
+            <div class="small-12 columns">
+            {% include "hip_engine/snippet_mini_profile_ranking.html" %}
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="small-12 columns">
+            {% include "hip_engine/snippet_mini_profile_ranking.html" %}
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row ">
+            <div class="small-12 columns">
+            {% include "hip_engine/snippet_mini_profile_ranking.html" %}
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="small-12 columns">
+            {% include "hip_engine/snippet_mini_profile_ranking.html" %}
             </div>
           </div>
         </li>
@@ -161,7 +162,7 @@
 
         <!-- Left stats -->
 
-      <div class="panel hipme_site_stats">
+      <div class="small-12 columns hipme_site_stats">
         <h5> hipMe! </h5>
         <ul class="no-bullet">
           <li> {{nb_mixtapes}} mixtapes created </li>
@@ -170,9 +171,12 @@
           <li> Keep da hip... </li>
         </ul>
       </div>
-    </div>
 
   <!-- End Left stats -->
+
+    </div>
+
+  <!-- End left nav -->
 
   <!-- Main Feed -->
 
@@ -431,6 +435,8 @@
 
 <!-- scripts left ranking -->
 
+{% comment %}
+
   <script>
     $('.left_ranking').mouseover(function(){
       $(".left_ranking_1").removeClass('left_ranking_opacity_low');
@@ -449,6 +455,8 @@
       $(".left_ranking_5").addClass('left_ranking_opacity_low');
     });
   </script>
+
+{% endcomment %}
 
   <script>
     $(document).foundation();
