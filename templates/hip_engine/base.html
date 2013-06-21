@@ -412,9 +412,9 @@
 <!-- scripts profile -->
 
   <script>
-    $('.profile_flw_btn').each(function(i){
-      $(this).click(function(){
-        $(".profile_flw_btn:eq("+ i + ")").hide();
+    $('.profile_flwd_btn').each(function(i){
+      $(this).mouseover(function(){
+        $(".profile_flwd_btn:eq("+ i + ")").hide();
         $(".profile_unflw_btn:eq("+ i + ")").show();
       });
     });
@@ -422,9 +422,9 @@
 
     <script>
     $('.profile_unflw_btn').each(function(i){
-      $(this).click(function(){
-        $(".profile_flw_btn:eq("+ i + ")").show();
+      $(this).mouseout(function(){
         $(".profile_unflw_btn:eq("+ i + ")").hide();
+        $(".profile_flwd_btn:eq("+ i + ")").show();
       });
     });
   </script>
