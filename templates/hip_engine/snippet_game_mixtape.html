@@ -26,10 +26,10 @@
     <div class="small-4 columns">
       <div class="row">
         <div class="small-6 columns">
-          <button class="button success radius expand play_mxtp_btn"> Play </button>
+          <button class="button success radius expand play_mxtp_btn"> Listen </button>
         </div>
         <div class="small-6 columns">
-          <form action="like" method="post">
+          <form action="like" method="post" class="like_btn_form">
           {% csrf_token %}
             {# If mixtape is not in liked mixtapes #}
             {% comment %} <input type="submit" class="button expand radius like_mxtp_btn" value="Like"> {% endcomment %}

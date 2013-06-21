@@ -49,6 +49,10 @@
   color: #444444;
 }
 
+.like_btn_form {
+  margin-bottom: 0px;
+}
+
 .unlike_mxtp_btn {
   display: none;
 }
