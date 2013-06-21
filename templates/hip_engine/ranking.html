@@ -1,23 +1,17 @@
 {% extends "hip_engine/search_base.html" %}
 {% load staticfiles %}
 
-{% block search_nav_1 %} active {% endblock search_nav_1 %}
-
 {% block main_feed %}
 
-<!-- Results in people -->
+<!-- Ranking -->
 
-{% if résultats %}
     <ul class="no-bullet">
-        {% for résultats %}
+        {% for people dans l ordre %}
         <li>
             {% include "hip_engine/snippet_profile.html" %}
         </li>
         {% endfor %}
     </ul>
-{% else %}
-<p> No results </p>
-{% endif %}
 
 <!-- End Feed -->
 

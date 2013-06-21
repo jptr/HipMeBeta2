@@ -7,16 +7,16 @@
 
 <!-- Results in people -->
 
-{% if tracklist_list %}
+{% if résultats %}
     <ul class="no-bullet">
-        {% for tracklist in tracklist_list %}
+        {% for résultats %}
         <li>
             {% include "hip_engine/snippet_game_mixtape.html" %}
         </li>
         {% endfor %}
     </ul>
 {% else %}
-<p> There are no mixtapes to be shown at the moment. </p>
+<p> No results </p>
 {% endif %}
 
 <!-- End Feed -->
