@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms.models import inlineformset_factory, modelformset_factory
 from hip_engine.forms import ProfileEmailNotificationForm, UserEmailForm, TracklistForm, TrackForm
 
-from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag
+from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event
 from hip_engine.search import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
@@ -42,13 +42,13 @@ def get_tracklist_form_context(request):
     return context
 
 def get_rankings(request):
-    profile_queryset = UserProfile.objects.filter(followed_by=request.user.get_profile())
-    profile_list = profile_queryset.distinct().order_by('-reputation')
+    follows_queryset = request.user.get_profile().follows
+    profile_list = list(follows_queryset.distinct().order_by('-reputation'))
     for index in range(len(profile_list)):
-        if profile_list[index].reputation > request.user.get_profile().reputation:
-            profile_list = profile_list[index-2:index+2]
+        if profile_list[index].reputation <= request.user.get_profile().reputation:
+            profile_list = profile_list[max(0, index-2):index+2]
             break
-    profile_list.insert(2, request.user.get_profile())
+    profile_list.insert(-2, request.user.get_profile())
     context = {'ranking_profile_list':profile_list,}
     return context
 
@@ -86,11 +86,15 @@ def populate_db(request):
                 # description = instance["description"]
                 is_finished = instance["is_finished"]
 
+                event = Event(main_profile = owner, event_type = "creation")
+                event.save()
+
                 tracklist = Tracklist(
                     owner = owner, 
                     title = title, 
                     # description = description, 
-                    is_finished=is_finished
+                    is_finished=is_finished,
+                    latest_event= event, 
                 )
                 tracklist.save()
 
@@ -136,12 +140,13 @@ def populate_db(request):
 def feed(request):
     # tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_queryset = Tracklist.objects.all()
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
     }
     context.update(get_generic_context(request))
+    context.update(get_rankings(request))
 
     return render_to_response('hip_engine/feed.html', context, context_instance=RequestContext(request))
 
@@ -152,20 +157,22 @@ def profile(request, username):
 @login_required
 def profile_activity(request, username):
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
     }
     context.update(get_profile_context(username))
     context.update(get_generic_context(request))
+    context.update(get_rankings(request))
 
     return render_to_response('hip_engine/profile_activity.html', context, context_instance=RequestContext(request))
 
 @login_required
 def profile_collection(request, username):
-    tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
+    profile_focused = get_object_or_404(UserProfile,user__username=username)
+    tracklist_queryset = profile_focused.tracklist_kept.all()
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -177,8 +184,9 @@ def profile_collection(request, username):
 
 @login_required
 def profile_pending(request, username):
-    tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
+    profile_focused = get_object_or_404(UserProfile,user__username=username)
+    tracklist_queryset = profile_focused.tracklists_created.all()|profile_focused.tracklists_contributed.all()
+    tracklist_list = tracklist_queryset.filter(is_finished=False).distinct().order_by('-date_latest_edit')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -190,13 +198,14 @@ def profile_pending(request, username):
 
 @login_required
 def profile_followers(request, username):
+    profile_focused = get_object_or_404(UserProfile,user__username=username)
     followers_list = profile_focused.followed_by.all()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
-        'followers_list':follwing_list,
+        'followers_list':followers_list,
     }
     context.update(get_profile_context(username))
     context.update(get_generic_context(request))
@@ -205,13 +214,14 @@ def profile_followers(request, username):
 
 @login_required
 def profile_following(request, username):
+    profile_focused = get_object_or_404(UserProfile,user__username=username)
     following_list = profile_focused.follows.all()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_event')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
         'tracklist_list':tracklist_list,
-        'following_list':follwing_list,
+        'following_list':following_list,
     }
     context.update(get_profile_context(username))
     context.update(get_generic_context(request))
@@ -227,7 +237,7 @@ def search(request):
         query_string = request.GET['q']
         profile_query = get_query(query_string, ['user__username',])
         tracklist_query = get_query(query_string, ['title', 'tags__name', 'owner__user__username', 'tracks_initial__artist', 'tracks_initial__name', 'tracks_kept__artist', 'tracks_kept__tracks__name'])
-        found_tracklists = Tracklist.objects.filter(message_query).order_by('-date_latest_event')
+        found_tracklists = Tracklist.objects.filter(message_query).order_by('-date_latest_edit')
         found_profiles = UserProfile.objects.filter(user_query).order_by('user__username')
 
     return render_to_response('hip_engine/search_results.html', {'query_string': query_string, 'tracklist_list': found_tracklists, 'profile_list': found_profiles}, context_instance=RequestContext(request))
@@ -292,7 +302,9 @@ def create_mixtape(request):
         if title:
             tracklist.title = title
 
-        tracklist.latest_event = tracklist.owner.user.username + " created a new mixtape."
+        event = Event(main_profile = request.user.get_profile(), event_type = "creation")
+        event.save()
+        tracklist.latest_event = event
 
         # description = request.POST.get('description')
         # if description:
@@ -337,9 +349,12 @@ def add_track(request, tracklist_id):
     bundleback.save()
 
     tracklist.bundlebacks.add(bundleback)
-    tracklist.date_latest_event = timezone.now()
+
+    event = Event(main_profile = request.user.get_profile(), event_type = "new_track")
+    event.save()
+    tracklist.latest_event = event
+
     tracklist.date_latest_edit = timezone.now()
-    tracklist.latest_event = request.user.username + " added a track to " + tracklist.owner.user.username +"'s mixtape."
     tracklist.save()
 
     if request.POST.get('next'):
@@ -355,7 +370,13 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
     track = get_object_or_404(Track, pk=track_id)
 
     tracklist.tracks_kept.add(track)
-    tracklist.date_latest_event = timezone.now()
+
+    event = Event(main_profile = request.user.get_profile(), event_type = "keep_track")
+    event.save()
+    tracklist.latest_event = event
+
+    tracklist.date_latest_edit = timezone.now()
+
     tracklist.save()
 
     bundleback.owner.reputation += 1
@@ -377,7 +398,7 @@ def remove_track(request, tracklist_id, bundle_id, track_id):
     track = get_object_or_404(Track, pk=track_id)
 
     tracklist.tracks_kept.remove(track)
-    tracklist.date_latest_event = timezone.now()
+    tracklist.date_latest_edit = timezone.now()
     tracklist.save()
 
     bundleback.owner.reputation -= 1
@@ -397,9 +418,12 @@ def close_tracklist(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     if tracklist.owner == request.user.get_profile():
         tracklist.is_finished = True
-        tracklist.date_latest_event = timezone.now()
-        tracklist.date_latest_edit = tracklist.date_latest_event
-        tracklist.latest_event = tracklist.owner__user__username + " finished his mixtape."
+        tracklist.date_latest_edit = timezone.now()
+
+        event = Event(main_profile = request.user.get_profile(), event_type = "closing")
+        event.save()
+        tracklist.latest_event = event
+
         tracklist.save()
 
     if request.POST.get('next'):
@@ -425,9 +449,9 @@ def login_process(request):
             else:
                 return HttpResponseRedirect(reverse('hip_engine.views.feed'))
         else:
-            return render_to_response('hip_engine/forms.html', {'error_message': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
+            return render_to_response('hip_engine/landing_page.html', {'error_message': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
     else:
-        return render_to_response('hip_engine/forms.html', {'error_message': "Your username and password do not match. Please try again.",}, context_instance=RequestContext(request))  
+        return render_to_response('hip_engine/landing_page.html', {'error_message': "Your username and password do not match. Please try again.",}, context_instance=RequestContext(request))  
 
 def register(request):
     username = request.POST['username']

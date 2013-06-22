@@ -67,6 +67,14 @@ class Bundle(models.Model):
     def __unicode__(self):
         return u"bundle %s created by %s" % (self.id, self.owner)
 
+class Event(models.Model):
+    main_profile = models.ForeignKey(UserProfile, related_name='main_events')
+    secondary_profile = models.ForeignKey(UserProfile, related_name='secondary_events', null=True)
+    date = models.DateTimeField('date', default=timezone.now())
+    event_type = models.CharField(max_length=20)
+    def __unicode__(self):
+        return u"event %s - %s by %s" % (self.id, self.event_type, self.main_profile)
+
 class Tracklist(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='tracklists_created')
     userto = models.ManyToManyField('UserProfile', verbose_name=u'to', related_name='tracklists_contributed', help_text='type any username')
@@ -74,58 +82,25 @@ class Tracklist(models.Model):
     description = models.CharField(max_length=200, blank=True, help_text='max 200 characters')
 
     date_created = models.DateTimeField('date of creation', default=timezone.now())
-    date_latest_event = models.DateTimeField('date of latest event', default=timezone.now())
     date_latest_edit = models.DateTimeField('date of latest edit', default=timezone.now())
-    latest_event = models.CharField(max_length=200, blank=True)
+    latest_event = models.ForeignKey(Event)
 
     tracks_initial = models.ManyToManyField('Track', related_name='tracklist_from', blank=True)
     tracks_kept = models.ManyToManyField('Track', related_name='tracklist_kept_from', blank=True)
     bundlebacks = models.ManyToManyField('Bundle', related_name='tracklist_from', null=True, blank=True)
     is_finished = models.BooleanField('finished?', default=False)
+
     tags = models.ManyToManyField('Tag', null=True, blank=True)
+    likes = models.IntegerField(default=0)
 
-    def get_time_string(timeDiff):
-        days = timeDiff.days
-        hours = timeDiff.seconds/3600
-        minutes = timeDiff.seconds%3600/60
-        seconds = timeDiff.seconds%3600%60
-        str = ""
-        tStr = ""
-        if days > 0:
-            if days == 1:   tStr = "day"
-            else:           tStr = "days"
-            str = str + "%s %s" %(days, tStr)
-            return str
-        elif hours > 0:
-            if hours == 1:  tStr = "hour"
-            else:           tStr = "hours"
-            str = str + "%s %s" %(hours, tStr)
-            return str
-        elif minutes > 0:
-            if minutes == 1:tStr = "min"
-            else:           tStr = "mins"           
-            str = str + "%s %s" %(minutes, tStr)
-            return str
-        elif seconds > 0:
-            if seconds == 1:tStr = "sec"
-            else:           tStr = "secs"
-            str = str + "%s %s" %(seconds, tStr)
-            return str
-        else:
-            return "1 sec"
+    def get_time_left(self):
+        timeDiff = datetime.timedelta(days=3) + self.date_created
+        return timeDiff
 
-    def get_time_left():
+    def get_time_out(self):
         timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
-        seconds = timeDiff.seconds%3600%60
-        if timeDiff.seconds > 0:
-            return self.get_time_string(timeDiff)+" left"
-        else:
-            return ""
-
-    def get_time_out():
-        timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
-        seconds = timeDiff.seconds%3600%60
-        if timeDiff.seconds > 0:
+        seconds = timeDiff.seconds
+        if seconds > 0:
             return False
         else:
             return True
@@ -135,7 +110,7 @@ class Tracklist(models.Model):
 
     def get_time_delta(self):   
         timeDiff = timezone.now() - self.date_created
-        return self.get_time_string(timeDiff)+" ago"
+        return timeDiff
 
     time_delta = property(get_time_delta)
 

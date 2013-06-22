@@ -11,7 +11,7 @@
 }
 
 .mixtape {
-  background-color: #DDDDDD;
+  background-color: #e6e6e6;
   padding-top: 0.875em;
   padding-bottom: 0.875em;
   margin-top: 1.375em;
@@ -192,7 +192,7 @@
 }
 
 .track_container {
-  border-bottom: 1px solid #DDDDDD;
+  border-bottom: 1px solid #e6e6e6;
   padding-top: 3px;
   padding-bottom: 3px;
 }

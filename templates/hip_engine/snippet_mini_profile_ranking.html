@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<a href="#">
+<a href="/profile/{{profile.user.username}}/">
   {% comment %}
   {% if user.avatar %}
     <img src="adresse de l'avatar" alt="profile_top_img" class="mini_profile_avatar" />
@@ -12,18 +12,12 @@
   {% endcomment %}
 </a>
 <div class="mini_profile_right_section">
-  <a href="#" class="mini_profile_username">
-  {% comment %}
-    {{ user.username }}
-  {% endcomment %}
-  Bob 
+  <a href="/profile/{{profile.user.username}}/" class="mini_profile_username">
+    {{ profile.user.username }} 
   </a>
   <br/>
   <img src="{% static "img/round_icon.png" %}" />
   <text class="mini_profile_score">
-  {% comment %}
-    {{ user.reputation }}
-  {% endcomment %}
-  345
+    {{ profile.reputation }}
   </text>
 </div>

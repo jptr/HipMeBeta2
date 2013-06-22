@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<a href="#">
+<a href="/profile/{{tracklist.owner.user.username}}/">
   {% if tracklist.owner.avatar %}
     <img src="adresse de l'avatar" alt="profile_top_img" class="mini_profile_avatar" />
   {% else %}
@@ -8,7 +8,7 @@
   {% endif %}
 </a>
 <div class="mini_profile_right_section">
-  <a href="#" class="mini_profile_username">
+  <a href="/profile/{{tracklist.owner.user.username}}/" class="mini_profile_username">
     {{ tracklist.owner.user.username }}
   </a>
   <br/>

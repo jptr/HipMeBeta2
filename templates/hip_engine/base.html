@@ -137,6 +137,7 @@
       <div class="small-12 columns">
         <div class="row">
           <ul class="no-bullet left_ranking">
+            {% for profile in ranking_profile_list %}
             <li>
               <div class="row">
                 <div class="small-12 columns">
@@ -144,34 +145,7 @@
                 </div>
               </div>
             </li>
-            <li>
-              <div class="row">
-                <div class="small-12 columns">
-                {% include "hip_engine/snippet_mini_profile_ranking.html" %}
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="row">
-                <div class="small-12 columns">
-                {% include "hip_engine/snippet_mini_profile_ranking.html" %}
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="row ">
-                <div class="small-12 columns">
-                {% include "hip_engine/snippet_mini_profile_ranking.html" %}
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="row">
-                <div class="small-12 columns">
-                {% include "hip_engine/snippet_mini_profile_ranking.html" %}
-                </div>
-              </div>
-            </li>
+            {% endfor %}
             <li>
               <div class="row">
                 <div class="small-12 columns text-center full_ranking_link_zone">

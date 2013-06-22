@@ -9,21 +9,19 @@ active
 
 <!-- Feed = games -->
 
-{% if tracklist_list %}
-	<ul class="no-bullet">
-	  <li>
-	    {% include "hip_engine/snippet_game_mixtape.html" %}
-	  </li>
-	  <li>
-	    {% include "hip_engine/snippet_game_mixtape.html" %}
-	  </li>
-	  <li>
-	    {% include "hip_engine/snippet_game_mixtape.html" %}
-	  </li>
-	</ul>
-{% else %}
-<p> There are no mixtapes to be shown at the moment. </p>
-{% endif %}
+<ul class="no-bullet">
+{% for tracklist in tracklist_list %}
+  <li>
+    {% include "hip_engine/snippet_game_mixtape.html" %}
+  </li>
+{% empty %}
+    {% if profile_focused == request.user.get_profile %}
+        <p> You have no pending games. Start a <button class="small top_bar_button" data-reveal-id="tracklistModal"> new mixtape </button> </p>
+    {% else %}
+        <p> {{profile_focused.user.username}} has no pending games. </p>
+    {% endif %}
+{% endfor %}
+</ul>
 
 <!-- End Feed Games-->
 
