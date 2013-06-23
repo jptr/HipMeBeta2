@@ -78,10 +78,10 @@
         </li>
         <li class="divider"></li>
         <li class="has-form">
-          <form>
+          <form action="/search/" method="get">
             <div class="row collapse">
               <div class="small-8 columns">
-                <input type="text">
+                <input type="text" name="q">
               </div>
               <div class="small-4 columns">
                 <input type="submit" class="alert button" value="Search">
@@ -149,7 +149,7 @@
             <li>
               <div class="row">
                 <div class="small-12 columns text-center full_ranking_link_zone">
-                  <a href="#" class="full_ranking_link"> See full ranking </a>
+                  <a href="/profile/{{request.user}}/rankings/" class="full_ranking_link"> See full rankings </a>
                 </div>
               </div>
             </li>

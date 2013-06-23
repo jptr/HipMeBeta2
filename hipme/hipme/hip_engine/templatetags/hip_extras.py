@@ -40,8 +40,7 @@ def remove_duplicate(seq):
     return [ x for x in seq if x not in seen and not seen_add(x)]
 
 @register.filter()
-def time_string(date):
-    timeDiff = date - timezone.now()
+def delta_string(timeDiff):
     days = timeDiff.days 
     hours = timeDiff.seconds/3600
     minutes = timeDiff.seconds%3600/60

@@ -2,9 +2,10 @@
 {% load hip_extras %}
 
 <div class="small-12 columns mixtape
-{# If <72h and owner or contributor or free spot #} top_line_yellow
-{# If <72h and exterior and no free spot #} top_line_green
-{# If >72h #} top_line_grey" >
+{% if tracklist.is_time_out %} top_line_grey
+{# elif tracklist.owner == request.user.get_profile or request.user.get_profile in tracklist.userto %} top_line_yellow
+{% else %} top_line_green 
+{% endif %}" >
 
   <div class="row mixtape_header">
     <div class="small-8 columns">
@@ -13,7 +14,7 @@
           {% if tracklist.is_time_out %}
             {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp no time left
           {% else %}
-            {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|time_string }} left
+            {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|delta_string }} left
           {% endif %}
         {% endwith %}
       </div>
@@ -38,20 +39,20 @@
         <div class="small-6 columns">
           <form action="like" method="post" class="like_btn_form">
           {% csrf_token %}
-            {# If mixtape is not in liked mixtapes #}
-            {% comment %} <input type="submit" class="button expand radius like_mxtp_btn" value="Like"> {% endcomment %}
-            {# elif liked already #}
-            <button class="button disabled radius expand liked_mxtp_btn"> Liked </button>
-            <input type="submit" class="button expand radius unlike_mxtp_btn" value="Unlike">
-            {# Endif #}
+            {% if tracklist in request.user.get_profile.tracklist_kept %}
+              <button class="button disabled radius expand liked_mxtp_btn"> Liked </button>
+              <input type="submit" class="button expand radius unlike_mxtp_btn" value="Unlike">
+            {% else %}
+              <input type="submit" class="button expand radius like_mxtp_btn" value="Like">
+            {% endif %}
           </form>
         </div>
         <div class="small-6 columns text-center play_mxtp_stats">
-          <img src="{% static "img/round_icon.png" %}"/>
+          <img src="{% static "img/icons/play_orange.png" %}" width="32px"/>
              {{ tracklist.likes }}
         </div>
         <div class="small-6 columns text-center keep_mxtp_stats">
-          <img src="{% static "img/heart_white_32.png" %}" width="20px" />
+          <img src="{% static "img/icons/heart_green.png" %}" width="24px" />
             {{ tracklist.likes }}
         </div>
       </div>
@@ -61,13 +62,13 @@
   <div class="small-12 columns mixtape_summary">
     <div class="row">
       <div class="small-2 columns mixtape_header_owner">
-        <a href="#"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="82px"/></a>
+        <a href="/profile/{{tracklist.owner.user.username}}/"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="82px"/></a>
       </div>
       <div class="small-6 columns mixtape_header_contributors_and_featuring">
         <ul class="inline-list mixtape_header_contributors">
           {% for user_profile in tracklist.userto.all %}
             <li>
-              <a href="#"><img title="{{user_profile.user.username}}" src="{% static "img/default.jpg" %}" width="50px"/></a>
+              <a href="/profile/{{user_profile.user.username}}/"><img title="{{user_profile.user.username}}" src="{% static "img/default.jpg" %}" width="50px"/></a>
             </li>
           {% endfor %}
         </ul>
@@ -79,7 +80,7 @@
         </div>
       </div>
       <div class="small-4 columns display_tracks_btn_zone">
-        <button class="button expand radius display_tracks_btn dropdown"> Show tracks </button>
+        <button class="button expand radius display_tracks_btn dropdown">&nbsp<img src="{% static "img/icons/eye_white.png" %}" width="24px" />&nbsp&nbspShow tracks </button>
       </div>
       <div class="small-8 columns show_add_track_form_btn_zone">
 
@@ -169,10 +170,10 @@
               {% include "hip_engine/snippet_mini_profile_mixtape_owner.html" %}
             </div>
             <div class="small-8 columns
-              {% if tracklist.tracks_initial.all|length_is:"0" %} bundle_tracklist_0 {% endif %}
-              {% if tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1 {% endif %}
-              {% if tracklist.tracks_initial.all|length_is:"2" %} bundle_tracklist_2 {% endif %}
-              {% if tracklist.tracks_initial.all|length_is:"3" %} bundle_tracklist_3 {% endif %}">
+              {% if tracklist.tracks_initial.all|length_is:"0" %} bundle_tracklist_0
+              {% elif tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1
+              {% elif tracklist.tracks_initial.all|length_is:"2" %} bundle_tracklist_2
+              {% else %} bundle_tracklist_3 {% endif %}">
               <ul class="no-bullet">
                 {% for track in tracklist.tracks_initial.all %}
                   <li>

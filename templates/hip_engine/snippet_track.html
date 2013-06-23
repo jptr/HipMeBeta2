@@ -4,7 +4,7 @@
   {% if request.user.get_profile == tracklist.owner %}
     <div class="small-10 columns track">
       <a>
-        <img src="{% static "img/round_icon.png" %}" class="track_play_btn"/>
+        <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
         <img src="{% static "img/red.png" %}" class="track_pause_btn"/>
       </a>
       <a href="{{ track.url }}" target="_blank" class="track_text">
@@ -32,7 +32,7 @@
   {% else %}
   <div class="small-12 columns track">
       <a>
-        <img src="{% static "img/round_icon.png" %}" class="track_play_btn"/>
+        <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
         <img src="{% static "img/red.png" %}" class="track_pause_btn"/>
       </a>
       <a href="{{ track.url }}" target="_blank" class="track_text">

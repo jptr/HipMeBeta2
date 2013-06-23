@@ -7,9 +7,9 @@
 
 <!-- Results in people -->
 
-{% if résultats %}
+{% if profile_list %}
     <ul class="no-bullet">
-        {% for résultats %}
+        {% for profile_focused in profile_list %}
         <li>
             {% include "hip_engine/snippet_profile.html" %}
         </li>

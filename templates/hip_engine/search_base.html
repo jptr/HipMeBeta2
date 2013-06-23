@@ -3,15 +3,23 @@
 
 {% block feed_header %}
 
-<h3> Search results for "test": </h3>
+<h3> Search results for {{query_string}} </h3>
 
 {% endblock feed_header %}
 
 {% block feed_nav %}
 
 <dl class="sub-nav feed_sub_nav">
-  <dd class="{% block search_nav_1 %} {% endblock search_nav_1 %}"><a href="/search/people/"> People </a></dd>
-  <dd class="{% block search_nav_2 %} {% endblock search_nav_2 %}"><a href="/search/mixtapes/"> Mixtapes </a></dd>
+  <dd class="{% block search_nav_1 %} {% endblock search_nav_1 %}">
+    <a href="/search/people/">
+        People {% if profile_list %} ({{ profile_list|length }}) {% endif %}
+    </a>
+  </dd>
+  <dd class="{% block search_nav_2 %} {% endblock search_nav_2 %}">
+    <a href="/search/mixtapes/"> 
+        Mixtapes {% if tracklist_list %} ({{ tracklist_list|length }}) {% endif %}
+    </a>
+  </dd>
 </dl>
 
 {% endblock feed_nav %}
@@ -20,6 +28,20 @@
 {% block main_feed %}
 
 <!-- Results in people -->
+
+{% if not profile_list and not tracklist_list %}
+    No results.
+{% endif %}
+
+{% if profile_list %}
+    <ul class="no-bullet">
+        {% for profile_focused in profile_list %}
+        <li>
+            {% include "hip_engine/snippet_profile.html" %}
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
 {% if tracklist_list %}
 <div class="row">
@@ -31,8 +53,6 @@
         {% endfor %}
     </ul>
 </div>
-{% else %}
-<p> There are no mixtapes to be shown at the moment. </p>
 {% endif %}
 
 <!-- End Feed -->

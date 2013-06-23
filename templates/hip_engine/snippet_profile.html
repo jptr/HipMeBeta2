@@ -4,34 +4,42 @@
   <div class="small-12 columns profile">
     <div class="row">
       <div class="small-2 columns">
-        <a href="#"> <img src="{% static "img/HMProfile.jpg" %}" class="profile_avatar"/> </a>
+        <a href="#"> <img src="{% static "img/default.jpg" %}" class="profile_avatar"/> </a>
       </div>
       <div class="small-10 columns">
         <div class="row">
           <div class="small-12 columns">
             <h3><a href="#" class="userprofile_name left"> {{ profile_focused.user.username }} </a></h3>
             {# If not me #}
-              <form action="like" method="post" class="like_btn_form">
-              {% csrf_token %}
-                {# If not followed #}
-                  {% comment %} <input type="submit" class="tiny left profile_flw_btn" value="Follow"> {% endcomment %}
-                {# Else if followed #}
-                  <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
-                  <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
-                {# Endif #}
-              </form>
+
+                {% if profile_focused == request.user.get_profile %}
+                  <a href="/profile/{{request.user.username}}/edit/">&nbsp&nbspedit</a>
+                {% else %}
+                  <form action="like" method="post" class="like_btn_form">
+                  {% csrf_token %}                
+                  {% if profile_focused in request.user.follows %}
+                    <input type="submit" class="tiny left profile_flw_btn" value="Follow"> 
+                  {% else %}
+                    <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
+                    <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
+                  {% endif %}
+                  </form>
+                {% endif %}
             {# Endif #}
           </div>
         </div>
         <h6>
+          <img src="{% static "img/icons/star_green.png" %}" width="20px" />
           {{ profile_focused.reputation }} point{{ profile_focused.reputation|pluralize }}
           &nbsp;|&nbsp;
+          <img src="{% static "img/icons/arrow_left_green.png" %}" width="20px" />
           {% if nb_followers == 0 %}
             no followers
           {% else %}
             <a href="/profile/{{ profile_focused.user.username }}/followers/"> {{nb_followers}} follower{{ nb_followers|pluralize }}</a>
           {% endif %}
           &nbsp;|&nbsp;
+          <img src="{% static "img/icons/arrow_right_green.png" %}" width="20px" />
           {% if nb_following == 0 %}
             no following
           {% else %}
@@ -39,10 +47,6 @@
           {% endif %}
         </h6>
         <ul class="inline-list">
-          <li class="label radius tag_profile"> Soul Expert </li>
-          <li class="label radius tag_profile"> Funk Emperor </li>
-          <li class="label radius tag_profile"> Big-gamer </li>
-          <li class="label radius tag_profile"> Starfighter </li>
         </ul>
       </div>
     </div>

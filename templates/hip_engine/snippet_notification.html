@@ -17,7 +17,7 @@
     {% endif %}
   {% endwith %}
   {% endwith %}
-  - {{ tracklist.latest_event.date|time_string }} ago
+  - {{ tracklist.latest_event.time_delta|delta_string }} ago
 </div>
 
 

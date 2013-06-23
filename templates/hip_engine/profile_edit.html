@@ -1,0 +1,63 @@
+{% extends "hip_engine/profile_base.html" %}
+{% load staticfiles %}
+
+{% block profile_nav2 %}
+{% endblock profile_nav2 %}
+
+{% block main_feed %}
+
+<p>
+<form action="" method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <legend>Update Email</legend>
+    {% for field in email_form %}
+      <div class="row">
+          <div class="small-9 columns">
+            <input type="text" id="right-label" value="" placeholder="New Email Address">
+          </div>
+          <div class="small-3 columns">
+            <a href="#" class="button postfix">Update</a>
+          </div>
+      </div>
+    {% endfor %}
+    </fieldset>
+</form>
+</p>
+
+<p>
+<form action="" method="POST">
+  {% csrf_token %}
+  <fieldset>
+    <legend>Toggle Email Notification</legend>
+    {% for field in email_notif_form %}
+          <div class="row">
+              <div class="small-6 columns">
+                <span class="prefix">{{ field.label }}</span>    
+              </div>
+              <div class="small-6 columns">
+                <div class="switch">
+                  {% if field.value == "True" %}
+                    <input id="x" name="switch-x" type="radio" checked>
+                    <label for="x" onclick="">No</label>
+
+                    <input id="x1" name="switch-x" type="radio">
+                    <label for="x1" onclick="">Yes</label>
+                  {% else %}
+                    <input id="x" name="switch-x" type="radio">
+                    <label for="x" onclick="">No</label>
+
+                    <input id="x1" name="switch-x" type="radio" checked>
+                    <label for="x1" onclick="">Yes</label>
+                  {% endif %}
+                  <span></span>
+                </div>    
+              </div>  
+            </div>
+          </div>
+    {% endfor %}
+  </fieldset>
+</form>
+</p>
+
+{% endblock main_feed %}

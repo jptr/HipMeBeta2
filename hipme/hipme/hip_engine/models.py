@@ -74,6 +74,11 @@ class Event(models.Model):
     event_type = models.CharField(max_length=20)
     def __unicode__(self):
         return u"event %s - %s by %s" % (self.id, self.event_type, self.main_profile)
+    def get_time_delta(self):   
+        timeDiff = timezone.now() - self.date
+        return timeDiff
+
+    time_delta = property(get_time_delta)
 
 class Tracklist(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='tracklists_created')
@@ -94,7 +99,7 @@ class Tracklist(models.Model):
     likes = models.IntegerField(default=0)
 
     def get_time_left(self):
-        timeDiff = datetime.timedelta(days=3) + self.date_created
+        timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
         return timeDiff
 
     def get_time_out(self):

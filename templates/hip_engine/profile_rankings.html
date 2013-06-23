@@ -1,0 +1,24 @@
+{% extends "hip_engine/base.html" %}
+{% load staticfiles %}
+
+{% block feed_header %}
+
+<h3> Rankings </h3>
+
+{% endblock feed_header %}
+
+{% block main_feed %}
+
+<!-- Ranking -->
+
+<ul class="no-bullet">
+    {% for profile_focused in full_rankings_profile_list %}
+    <li>
+        {% include "hip_engine/snippet_profile.html" %}
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- End Feed -->
+
+{% endblock main_feed %}

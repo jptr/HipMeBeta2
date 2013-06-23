@@ -7,9 +7,9 @@
 
 <!-- Results in people -->
 
-{% if résultats %}
+{% if tracklist_list %}
     <ul class="no-bullet">
-        {% for résultats %}
+        {% for tracklist in tracklist_list %}
         <li>
             {% include "hip_engine/snippet_game_mixtape.html" %}
         </li>
