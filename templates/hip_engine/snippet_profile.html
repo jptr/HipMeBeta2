@@ -9,7 +9,7 @@
       <div class="small-10 columns">
         <div class="row">
           <div class="small-12 columns">
-            <h3><a href="#" class="userprofile_name left"> {{ profile_focused.user.username }} </a></h3>
+            <h3><a href="/profile/{{ profile_focused.user.username }}/" class="userprofile_name left"> {{ profile_focused.user.username }} </a></h3>
             {# If not me #}
 
                 {% if profile_focused == request.user.get_profile %}
@@ -37,14 +37,14 @@
           {% if nb_followers == 0 %}
             no followers
           {% else %}
-            <a href="/profile/{{ profile_focused.user.username }}/followers/"> {{nb_followers}} follower{{ nb_followers|pluralize }}</a>
+            <a href="/profile/{{ profile_focused.user.username }}/followers/"> {{profile_focused.follows.all|length}} follower{{ nb_followers|pluralize }}</a>
           {% endif %}
           &nbsp;|&nbsp;
           <img src="{% static "img/icons/arrow_right_green.png" %}" width="20px" />
           {% if nb_following == 0 %}
             no following
           {% else %}
-            <a href="/profile/{{ profile_focused.user.username }}/followers/"> {{nb_followers}} following </a>
+            <a href="/profile/{{ profile_focused.user.username }}/following/"> {{profile_focused.follows.all|length}} following </a>
           {% endif %}
         </h6>
         <ul class="inline-list">

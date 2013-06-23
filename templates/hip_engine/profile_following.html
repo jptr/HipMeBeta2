@@ -22,10 +22,14 @@
 <!-- Feed = games -->
 
 <ul class="no-bullet">
-  <li>
-    {% include "hip_engine/snippet_profile.html" %}
-	<hr/>
-  </li>
+    {% for profile_focused in following_list %}
+        <li>
+            {% include "hip_engine/snippet_profile.html" %}
+                {% if not forloop.last %}
+                <hr/>
+                {% endif %}
+        </li>
+    {% endfor %}
 </ul>
 
 <!-- End Feed Games-->

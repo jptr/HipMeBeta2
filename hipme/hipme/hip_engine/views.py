@@ -34,9 +34,7 @@ def get_nav_context():
 
 def get_profile_context(username):
     profile_focused = get_object_or_404(UserProfile,user__username=username)
-    nb_followers = profile_focused.followed_by.count()
-    nb_following = profile_focused.follows.count()
-    return {'profile_focused':profile_focused, 'nb_followers':nb_followers, 'nb_following':nb_following,}
+    return {'profile_focused':profile_focused, }
 
 def get_tracklist_form_context(request):
     event = get_object_or_404(Event, pk=1)
@@ -51,7 +49,7 @@ def get_rankings(request):
     profile_list = list(follows_queryset.distinct().order_by('-reputation'))
     for index in range(len(profile_list)):
         if profile_list[index].reputation <= request.user.get_profile().reputation:
-            profile_list = profile_list[max(0, index-2):min(index+2, len(profile_list))]
+            profile_list = profile_list[max(0, index-2):index+2]
             break
 
     profile_list.insert(2, request.user.get_profile())
@@ -207,8 +205,8 @@ def profile_pending(request, username):
 
 @login_required
 def profile_followers(request, username):
-    profile_focused = get_object_or_404(UserProfile,user__username=username)
-    followers_list = profile_focused.followed_by.all()
+    profile_focused = get_object_or_404(UserProfile, user__username=username)
+    followers_list = profile_focused.follows.all()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
