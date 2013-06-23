@@ -1,4 +1,4 @@
-from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist
+from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event
 from django.contrib import admin
 
 class TracklistCreatedInline(admin.TabularInline):
@@ -27,7 +27,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_filter = ('is_email_notified',)
 
 class TracklistAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__','is_finished', 'date_created','date_latest_edit')
+    list_display = ('__unicode__','is_finished', 'is_time_out', 'date_created','date_latest_edit')
 
 class TrackAdmin(admin.ModelAdmin):
     list_display = ('__unicode__','get_site_from','artist','name', 'date_added')
@@ -35,9 +35,17 @@ class TrackAdmin(admin.ModelAdmin):
 class BundleAdmin(admin.ModelAdmin):
     list_display = ('__unicode__','date_created')
 
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__',)
+
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__',)
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Tracklist, TracklistAdmin)
 admin.site.register(Bundle, BundleAdmin)
 admin.site.register(Track, TrackAdmin)
+admin.site.register(Event, EventAdmin)
+admin.site.register(Tag, TagAdmin)

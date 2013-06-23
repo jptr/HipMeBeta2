@@ -4,6 +4,7 @@
 <div class="small-12 columns notif">
   {% with tracklist.latest_event.event_type as event_type %}
   {% with tracklist.latest_event.main_profile as main_profile %}
+  {% with tracklist.latest_event.secondary_profile as secondary_profile %}
     {% if event_type == "add_track" %}
     <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> added a track to {{ secondary_profile.user.username }}'s mixtape
     {% elif event_type == "keep_track" %}
@@ -15,6 +16,7 @@
     {% else %}
         <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> added a track to {{ secondary_profile.user.username }}'s mixtape
     {% endif %}
+  {% endwith %}
   {% endwith %}
   {% endwith %}
   - {{ tracklist.latest_event.time_delta|delta_string }} ago

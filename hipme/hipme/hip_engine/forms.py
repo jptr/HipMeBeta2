@@ -1,5 +1,10 @@
 from django.forms import ModelForm, HiddenInput, Widget
-from hip_engine.models import UserProfile, User, Track, Tracklist, Bundle
+from hip_engine.models import UserProfile, User, Track, Tracklist, Bundle, Event
+
+class ProfileImageForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('avatar',)
 
 class UserEmailForm(ModelForm):
     class Meta:
@@ -20,9 +25,10 @@ class UserRegistrationForm(ModelForm):
 class TracklistForm(ModelForm):
     class Meta:
         model = Tracklist
-        fields = ('owner', 'userto', )
+        fields = ('owner', 'userto', 'latest_event')
         widgets = {
             'owner': HiddenInput(),
+            'latest_event': HiddenInput(),
         }
     def __init__(self,*args, **kwargs):
         username = kwargs.pop('username', '')

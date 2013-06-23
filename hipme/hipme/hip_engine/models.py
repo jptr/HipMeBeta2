@@ -5,7 +5,7 @@ import datetime
 from django.utils import timezone
 from hip_engine.validation_tools import get_streaming_site_from
 
-# import PIL
+from PIL import Image
 
 # Create your models here.
 
@@ -13,7 +13,7 @@ def upload_to(instance, filename):
     return 'profile_pics/%s/%s' % (instance.user.id, filename)
 
 class UserProfile(models.Model):
-    # avatar = models.ImageField("Profile Pic", upload_to=upload_to, blank=True, null=True)
+    avatar = models.ImageField("Profile Pic", upload_to=upload_to, blank=True, null=True)
     user = models.OneToOneField(User)
     follows = models.ManyToManyField('UserProfile', related_name='followed_by', blank=True)
     tracklist_kept = models.ManyToManyField('Tracklist', related_name='followed_by', blank=True)
@@ -88,14 +88,14 @@ class Tracklist(models.Model):
 
     date_created = models.DateTimeField('date of creation', default=timezone.now())
     date_latest_edit = models.DateTimeField('date of latest edit', default=timezone.now())
-    latest_event = models.ForeignKey(Event)
+    latest_event = models.ForeignKey(Event, blank=True)
 
     tracks_initial = models.ManyToManyField('Track', related_name='tracklist_from', blank=True)
     tracks_kept = models.ManyToManyField('Track', related_name='tracklist_kept_from', blank=True)
     bundlebacks = models.ManyToManyField('Bundle', related_name='tracklist_from', null=True, blank=True)
     is_finished = models.BooleanField('finished?', default=False)
 
-    tags = models.ManyToManyField('Tag', null=True, blank=True)
+    tags = models.ManyToManyField('Tag', blank=True)
     likes = models.IntegerField(default=0)
 
     def get_time_left(self):
@@ -104,7 +104,7 @@ class Tracklist(models.Model):
 
     def get_time_out(self):
         timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
-        seconds = timeDiff.seconds
+        seconds = timeDiff.total_seconds()
         if seconds > 0:
             return False
         else:

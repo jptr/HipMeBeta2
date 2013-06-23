@@ -6,7 +6,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from django.forms.models import inlineformset_factory, modelformset_factory
-from hip_engine.forms import ProfileEmailNotificationForm, UserEmailForm, TracklistForm, TrackForm
+from hip_engine.forms import ProfileImageForm, ProfileEmailNotificationForm, UserEmailForm, TracklistForm, TrackForm
+
+from PIL import Image
+from settings import MEDIA_ROOT
+from os.path import join
 
 from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event
 from hip_engine.search import get_query
@@ -35,7 +39,8 @@ def get_profile_context(username):
     return {'profile_focused':profile_focused, 'nb_followers':nb_followers, 'nb_following':nb_following,}
 
 def get_tracklist_form_context(request):
-    new_tracklist = Tracklist(owner = request.user.get_profile())
+    event = get_object_or_404(Event, pk=1)
+    new_tracklist = Tracklist(owner = request.user.get_profile(), latest_event = event)
     tracklist_form = TracklistForm(prefix='tracklist', instance=new_tracklist, username=request.user.username)
     track_form = TrackForm()
     context = {'tracklist_form':tracklist_form, 'track_form': track_form,}
@@ -46,9 +51,11 @@ def get_rankings(request):
     profile_list = list(follows_queryset.distinct().order_by('-reputation'))
     for index in range(len(profile_list)):
         if profile_list[index].reputation <= request.user.get_profile().reputation:
-            profile_list = profile_list[max(0, index-2):index+2]
+            profile_list = profile_list[max(0, index-2):min(index+2, len(profile_list))]
             break
-    profile_list.insert(-2, request.user.get_profile())
+
+    profile_list.insert(2, request.user.get_profile())
+
     context = {'ranking_profile_list':profile_list,}
     return context
 
@@ -237,10 +244,38 @@ def profile_edit(request, username):
     if (username == request.user.username):
         email_form = UserEmailForm(instance=request.user)
         email_notif_form = ProfileEmailNotificationForm(instance=request.user)
+        image_form = ProfileImageForm(instance=request.user.get_profile())
 
         tracklist_form = TracklistForm(username=request.user.username)
 
         track_form = TrackForm()
+
+        if request.method == "POST":
+            if request.POST['form-type'] == "image-form":
+                image_form = ProfileImageForm(request.POST, request.FILES, instance=request.user.get_profile())
+                if image_form.is_valid():
+                    image_form.save()
+                    # resize and save image under same filename
+                    im_path = join(MEDIA_ROOT, request.user.get_profile().avatar.name)
+                    im = Image.open(im_path)
+                    im.thumbnail((192,192), Image.ANTIALIAS)
+                    im.save(im_path, "JPEG")
+            elif request.POST['form-type'] == "email-form":
+                email_form = UserEmailForm(request.POST, instance=u)
+                if email_form.is_valid():
+                    email_form.save() 
+                    return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
+            # elif request.POST['form-type'] == "email-notif-form":
+            else:
+                email_notif_form = ProfileEmailNotificationForm(request.POST, instance=u)
+                if email_notif_form.is_valid():
+                    email_notif_form.save() 
+                    return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
+            # else:
+            #     psw_form = PasswordChangeForm(request.user, request.POST)
+            #     if psw_form.is_valid():
+            #         psw_form.save()
+            #         return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
 
         context = {
             'email_form':email_form, 
@@ -395,7 +430,7 @@ def add_track(request, tracklist_id):
 
     tracklist.bundlebacks.add(bundleback)
 
-    event = Event(main_profile = request.user.get_profile(), secondary_profile=tracklist.owner ,event_type = "new_track")
+    event = Event(main_profile = request.user.get_profile(), secondary_profile=tracklist.owner,event_type = "new_track")
     event.save()
     tracklist.latest_event = event
 
@@ -414,20 +449,29 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
     bundleback = get_object_or_404(Bundle, pk=bundle_id)
     track = get_object_or_404(Track, pk=track_id)
 
-    tracklist.tracks_kept.add(track)
+    if track in tracklist.tracks_kept.all():
+        tracklist.tracks_kept.add(track)
 
-    event = Event(main_profile = tracklist.owner, secondary_profile=request.user.get_profile(), event_type = "keep_track")
-    event.save()
-    tracklist.latest_event = event
+        event = Event(main_profile = tracklist.owner, secondary_profile=request.user.get_profile(), event_type = "keep_track")
+        event.save()
+        tracklist.latest_event = event
 
-    tracklist.date_latest_edit = timezone.now()
+        tracklist.date_latest_edit = timezone.now()
+
+        bundleback.owner.reputation += 1
+
+        bundleback.nb_tracks_kept += 1
+
+    else:
+        tracklist.tracks_kept.remove(track)
+        tracklist.date_latest_edit = timezone.now()
+
+        bundleback.owner.reputation -= 1
+        
+        bundleback.nb_tracks_kept -= 1
 
     tracklist.save()
-
-    bundleback.owner.reputation += 1
     bundleback.owner.save()
-
-    bundleback.nb_tracks_kept += 1
     bundleback.save()
 
     if request.POST.get('next'):
@@ -437,20 +481,22 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
-def remove_track(request, tracklist_id, bundle_id, track_id):
+def like_mixtape(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
-    bundleback = get_object_or_404(Bundle, pk=bundle_id)
-    track = get_object_or_404(Track, pk=track_id)
 
-    tracklist.tracks_kept.remove(track)
-    tracklist.date_latest_edit = timezone.now()
+    if request.POST.get('like'):
+        tracklist.owner.reputation += 1
+        tracklist.likes += 1
+        request.user.get_profile().tracklist_kept.add(tracklist)
+
+    if request.POST.get('unlike'):
+        tracklist.owner.reputation -= 1
+        tracklist.likes -= 1
+        request.user.get_profile().tracklist_kept.remove(tracklist)
+
+    tracklist.owner.save()
     tracklist.save()
-
-    bundleback.owner.reputation -= 1
-    bundleback.owner.save()
-
-    bundleback.nb_tracks_kept -= 1
-    bundleback.save()
+    request.user.get_profile().save()
 
     if request.POST.get('next'):
         url_next = request.POST['next']
@@ -470,6 +516,23 @@ def close_tracklist(request, tracklist_id):
         tracklist.latest_event = event
 
         tracklist.save()
+
+    if request.POST.get('next'):
+        url_next = request.POST['next']
+        return HttpResponseRedirect(url_next)
+    else:
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+
+@login_required
+def profile_follow(request, username):
+    profile_focused = get_object_or_404(UserProfile, user__username=username)
+
+    if profile_focused not in request.user.get_profile().follows.all():
+        request.user.get_profile().follows.add(profile_focused)
+    else:
+        request.user.get_profile().follows.remove(profile_focused) 
+    
+    request.user.get_profile().save() 
 
     if request.POST.get('next'):
         url_next = request.POST['next']

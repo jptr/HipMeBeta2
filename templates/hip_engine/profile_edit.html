@@ -7,6 +7,19 @@
 {% block main_feed %}
 
 <p>
+<form enctype="multipart/form-data" action="/profile/{{profile_focused.user.username}}/edit/" method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <legend>Change profile picture</legend>
+      {{ image_form.avatar }}
+      <input type="hidden" name="form-type" value="image-form" />
+      <strong> 20 Ko < size <  1 Mo </strong>
+      <input type="submit" class="button postfix" value="Upload">
+    </fieldset>
+</form>
+</p>
+
+<p>
 <form action="" method="POST">
     {% csrf_token %}
     <fieldset>
@@ -17,7 +30,8 @@
             <input type="text" id="right-label" value="" placeholder="New Email Address">
           </div>
           <div class="small-3 columns">
-            <a href="#" class="button postfix">Update</a>
+            <input type="hidden" name="" value="Update">
+            <input type="submit" class="button postfix" value="Update">
           </div>
       </div>
     {% endfor %}

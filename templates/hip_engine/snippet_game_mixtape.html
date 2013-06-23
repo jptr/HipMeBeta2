@@ -12,7 +12,11 @@
       <div class="small-6 mixtape_info">
         {% with tracklist|free_spots as nb_spots %}
           {% if tracklist.is_time_out %}
-            {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp no time left
+            {% if tracklist.is_finished %}
+              {{ tracklist.date_created|delta_string }} ago
+            {% else %}
+              game is over &nbsp / &nbsp waiting for {{tracklist.owner.user.username}}
+            {% endif %}
           {% else %}
             {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|delta_string }} left
           {% endif %}
@@ -37,19 +41,20 @@
           <button class="button success radius expand play_mxtp_btn" onClick="hipme_play_main()"> Listen </button>
         </div>
         <div class="small-6 columns">
-          <form action="like" method="post" class="like_btn_form">
+          <form action="/mixtape/{{tracklist.id}}/like/" method="post" class="like_btn_form">
           {% csrf_token %}
-            {% if tracklist in request.user.get_profile.tracklist_kept %}
+            {% if tracklist in request.user.get_profile.tracklist_kept.all %}
               <button class="button disabled radius expand liked_mxtp_btn"> Liked </button>
-              <input type="submit" class="button expand radius unlike_mxtp_btn" value="Unlike">
+              <input type="submit" class="button expand radius unlike_mxtp_btn" name="unlike" value="Unlike">
             {% else %}
-              <input type="submit" class="button expand radius like_mxtp_btn" value="Like">
+              <input type="submit" class="button expand radius like_mxtp_btn" name="like" value="Like">
             {% endif %}
+            <input name="next" type="hidden" value="{{request.path}}" />
           </form>
         </div>
         <div class="small-6 columns text-center play_mxtp_stats">
           <img src="{% static "img/icons/play_orange.png" %}" width="32px"/>
-             {{ tracklist.likes }}
+             {{ tracklist.listenings }}
         </div>
         <div class="small-6 columns text-center keep_mxtp_stats">
           <img src="{% static "img/icons/heart_green.png" %}" width="24px" />
@@ -129,6 +134,7 @@
       </div>
       <div class="small-8 columns mixtape_add_track_form_zone">
         <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
+          <input name="next" type="hidden" value="{{request.path}}" />
           {% csrf_token %}
           <div class="row">
             <div class="small-10 columns">
@@ -213,7 +219,7 @@
     {% if request.user.get_profile == tracklist.owner %}
       <li>
         <div class="small-12 columns close_mixtape_zone">
-          <button class="button success expand radius close_mixtape_btn" data-reveal-id="closeTracklistModal"> Close your mixtape </button>
+          <button class="button expand radius close_mixtape_btn" data-reveal-id="closeTracklistModal"> Close your mixtape </button>
         </div>
       </li>
     {% endif %}
