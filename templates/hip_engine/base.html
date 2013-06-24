@@ -125,8 +125,8 @@
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
     <div id="player"></div>
-    <button id="main_play_btn" onClick="hipme_play_main()"> Play </button>
-    <button id="main_pause_btn" onClick="hipme_pause_main()"> Pause </button>
+    <button id="main_play_btn" onClick="hipmePlayMain()"> Play </button>
+    <button id="main_pause_btn" onClick="hipmePauseMain()"> Pause </button>
     <button id="main_previous_btn" onClick="hipme_previous_main()"> Previous </button>
     <button id="main_next_btn" onClick="hipme_next_main()"> Next </button>
 
@@ -471,33 +471,45 @@
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    function hipme_play_main() {
-      var player;
-        player = new YT.Player('player', {
-          height: '200',
-          width: '220',
-          videoId: 'M7lc1UVf-VE',
-          events: {
-            'onReady': onPlayerReady,
-          }
-        });
-      }
+    var player;
+    var hipmeParams = { allowScriptAccess: "always" };
+
+    var hipmeTrackId;
+    hipmeTrackId = 'Oqr38kY4ldU'
+
+    function hipmePlayTrack() {
+      player = new YT.Player('player', {
+        height: '200',
+        width: '220',
+        videoId: 'hipmeTrackId',
+        events: {
+          'onReady': onPlayerReady,
+        }
+      });
+    }
+
+      // function hipmePlayTrack() {
+      //   player = new YT.Player('player', {
+      //     height: '200',
+      //     width: '220',
+      //     videoId: 'Oqr38kY4ldU',
+      //     events: {
+      //       'onReady': onPlayerReady,
+      //     }
+      //   });
+      // }
 
     // 4. The API will call this function when the video player is ready.
     function onPlayerReady(event) {
       event.target.playVideo();
     }
 
-    function hipme_pause_main() {
+    function hipmePauseMain() {
       player.pauseVideo();
     }
 
-    function hipme_next_main() {
-      player.nextVideo();
-    }
-
-    function hipme_previous_main() {
-      player.previousVideo();
+    function hipmePlayMain() {
+      player.playVideo();
     }
 
   </script>

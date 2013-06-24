@@ -327,7 +327,7 @@ def search(request):
     context.update(get_generic_context(request))
     context.update(get_rankings(request))
 
-    return render_to_response('hip_engine/search_base.html', context, context_instance=RequestContext(request))
+    return render_to_response('hip_engine/search_people.html', context, context_instance=RequestContext(request))
 
 @login_required
 def search_people(request):
@@ -338,6 +338,8 @@ def search_people(request):
 def search_mixtapes(request):
 
     return render_to_response('hip_engine/search_mixtapes.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+
+
 
 @login_required
 def test_forms(request):
