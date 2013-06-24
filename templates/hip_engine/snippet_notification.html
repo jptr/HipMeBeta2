@@ -1,25 +1,29 @@
 {% load staticfiles %}
 {% load hip_extras %}
 
-<div class="small-12 columns notif">
-  {% with tracklist.latest_event.event_type as event_type %}
-  {% with tracklist.latest_event.main_profile as main_profile %}
-  {% with tracklist.latest_event.secondary_profile as secondary_profile %}
-    {% if event_type == "add_track" %}
-    <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> added a track to {{ secondary_profile.user.username }}'s mixtape
-    {% elif event_type == "keep_track" %}
-        <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> kept one of {{ secondary_profile.user.username }}'s track in his mixtape.
-    {% elif event_type == "creation" %}
-        <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> created a mixtape.
-    {% elif event_type == "closing" %}
-        <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> closed his mixtape.
-    {% else %}
-        <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> added a track to {{ secondary_profile.user.username }}'s mixtape
-    {% endif %}
-  {% endwith %}
-  {% endwith %}
-  {% endwith %}
-  - {{ tracklist.latest_event.time_delta|delta_string }} ago
+<div class="small-12 columns notif text-center">
+  <strong>
+    {% with tracklist.latest_event.event_type as event_type %}
+    {% with tracklist.latest_event.main_profile as main_profile %}
+    {% with tracklist.latest_event.secondary_profile as secondary_profile %}
+      {% if event_type == "add_track" %}
+      <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> added a track to {{ secondary_profile.user.username }}'s mixtape
+      {% elif event_type == "keep_track" %}
+          <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> kept one of {{ secondary_profile.user.username }}'s tracks in his mixtape
+      {% elif event_type == "creation" %}
+          <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> created a mixtape
+      {% elif event_type == "closing" %}
+          <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> closed his mixtape
+      {% else %}
+          <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> added a track to {{ secondary_profile.user.username }}'s mixtape
+      {% endif %}
+    {% endwith %}
+    {% endwith %}
+    {% endwith %}
+  </strong>
+  <i>
+    &nbsp; &nbsp; &nbsp; {{ tracklist.latest_event.time_delta|delta_string }} ago
+  </i>
 </div>
 
 
