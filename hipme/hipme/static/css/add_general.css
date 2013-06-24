@@ -110,3 +110,11 @@ a {
   border-top: 1px solid #E6E6E6;
   border-bottom: 1px solid #E6E6E6;
 }
+
+.search_results_title {
+  margin-top: 16px;
+}
+
+.ranking_title {
+  margin-top: 16px;
+}
