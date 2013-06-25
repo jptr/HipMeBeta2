@@ -114,17 +114,15 @@
 
     {% comment %}
 
-      <div class="small-12 columns player_zone">
-        <div class="row">
-          <iframe width="220" height="200" src="http://www.youtube.com/embed/NLTbvd_zFHY" frameborder="0"></iframe>
-        </div>
-      </div>
-
     {% endcomment %}
 
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
-    <div id="player"></div>
+    {% comment %} <div id="player"></div> {% endcomment %}
+
+<div id="video_container">
+</div>
+
     <button id="main_play_btn" onClick="hipmePlayMain()"> Play </button>
     <button id="main_pause_btn" onClick="hipmePauseMain()"> Pause </button>
     <button id="main_previous_btn" onClick="hipme_previous_main()"> Previous </button>
@@ -462,31 +460,41 @@
 
 <!-- scripts player -->
 
-  <script>
+    <script type="text/javascript">
+     
+    $('.play_mxtp_btn').click( function(e){
+    e.preventDefault();
+    var URL = $(this).attr('testtest');
+    var htm = '<iframe width="220" height="200" src="http://www.youtube.com/embed/ ' + URL + '?wmode=transparent&rel=0&theme=light&color=white&autoplay=1" frameborder="0" allowfullscreen ></iframe>';
+     
+    $('#video_container').html(htm);
+     
+    return false;
+    });
+    </script>
 
-    // 2. This code loads the IFrame Player API code asynchronously.
-    var tag = document.createElement('script');
+   <script>
 
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  //   // 2. This code loads the IFrame Player API code asynchronously.
+  //   var tag = document.createElement('script');
 
-    var player;
-    var hipmeParams = { allowScriptAccess: "always" };
+  //   tag.src = "https://www.youtube.com/iframe_api";
+  //   var firstScriptTag = document.getElementsByTagName('script')[0];
+  //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    var hipmeTrackId;
-    hipmeTrackId = 'Oqr38kY4ldU'
+  //   var player;
+  //   var hipmeParams = { allowScriptAccess: "always" };
 
-    function hipmePlayTrack() {
-      player = new YT.Player('player', {
-        height: '200',
-        width: '220',
-        videoId: 'hipmeTrackId',
-        events: {
-          'onReady': onPlayerReady,
-        }
-      });
-    }
+  //   function hipmeLoadPlayer() {
+  //     player = new YT.Player('player', {
+  //       height: '200',
+  //       width: '220',
+  //       videoId: 'Oqr38kY4ldU',
+  //       events: {
+  //         'onReady': onPlayerReady,
+  //       }
+  //     });
+  //   }
 
       // function hipmePlayTrack() {
       //   player = new YT.Player('player', {
@@ -510,6 +518,11 @@
 
     function hipmePlayMain() {
       player.playVideo();
+    }
+
+    function hipmePlayTest(hipmeTrackId) {
+      hipmePlayTrack();
+      player.loadVideoById(hipmeTrackId);
     }
 
   </script>
