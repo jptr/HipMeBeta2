@@ -1,0 +1,49 @@
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title> Forms </title>
+
+  <!-- Included CSS Files -->
+
+  {% load staticfiles %}
+
+  <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_general.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_mixtape.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_mixtape_form.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_left_nav.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
+
+  <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
+
+  <link href="{{MEDIA_URL}}css/hipme_all.css" rel="stylesheet">
+  <script type="text/javascript" src="{{MEDIA_URL}}js/chosen.jquery.js"></script>
+
+</head>
+
+<body>
+
+<form action="" method="POST">
+  <select data-placeholder="Type de restaurant" class="chzn-select chzn-add" multiple name="other_types">
+    <option value="1">test</option>
+    <option value="2">coucou</option>
+  </select>
+</form >
+
+  <script>
+  document.write('<script src={% static "js/vendor/" %}' +
+  ('__proto__' in {} ? 'zepto' : 'jquery') +
+  '.js><\/script>')
+  </script>
+  <script src="{% static "js/foundation.min.js" %}"></script>
+  <script>
+    $(document).foundation();
+    $(".chzn-select").chosen()
+  </script>
+
+</body>
+
