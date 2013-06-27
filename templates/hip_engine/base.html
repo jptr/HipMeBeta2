@@ -34,7 +34,9 @@
         // chosen select
         $(".chzn-select").chosen({no_results_text: "No results matched"});
     });
-    </script>
+  </script>
+
+  <script type="text/javascript" src="scripts/soundcloud.player.api.js"></script>
 
 </head>
 
@@ -110,11 +112,25 @@
     
     <div class="small-3 columns left_nav">
 
-  <!-- Player -->
+  <!-- Youtube Player -->
 
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
     <div id="player"></div>
+
+  <!-- End Youtube Player -->
+
+  <!-- SoundCloud Player -->
+
+    <object height="81" width="100%" id="SCPlayer" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+      <param name="movie" value="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&enable_api=true&object_id=SCPlayer"></param>
+      <param name="allowscriptaccess" value="always"></param>
+      <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&enable_api=true&object_id=SCPlayer" type="application/x-shockwave-flash" width="100%" name="SCPlayer"></embed>
+    </object>
+
+  <!-- End SoundCloud Player -->
+
+  <!-- Player Controls -->
 
     <div id="hipme_player_controls" class="text-center">
       <a onClick="hipmePreviousTrack()">
@@ -124,6 +140,13 @@
         <img src="{% static "img/icons/forward_green.png" %}" width="32px"/>
       </a>
     </div>
+
+
+    <a onClick="playSCTrack()">
+      SCPlay
+    </a>
+
+  <!-- End Player Controls -->
 
   <!-- Player -->
 
@@ -506,6 +529,18 @@
         hipmePlayTrack('wm-XMVv-50c');
       }
 
+    </script>
+
+    <script>
+      soundcloud.addEventListener('onPlayerReady', function(player, data) {
+        player.api_play();
+      });
+    </script>
+
+    <script>
+      function playSCTrack() {
+        SCPlayer.api_play();
+      }
     </script>
 
 <!-- End scripts player -->
