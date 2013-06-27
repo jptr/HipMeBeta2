@@ -3,11 +3,11 @@
 <div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
   {% if request.user.get_profile == tracklist.owner %}
     <div class="small-10 columns track">
-      <a class="play_track_btn" onClick="hipmePlayTrack()">
-        <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
+      <a class="play_track_btn" onClick="hipmePlayTrack('QwXs7fhxFGQ')">
+        <img src="{% static "img/icons/play_round_green.png" %}" width="20px"/>
       </a>
       <a class="pause_track_btn" onClick="hipmePauseTrack()">
-        <img src="{% static "img/icons/pause_round_green.png" %}" width="20px" class="track_pause_btn"/>
+        <img src="{% static "img/icons/pause_round_green.png" %}" width="20px"/>
       </a>
       <a href="{{ track.url }}" target="_blank" class="track_text">
         {% if track.name and track.artist %}
@@ -34,7 +34,7 @@
     </div>
   {% else %}
   <div class="small-12 columns track">
-      <a class="play_track_btn" onClick="hipmePlayTrack()">
+      <a class="play_track_btn"  onClick="hipmePlayTrack('QwXs7fhxFGQ')">
         <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
       </a>
       <a class="pause_track_btn" onClick="hipmePauseTrack()">
