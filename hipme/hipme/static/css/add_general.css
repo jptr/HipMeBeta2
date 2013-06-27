@@ -118,3 +118,7 @@ a {
 .ranking_title {
   margin-top: 16px;
 }
+
+#hipme_player_controls {
+  display: none;
+}
