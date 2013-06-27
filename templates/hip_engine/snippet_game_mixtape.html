@@ -13,7 +13,7 @@
         {% with tracklist|free_spots as nb_spots %}
           {% if tracklist.is_time_out %}
             {% if tracklist.is_finished %}
-              {{ tracklist.date_created|delta_string }} ago
+              {% comment %} {{ tracklist.date_created|delta_string }} ago {% endcomment %}
             {% else %}
               game is over &nbsp / &nbsp waiting for {{tracklist.owner.user.username}}
             {% endif %}
