@@ -1,9 +1,8 @@
 .left_nav {
-	margin-top: 22px;
+	margin-top: 1.5em;
 }
 
 /*
-
 .left_ranking_opacity_med {
 	opacity: 0.75;
 }
@@ -11,11 +10,15 @@
 .left_ranking_opacity_low {
 	opacity: 0.35;
 }
-
 */
 
-.left_ranking {
-	margin-top: 23px;
+#sc-widget {
+  display: none;
+}
+
+#hipme_player_controls {
+  display: none;
+  margin-bottom: 1.5em;
 }
 
 .left_ranking li {

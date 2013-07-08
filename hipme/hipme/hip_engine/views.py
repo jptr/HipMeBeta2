@@ -9,6 +9,7 @@ from django.forms.models import inlineformset_factory, modelformset_factory
 from hip_engine.forms import ProfileImageForm, ProfileEmailNotificationForm, UserEmailForm, TracklistForm, TrackForm
 
 from PIL import Image
+from django.conf import settings
 from settings import MEDIA_ROOT
 from os.path import join
 

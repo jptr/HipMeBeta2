@@ -16,7 +16,7 @@ a {
 }
 
 .page_content {
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
 .top_bar_button {
@@ -117,8 +117,4 @@ a {
 
 .ranking_title {
   margin-top: 16px;
-}
-
-#hipme_player_controls {
-  display: none;
 }
