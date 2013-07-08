@@ -1,4 +1,4 @@
-from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event
+from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship
 from django.contrib import admin
 
 class TracklistCreatedInline(admin.TabularInline):
@@ -13,6 +13,18 @@ class BundleCreatedInline(admin.TabularInline):
     extra=1
     verbose_name="bundle created"
 
+class FollowingInline(admin.TabularInline):
+    model = Relationship
+    fk_name = 'from_profile'
+    extra=0
+    verbose_name="following"
+
+class FollowerInline(admin.TabularInline):
+    model = Relationship
+    fk_name = 'to_profile'
+    extra=0
+    verbose_name="follower"
+
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
@@ -23,7 +35,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('get_username','reputation','is_email_notified','get_email_address')
-    inlines = [TracklistCreatedInline, BundleCreatedInline, ]
+    inlines = [FollowingInline, FollowerInline, TracklistCreatedInline, BundleCreatedInline, ]
     list_filter = ('is_email_notified',)
 
 class TracklistAdmin(admin.ModelAdmin):
@@ -41,6 +53,9 @@ class TagAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = ('__unicode__',)
 
+class RelationshipAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__',)
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
@@ -49,3 +64,4 @@ admin.site.register(Bundle, BundleAdmin)
 admin.site.register(Track, TrackAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Relationship, RelationshipAdmin)

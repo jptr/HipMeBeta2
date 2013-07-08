@@ -34,8 +34,6 @@ def parseTags(string_tags):
     return tags
 
 def get_streaming_site_from(url):
-    #regex_youtube = '^http:\/\/(?:www\.)?youtube.com\/watch\?(?=.*v=\w+)v=(?P<url>\S+)?$'
-    #regex_soundcloud = '^https:\/\/(?:www\.)?soundcloud.com\/(?P<artist>[a-zA-Z0-9\-]+)\/(?P<name>[a-zA-Z0-9\-]+)?$'
     regex_youtube = '^(https?:\/\/)?(?:www\.)?youtube.com\/watch\?(?=.*v=[a-zA-Z0-9\-]+)v=\S+$'
     regex_youtube_short = '^(https?:\/\/)?(?:www\.)?youtu.be\/[a-zA-Z0-9]+$'
     regex_soundcloud = '^(https?:\/\/)?(?:www\.)?soundcloud.com\/[a-zA-Z0-9\-]+\/[a-zA-Z0-9\-]+(\/)?$'
@@ -51,24 +49,22 @@ def get_streaming_site_from(url):
     elif re.search(regex_hypem, url):
         return 'hypem'
     else:
-        return ''
+        return 'unknown'
 
-def get_web_id(url, site_from):
-    #regex_youtube = '^http:\/\/(?:www\.)?youtube.com\/watch\?(?=.*v=\w+)v=(?P<url>\S+)?$'
-    #regex_soundcloud = '^https:\/\/(?:www\.)?soundcloud.com\/(?P<artist>[a-zA-Z0-9\-]+)\/(?P<name>[a-zA-Z0-9\-]+)?$'
-    regex_youtube = '^(https?:\/\/)?(?:www\.)?youtube.com\/watch\?(?=.*v=[a-zA-Z0-9\-]+)v=\S+$'
-    regex_youtube_short = '^(https?:\/\/)?(?:www\.)?youtu.be\/?(?=.*v=[a-zA-Z0-9\-]+)v=\S+$'
+def get_stream_id(url, site_from):
+    regex_youtube = '^(https?:\/\/)?(?:www\.)?youtube.com\/watch\?(?=.*v=[a-zA-Z0-9\-]+)v=(?P<id>\S+)$'
+    regex_youtube_short = '^(https?:\/\/)?(?:www\.)?youtu.be\/?(?=.*v=[a-zA-Z0-9\-]+)v=(?P<id>\S+)$'
     regex_soundcloud = '^(https?:\/\/)?(?:www\.)?soundcloud.com\/[a-zA-Z0-9\-]+\/[a-zA-Z0-9\-]+(\/)?$'
     regex_grooveshark = '^(https?:\/\/)?(?:www\.)?grooveshark.com\/(#!\/)?s\/[a-zA-Z0-9\+]+\/\S+?$'
     regex_hypem = '^(https?:\/\/)?(?:www\.)?hypem.com\/track\/\S+?$'
-
+        
     if site_from == 'youtube':
-        return 'Mtn6KqO3RcA'
-    elif re.search(regex_soundcloud, url):
-        return 'soundcloud'
-    elif re.search(regex_grooveshark, url):
-        return 'grooveshark'
-    elif re.search(regex_hypem, url):
-        return 'hypem'
+        if re.search(regex_youtube, url):
+            m = re.search(regex_youtube, url)
+        else:
+            m = re.search(regex_youtube_short, url)
+        return m.group('id')
+    elif site_from == 'soundcloud':
+        return url
     else:
         return ''

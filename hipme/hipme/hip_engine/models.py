@@ -3,11 +3,17 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 import datetime
 from django.utils import timezone
-from hip_engine.validation_tools import get_streaming_site_from
+from hip_engine.validation_tools import get_streaming_site_from, get_stream_id
 
 from PIL import Image
 
 # Create your models here.
+RELATIONSHIP_FOLLOWING = 1
+RELATIONSHIP_BLOCKED = 2
+RELATIONSHIP_STATUSES = (
+    (RELATIONSHIP_FOLLOWING, 'Following'),
+    (RELATIONSHIP_BLOCKED, 'Blocked'),
+)
 
 def upload_to(instance, filename):
     return 'profile_pics/%s/%s' % (instance.user.id, filename)
@@ -15,8 +21,10 @@ def upload_to(instance, filename):
 class UserProfile(models.Model):
     avatar = models.ImageField("Profile Pic", upload_to=upload_to, blank=True, null=True)
     user = models.OneToOneField(User)
-    follows = models.ManyToManyField('UserProfile', related_name='followed_by', blank=True)
-    tracklist_kept = models.ManyToManyField('Tracklist', related_name='followed_by', blank=True)
+    relationships = models.ManyToManyField('self', through='Relationship', 
+                                           symmetrical=False, 
+                                           related_name='related_to', blank=True)
+    tracklist_kept = models.ManyToManyField('Tracklist', related_name='kept_by', blank=True)
     reputation = models.IntegerField(default=0)
     url = models.URLField(blank=True)
     is_email_notified = models.BooleanField('get email notifications?', default=True)
@@ -29,10 +37,62 @@ class UserProfile(models.Model):
         return self.user.username
     get_username.admin_order_field = 'user__username'
 
+    def add_relationship(self, profile, status):
+        relationship, created = Relationship.objects.get_or_create(
+            from_profile=self,
+            to_profile=profile,
+            status=status)
+        return relationship
+
+    def add_following(self, profile):
+        return self.add_relationship(profile, RELATIONSHIP_FOLLOWING)
+
+    def remove_relationship(self, profile, status):
+        Relationship.objects.filter(
+            from_profile=self, 
+            to_profile=profile,
+            status=status).delete()
+        return
+
+    def remove_following(self, profile):
+        return self.remove_relationship(profile, RELATIONSHIP_FOLLOWING)
+
+    def get_relationships(self, status):
+        return self.relationships.filter(
+            to_profile__status=status, 
+            to_profile__from_profile=self)
+
+    def get_related_to(self, status):
+        return self.related_to.filter(
+            from_profile__status=status, 
+            from_profile__to_profile=self)
+
+    def get_following(self):
+        return self.get_relationships(RELATIONSHIP_FOLLOWING)
+
+    def get_followers(self):
+        return self.get_related_to(RELATIONSHIP_FOLLOWING)
+
+    def get_friends(self):
+        return self.relationships.filter(
+            to_profile__status=RELATIONSHIP_FOLLOWING, 
+            to_profile__from_profile=self,
+            from_profile__status=RELATIONSHIP_FOLLOWING, 
+            from_profile__to_profile=self)
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
 post_save.connect(create_user_profile, sender=User)
+
+class Relationship(models.Model):
+    from_profile = models.ForeignKey(UserProfile, related_name='from_profile')
+    to_profile = models.ForeignKey(UserProfile, related_name='to_profile')
+    status = models.IntegerField(choices=RELATIONSHIP_STATUSES)
+    def __unicode__(self):
+        if self.status == 1:
+            return u"%s following %s" % (self.from_profile, self.to_profile)
+        return u"%s blocking %s" % (self.from_profile, self.to_profile)
 
 class Track(models.Model):
     url = models.URLField(help_text='from soundcloud, youtube, hypemachine, grooveshark, deezer')
@@ -53,10 +113,10 @@ class Track(models.Model):
         return get_streaming_site_from(self.url)
     get_site_from.short_description = 'Streaming source'
     site_from = property(get_site_from)
-    def get_track_web_id(self):
-        return get_web_id(self.url, site_from)
-    get_site_from.short_description = 'Web ID'
-    web_id = property(get_site_from)      
+    def get_stream_id(self):
+        return get_stream_id(self.url, self.site_from)
+    get_site_from.short_description = 'Streaming ID'
+    stream_id = property(get_stream_id)
 
 class Bundle(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='bundles_created')

@@ -9,6 +9,11 @@ def field_type(field):
     return field.field.__class__.__name__
 
 @register.filter()
+def urlize_string(query_string):
+    words = query_string.split()
+    return "+".join(words)
+
+@register.filter()
 def free_spots(tracklist):
     nb_spots = 5 - tracklist.bundlebacks.all().count()
     return nb_spots
@@ -69,3 +74,41 @@ def delta_string(timeDiff):
         return str
     else:
         return "1 sec"
+
+@register.filter()
+def js_tracklist(tracklist):
+    js_list = []
+    for track in tracklist.tracks_initial.all():
+        js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
+    for bundle in tracklist.bundlebacks.all():
+        for track in bundle.tracks.all():
+            js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
+    
+    if js_list:
+        return "[0,"+",".join(js_list)+"]"
+
+    return ''
+
+@register.filter()
+def js_track(tracklist, current_track_id):
+    js_list = []
+    track_counter = 0
+    index_current_track = 0
+
+    for track in tracklist.tracks_initial.all():
+        js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
+        if track.id == current_track_id:
+            index_current_track = track_counter
+        track_counter += 1
+    
+    for bundle in tracklist.bundlebacks.all():
+        for track in bundle.tracks.all():
+            js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
+            if track.id == current_track_id:
+                index_current_track = track_counter
+            track_counter += 1
+    
+    if js_list:
+        return "["+str(index_current_track)+","+",".join(js_list)+"]"
+
+    return ''

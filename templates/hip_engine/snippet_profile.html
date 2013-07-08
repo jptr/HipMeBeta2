@@ -17,7 +17,7 @@
                 {% else %}
                   <form action="/profile/{{profile_focused.user.username}}/follow/" method="post" class="like_btn_form">
                     {% csrf_token %}                
-                    {% if profile_focused not in request.user.get_profile.follows.all %}
+                    {% if profile_focused not in request.user.get_profile.get_following %}
                       <input type="submit" class="button tiny left profile_flw_btn" value="Follow"> 
                     {% else %}
                       <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
@@ -34,18 +34,22 @@
           {{ profile_focused.reputation }} point{{ profile_focused.reputation|pluralize }}
           &nbsp;|&nbsp;
           <img src="{% static "img/icons/arrow_left_green.png" %}" width="20px" />
-          {% if nb_followers == 0 %}
-            no followers
-          {% else %}
-            <a href="/profile/{{ profile_focused.user.username }}/followers/"> {{profile_focused.follows.all|length}} follower{{ nb_followers|pluralize }}</a>
-          {% endif %}
+          {% with profile_focused.get_followers|length as nb_followers %}
+            {% if nb_followers == 0 %}
+              no followers
+            {% else %}
+                <a href="/profile/{{ profile_focused.user.username }}/followers/"> {{nb_followers}} follower{{ nb_followers|pluralize }}</a>
+            {% endif %}
+          {% endwith %}
           &nbsp;|&nbsp;
           <img src="{% static "img/icons/arrow_right_green.png" %}" width="20px" />
-          {% if nb_following == 0 %}
-            no following
-          {% else %}
-            <a href="/profile/{{ profile_focused.user.username }}/following/"> {{profile_focused.follows.all|length}} following </a>
-          {% endif %}
+          {% with profile_focused.get_following|length as nb_following %}
+            {% if nb_following == 0 %}
+              no following
+            {% else %}
+              <a href="/profile/{{ profile_focused.user.username }}/following/"> {{nb_following}} following </a>
+            {% endif %}
+            {% endwith  %}
         </h6>
         <ul class="inline-list">
         </ul>

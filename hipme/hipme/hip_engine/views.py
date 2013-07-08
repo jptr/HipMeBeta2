@@ -12,7 +12,7 @@ from PIL import Image
 from settings import MEDIA_ROOT
 from os.path import join
 
-from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event
+from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship
 from hip_engine.search import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
@@ -45,7 +45,7 @@ def get_tracklist_form_context(request):
     return context
 
 def get_rankings(request):
-    follows_queryset = request.user.get_profile().follows
+    follows_queryset = request.user.get_profile().get_following()
     profile_list = list(follows_queryset.distinct().order_by('-reputation'))
     for index in range(len(profile_list)):
         if profile_list[index].reputation <= request.user.get_profile().reputation:
@@ -161,7 +161,8 @@ def profile(request, username):
 
 @login_required
 def profile_activity(request, username):
-    tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
+    profile_focused = get_object_or_404(UserProfile,user__username=username)
+    tracklist_queryset = profile_focused.tracklists_created.all()|profile_focused.tracklists_contributed.all()
     tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
@@ -206,7 +207,7 @@ def profile_pending(request, username):
 @login_required
 def profile_followers(request, username):
     profile_focused = get_object_or_404(UserProfile, user__username=username)
-    followers_list = profile_focused.follows.all()
+    followers_list = profile_focused.get_followers()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
@@ -223,7 +224,7 @@ def profile_followers(request, username):
 @login_required
 def profile_following(request, username):
     profile_focused = get_object_or_404(UserProfile,user__username=username)
-    following_list = profile_focused.follows.all()
+    following_list = profile_focused.get_following()
     tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
@@ -293,7 +294,7 @@ def profile_edit(request, username):
 @login_required
 def profile_rankings(request, username):
     if (username == request.user.username):
-        follows_queryset = request.user.get_profile().follows
+        follows_queryset = request.user.get_profile().get_following()
         profile_list = list(follows_queryset.distinct().order_by('-reputation'))
         for index in range(len(profile_list)):
             if profile_list[index].reputation <= request.user.get_profile().reputation:
@@ -307,17 +308,20 @@ def profile_rankings(request, username):
     else:
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
-@login_required
-def search(request):
+def get_search_results(query_string):
+    profile_query = get_query(query_string, ['user__username',])
+    tracklist_query = get_query(query_string, ['title', 'tags__name', 'owner__user__username', 'tracks_initial__artist', 'tracks_initial__name', 'tracks_kept__artist', 'tracks_kept__name'])
+    found_tracklists = Tracklist.objects.filter(tracklist_query).distinct().order_by('-date_latest_edit')
+    found_profiles = UserProfile.objects.filter(profile_query).distinct().order_by('user__username')
+    return found_tracklists, found_profiles
+
+def get_search_context(request):
     query_string = ''
     found_profiles = None
     found_tracklists = None
     if ('q' in request.GET) and request.GET['q'].strip():
         query_string = request.GET['q']
-        profile_query = get_query(query_string, ['user__username',])
-        tracklist_query = get_query(query_string, ['title', 'tags__name', 'owner__user__username', 'tracks_initial__artist', 'tracks_initial__name', 'tracks_kept__artist', 'tracks_kept__name'])
-        found_tracklists = Tracklist.objects.filter(tracklist_query).distinct().order_by('-date_latest_edit')
-        found_profiles = UserProfile.objects.filter(profile_query).distinct().order_by('user__username')
+        found_tracklists, found_profiles = get_search_results(query_string)
 
     context = {
         'query_string': query_string, 
@@ -327,19 +331,17 @@ def search(request):
     context.update(get_generic_context(request))
     context.update(get_rankings(request))
 
-    return render_to_response('hip_engine/search_people.html', context, context_instance=RequestContext(request))
-
+    return context
+    
 @login_required
-def search_people(request):
-
-    return render_to_response('hip_engine/search_people.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
+def search_profiles(request):
+    context = get_search_context(request)
+    return render_to_response('hip_engine/search_profiles.html', context, context_instance=RequestContext(request))
 
 @login_required
 def search_mixtapes(request):
-
-    return render_to_response('hip_engine/search_mixtapes.html', {'tracklist_list':tracklist_list,'tracklist_form':tracklist_form, 'track_form':track_form,}, context_instance=RequestContext(request))
-
-
+    context = get_search_context(request)
+    return render_to_response('hip_engine/search_mixtapes.html', context, context_instance=RequestContext(request))
 
 @login_required
 def test_forms(request):
@@ -527,12 +529,12 @@ def close_tracklist(request, tracklist_id):
 def profile_follow(request, username):
     profile_focused = get_object_or_404(UserProfile, user__username=username)
 
-    if profile_focused not in request.user.get_profile().follows.all():
-        request.user.get_profile().follows.add(profile_focused)
+    if profile_focused not in request.user.get_profile().get_following():
+        request.user.get_profile().add_following(profile_focused)
     else:
-        request.user.get_profile().follows.remove(profile_focused) 
+        request.user.get_profile().remove_following(profile_focused) 
     
-    request.user.get_profile().save() 
+    request.user.get_profile().save()
 
     if request.POST.get('next'):
         url_next = request.POST['next']

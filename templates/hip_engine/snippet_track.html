@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load hip_extras %}
 
 <div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
   {% if request.user.get_profile == tracklist.owner %}

@@ -9,14 +9,16 @@
 
 {% block feed_nav %}
 
+{% load hip_extras %}
+
 <dl class="sub-nav feed_sub_nav">
   <dd class="{% block search_nav_1 %} {% endblock search_nav_1 %}">
-    <a href="/search/">
+    <a href="/search/profiles/?q={{ query_string|urlize_string }}">
         People {% if profile_list %} ({{ profile_list|length }}) {% endif %}
     </a>
   </dd>
   <dd class="{% block search_nav_2 %} {% endblock search_nav_2 %}">
-    <a href="/search/"> 
+    <a href="/search/mixtapes/?q={{ query_string|urlize_string }}"> 
         Mixtapes {% if tracklist_list %} ({{ tracklist_list|length }}) {% endif %}
     </a>
   </dd>
