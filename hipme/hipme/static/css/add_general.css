@@ -119,6 +119,10 @@ a {
   margin-top: 16px;
 }
 
+#sc-widget {
+  display: none;
+}
+
 #hipme_player_controls {
   display: none;
 }

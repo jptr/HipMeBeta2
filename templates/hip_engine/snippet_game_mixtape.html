@@ -38,7 +38,19 @@
     <div class="small-4 columns">
       <div class="row">
         <div class="small-6 columns">
-          <button class="button success radius expand play_mxtp_btn" onClick="hipmePlayTrack('{{tracklist.title}}')"> Listen </button>
+          <button
+            class="button success radius expand play_mxtp_btn"
+            onClick="loadMix([
+              'https://soundcloud.com/criolo_oficial/bogot',
+              'QwXs7fhxFGQ',
+              'https://soundcloud.com/belles-de-jour/belles-de-jour-ma-dame',
+              'Oxwu0V4pmiM',
+              'https://soundcloud.com/tinush/tinush-sandburg-original',
+              'https://soundcloud.com/stroelliot/soul-ii-stro',
+              'wm-XMVv-50c'
+            ])">
+            Listen
+          </button>
 
          {% comment %}  <a href="vraN7vNHjM8" class="vid_button">
             Course Structure
@@ -136,7 +148,7 @@
         <button class="button expand radius secondary hide_tracks_btn dropup"> Hide tracks </button>
       </div>
       <div class="small-4 columns mixtape_add_track_info">
-        /// info
+        
       </div>
       <div class="small-8 columns mixtape_add_track_form_zone">
         <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">

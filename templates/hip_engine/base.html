@@ -36,7 +36,7 @@
     });
   </script>
 
-  <script type="text/javascript" src="scripts/soundcloud.player.api.js"></script>
+  <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
 
 </head>
 
@@ -112,45 +112,26 @@
     
     <div class="small-3 columns left_nav">
 
-  <!-- Youtube Player -->
+      <!-- YouTube Player -->
 
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+      <div id="player"></div>
 
-    <div id="player"></div>
+      <!-- SoundCloud Player -->
 
-  <!-- End Youtube Player -->
+      <iframe id="sc-widget" width="220" height="200" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
 
-  <!-- SoundCloud Player -->
+      <!-- Player Controls -->
 
-    <object height="81" width="100%" id="SCPlayer" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
-      <param name="movie" value="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&enable_api=true&object_id=SCPlayer"></param>
-      <param name="allowscriptaccess" value="always"></param>
-      <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&enable_api=true&object_id=SCPlayer" type="application/x-shockwave-flash" width="100%" name="SCPlayer"></embed>
-    </object>
+      <div id="hipme_player_controls" class="text-center">
+        <a onClick="hipmePrevious()">
+          <img src="{% static "img/icons/backward_green.png" %}" width="32px"/>
+        </a>
+        <a onClick="hipmeNext()">
+          <img src="{% static "img/icons/forward_green.png" %}" width="32px"/>
+        </a>
+      </div>
 
-  <!-- End SoundCloud Player -->
-
-  <!-- Player Controls -->
-
-    <div id="hipme_player_controls" class="text-center">
-      <a onClick="hipmePreviousTrack()">
-        <img src="{% static "img/icons/backward_green.png" %}" width="32px"/>
-      </a>
-      <a onClick="hipmeNextTrack()">
-        <img src="{% static "img/icons/forward_green.png" %}" width="32px"/>
-      </a>
-    </div>
-
-
-    <a onClick="playSCTrack()">
-      SCPlay
-    </a>
-
-  <!-- End Player Controls -->
-
-  <!-- Player -->
-
-  <!-- Left-ranking -->
+    <!-- Left-ranking -->
 
       <div class="small-12 columns">
         <div class="row">
@@ -482,65 +463,129 @@
     
   <script>
 
-      // 2. This code loads the IFrame Player API code asynchronously.
+    // Init for YouTube
+
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player = 'noPlayer';
+    // Init for SoundCloud
 
-      function hipmePlayTrack(trackId) {
-        if (player != 'noPlayer') {
-          player.destroy();
-        };
+      var widgetIframe = document.getElementById('sc-widget'),
+      widget       = SC.Widget(widgetIframe);
+
+    // Init for hipMe
+
+      var player;
+      var mixIdList;
+      var mixIter;
+
+    // Functions
+
+      function loadMix(mixIdListInput) {
+        mixIdList = mixIdListInput;
+        mixIter = 0;
+        hipmePlayTrack(mixIdList[0]);
+      }
+
+      function hipmePlayTrack(hipmeTrackId) {
+
         $("#hipme_player_controls").show();
-        player = new YT.Player('player', {
+
+        // if YouTube
+
+        if (hipmeTrackId.length == 11) {
+          player = new YT.Player('player', {
           height: '200',
           width: '220',
-          videoId: trackId,
+          videoId: hipmeTrackId,
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
           }
         });
+
+        // else if SoundCloud
+
+        } else {
+          $("#sc-widget").show();
+          widget.load(hipmeTrackId);
+
+          // Fires video when player ready (SoundCloud only)
+
+          widget.bind(SC.Widget.Events.READY, function() {
+            widget.play();
+          });
+
+          // Fires next video when current over (SoundCloud only)
+
+          widget.bind(SC.Widget.Events.FINISH, function() {
+            hipmeNext();
+          });
+        }
       }
 
-      // 4. The API will call this function when the video player is ready.
+      // Fires video when player ready (YouTube only)
+
       function onPlayerReady(event) {
         event.target.playVideo();
       }
 
-      // 5. The API calls this function when the player's state changes.
+      // Fires next video when current over (YouTube only)
+
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-          hipmeNextTrack();
+          hipmeNext();
         }
       }
 
-      function stopVideo() {
-        player.stopVideo();
+      function hipmeNext() {
+        hipmeKill();
+        // Initiates next track
+        mixIter++;
+        hipmePlayTrack(mixIdList[mixIter]);
       }
 
-      function hipmeNextTrack() {
-        hipmePlayTrack('wm-XMVv-50c');
+      function hipmePrevious() {
+        hipmeKill();
+        // Initiates previous track
+        mixIter--;
+        hipmePlayTrack(mixIdList[mixIter]);
       }
 
-    </script>
-
-    <script>
-      soundcloud.addEventListener('onPlayerReady', function(player, data) {
-        player.api_play();
-      });
-    </script>
-
-    <script>
-      function playSCTrack() {
-        SCPlayer.api_play();
+      function hipmePause() {
+        if(mixIdList[mixIter].length == 11) {
+          player.pauseVideo();
+        } else {
+          widget.pause();
+        };
       }
+
+      function hipmePlay() {
+        if(mixIdList[mixIter].length == 11) {
+          player.playVideo();
+        } else {
+          widget.play();
+        };
+      }
+
+      // Kills player when changing song
+
+      function hipmeKill() {
+
+        // Kills YouTube player
+        if(mixIdList[mixIter].length == 11) {
+          player.destroy();
+
+        // Stops and hides SoundCloud player
+        } else {
+          widget.pause();
+          $("#sc-widget").hide();
+        };
+      }
+
     </script>
 
 <!-- End scripts player -->
