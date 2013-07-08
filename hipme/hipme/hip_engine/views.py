@@ -14,7 +14,7 @@ from settings import MEDIA_ROOT
 from os.path import join
 
 from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship
-from hip_engine.search import get_query
+from hip_engine.search_tools import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
 from django.core.validators import URLValidator
