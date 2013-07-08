@@ -471,6 +471,8 @@
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+      var player;
+
     // Init for SoundCloud
 
       var widgetIframe = document.getElementById('sc-widget'),
@@ -478,13 +480,15 @@
 
     // Init for hipMe
 
-      var player;
       var mixIdList;
-      var mixIter;
+      var mixIter = 'noPlayer';
 
     // Functions
 
       function loadMix(mixIdListInput) {
+        if (mixIter != 'noPlayer') {
+          hipmeKill();
+        }
         mixIdList = mixIdListInput;
         mixIter = 0;
         hipmePlayTrack(mixIdList[0]);
