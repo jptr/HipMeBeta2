@@ -13,6 +13,7 @@ active
     <ul class="no-bullet">
         {% for tracklist in tracklist_list %}
         <li>
+            {% include "hip_engine/snippet_notification.html" %}
             {% include "hip_engine/snippet_game_mixtape.html" %}
         </li>
         {% endfor %}

@@ -19,6 +19,15 @@
 #hipme_player_controls {
   display: none;
   margin-bottom: 1.5em;
+  margin-top: 5px;
+}
+
+#hipme_player_previous {
+	margin-right: 5px;
+}
+
+#hipme_player_next {
+	margin-left: 5px;
 }
 
 .left_ranking li {

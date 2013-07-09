@@ -1,0 +1,275 @@
+/* General */
+
+.mixtape {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+/* Header */
+
+.mixtape_sub_header {
+  background-color: #263248;
+  padding-top: 16px;
+  /*display: none;*/
+}
+
+.mixtape_header {
+/*  background-color: #600606;*/
+/*  background-color: #892929;*/
+/*  background-color: #3F99F3;*/
+  background-color: #263248;
+  padding: 0.5em;
+  border-top: 0.5em solid #3F99F3;
+  min-height: 130px;
+}
+
+.mixtape_title {
+  color: #E5E5E5;
+}
+
+.mixtape_header a {
+  color: #E5E5E5;
+}
+
+.mixtape_header_contributor {
+  margin-top: 10px;
+}
+
+.mixtape_play_keep {
+  display: none;
+  margin-top: 0.8em;
+}
+
+.mixtape_info {
+  margin-bottom: 0.8em;
+}
+
+.mixtape_info_time {
+  margin-top: 0.8em;
+  background: #E5E5E5;
+  color: #263248;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
+}
+
+.mixtape_info_freespot {
+  margin-top: 0.8em;
+  background: orange;
+  color: #263248;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
+}
+
+.mixtape_info_youin {
+  margin-top: 0.8em;
+  background: green;
+  color: white;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
+}
+
+.mixtape_info_owner {
+  margin-top: 0.8em;
+  background: red;
+  color: white;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
+}
+
+.mixtape_info_full {
+  margin-top: 0.8em;
+  background: #E5E5E5;
+  color: #263248;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
+}
+
+.mixtape_info_keeps {
+  margin-top: 0.8em;
+  background: #E5E5E5;
+  color: #263248;
+  margin-right: -1.7em;
+  width: 100%;
+  text-align: left;
+}
+
+.mixtape_tag_list {
+  margin-left: -1.2em;
+}
+
+.tag_mixtape {
+  margin-bottom: 5px;
+  background-color: #CFD6E5;
+  color: #263248;
+}
+
+.mixtape_buttons {
+  margin-top: 0.5em;
+}
+
+.tracklist_hide_li {
+  display: none;
+}
+
+.comment_zone_hide_li {
+  display: none;
+}
+
+/* Tracklist */
+
+.mixtape_tracklist {
+  display: none;
+  padding-top : 0.4em;
+  padding-bottom: 0em;
+  border-left: 0.5em solid #263248;
+/*  border-bottom: 0.5em solid #263248;*/
+  background: #E5E5E5;
+}
+
+.mixtape_user_profile {
+  padding: 0;
+  padding-bottom: 0.5em;
+}
+
+.mini_profile_avatar {
+  display: inline-block;
+  width: 50px;
+}
+
+.mini_profile_right_section {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mini_profile_username {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  padding-bottom: 0px;
+}
+
+.mini_profile_score {
+  display: inline-block;
+  font: bolder 14px;
+  background: green;
+  color: white;
+}
+
+.mini_profile_scoreplus {
+  display: inline-block;
+  font: bolder 16px;
+  background: yellow;
+  color: black;
+}
+
+.bundle {
+  padding-left: 0px;
+}
+
+.mixtape_track {
+  font-weight: bold;
+  border-top: 1px solid #EEEEEE;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+.mixtape_track a {
+  color: #444444;
+}
+
+.game_add_track_btn {
+  margin-top: 0.8em;
+}
+
+.mixtape_add_track_form {
+  display: none;
+  padding-top: 0.8em;
+  margin-bottom: 0px;
+}
+
+.mixtape_bundlego {
+  border-bottom: 3px solid #FFFFFF;
+}
+
+.mixtape_bundleback {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 3px solid #FFFFFF;
+}
+
+/* Comments */
+
+.mixtape_comment_container {
+  display: none;
+}
+
+.mixtape_comment_zone {
+  background-color: white;
+  padding-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.comment_form {
+  padding-bottom: 0em;
+}
+
+/* Mini mixtape */
+
+.mini_mixtape {
+  padding: 10px;
+  background-color: #99AADD;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Dropup */
+
+.dropup.button {
+  position: relative;
+  padding-right: 3.1875em; }
+  .dropup.button:before {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    display: block;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+    top: 50%; }
+  .dropup.button:before {
+    border-width: 0.5625em;
+    right: 1.5em;
+    margin-top: -0.25em; }
+  .dropup.button:before {
+    border-color: transparent transparent white transparent; }
+  .dropup.button.tiny {
+    padding-right: 2.1875em; }
+    .dropup.button.tiny:before {
+      border-width: 0.4375em;
+      right: 0.875em;
+      margin-top: -0.15625em; }
+    .dropup.button.tiny:before {
+      border-color: transparent transparent white transparent; }
+  .dropup.button.small {
+    padding-right: 2.8125em; }
+    .dropup.button.small:before {
+      border-width: 0.5625em;
+      right: 1.125em;
+      margin-top: -0.7em; }
+    .dropup.button.small:before {
+      border-color: transparent transparent white transparent; }
+  .dropup.button.large {
+    padding-right: 4em; }
+    .dropup.button.large:before {
+      border-width: 0.625em;
+      right: 1.75em;
+      margin-top: -0.3125em; }
+    .dropup.button.large:before {
+      border-color: transparent transparent white transparent; }
+  .dropup.button.secondary:before {
+    border-color: transparent transparent #333333 transparent; }

@@ -1,0 +1,43 @@
+
+.add_track_form_1 {
+  display: none;
+  margin-top: 1.5em;
+}
+
+.add_track_form_2 {
+  display: none;
+  margin-top: 1.5em;
+}
+
+.add_track_form_3 {
+  display: none;
+  margin-top: 1.5em;
+}
+
+.add_track_row_1 {
+  padding-top: 1.5em;
+}
+
+.add_track_row_2 {
+  padding-top: 1.5em;
+}
+
+.add_track_row_3 {
+  padding-top: 1.5em;
+}
+
+.remove_track_btn_1 {
+  display: none;
+}
+
+.remove_track_btn_2 {
+  display: none;
+}
+
+.remove_track_btn_3 {
+  display: none;
+}
+
+.create_mixtape_btn {
+  margin-top: 1.5em;
+}

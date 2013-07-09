@@ -123,10 +123,10 @@
       <!-- Player Controls -->
 
       <div id="hipme_player_controls" class="text-center">
-        <a onClick="hipmePrevious()">
+        <a id="hipme_player_previous" onClick="hipmePrevious()">
           <img src="{% static "img/icons/backward_green.png" %}" width="32px"/>
         </a>
-        <a onClick="hipmeNext()">
+        <a id="hipme_player_next" onClick="hipmeNext()">
           <img src="{% static "img/icons/forward_green.png" %}" width="32px"/>
         </a>
       </div>
@@ -390,26 +390,26 @@
   </script>
 
   <script>
-    $('.track_play_btn').each(function(i){
-      $(this).click(function(){
-        $(".track_pause_btn").hide();
-        $(".track_play_btn").show();
-        $(".track_container").removeClass('track_container_is_playing');
-        $(".track_play_btn:eq("+ i + ")").hide();
-        $(".track_pause_btn:eq("+ i + ")").show();
-        $(".track_container:eq("+ i + ")").addClass('track_container_is_playing');
-      });
-    });
+  //   $('.track_play_btn').each(function(i){
+  //     $(this).click(function(){
+  //       $(".track_pause_btn").hide();
+  //       $(".track_play_btn").show();
+  //       $(".track_container").removeClass('track_container_is_playing');
+  //       $(".track_play_btn:eq("+ i + ")").hide();
+  //       $(".track_pause_btn:eq("+ i + ")").show();
+  //       $(".track_container:eq("+ i + ")").addClass('track_container_is_playing');
+  //     });
+  //   });
   </script>
 
   <script>
-    $('.track_pause_btn').each(function(i){
-      $(this).click(function(){
-        $(".track_pause_btn:eq("+ i + ")").hide();
-        $(".track_play_btn:eq("+ i + ")").show();
-        $(".track_container:eq("+ i + ")").removeClass('track_container_is_playing');
-      });
-    });
+  //   $('.track_pause_btn').each(function(i){
+  //     $(this).click(function(){
+  //       $(".track_pause_btn:eq("+ i + ")").hide();
+  //       $(".track_play_btn:eq("+ i + ")").show();
+  //       $(".track_container:eq("+ i + ")").removeClass('track_container_is_playing');
+  //     });
+  //   });
   </script>
 
 <!-- scripts profile -->
@@ -490,21 +490,21 @@
           hipmeKill();
         }
         mixIdList = mixIdListInput;
-        mixIter = 0;
-        hipmePlayTrack(mixIdList[0]);
+        mixIter = mixIdList[0] + 1;
+        hipmePlayTrack();
       }
 
-      function hipmePlayTrack(hipmeTrackId) {
+      function hipmePlayTrack() {
 
         $("#hipme_player_controls").show();
 
         // if YouTube
 
-        if (hipmeTrackId.length == 11) {
+        if (mixIdList[mixIter][0] == 'youtube') {
           player = new YT.Player('player', {
           height: '200',
           width: '220',
-          videoId: hipmeTrackId,
+          videoId: mixIdList[mixIter][1],
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -515,7 +515,7 @@
 
         } else {
           $("#sc-widget").show();
-          widget.load(hipmeTrackId);
+          widget.load(mixIdList[mixIter][1]);
 
           // Fires video when player ready (SoundCloud only)
 
@@ -546,21 +546,25 @@
       }
 
       function hipmeNext() {
-        hipmeKill();
-        // Initiates next track
-        mixIter++;
-        hipmePlayTrack(mixIdList[mixIter]);
+        if (mixIter + 1 != mixIdList.length) {
+          hipmeKill();
+          // Initiates next track
+          mixIter++;
+          hipmePlayTrack();
+        }
       }
 
       function hipmePrevious() {
-        hipmeKill();
-        // Initiates previous track
-        mixIter--;
-        hipmePlayTrack(mixIdList[mixIter]);
+        if (mixIter != 1) {
+          hipmeKill();
+          // Initiates previous track
+          mixIter--;
+          hipmePlayTrack();
+        }
       }
 
       function hipmePause() {
-        if(mixIdList[mixIter].length == 11) {
+        if (mixIdList[mixIter][0] == 'youtube') {
           player.pauseVideo();
         } else {
           widget.pause();
@@ -568,7 +572,7 @@
       }
 
       function hipmePlay() {
-        if(mixIdList[mixIter].length == 11) {
+        if (mixIdList[mixIter][0] == 'youtube') {
           player.playVideo();
         } else {
           widget.play();
@@ -580,7 +584,7 @@
       function hipmeKill() {
 
         // Kills YouTube player
-        if(mixIdList[mixIter].length == 11) {
+        if (mixIdList[mixIter][0] == 'youtube') {
           player.destroy();
 
         // Stops and hides SoundCloud player
