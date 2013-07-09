@@ -546,17 +546,21 @@
       }
 
       function hipmeNext() {
-        hipmeKill();
-        // Initiates next track
-        mixIter++;
-        hipmePlayTrack();
+        if (mixIter + 1 != mixIdList.length) {
+          hipmeKill();
+          // Initiates next track
+          mixIter++;
+          hipmePlayTrack();
+        }
       }
 
       function hipmePrevious() {
-        hipmeKill();
-        // Initiates previous track
-        mixIter--;
-        hipmePlayTrack();
+        if (mixIter != 1) {
+          hipmeKill();
+          // Initiates previous track
+          mixIter--;
+          hipmePlayTrack();
+        }
       }
 
       function hipmePause() {
