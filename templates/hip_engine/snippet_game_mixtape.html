@@ -7,6 +7,8 @@
 {% else %} top_line_green 
 {% endif %}" >
 
+{{ tracklist|js_tracklist }}
+
   <div class="row mixtape_header">
     <div class="small-8 columns">
       <div class="small-6 mixtape_info">
@@ -40,19 +42,12 @@
         <div class="small-6 columns">
           <button
             class="button success radius expand play_mxtp_btn"
-            onClick="loadMix([
-              'https://soundcloud.com/criolo_oficial/bogot',
-              'QwXs7fhxFGQ',
-              'https://soundcloud.com/belles-de-jour/belles-de-jour-ma-dame',
-              'Oxwu0V4pmiM',
-              'https://soundcloud.com/tinush/tinush-sandburg-original',
-              'https://soundcloud.com/stroelliot/soul-ii-stro',
-              'wm-XMVv-50c'
-            ])">
+            onClick="loadMix({{ tracklist|js_tracklist }})">
             Listen
           </button>
 
-         {% comment %}  <a href="vraN7vNHjM8" class="vid_button">
+         {% comment %}  <a href="vraN7vNHjM8" class=
+         "vid_button">
             Course Structure
           </a> #}
           {% endcomment %}

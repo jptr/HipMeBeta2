@@ -490,21 +490,21 @@
           hipmeKill();
         }
         mixIdList = mixIdListInput;
-        mixIter = 0;
-        hipmePlayTrack(mixIdList[0]);
+        mixIter = 1;
+        hipmePlayTrack();
       }
 
-      function hipmePlayTrack(hipmeTrackId) {
+      function hipmePlayTrack() {
 
         $("#hipme_player_controls").show();
 
         // if YouTube
 
-        if (hipmeTrackId.length == 11) {
+        if (mixIdList[mixIter][0] == 'youtube') {
           player = new YT.Player('player', {
           height: '200',
           width: '220',
-          videoId: hipmeTrackId,
+          videoId: mixIdList[mixIter][1],
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -515,7 +515,7 @@
 
         } else {
           $("#sc-widget").show();
-          widget.load(hipmeTrackId);
+          widget.load(mixIdList[mixIter][1]);
 
           // Fires video when player ready (SoundCloud only)
 
@@ -549,18 +549,18 @@
         hipmeKill();
         // Initiates next track
         mixIter++;
-        hipmePlayTrack(mixIdList[mixIter]);
+        hipmePlayTrack();
       }
 
       function hipmePrevious() {
         hipmeKill();
         // Initiates previous track
         mixIter--;
-        hipmePlayTrack(mixIdList[mixIter]);
+        hipmePlayTrack();
       }
 
       function hipmePause() {
-        if(mixIdList[mixIter].length == 11) {
+        if (mixIdList[mixIter][0] == 'youtube') {
           player.pauseVideo();
         } else {
           widget.pause();
@@ -568,7 +568,7 @@
       }
 
       function hipmePlay() {
-        if(mixIdList[mixIter].length == 11) {
+        if (mixIdList[mixIter][0] == 'youtube') {
           player.playVideo();
         } else {
           widget.play();
@@ -580,7 +580,7 @@
       function hipmeKill() {
 
         // Kills YouTube player
-        if(mixIdList[mixIter].length == 11) {
+        if (mixIdList[mixIter][0] == 'youtube') {
           player.destroy();
 
         // Stops and hides SoundCloud player
