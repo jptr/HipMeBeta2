@@ -1,13 +1,28 @@
 <div id="tracklistModal" class="reveal-modal medium">
   <div class="row">
     <div class="small-10 small-offset-1 columns">
-      <h3> New mixtape. Ignition. </h3>
+      <h3> New mixtape... Ignition. </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-10 small-offset-1 columns">
+      <h6> Pick contributors
+      <span data-tooltip class="has-tip" title="Choose who will contribute to your mixtape. They've got 3 days to find great tunes for you."> (help) </span>
+    </h6>
     </div>
   </div>
   <form action="/create/mixtape/" method="post">
   {% csrf_token %}
 
     {% include "hip_engine/snippet_form/snippet_form.html" with form=tracklist_form %}
+
+  <div class="row">
+    <div class="small-10 small-offset-1 columns">
+      <h6> Describe your mixtape
+      <span data-tooltip class="has-tip" title="Help your buddies understand what you want in your mixtape. Give it a name and a few tags."> (help) </span>
+    </h6>
+    </div>
+  </div>
 
   <div class="row">
     <div class="small-10 small-offset-1 columns">
@@ -18,6 +33,14 @@
   <div class="row">
     <div class="small-10 small-offset-1 columns">
       <input type="text" name="tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-8 small-offset-2 columns">
+      <h6> Add a few tracks
+      <span data-tooltip class="has-tip" title="You may already know a few tracks that would fit in. Add them here. It'll help your friends understand what you like."> (help) </span>
+    </h6>
     </div>
   </div>
 
