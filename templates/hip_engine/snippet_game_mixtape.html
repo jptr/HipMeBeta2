@@ -113,7 +113,7 @@
         {% if tracklist|has_tracks %}
           <button class="button expand radius display_tracks_btn dropdown">&nbsp<img src="{% static "img/icons/eye_white.png" %}" width="24px" />&nbsp&nbspShow tracks </button>
         {% else %}
-          <button class="button expand secondary disabled radius display_tracks_btn dropdown"> No tracks yet </button>
+          <button class="button expand secondary disabled radius display_tracks_btn_disabled"> No tracks yet </button>
         {% endif %}
       </div>
       <div class="small-8 columns show_add_track_form_btn_zone">
