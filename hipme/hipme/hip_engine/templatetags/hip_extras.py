@@ -19,6 +19,15 @@ def free_spots(tracklist):
     return nb_spots
 
 @register.filter()
+def has_tracks(tracklist):
+    if tracklist.tracks_initial.all():
+        return True
+    for bundle in tracklist.bundlebacks.all():
+        if bundle.tracks.all():
+            return True
+    return False
+
+@register.filter()
 def featuring_string(tracklist):
     track_list = []
     for track in tracklist.tracks_initial.all():
