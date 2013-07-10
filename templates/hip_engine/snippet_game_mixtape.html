@@ -128,19 +128,23 @@
               <button class="button expand radius show_add_track_form_btn"> Jump in and add a track </button>
             {% endif %}
           {% elif request.user.get_profile in tracklist.userto.all %}
-            {% for bundle in tracklist.bundlebacks.all %}
-              {% if bundle.owner = request.user.get_profile %}
-                {% if bundle.tracks.all|length_is:"0" %}
-                  <button class="button alert expand radius show_add_track_form_btn"> You were called - add your first track </button>
-                {% elif bundle.tracks.all|length_is:"1" %}
-                  <button class="button expand radius show_add_track_form_btn"> Add another track </button>
-                {% elif bundle.tracks.all|length_is:"2" %}
-                  <button class="button expand radius show_add_track_form_btn"> Add one last track </button>
-                {% else %}
-                  <button class="button expand radius disabled cannot_show_add_track_form_btn"> You've already added 3 tracks </button>
+            {% if tracklist|has_contributed:request.user.id %}
+              {% for bundle in tracklist.bundlebacks.all %}
+                {% if bundle.owner = request.user.get_profile %}
+                  {% if bundle.tracks.all|length_is:"0" %}
+                    <button class="button alert expand radius show_add_track_form_btn"> You were called - add your first track </button>
+                  {% elif bundle.tracks.all|length_is:"1" %}
+                    <button class="button expand radius show_add_track_form_btn"> Add another track </button>
+                  {% elif bundle.tracks.all|length_is:"2" %}
+                    <button class="button expand radius show_add_track_form_btn"> Add one last track </button>
+                  {% else %}
+                    <button class="button expand radius disabled cannot_show_add_track_form_btn"> You've already added 3 tracks </button>
+                  {% endif %}
                 {% endif %}
-              {% endif %}
-            {% endfor %}
+              {% endfor %}
+            {% else %}
+              <button class="button alert expand radius show_add_track_form_btn"> You were called - add your first track </button>
+            {% endif %}
           {% else %}
             {% if tracklist.tracks_initial.all|length_is:"0" %}
               <button class="button expand radius show_add_track_form_btn"> Add a track to your mixtape </button>

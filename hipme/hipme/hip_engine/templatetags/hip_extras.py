@@ -28,6 +28,13 @@ def has_tracks(tracklist):
     return False
 
 @register.filter()
+def has_contributed(tracklist, user_id):
+    for bundle in tracklist.bundlebacks.all():
+        if bundle.tracks.all() and bundle.owner.user.id == user_id:
+            return True
+    return False
+
+@register.filter()
 def featuring_string(tracklist):
     track_list = []
     for track in tracklist.tracks_initial.all():
