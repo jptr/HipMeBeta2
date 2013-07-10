@@ -118,3 +118,15 @@ a {
 .ranking_title {
   margin-top: 16px;
 }
+
+#feedback_text {
+  height: 10em;
+}
+
+.feedback_title {
+  margin-bottom: 1em;
+}
+
+.feedback_submit {
+  margin-top: 1em;
+}

@@ -158,6 +158,14 @@
 
         <!-- End Left-ranking -->
 
+        <!-- Left Feedback Button -->
+
+        <div class="small-12 columns hipme_feedback_btn">
+          <button class="button expand" data-reveal-id="feedbackModal"> We love feedback! </button>
+        </div>
+
+        <!-- End Left Feedback Button -->
+
         <!-- Left stats -->
 
       <div class="small-12 columns hipme_site_stats">
@@ -212,7 +220,51 @@
       </div>
     </div>
   </footer>
+
+  <!-- Feedback modal -->
+
+  <div id="feedbackModal" class="reveal-modal small">
+    <div class="row">
+      <div class="small-12 columns feedback_title">
+        <h3> Go ahead, get cranky. </h3>
+      </div>
+    </div>
+    <form class="custom" action="" method="post">
+    {% csrf_token %}
+      <div class="row">
+        <div class="small-8 columns">
+          <textarea name="feedback_text" id="feedback_text" placeholder="What's the problem?"></textarea>
+        </div>
+        <div class="small-4 columns">
+          <label for="feedback_bug">
+            <input name="feedback" type="radio" id="feedback_bug" style="display:none;" CHECKED>
+            <span class="custom radio"></span>
+            Bug
+          </label>
+          <label for="feedback_suggestion">
+            <input name="feedback" type="radio" id="feedback_suggestion" style="display:none;">
+            <span class="custom radio"></span>
+            Suggestion
+          </label>
+          <label for="feedback_question">
+            <input name="feedback" type="radio" id="feedback_question" style="display:none;">
+            <span class="custom radio"></span>
+            Question
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns feedback_submit">
+          <input class="button expand" id="report_submit" type="submit" value="Thanks!" />
+        </div>
+      </div>
+    </form>
+    <a class="close-reveal-modal"> &#215; </a>
+  </div>
+
 </div>
+
+
 
   {% include "hip_engine/snippet_form/snippet_form_tracklist.html" %}
   {% include "hip_engine/snippet_form/snippet_form_close_mixtape.html" %}
