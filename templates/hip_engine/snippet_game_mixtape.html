@@ -117,7 +117,7 @@
         {% if tracklist.is_time_out %}
           <button class="button expand radius disabled cannot_show_add_track_form_btn"> Time is over - no tracks can be added </button>
         {% else %}
-          {% if request.user.get_profile not in tracklist.userto.all and request.user.get_profile not in tracklist.userto.all %}
+          {% if request.user.get_profile not in tracklist.userto.all and tracklist.owner != request.user.get_profile %}
             {% if tracklist.bundlebacks.all|length_is:"5" %}
               <button class="button expand radius disabled cannot_show_add_track_form_btn"> Mixtape full - you can't contribute </button>
             {% else %}
@@ -125,9 +125,9 @@
             {% endif %}
           {% elif request.user.get_profile in tracklist.userto.all %}
             {% for bundle in tracklist.bundlebacks.all %}
-              {% if  bundle.owner = request.user.get_profile %}
+              {% if bundle.owner = request.user.get_profile %}
                 {% if bundle.tracks.all|length_is:"0" %}
-                  <button class="button expand radius show_add_track_form_btn"> You were called - add your first track </button>
+                  <button class="button alert expand radius show_add_track_form_btn"> You were called - add your first track </button>
                 {% elif bundle.tracks.all|length_is:"1" %}
                   <button class="button expand radius show_add_track_form_btn"> Add another track </button>
                 {% elif bundle.tracks.all|length_is:"2" %}
