@@ -63,11 +63,13 @@
             <input name="next" type="hidden" value="{{request.get_full_path}}" />
           </form>
         </div>
+        {% comment %}
         <div class="small-6 columns text-center play_mxtp_stats">
           <img src="{% static "img/icons/play_orange.png" %}" width="32px"/>
              {{ tracklist.listenings }}
         </div>
-        <div class="small-6 columns text-center keep_mxtp_stats">
+        {% endcomment %}
+        <div class="small-6 small-offset-6 columns text-center keep_mxtp_stats">
           <img src="{% static "img/icons/heart_green.png" %}" width="24px" />
             {{ tracklist.likes }}
         </div>
