@@ -28,7 +28,7 @@
       <form action="/mixtape/{{tracklist.id}}/bundle/{{bundle.id}}/track/{{track.id}}/keep/" method="post" class="select_track_form">
       {% csrf_token %}
         <input name="next" type="hidden" value="{{request.path}}"/>
-        {% if track in Tracklist.tracks_kept %}
+        {% if track in tracklist.tracks_kept %}
           <input type="submit" class="tiny button right keep_track_btn" value="Keep">
         {% else %}
           <input type="submit" class="tiny button right success kept_track_btn" value="Kept">
