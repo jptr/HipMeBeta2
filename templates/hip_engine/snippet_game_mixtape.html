@@ -110,7 +110,11 @@
         </div>
       </div>
       <div class="small-4 columns display_tracks_btn_zone">
-        <button class="button expand radius display_tracks_btn dropdown">&nbsp<img src="{% static "img/icons/eye_white.png" %}" width="24px" />&nbsp&nbspShow tracks </button>
+        {% if tracklist|has_tracks %}
+          <button class="button expand radius display_tracks_btn dropdown">&nbsp<img src="{% static "img/icons/eye_white.png" %}" width="24px" />&nbsp&nbspShow tracks </button>
+        {% else %}
+          <button class="button expand secondary disabled radius display_tracks_btn dropdown"> No tracks yet </button>
+        {% endif %}
       </div>
       <div class="small-8 columns show_add_track_form_btn_zone">
 
@@ -195,16 +199,16 @@
   <ul class="no-bullet bundle_list">
     {% if tracklist.tracks_initial.all %}
       <li>
-        <div class="small-12 columns mixtape_bundle">
+        <div class="small-12 columns mixtape_bundle mixtape_bundlego">
           <div class="row collapse">
             <div class="small-4 columns bundle_profile">
               {% include "hip_engine/snippet_mini_profile_mixtape_owner.html" %}
             </div>
             <div class="small-8 columns
-              {% if tracklist.tracks_initial.all|length_is:"0" %} bundle_tracklist_0
-              {% elif tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1
+              {% if tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1
               {% elif tracklist.tracks_initial.all|length_is:"2" %} bundle_tracklist_2
-              {% else %} bundle_tracklist_3 {% endif %}">
+              {% elif tracklist.tracks_initial.all|length_is:"3" %} bundle_tracklist_3
+              {% endif %}">
               <ul class="no-bullet">
                 {% for track in tracklist.tracks_initial.all %}
                   <li>
@@ -218,28 +222,30 @@
       </li>
     {% endif %}
     {% for bundle in tracklist.bundlebacks.all %}
-      <li>
-        <div class="small-12 columns mixtape_bundle ">
-          <div class="row collapse">
-            <div class="small-4 columns bundle_profile">
-              {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
-            </div>
-            <div class="small-8 columns 
-              {% if bundle.tracks.all|length_is:"0" %} bundle_tracklist_0 {% endif %}
-              {% if bundle.tracks.all|length_is:"1" %} bundle_tracklist_1 {% endif %}
-              {% if bundle.tracks.all|length_is:"2" %} bundle_tracklist_2 {% endif %}
-              {% if bundle.tracks.all|length_is:"3" %} bundle_tracklist_3 {% endif %}">
-              <ul class="no-bullet">
-                {% for track in bundle.tracks.all %}
-                  <li>
-                    {% include "hip_engine/snippet_track.html" %}
-                  </li>
-                {% endfor %}
-              </ul>
+      {% if bundle.tracks.all %}
+        <li>
+          <div class="small-12 columns mixtape_bundle ">
+            <div class="row collapse">
+              <div class="small-4 columns bundle_profile">
+                {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
+              </div>
+              <div class="small-8 columns 
+                {% if bundle.tracks.all|length_is:"1" %} bundle_tracklist_1
+                {% elif bundle.tracks.all|length_is:"2" %} bundle_tracklist_2
+                {% elif bundle.tracks.all|length_is:"3" %} bundle_tracklist_3
+                {% endif %}">
+                <ul class="no-bullet">
+                  {% for track in bundle.tracks.all %}
+                    <li>
+                      {% include "hip_engine/snippet_track.html" %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
+        </li>
+      {% endif %}
     {% endfor %}
     {% if request.user.get_profile == tracklist.owner %}
       <li>
