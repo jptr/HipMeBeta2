@@ -424,20 +424,24 @@ def add_track(request, tracklist_id):
     name = request.POST.get('name')
     track = Track(url=url, artist=artist, name=name)
     track.save()
-    if tracklist.bundlebacks.filter(owner=request.user.get_profile()):
-        bundleback = get_object_or_404(Bundle, owner=request.user.get_profile())
+
+    if request.user.get_profile() == tracklist.owner:
+        tracklist.tracks_initial.add(track)
     else:
-        bundleback = Bundle(owner=request.user.get_profile())
+        if tracklist.bundlebacks.filter(owner=request.user.get_profile()):
+            bundleback = get_object_or_404(Bundle, owner=request.user.get_profile())
+        else:
+            bundleback = Bundle(owner=request.user.get_profile())
+            bundleback.save()
+
+        bundleback.tracks.add(track)
         bundleback.save()
 
-    bundleback.tracks.add(track)
-    bundleback.save()
+        tracklist.bundlebacks.add(bundleback)
 
-    tracklist.bundlebacks.add(bundleback)
-
-    event = Event(main_profile = request.user.get_profile(), secondary_profile=tracklist.owner,event_type = "new_track")
-    event.save()
-    tracklist.latest_event = event
+        event = Event(main_profile = request.user.get_profile(), secondary_profile=tracklist.owner,event_type = "new_track")
+        event.save()
+        tracklist.latest_event = event
 
     tracklist.date_latest_edit = timezone.now()
     tracklist.save()
