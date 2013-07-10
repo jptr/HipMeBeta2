@@ -29,7 +29,7 @@
                       <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
                       <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
                     {% endif %}
-                    <input name="next" type="hidden" value="{{request.path}}" />
+                    <input name="next" type="hidden" value="{{request.get_full_path}}" />
                   </form>
                 {% endif %}
             {# Endif #}
