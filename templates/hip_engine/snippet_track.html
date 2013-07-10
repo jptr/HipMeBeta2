@@ -4,15 +4,24 @@
 <div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
   {% if request.user.get_profile == tracklist.owner %}
     <div class="small-10 columns track">
+      <a href="{{ track.url }}" target="_blank">
+        {% if track.site_from == 'youtube' %}
+          <img src="{% static "img/icons/note_gray.png" %}" width="20px"/>
+        {% elif track.site_from == 'soundcloud' %}
+          <img src="{% static "img/icons/note_green.png" %}" width="20px"/>
+        {% else %}
+          <img src="{% static "img/icons/note_orange.png" %}" width="20px"/>
+        {% endif %}
+      </a>
       <a class="play_track_btn" onClick="loadMix({{ tracklist|js_track:track.id }})">
-        <img src="{% static "img/icons/play_round_green.png" %}" width="20px"/>
+        <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
       </a>
-      {% comment %}
-      <a class="pause_track_btn" onClick="">
-        <img src="{% static "img/icons/pause_round_green.png" %}" width="20px"/>
-      </a>
-      {% endcomment %}
-      <a href="{{ track.url }}" target="_blank" class="track_text">
+      <a class="track_text" href="{{ track.url }}"
+        {% if track.site_from == 'unknown' %}
+          target="_blank"
+        {% else %}
+          onClick="loadMix({{ tracklist|js_track:track.id }})"
+        {% endif %}>
         {% if track.name and track.artist %}
           {{ track.artist }} - {{ track.name }}
         {% elif track.name %}
@@ -21,7 +30,7 @@
           {{ track.artist }} - Unknown title
         {% else %}
           {{ track.url }}
-        {% endif%}
+        {% endif %}
       </a>
     </div>
     <div class="small-2 columns">
@@ -37,16 +46,25 @@
       </form>
     </div>
   {% else %}
-  <div class="small-12 columns track">
+    <div class="small-12 columns track">
+      <a href="{{ track.url }}" target="_blank">
+        {% if track.site_from == 'youtube' %}
+          <img src="{% static "img/icons/note_gray.png" %}" width="20px"/>
+        {% elif track.site_from == 'soundcloud' %}
+          <img src="{% static "img/icons/note_green.png" %}" width="20px"/>
+        {% else %}
+          <img src="{% static "img/icons/note_orange.png" %}" width="20px"/>
+        {% endif %}
+      </a>
       <a class="play_track_btn"  onClick="loadMix({{ tracklist|js_track:track.id }})">
         <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
       </a>
-      {% comment %}
-      <a class="pause_track_btn" onClick="">
-        <img src="{% static "img/icons/pause_round_green.png" %}" width="20px" class="track_pause_btn"/>
-      </a>
-      {% endcomment %}
-      <a href="{{ track.url }}" target="_blank" class="track_text">
+      <a class="track_text" href="{{ track.url }}"
+        {% if track.site_from == 'unknown' %}
+          target="_blank"
+        {% else %}
+          onClick="loadMix({{ tracklist|js_track:track.id }})"
+        {% endif %}>
         {% if track.name and track.artist %}
           {{ track.artist }} - {{ track.name }}
         {% elif track.name %}
@@ -55,8 +73,8 @@
           {{ track.artist }} - Unknown title
         {% else %}
           {{ track.url }}
-        {% endif%}
+        {% endif %}
       </a>
-  </div>
+    </div>
   {% endif %}
 </div>
