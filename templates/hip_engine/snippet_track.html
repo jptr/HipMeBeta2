@@ -6,11 +6,13 @@
     <div class="small-10 columns track">
       <a href="{{ track.url }}" target="_blank">
         {% if track.site_from == 'youtube' %}
-          <img src="{% static "img/icons/note_gray.png" %}" width="20px"/>
+          <img src="{% static "img/icons/youtube_green.png" %}" width="20px"/>&nbsp;
         {% elif track.site_from == 'soundcloud' %}
-          <img src="{% static "img/icons/note_green.png" %}" width="20px"/>
+          <img src="{% static "img/icons/soundcloud_green.png" %}" width="20px"/>&nbsp;
+        {% elif track.site_from == 'grooveshark' %}
+          <img src="{% static "img/icons/grooveshark_green.png" %}" width="24px"/>&nbsp;
         {% else %}
-          <img src="{% static "img/icons/note_orange.png" %}" width="20px"/>
+          <img src="{% static "img/icons/note_green.png" %}" width="20px"/>&nbsp;
         {% endif %}
       </a>
       <a class="play_track_btn" onClick="loadMix({{ tracklist|js_track:track.id }})">
@@ -49,11 +51,13 @@
     <div class="small-12 columns track">
       <a href="{{ track.url }}" target="_blank">
         {% if track.site_from == 'youtube' %}
-          <img src="{% static "img/icons/note_gray.png" %}" width="20px"/>
+          <img src="{% static "img/icons/youtube_green.png" %}" width="20px"/>&nbsp;
         {% elif track.site_from == 'soundcloud' %}
-          <img src="{% static "img/icons/note_green.png" %}" width="20px"/>
+          <img src="{% static "img/icons/soundcloud_green.png" %}" width="20px"/>&nbsp;
+        {% elif track.site_from == 'grooveshark' %}
+          <img src="{% static "img/icons/grooveshark_green.png" %}" width="24px"/>&nbsp;
         {% else %}
-          <img src="{% static "img/icons/note_orange.png" %}" width="20px"/>
+          <img src="{% static "img/icons/note_green.png" %}" width="20px"/>&nbsp;
         {% endif %}
       </a>
       <a class="play_track_btn"  onClick="loadMix({{ tracklist|js_track:track.id }})">
