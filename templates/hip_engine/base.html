@@ -161,7 +161,7 @@
         <!-- Left Feedback Button -->
 
         <div class="small-12 columns hipme_feedback_btn">
-          <button class="button expand" data-reveal-id="feedbackModal"> We love feedback! </button>
+          <button class="button expand" data-reveal-id="feedbackModal"><img src="{% static "img/icons/comment_white.png" %}" width="24px" />&nbspWe love feedback!</button>
         </div>
 
         <!-- End Left Feedback Button -->
@@ -229,25 +229,25 @@
         <h3> Go ahead, get cranky. </h3>
       </div>
     </div>
-    <form class="custom" action="" method="post">
+    <form class="custom" action="/feedback/" method="post">
     {% csrf_token %}
       <div class="row">
         <div class="small-8 columns">
-          <textarea name="feedback_text" id="feedback_text" placeholder="What's the problem?"></textarea>
+          <textarea name="body" id="feedback_text" placeholder="What's the problem?" maxlength="1000"></textarea>
         </div>
         <div class="small-4 columns">
           <label for="feedback_bug">
-            <input name="feedback" type="radio" id="feedback_bug" style="display:none;" CHECKED>
+            <input name="kind" type="radio" value="bug" id="feedback_bug" style="display:none;" CHECKED>
             <span class="custom radio"></span>
             Bug
           </label>
           <label for="feedback_suggestion">
-            <input name="feedback" type="radio" id="feedback_suggestion" style="display:none;">
+            <input name="kind" type="radio" value="suggestion" id="feedback_suggestion" style="display:none;">
             <span class="custom radio"></span>
             Suggestion
           </label>
           <label for="feedback_question">
-            <input name="feedback" type="radio" id="feedback_question" style="display:none;">
+            <input name="kind" type="radio" value="question" id="feedback_question" style="display:none;">
             <span class="custom radio"></span>
             Question
           </label>
@@ -255,6 +255,7 @@
       </div>
       <div class="row">
         <div class="small-12 columns feedback_submit">
+          <input name="next" type="hidden" value="{{request.get_full_path}}" />
           <input class="button expand" id="report_submit" type="submit" value="Thanks!" />
         </div>
       </div>

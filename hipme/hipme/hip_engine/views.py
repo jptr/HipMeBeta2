@@ -13,7 +13,7 @@ from django.conf import settings
 from settings import MEDIA_ROOT
 from os.path import join
 
-from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship
+from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship, Suggestion
 from hip_engine.search_tools import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
@@ -538,6 +538,25 @@ def profile_follow(request, username):
         request.user.get_profile().remove_following(profile_focused) 
     
     request.user.get_profile().save()
+
+    if request.POST.get('next'):
+        url_next = request.POST['next']
+        return HttpResponseRedirect(url_next)
+    else:
+        return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+
+@login_required
+def give_feedback(request):
+    if request.method == "POST":
+        if request.POST['body']:
+
+            if request.POST['kind']:
+                kind = request.POST['kind']
+            else:
+                kind = ""
+
+            sugg = Suggestion(userfrom = request.user.get_profile(), body = request.POST['body'], kind = kind, submit_date = timezone.now())
+            sugg.save()
 
     if request.POST.get('next'):
         url_next = request.POST['next']
