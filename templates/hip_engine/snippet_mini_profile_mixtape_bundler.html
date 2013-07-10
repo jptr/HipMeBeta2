@@ -2,9 +2,9 @@
 
 <a href="/profile/{{bundle.owner.user.username}}/">
   {% if bundle.owner.avatar %}
-    <img src="adresse de l'avatar" alt="profile_top_img" class="mini_profile_avatar" />
+    <img src="{{MEDIA_URL}}{{ bundle.owner.avatar.name }}" alt="profile_top_img" class="mini_profile_avatar"/>
   {% else %}
-    <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="mini_profile_avatar"/>
+    <img src="{{MEDIA_URL}}profile_pics/default.jpg" alt="profile_top_img" class="mini_profile_avatar"/>
   {% endif %}
 </a>
 <div class="mini_profile_right_section">

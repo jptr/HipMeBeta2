@@ -2,9 +2,9 @@
 
 <a href="/profile/{{tracklist.owner.user.username}}/">
   {% if tracklist.owner.avatar %}
-    <img src="adresse de l'avatar" alt="profile_top_img" class="mini_profile_avatar" />
+    <img src="{{MEDIA_URL}}{{ tracklist.owner.avatar.name }}" alt="profile_top_img" class="mini_profile_avatar"/>
   {% else %}
-    <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="mini_profile_avatar"/>
+    <img src="{{MEDIA_URL}}profile_pics/default.jpg" alt="profile_top_img" class="mini_profile_avatar"/>
   {% endif %}
 </a>
 <div class="mini_profile_right_section">

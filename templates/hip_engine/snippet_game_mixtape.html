@@ -78,13 +78,25 @@
   <div class="small-12 columns mixtape_summary">
     <div class="row">
       <div class="small-2 columns mixtape_header_owner">
-        <a href="/profile/{{tracklist.owner.user.username}}/"><img title="{{tracklist.owner.user.username}}" src="{% static "img/default.jpg" %}" width="82px"/></a>
+        <a href="/profile/{{tracklist.owner.user.username}}/">
+          {% if tracklist.owner.avatar %}
+            <img src="{{MEDIA_URL}}{{ tracklist.owner.avatar.name }}" title="{{tracklist.owner.user.username}}" width="82px"/>
+          {% else %}
+            <img src="{{MEDIA_URL}}profile_pics/default.jpg" title="{{tracklist.owner.user.username}}" width="82px"/>
+          {% endif %}
+        </a>
       </div>
       <div class="small-6 columns mixtape_header_contributors_and_featuring">
         <ul class="inline-list mixtape_header_contributors">
           {% for user_profile in tracklist.userto.all %}
             <li>
-              <a href="/profile/{{user_profile.user.username}}/"><img title="{{user_profile.user.username}}" src="{% static "img/default.jpg" %}" width="50px"/></a>
+              <a href="/profile/{{user_profile.user.username}}/">
+                {% if user_profile.avatar %}
+                  <img src="{{MEDIA_URL}}{{ user_profile.avatar.name }}" title="{{user_profile.user.username}}" width="50px"/>
+                {% else %}
+                  <img src="{{MEDIA_URL}}profile_pics/default.jpg" title="{{user_profile.user.username}}" width="50px"/>
+                {% endif %}
+              </a>
             </li>
           {% endfor %}
         </ul>

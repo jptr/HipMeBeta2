@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'hip_engine',
+    'google_analytics',
 )
 
 AUTH_PROFILE_MODULE = 'hip_engine.UserProfile'

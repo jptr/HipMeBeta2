@@ -4,7 +4,13 @@
   <div class="small-12 columns profile">
     <div class="row">
       <div class="small-2 columns">
-        <a href="#"> <img src="{% static "img/default.jpg" %}" class="profile_avatar"/> </a>
+        <a href="/profile/{{profile_focused.user.username}}/">
+          {% if profile_focused.avatar %}
+            <img src="{{MEDIA_URL}}{{ profile_focused.avatar.name }}" class="profile_avatar"/>
+          {% else %}
+            <img src="{{MEDIA_URL}}profile_pics/default.jpg" class="profile_avatar"/>
+          {% endif %}
+        </a>
       </div>
       <div class="small-10 columns">
         <div class="row">
@@ -23,7 +29,7 @@
                       <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
                       <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
                     {% endif %}
-                    <input name="next" type="hidden" value="{{request.path}}" />
+                    <input name="next" type="hidden" value="{{request.get_full_path}}" />
                   </form>
                 {% endif %}
             {# Endif #}
