@@ -129,7 +129,7 @@
             {% endif %}
           {% elif request.user.get_profile in tracklist.userto.all %}
             {% for bundle in tracklist.bundlebacks.all %}
-              {% if bundle.owner = request.user.get_profile %}
+              {% if bundle.owner == request.user.get_profile %}
                 {% if bundle.tracks.all|length_is:"0" %}
                   <button class="button alert expand radius show_add_track_form_btn"> You were called - add your first track </button>
                 {% elif bundle.tracks.all|length_is:"1" %}
@@ -159,7 +159,7 @@
         <button class="button expand radius secondary hide_tracks_btn dropup"> Hide tracks </button>
       </div>
       <div class="small-4 columns mixtape_add_track_info">
-        
+        Only Youtube and SoundCloud !
       </div>
       <div class="small-8 columns mixtape_add_track_form_zone">
         <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
