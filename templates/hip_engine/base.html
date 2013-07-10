@@ -70,10 +70,10 @@
       <ul class="right">
         <li>
           <a href="/profile/{{ request.user.username }}/"> 
-            {% if user.avatar %}
-              <img src="adresse de l'avatar" alt="profile_top_img" class="profile_top_img" width="32"/>
+            {% if request.user.get_profile.avatar %}
+              <img src="{{MEDIA_URL}}{{ request.user.get_profile.avatar.name }}" alt="profile_top_img" class="profile_top_img" width="32"/>
             {% else %}
-              <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="profile_top_img" width="32"/>
+              <img src="{{MEDIA_URL}}profile_pics/default.jpg" alt="profile_top_img" class="profile_top_img" width="32"/>
             {% endif %}
             {{ request.user.username }}
           </a>

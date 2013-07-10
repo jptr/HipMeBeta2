@@ -280,6 +280,7 @@ def profile_edit(request, username):
         context = {
             'email_form':email_form, 
             'email_notif_form':email_notif_form,
+            'image_form':image_form,
         }
         context.update(get_profile_context(username))
         context.update(get_generic_context(request))

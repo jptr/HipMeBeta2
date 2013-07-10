@@ -1,15 +1,11 @@
 {% load staticfiles %}
 
 <a href="/profile/{{profile.user.username}}/">
-  {% comment %}
-  {% if user.avatar %}
-    <img src="adresse de l'avatar" alt="profile_top_img" class="mini_profile_avatar" />
+  {% if profile.avatar %}
+    <img src="{{MEDIA_URL}}{{ profile.avatar.name }}" alt="profile_top_img" class="mini_profile_avatar"/>
   {% else %}
-  {% endcomment %}
-    <img src="{% static "img/default.jpg" %}" alt="profile_top_img" class="mini_profile_avatar"/>
-  {% comment %}
+    <img src="{{MEDIA_URL}}profile_pics/default.jpg" alt="profile_top_img" class="mini_profile_avatar"/>
   {% endif %}
-  {% endcomment %}
 </a>
 <div class="mini_profile_right_section">
   <a href="/profile/{{profile.user.username}}/" class="mini_profile_username">
