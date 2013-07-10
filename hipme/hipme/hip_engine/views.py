@@ -17,6 +17,7 @@ from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, 
 from hip_engine.search_tools import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
+from hip_engine.tools import rescale_square
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
@@ -258,7 +259,7 @@ def profile_edit(request, username):
                     # resize and save image under same filename
                     im_path = join(MEDIA_ROOT, request.user.get_profile().avatar.name)
                     im = Image.open(im_path)
-                    im.thumbnail((192,192), Image.ANTIALIAS)
+                    im = rescale_square(im, 256)
                     im.save(im_path, "JPEG")
             elif request.POST['form-type'] == "email-form":
                 email_form = UserEmailForm(request.POST, instance=u)
