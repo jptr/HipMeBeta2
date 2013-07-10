@@ -11,12 +11,16 @@ urlpatterns = patterns('',
     url(r'', include('hip_engine.urls')),
 )
 
-if settings.DEBUG:
-    urlpatterns += patterns('django.contrib.staticfiles.views',
-        url(r'^static/(?P<path>.*)$', 'serve')
-        ,)
+# if settings.DEBUG:
+# urlpatterns += patterns('',
+#     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+#     'document_root': settings.STATIC_ROOT}))
+    # urlpatterns += patterns('django.contrib.staticfiles.views',
+    #     url(r'^static/(?P<path>.*)$', 'serve')
+    #     ,)
 	# urlpatterns += patterns('',
 	# 	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
 	# 	'document_root': settings.MEDIA_ROOT}))
 
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
