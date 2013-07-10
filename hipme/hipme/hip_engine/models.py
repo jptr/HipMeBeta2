@@ -186,3 +186,16 @@ class Tag(models.Model):
     name = models.CharField(max_length=40, help_text='optionnal')
     def __unicode__(self):
         return self.name
+
+class Suggestion(models.Model):
+    userfrom = models.ForeignKey(UserProfile)
+    body = models.TextField(max_length=1000)
+    kind = models.TextField(max_length=16, default="")
+    submit_date = models.DateTimeField('submit date', default=timezone.now())
+
+    def get_summary(self):
+        if len(self.body)>60:
+            return self.body[:57]+"..."
+        else:
+            return self.body
+    get_summary.short_description = 'extract'
