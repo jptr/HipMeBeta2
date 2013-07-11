@@ -1,28 +1,10 @@
 {% load hip_extras %}
 {% for field in form %}
-  <div class="row">
-    <div class="small-10 small-offset-1 columns">
-      {% if field|field_type = "CharField" %}
-        <input type="text" name="{{field.label}}" placeholder="{{ field.label }} - {{ field.help_text }}">
-      {% elif field|field_type = "ModelMultipleChoiceField " %}
-        <div class="row">
-            <span>{{ field.label }}</span>
-        </div>
-        <div class="row">
-            {{ field }}
-        </div>
-      {% elif field|field_type = "URLField" %}
-        <div class="row collapse">
-          <div class="small-3 columns">
-            <span class="prefix">http://</span>
-          </div>
-          <div class="small-9 columns">
-            <input type="text" placeholder="Enter your URL... - {{ field.help_text }}">
-          </div>
-        </div>
-      {% else %}
-        {{ field }}           
+      {% if field|field_type = "ModelMultipleChoiceField" %}
+        <select data-placeholder="Choose a Country..." multiple class="chzn-select">
+          {% for id, username in field.field.choices %}
+            <option value={{id}}>{{username}}</option>
+          {% endfor %}
+        </select>
       {% endif %}
-    </div>
-  </div>
 {% endfor %}

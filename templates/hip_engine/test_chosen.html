@@ -18,22 +18,21 @@
   <link rel="stylesheet" href="{% static "css/add_left_nav.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
 
-  <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
+  <link rel="stylesheet" href="{% static "css/chosen.css" %}"/>
 
-  <link href="{{MEDIA_URL}}css/hipme_all.css" rel="stylesheet">
-  <script type="text/javascript" src="{{MEDIA_URL}}js/chosen.jquery.js"></script>
+  <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
 </head>
 
 <body>
 
-<form action="" method="POST">
-  <select data-placeholder="Type de restaurant" class="chzn-select chzn-add" multiple name="other_types">
-    <option value="1">test</option>
-    <option value="2">coucou</option>
-  </select>
-</form >
+<select data-placeholder="Choose a Country..." multiple class="chzn-select" style="width:350px;">
+  <option value="1">test</option>
+  <option value="2">coucou</option>
+</select>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+  <script src="{% static "js/chosen.jquery.js" %}"  type="text/javascript"></script>
   <script>
   document.write('<script src={% static "js/vendor/" %}' +
   ('__proto__' in {} ? 'zepto' : 'jquery') +

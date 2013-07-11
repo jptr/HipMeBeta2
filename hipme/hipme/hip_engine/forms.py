@@ -1,5 +1,6 @@
 from django.forms import ModelForm, HiddenInput, Widget
 from hip_engine.models import UserProfile, User, Track, Tracklist, Bundle, Event
+from django.shortcuts import get_object_or_404
 
 class ProfileImageForm(ModelForm):
     class Meta:
@@ -33,7 +34,10 @@ class TracklistForm(ModelForm):
     def __init__(self,*args, **kwargs):
         username = kwargs.pop('username', '')
         super(TracklistForm, self).__init__(*args, **kwargs)
-        self.fields['userto'].choices = UserProfile.objects.exclude(user__username=username).values_list('id','user__username')
+        user_focused = get_object_or_404(UserProfile, user__username=username)
+        profiles_queryset = user_focused.get_following()
+        self.fields['userto'].choices = profiles_queryset.values_list('id','user__username')
+        # self.fields['userto'].choices = UserProfile.objects.exclude(user__username=username).values_list('id','user__username')
 
 class TrackForm(ModelForm):
     class Meta:

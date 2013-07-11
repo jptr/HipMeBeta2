@@ -359,6 +359,10 @@ def test_forms(request):
 
     return render_to_response('hip_engine/forms.html', {'email_form':email_form, 'email_notif_form':email_notif_form, 'tracklist_form':tracklist_form, 'track_form':track_form}, context_instance=RequestContext(request))
 
+@login_required
+def test_chosen(request):
+    return render_to_response('hip_engine/chosen_example.html', {}, context_instance=RequestContext(request))
+
 # action views
 @login_required
 def create_mixtape(request):
@@ -381,7 +385,7 @@ def create_mixtape(request):
                         track.save()
                         tracklist.tracks_initial.add(track)
                     except ValidationError, e:
-                        return render_to_response('hip_engine/forms.html', {'error_message': "Some track urls are not valid. Please check the url fields.",}, context_instance=RequestContext(request))
+                        return render_to_response('hip_engine/feed.html', {'error_message': "Some track urls are not valid. Please check the url fields.",}, context_instance=RequestContext(request))
     
         title = request.POST.get('title')
         if title:
