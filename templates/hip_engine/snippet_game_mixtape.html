@@ -6,7 +6,10 @@
 {# elif tracklist.owner == request.user.get_profile or request.user.get_profile in tracklist.userto %} top_line_yellow
 {% else %} top_line_green 
 {% endif %}" >
-
+  
+  <span id="mixtape_anchor" >
+    <a id="m-{{tracklist.id}}"></a>
+  </span>
   <div class="row mixtape_header">
     <div class="small-8 columns">
       <div class="small-6 mixtape_info">
