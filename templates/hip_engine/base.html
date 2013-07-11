@@ -164,7 +164,7 @@
 
         <!-- Left stats -->
 
-        <div class="small-12 columns hipme_site_stats">
+        <div id="joyride_stats" class="small-12 columns hipme_site_stats">
           <h5> hipMe! </h5>
           <ul class="no-bullet">
             <li> {{nb_mixtapes}} mixtapes created </li>
@@ -173,6 +173,8 @@
             <li> Keep da hip... </li>
           </ul>
         </div>
+
+        {{request.user.get_profile.nb_connects}}
 
         <!-- End Left stats -->
 
@@ -258,6 +260,26 @@
     </form>
     <a class="close-reveal-modal"> &#215; </a>
   </div>
+
+  <!-- Joyride -->
+
+  <ol class="joyride-list" data-joyride>
+    <li data-id="joyride_stats" data-text="Next">
+      <p>Hello and welcome to the Joyride documentation page.</p>
+    </li>
+    <li data-id="numero1" data-class="custom so-awesome" data-text="Next">
+      <h4>Stop #1</h4>
+      <p>You can control all the details for you tour stop. Any valid HTML will work inside of Joyride.</p>
+    </li>
+    <li data-id="numero2" data-button="Next" data-options="tipLocation:top;tipAnimation:fade">
+      <h4>Stop #2</h4>
+      <p>Get the details right by styling Joyride with a custom stylesheet!</p>
+    </li>
+    <li data-button="Next">
+      <h4>Stop #4</h4>
+      <p>It works as a modal too!</p>
+    </li>
+  </ol>
 
 </div>
 
@@ -644,6 +666,16 @@
     </script>
 
 <!-- End scripts player -->
+
+<!-- Joyride -->
+
+<script type="text/javascript">
+  if({{request.user.get_profile.nb_connects}} == 3) {
+    $(document).foundation('joyride', 'start');
+  }
+</script>
+
+<!-- End joyride -->
 
   <script src="{% static "js/chosen.jquery.js" %}"  type="text/javascript"></script>
   <script>
