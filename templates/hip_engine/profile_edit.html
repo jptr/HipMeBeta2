@@ -23,6 +23,37 @@
 <form action="" method="POST">
     {% csrf_token %}
     <fieldset>
+      <legend>Change password</legend>
+      <div class="row">
+      {% for field in psw_form %}   
+        {% if forloop.first %} 
+          <div class="small-3 columns">
+            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="old password">
+          </div>
+        {% elif forloop.last %} 
+          <div class="small-3 columns">
+            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="new password">
+          </div>
+        {% else %}
+          <div class="small-3 columns">
+            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="repeat new password">
+          </div>
+        {% endif %}
+      {% endfor %}
+        <div class="small-3 columns">
+          <input type="hidden" name="form-type" value="psw-form" />
+          <input type="hidden" name="" value="Update">
+          <input type="submit" class="button postfix" value="Update">
+        </div>
+      </div>
+    </fieldset>
+</form>
+</p>
+
+<p>
+<form action="" method="POST">
+    {% csrf_token %}
+    <fieldset>
       <legend>Update Email</legend>
     {% for field in email_form %}
       <div class="row">
@@ -30,6 +61,7 @@
             <input type="text" id="right-label" value="" placeholder="New Email Address">
           </div>
           <div class="small-3 columns">
+            <input type="hidden" name="form-type" value="email-form" />
             <input type="hidden" name="" value="Update">
             <input type="submit" class="button postfix" value="Update">
           </div>
@@ -39,6 +71,7 @@
 </form>
 </p>
 
+{% comment %}
 <p>
 <form action="" method="POST">
   {% csrf_token %}
@@ -73,5 +106,6 @@
   </fieldset>
 </form>
 </p>
+{% endcomment %}
 
 {% endblock main_feed %}

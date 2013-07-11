@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 
 from django.forms.models import inlineformset_factory, modelformset_factory
@@ -75,7 +76,7 @@ def landing(request):
 @login_required
 def populate_db(request):
     if request.user.username == "hipmaster":
-        from hip_engine.hipme_db_setup_3 import INSTANCES
+        from hip_engine.hipme_db_setup_clean import INSTANCES
         for instance in INSTANCES:
             if instance["model"] == "UserProfile":
 
@@ -246,6 +247,7 @@ def profile_edit(request, username):
         email_form = UserEmailForm(instance=request.user)
         email_notif_form = ProfileEmailNotificationForm(instance=request.user)
         image_form = ProfileImageForm(instance=request.user.get_profile())
+        psw_form = PasswordChangeForm(request.user)
 
         tracklist_form = TracklistForm(username=request.user.username)
 
@@ -266,22 +268,22 @@ def profile_edit(request, username):
                 if email_form.is_valid():
                     email_form.save() 
                     return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
-            # elif request.POST['form-type'] == "email-notif-form":
-            else:
+            elif request.POST['form-type'] == "email-notif-form":
                 email_notif_form = ProfileEmailNotificationForm(request.POST, instance=u)
                 if email_notif_form.is_valid():
                     email_notif_form.save() 
                     return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
-            # else:
-            #     psw_form = PasswordChangeForm(request.user, request.POST)
-            #     if psw_form.is_valid():
-            #         psw_form.save()
-            #         return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
+            else:
+                psw_form = PasswordChangeForm(request.user, request.POST)
+                if psw_form.is_valid():
+                    psw_form.save()
+                    return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
 
         context = {
             'email_form':email_form, 
             'email_notif_form':email_notif_form,
             'image_form':image_form,
+            'psw_form':psw_form,
         }
         context.update(get_profile_context(username))
         context.update(get_generic_context(request))
@@ -366,9 +368,8 @@ def test_chosen(request):
 # action views
 @login_required
 def create_mixtape(request):
-    userto = request.POST.get('userto')
+    userto = request.POST.get('tracklist-userto')
     if not userto:
-
         profile_me = request.user.get_profile()
         profile_queryset = request.user.get_profile().get_following()
         tracklist_queryset = Tracklist.objects.filter(owner__in=profile_queryset)|Tracklist.objects.filter(userto__in=profile_queryset)|profile_me.tracklists_created.all()|profile_me.tracklists_contributed.all()
@@ -383,7 +384,7 @@ def create_mixtape(request):
 
         return render_to_response('hip_engine/feed.html', context, context_instance=RequestContext(request))
 
-    tracklist_form = TracklistForm(request.POST, prefix='tracklist')
+    tracklist_form = TracklistForm(request.POST, prefix='tracklist', username=request.user.username)
     if tracklist_form.is_valid():
         tracklist = tracklist_form.save()
         for i_str in ["_1","_2","_3"]:
@@ -422,10 +423,6 @@ def create_mixtape(request):
         event.save()
         tracklist.latest_event = event
 
-        # description = request.POST.get('description')
-        # if description:
-        #     tracklist.description = description
-
         string_tags = request.POST.get('tags')
         if string_tags:
             tags = parseTags(string_tags)
@@ -439,22 +436,6 @@ def create_mixtape(request):
                     tracklist.tags.add(tag)
 
         tracklist.save()
-
-    else:
-        profile_me = request.user.get_profile()
-        profile_queryset = request.user.get_profile().get_following()
-        tracklist_queryset = Tracklist.objects.filter(owner__in=profile_queryset)|Tracklist.objects.filter(userto__in=profile_queryset)|profile_me.tracklists_created.all()|profile_me.tracklists_contributed.all()
-        tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
-
-        context = {
-            'tracklist_form':tracklist_form,
-            'tracklist_list':tracklist_list,
-            'error_message_userto': "Please add some contributors to your mixtape. Resume mixtape creation by clicking on 'New Mixtape'.",
-        }
-        context.update(get_nav_context())
-        context.update(get_rankings(request))
-
-        return render_to_response('hip_engine/feed.html', context, context_instance=RequestContext(request))
 
     if request.POST.get('next'):
         url_next = request.POST['next']
@@ -505,7 +486,7 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
     bundleback = get_object_or_404(Bundle, pk=bundle_id)
     track = get_object_or_404(Track, pk=track_id)
 
-    if track in tracklist.tracks_kept.all():
+    if track not in tracklist.tracks_kept.all():
         tracklist.tracks_kept.add(track)
 
         event = Event(main_profile = tracklist.owner, secondary_profile=request.user.get_profile(), event_type = "keep_track")

@@ -63,7 +63,7 @@
             {% else %}
               <input type="submit" class="button expand radius like_mxtp_btn" name="like" value="Like">
             {% endif %}
-            <input name="next" type="hidden" value="{{request.get_full_path}}" />
+            <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}" />
           </form>
         </div>
         {% comment %}
@@ -174,7 +174,7 @@
       </div>
       <div class="small-8 columns mixtape_add_track_form_zone">
         <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
-          <input name="next" type="hidden" value="{{request.get_full_path}}" />
+          <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}" />
           {% csrf_token %}
           <div class="row">
             <div class="small-10 columns">

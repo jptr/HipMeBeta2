@@ -43,13 +43,15 @@
   {% if request.user.get_profile == tracklist.owner %}
     <div class="small-2 columns">
       <form action="/mixtape/{{tracklist.id}}/bundle/{{bundle.id}}/track/{{track.id}}/keep/" method="post" class="select_track_form">
-        <input name="next" type="hidden" value="{{request.get_full_path}}"/>
+        <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}"/>
       {% csrf_token %}
-        {% if track in tracklist.tracks_kept.all %}
-          <input type="submit" class="tiny button right keep_track_btn" value="Keep">
-        {% else %}
-          <input type="submit" class="tiny button right success kept_track_btn" value="Kept">
-          <input type="submit" class="tiny button right alert unkeep_track_btn" value="Unkeep">
+        {% if track not in tracklist.tracks_initial.all %}
+          {% if track in tracklist.tracks_kept.all %}
+            <input type="submit" class="tiny button right success kept_track_btn" value="Kept">
+            <input type="submit" class="tiny button right alert unkeep_track_btn" value="Unkeep">
+          {% else %}
+            <input type="submit" class="tiny button right keep_track_btn" value="Keep">
+          {% endif %}
         {% endif %}
       </form>
     </div>
