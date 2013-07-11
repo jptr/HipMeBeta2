@@ -34,7 +34,7 @@ class UserAdmin(admin.ModelAdmin):
     inlines = (UserProfileInline, )
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('get_username','reputation','is_email_notified','get_email_address')
+    list_display = ('get_username','reputation','is_email_notified','get_email_address', 'nb_connects')
     inlines = [FollowingInline, FollowerInline, TracklistCreatedInline, BundleCreatedInline, ]
     list_filter = ('is_email_notified',)
 

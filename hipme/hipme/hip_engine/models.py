@@ -28,6 +28,7 @@ class UserProfile(models.Model):
     reputation = models.IntegerField(default=0)
     url = models.URLField(blank=True)
     is_email_notified = models.BooleanField('get email notifications?', default=True)
+    nb_connects = models.IntegerField(default=0, verbose_name=u'nb of connections')
     def __unicode__(self):
         return self.user.username
     def get_email_address(self):
