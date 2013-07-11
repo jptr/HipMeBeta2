@@ -42,8 +42,7 @@ def get_tracklist_form_context(request):
     event = get_object_or_404(Event, pk=1)
     new_tracklist = Tracklist(owner = request.user.get_profile(), latest_event = event)
     tracklist_form = TracklistForm(prefix='tracklist', instance=new_tracklist, username=request.user.username)
-    track_form = TrackForm()
-    context = {'tracklist_form':tracklist_form, 'track_form': track_form,}
+    context = {'tracklist_form':tracklist_form, }
     return context
 
 def get_rankings(request):
@@ -145,8 +144,9 @@ def populate_db(request):
 
 @login_required
 def feed(request):
-    # tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_queryset = Tracklist.objects.all()
+    profile_me = request.user.get_profile()
+    profile_queryset = request.user.get_profile().get_following()
+    tracklist_queryset = Tracklist.objects.filter(owner__in=profile_queryset)|Tracklist.objects.filter(userto__in=profile_queryset)|profile_me.tracklists_created.all()|profile_me.tracklists_contributed.all()
     tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
@@ -366,6 +366,23 @@ def test_chosen(request):
 # action views
 @login_required
 def create_mixtape(request):
+    userto = request.POST.get('userto')
+    if not userto:
+
+        profile_me = request.user.get_profile()
+        profile_queryset = request.user.get_profile().get_following()
+        tracklist_queryset = Tracklist.objects.filter(owner__in=profile_queryset)|Tracklist.objects.filter(userto__in=profile_queryset)|profile_me.tracklists_created.all()|profile_me.tracklists_contributed.all()
+        tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
+
+        context = {
+            'tracklist_list':tracklist_list,
+            'error_message_userto': "Please add some contributors to your mixtape. Resume mixtape creation by clicking on 'New Mixtape'.",
+        }
+        context.update(get_generic_context(request))
+        context.update(get_rankings(request))
+
+        return render_to_response('hip_engine/feed.html', context, context_instance=RequestContext(request))
+
     tracklist_form = TracklistForm(request.POST, prefix='tracklist')
     if tracklist_form.is_valid():
         tracklist = tracklist_form.save()
@@ -385,7 +402,17 @@ def create_mixtape(request):
                         track.save()
                         tracklist.tracks_initial.add(track)
                     except ValidationError, e:
-                        return render_to_response('hip_engine/feed.html', {'error_message': "Some track urls are not valid. Please check the url fields.",}, context_instance=RequestContext(request))
+                        tracklist_queryset = Tracklist.objects.all()
+                        tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
+                        context = {
+                            'tracklist_form':tracklist_form,
+                            'tracklist_list':tracklist_list,
+                            'error_message_url': "Some track urls are invalid. Please check the url fields. Resume mixtape creation by clicking on 'New Mixtape'.",
+                        }
+                        context.update(get_nav_context())
+                        context.update(get_rankings(request))
+
+                        return render_to_response('hip_engine/feed.html', context, context_instance=RequestContext(request))
     
         title = request.POST.get('title')
         if title:
@@ -412,6 +439,22 @@ def create_mixtape(request):
                     tracklist.tags.add(tag)
 
         tracklist.save()
+
+    else:
+        profile_me = request.user.get_profile()
+        profile_queryset = request.user.get_profile().get_following()
+        tracklist_queryset = Tracklist.objects.filter(owner__in=profile_queryset)|Tracklist.objects.filter(userto__in=profile_queryset)|profile_me.tracklists_created.all()|profile_me.tracklists_contributed.all()
+        tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
+
+        context = {
+            'tracklist_form':tracklist_form,
+            'tracklist_list':tracklist_list,
+            'error_message_userto': "Please add some contributors to your mixtape. Resume mixtape creation by clicking on 'New Mixtape'.",
+        }
+        context.update(get_nav_context())
+        context.update(get_rankings(request))
+
+        return render_to_response('hip_engine/feed.html', context, context_instance=RequestContext(request))
 
     if request.POST.get('next'):
         url_next = request.POST['next']
@@ -583,6 +626,8 @@ def login_process(request):
     if user is not None:
         if user.is_active:
             login(request, user)
+            request.user.get_profile().nb_connects += 1
+            request.user.get_profile().save()
             if request.GET.get('next',''):
                 url = request.GET.get('next','')
                 return HttpResponseRedirect(url)
