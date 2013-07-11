@@ -110,11 +110,15 @@
         </div>
       </div>
       <div class="small-4 columns display_tracks_btn_zone">
+        {% comment %}
         {% if tracklist|has_tracks %}
-          <button class="button expand radius display_tracks_btn dropdown">&nbsp<img src="{% static "img/icons/eye_white.png" %}" width="24px" />&nbsp&nbspShow tracks </button>
+        {% endcomment %}
+          <button class="button expand radius display_tracks_btn dropdown">&nbsp<img src="{% static "img/icons/eye_white.png" %}" width="24px" />&nbsp&nbsp Show tracks </button>
+        {% comment %}
         {% else %}
-          <button class="button expand secondary disabled radius display_tracks_btn_disabled"> No tracks yet </button>
+          <button class="button expand secondary disabled radius display_tracks_btn"> No tracks yet </button>
         {% endif %}
+        {% endcomment %}
       </div>
       <div class="small-8 columns show_add_track_form_btn_zone">
 
@@ -132,7 +136,7 @@
               {% for bundle in tracklist.bundlebacks.all %}
                 {% if bundle.owner = request.user.get_profile %}
                   {% if bundle.tracks.all|length_is:"0" %}
-                    <button class="button alert expand radius show_add_track_form_btn"> You were called - add your first track </button>
+                    <button class="button success expand radius show_add_track_form_btn"> You were called - add your first track </button>
                   {% elif bundle.tracks.all|length_is:"1" %}
                     <button class="button expand radius show_add_track_form_btn"> Add another track </button>
                   {% elif bundle.tracks.all|length_is:"2" %}
@@ -143,7 +147,7 @@
                 {% endif %}
               {% endfor %}
             {% else %}
-              <button class="button alert expand radius show_add_track_form_btn"> You were called - add your first track </button>
+              <button class="button success expand radius show_add_track_form_btn"> You were called - add your first track </button>
             {% endif %}
           {% else %}
             {% if tracklist.tracks_initial.all|length_is:"0" %}
@@ -163,7 +167,7 @@
         <button class="button expand radius secondary hide_tracks_btn dropup"> Hide tracks </button>
       </div>
       <div class="small-4 columns mixtape_add_track_info">
-        Only Youtube and SoundCloud !
+        Our player supports YouTube and SoundCloud. Avoid other sources!
       </div>
       <div class="small-8 columns mixtape_add_track_form_zone">
         <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
