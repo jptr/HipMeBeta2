@@ -361,7 +361,7 @@ def test_forms(request):
 
 @login_required
 def test_chosen(request):
-    return render_to_response('hip_engine/chosen_example.html', {}, context_instance=RequestContext(request))
+    return render_to_response('hip_engine/test_chosen.html', {}, context_instance=RequestContext(request))
 
 # action views
 @login_required
