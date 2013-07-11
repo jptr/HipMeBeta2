@@ -1,12 +1,14 @@
 {% load hip_extras %}
 
 {% for field in form %}
-      {% if field|field_type = "ModelMultipleChoiceField" %}
-        <select data-placeholder="Choose a Country..." multiple class="chzn-select">
-          {% for id, username in field.field.choices %}
-            <option value={{id}}>{{username}}</option>
-          {% endfor %}
-        </select>
-        {% comment %} si retour au sélecteur de base, mettre {{ field }} à la place de la balise select. {% endcomment %}
-      {% endif %}
+  	{% if field|field_type = "ModelMultipleChoiceField" %}
+  	{% comment %} 
+    	{{<select data-placeholder="Choose a Country..." multiple class="chzn-select">
+            {% for id, username in field.field.choices %}
+                <option value={{id}}>{{username}}</option>
+            {% endfor %}
+        </select>}}
+  	{% endcomment %}
+	{{ field }}
+    {% endif %}
 {% endfor %}
