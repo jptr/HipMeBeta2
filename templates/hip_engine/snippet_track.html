@@ -2,39 +2,45 @@
 {% load hip_extras %}
 
 <div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
+  <div class="columns track
+  {% if request.user.get_profile == tracklist.owner %} small-10 {% else %} small-12 {% endif %}">
+    <a href="{{ track.url }}" target="_blank">
+      {% if track.site_from == 'youtube' %}
+        <img src="{% static "img/icons/youtube_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;
+      {% elif track.site_from == 'soundcloud' %}
+        <img src="{% static "img/icons/soundcloud_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;
+      {% elif track.site_from == 'grooveshark' %}
+        <img src="{% static "img/icons/grooveshark_green.png" %}" width="24px" class="site_from_icon"/>&nbsp;
+      {% else %}
+        <img src="{% static "img/icons/note_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;
+      {% endif %}
+    </a>
+    <a
+    {% if track.site_from == 'youtube' or track.site_from == 'soundcloud' %}
+    onClick = "loadMix({{ tracklist|js_track:track.id }})"
+    {% else %}
+    href = "{{ track.url }}" target = "_blank"
+    {% endif %}>
+      <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
+    </a>
+    <a class="track_text"
+      {% if track.site_from == 'youtube' or track.site_from == 'soundcloud' %}
+        onClick="loadMix({{ tracklist|js_track:track.id }})"
+      {% else %}
+        href = "{{ track.url }}" target = "_blank"
+      {% endif %}>
+      {% if track.name and track.artist %}
+        {{ track.artist }} - {{ track.name }}
+      {% elif track.name %}
+        Unknown artist - {{ track.name }}
+      {% elif track.artist %}
+        {{ track.artist }} - Unknown title
+      {% else %}
+        {{ track.url }}
+      {% endif %}
+    </a>
+  </div>
   {% if request.user.get_profile == tracklist.owner %}
-    <div class="small-10 columns track">
-      <a href="{{ track.url }}" target="_blank">
-        {% if track.site_from == 'youtube' %}
-          <img src="{% static "img/icons/youtube_green.png" %}" width="20px"/>&nbsp;
-        {% elif track.site_from == 'soundcloud' %}
-          <img src="{% static "img/icons/soundcloud_green.png" %}" width="20px"/>&nbsp;
-        {% elif track.site_from == 'grooveshark' %}
-          <img src="{% static "img/icons/grooveshark_green.png" %}" width="24px"/>&nbsp;
-        {% else %}
-          <img src="{% static "img/icons/note_green.png" %}" width="20px"/>&nbsp;
-        {% endif %}
-      </a>
-      <a class="play_track_btn" onClick="loadMix({{ tracklist|js_track:track.id }})">
-        <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
-      </a>
-      <a class="track_text" href="{{ track.url }}"
-        {% if track.site_from == 'unknown' %}
-          target="_blank"
-        {% else %}
-          onClick="loadMix({{ tracklist|js_track:track.id }})"
-        {% endif %}>
-        {% if track.name and track.artist %}
-          {{ track.artist }} - {{ track.name }}
-        {% elif track.name %}
-          Unknown artist - {{ track.name }}
-        {% elif track.artist %}
-          {{ track.artist }} - Unknown title
-        {% else %}
-          {{ track.url }}
-        {% endif %}
-      </a>
-    </div>
     <div class="small-2 columns">
       <form action="/mixtape/{{tracklist.id}}/bundle/{{bundle.id}}/track/{{track.id}}/keep/" method="post" class="select_track_form">
         <input name="next" type="hidden" value="{{request.get_full_path}}"/>
@@ -46,39 +52,6 @@
           <input type="submit" class="tiny button right alert unkeep_track_btn" value="Unkeep">
         {% endif %}
       </form>
-    </div>
-  {% else %}
-    <div class="small-12 columns track">
-      <a href="{{ track.url }}" target="_blank">
-        {% if track.site_from == 'youtube' %}
-          <img src="{% static "img/icons/youtube_green.png" %}" width="20px"/>&nbsp;
-        {% elif track.site_from == 'soundcloud' %}
-          <img src="{% static "img/icons/soundcloud_green.png" %}" width="20px"/>&nbsp;
-        {% elif track.site_from == 'grooveshark' %}
-          <img src="{% static "img/icons/grooveshark_green.png" %}" width="24px"/>&nbsp;
-        {% else %}
-          <img src="{% static "img/icons/note_green.png" %}" width="20px"/>&nbsp;
-        {% endif %}
-      </a>
-      <a class="play_track_btn"  onClick="loadMix({{ tracklist|js_track:track.id }})">
-        <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
-      </a>
-      <a class="track_text" href="{{ track.url }}"
-        {% if track.site_from == 'unknown' %}
-          target="_blank"
-        {% else %}
-          onClick="loadMix({{ tracklist|js_track:track.id }})"
-        {% endif %}>
-        {% if track.name and track.artist %}
-          {{ track.artist }} - {{ track.name }}
-        {% elif track.name %}
-          Unknown artist - {{ track.name }}
-        {% elif track.artist %}
-          {{ track.artist }} - Unknown title
-        {% else %}
-          {{ track.url }}
-        {% endif %}
-      </a>
     </div>
   {% endif %}
 </div>

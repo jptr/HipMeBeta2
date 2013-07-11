@@ -218,6 +218,10 @@
   font-size: 12px;
 }
 
+.site_from_icon {
+  margin-bottom: 2px;  
+}
+
 .track_play_btn {
   margin-bottom: 2px;
 }
