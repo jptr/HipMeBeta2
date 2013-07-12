@@ -15,11 +15,8 @@
     <div class="small-10 small-offset-1 columns">
       <form action="/create/mixtape/" method="post">
       {% csrf_token %}
+      {% include "hip_engine/snippet_form/snippet_form_chosen.html" with form=tracklist_form %}
     </div>
-  </div>
-
-  <div>
-    {% include "hip_engine/snippet_form/snippet_form_chosen.html" with form=tracklist_form %}
   </div>
 
   <div class="row">
