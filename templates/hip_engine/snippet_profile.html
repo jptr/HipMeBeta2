@@ -15,24 +15,21 @@
       <div class="small-10 columns">
         <div class="row">
           <div class="small-12 columns">
-            <h3><a href="/profile/{{ profile_focused.user.username }}/" class="userprofile_name left"> {{ profile_focused.user.username }} </a></h3>
-            {# If not me #}
-
-                {% if profile_focused == request.user.get_profile %}
-                  <a href="/profile/{{request.user.username}}/edit/">&nbsp&nbspedit</a>
+            <h3><a href="/profile/{{ profile_focused.user.username }}/" class= "left"> {{ profile_focused.user.username }} </a></h3>
+            {% if profile_focused == request.user.get_profile %}
+              <a href="/profile/{{request.user.username}}/edit/">&nbsp&nbspedit</a>
+            {% else %}
+              <form action="/profile/{{profile_focused.user.username}}/follow/" method="post" class="like_btn_form">
+                {% csrf_token %}                
+                {% if profile_focused not in request.user.get_profile.get_following %}
+                  <input type="submit" class="button tiny left profile_flw_btn" value="Follow"> 
                 {% else %}
-                  <form action="/profile/{{profile_focused.user.username}}/follow/" method="post" class="like_btn_form">
-                    {% csrf_token %}                
-                    {% if profile_focused not in request.user.get_profile.get_following %}
-                      <input type="submit" class="button tiny left profile_flw_btn" value="Follow"> 
-                    {% else %}
-                      <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
-                      <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
-                    {% endif %}
-                    <input name="next" type="hidden" value="{{request.get_full_path}}" />
-                  </form>
+                  <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
+                  <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
                 {% endif %}
-            {# Endif #}
+                <input name="next" type="hidden" value="{{request.get_full_path}}" />
+              </form>
+            {% endif %}
           </div>
         </div>
         <h6>
