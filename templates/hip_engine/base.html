@@ -93,6 +93,7 @@
           <ul class="dropdown">
             <li><a href="/profile/{{request.user}}/edit"> Edit profile </a></li>
             <li><a id="exp_tour_link"> Explanatory tour </a></li>
+            <li><a data-reveal-id="rulesModal"> Rules </a></li>
             <li><a href="/logout/process/"> Log out </a></li>
           </ul>
         </li>
@@ -318,6 +319,7 @@
 
   {% include "hip_engine/snippet_form/snippet_form_tracklist.html" %}
   {% include "hip_engine/snippet_form/snippet_form_close_mixtape.html" %}
+  {% include "hip_engine/snippet_rules.html" %}
 
   <script>
   document.write('<script src={% static "js/vendor/" %}' +
