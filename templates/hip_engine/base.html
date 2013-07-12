@@ -45,7 +45,7 @@
   <nav class="top-bar">
     <ul class="title-area">
       <!-- Title Area -->
-      <li class="name">
+      <li class="name" id="site_title">
         <h1><a href="/feed/"> hipMe! </a></h1>
       </li>
       <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
@@ -56,16 +56,16 @@
       <!-- Left Nav Section -->
       <ul class="left">
         <li class="divider"></li>
-        <li>
+        <li id="nav_stream">
           <a href="/feed/"> Stream </a>
         </li>
         <li class="divider"></li>
-        <li class="has-form"><button class="small top_bar_button" data-reveal-id="tracklistModal"> New Mixtape </button></li>
+        <li class="has-form"><button id="nav_new_mxtp" class="small top_bar_button" data-reveal-id="tracklistModal"> New Mixtape </button></li>
       </ul>
 
       <!-- Right Nav Section -->
       <ul class="right">
-        <li>
+        <li id="nav_profile">
           <a href="/profile/{{ request.user.username }}/"> 
             {% if request.user.get_profile.avatar %}
               <img src="{{MEDIA_URL}}{{ request.user.get_profile.avatar.name }}" alt="profile_top_img" class="profile_top_img" width="32"/>
@@ -79,11 +79,11 @@
         <li class="has-form">
           <form action="/search/" method="get">
             <div class="row collapse">
-              <div class="small-8 columns">
+              <div id="nav_search_bar" class="small-8 columns">
                 <input type="text" name="q">
               </div>
               <div class="small-4 columns">
-                <input type="submit" class="alert button" value="Search">
+                <input type="submit" class="button" value="Search">
               </div>
             </div>
           </form>
@@ -145,7 +145,7 @@
             <li>
               <div class="row">
                 <div class="small-12 columns text-center full_ranking_link_zone">
-                  <a href="/profile/{{request.user}}/rankings/" class="full_ranking_link"> See full rankings </a>
+                  <a id="full_ranking_link" href="/profile/{{request.user}}/rankings/" class="full_ranking_link"> See full ranking </a>
                 </div>
               </div>
             </li>
@@ -158,14 +158,14 @@
         <!-- Left Feedback Button -->
 
         <div class="small-12 columns hipme_feedback_btn">
-          <button class="button expand" data-reveal-id="feedbackModal"><img src="{% static "img/icons/comment_white.png" %}" width="24px" />&nbspWe love feedback!</button>
+          <button id="feedback_btn" class="button expand" data-reveal-id="feedbackModal"><img src="{% static "img/icons/comment_white.png" %}" width="24px" />&nbspWe love feedback!</button>
         </div>
 
         <!-- End Left Feedback Button -->
 
         <!-- Left stats -->
 
-        <div id="joyride_stats" class="small-12 columns hipme_site_stats">
+        <div class="small-12 columns hipme_site_stats">
           <h5> hipMe! </h5>
           <ul class="no-bullet">
             <li> {{nb_mixtapes}} mixtapes created </li>
@@ -174,10 +174,6 @@
             <li> Keep da hip... </li>
           </ul>
         </div>
-
-        {{request.user.get_profile.nb_connects}}
-        {{error_message_url}}
-        {{error_message_userto}}
 
         <!-- End Left stats -->
 
@@ -267,20 +263,54 @@
   <!-- Joyride -->
 
   <ol class="joyride-list" data-joyride>
-    <li data-id="joyride_stats" data-text="Next">
-      <p>Hello and welcome to the Joyride documentation page.</p>
+    <li data-text="Next">
+      <br/>
+      <h4> Welcome to hipMe, the social game for music discovery. </h4>
+      <br/>
+      <p> We're going to show you what's there for you. Keep clicking. </p>
+      <br/>
     </li>
-    <li data-id="numero1" data-class="custom so-awesome" data-text="Next">
-      <h4>Stop #1</h4>
-      <p>You can control all the details for you tour stop. Any valid HTML will work inside of Joyride.</p>
+    <li data-id="nav_stream" data-text="Next">
+      <br/>
+      <p> The page you're on is your stream. It shows the latest activity of all the people you follow. </p>
+      <br/>
     </li>
-    <li data-id="numero2" data-button="Next" data-options="tipLocation:top;tipAnimation:fade">
-      <h4>Stop #2</h4>
-      <p>Get the details right by styling Joyride with a custom stylesheet!</p>
+    <li data-id="nav_new_mxtp" data-text="Next">
+      <br/>
+      <p> Click this button anytime to create a new mixtape. The best way to discover cool music ever. </p>
+      <br/>
     </li>
-    <li data-button="Next">
-      <h4>Stop #4</h4>
-      <p>It works as a modal too!</p>
+    <li data-id="nav_profile" data-text="Next">
+      <br/>
+      <p> This goes to your profile page, where you'll find all your activity and the mixtapes you liked. </p>
+      <br/>
+    </li>
+    <li data-id="nav_search_bar" data-text="Next">
+      <br/>
+      <p> Use the search bar to find people and follow them. That'll allow you to see what they do, ask them to contribute to your mixtapes and contribute to theirs. </p>
+      <br/>
+    </li>
+    <li data-id="player" data-text="Next">
+      <br/>
+      <p> When you listen to a mixtape, the player appears here. How great is that? </p>
+      <br/>
+    </li>
+    <li data-id="full_ranking_link" data-text="Next">
+      <br/>
+      <p> Here you'll get an idea of how you rank among your friends. Click the link to get the full picture. </p>
+      <br/>
+    </li>
+    <li data-id="feedback_btn" data-text="Next">
+      <br/>
+      <p> This is a beta version. Please give us feedback: bugs, questions, suggestions, basically anything. Just click this button. </p>
+      <br/>
+    </li>
+    <li data-text="Close">
+      <br/>
+      <p> Now go play, you fool. First, follow a few people, then create your first mixtape! </p>
+      <br/>
+      <p> If you want to take this tour again, click the "More" button (top-right corner). </p>
+      <br/>
     </li>
   </ol>
 
@@ -673,7 +703,7 @@
 <!-- Joyride -->
 
 <script type="text/javascript">
-  if({{request.user.get_profile.nb_connects}} == 3) {
+  if({{request.user.get_profile.nb_connects}} == 1) {
     $(document).foundation('joyride', 'start');
   }
 </script>

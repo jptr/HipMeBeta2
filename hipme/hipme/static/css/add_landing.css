@@ -10,3 +10,7 @@
 .landing_logo {
 	margin-top: 3em;
 }
+
+.landing_hide {
+	display: none;
+}
