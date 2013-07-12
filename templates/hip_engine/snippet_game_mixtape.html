@@ -72,7 +72,7 @@
              {{ tracklist.listenings }}
         </div>
         {% endcomment %}
-        <div class="small-6 small-offset-6 columns text-center keep_mxtp_stats">
+        <div class="small-6 small-offset-6 columns text-center like_mxtp_stats">
           <img src="{% static "img/icons/heart_green.png" %}" width="24px" />
             {{ tracklist.likes }}
         </div>
@@ -169,8 +169,8 @@
       <div class="small-4 columns hide_tracks_btn_zone">
         <button class="button expand radius secondary hide_tracks_btn dropup"> Hide tracks </button>
       </div>
-      <div class="small-4 columns mixtape_add_track_info">
-        Our player supports YouTube and SoundCloud. Avoid other sources!
+      <div class="small-4 columns mixtape_add_track_info text-right">
+        hipMe can only play music from SoundCloud and YouTube.
       </div>
       <div class="small-8 columns mixtape_add_track_form_zone">
         <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
@@ -183,7 +183,7 @@
                   <span class="prefix">http://</span>
                 </div>
                 <div class="small-10 columns">
-                  <input type="text" name="url" placeholder="Track URL" id="input_url"/>
+                  <input type="text" name="url" placeholder="Track URL (SoundCloud or YouTube)" id="input_url"/>
                 </div>
               </div>
             </div>
