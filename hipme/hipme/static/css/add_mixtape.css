@@ -264,12 +264,21 @@
 
 .close_mixtape_zone {
   background-color: #FAFAFA;
-  padding-bottom: 0px;
-  padding-top: 10px;
+  padding-top: 18px;
 }
 
-.close_mixtape_btn {
-  margin-top: 10px;
+.close_mixtape_info {
+  display: none;
+  margin-bottom: 18px;
+}
+
+.close_mixtape_form_zone {
+  display: none;
+}
+
+.close_mixtape_form {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 
 /* Dropup */

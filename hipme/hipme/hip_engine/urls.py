@@ -34,6 +34,7 @@ urlpatterns = patterns('hip_engine.views',
     url(r'^mixtape/(?P<tracklist_id>\d+)/add/track/$', 'add_track'),
     url(r'^mixtape/(?P<tracklist_id>\d+)/bundle/(?P<bundle_id>\d+)/track/(?P<track_id>\d+)/keep/$', 'keep_track'),
     url(r'^mixtape/(?P<tracklist_id>\d+)/like/$', 'like_mixtape'),
+    url(r'^mixtape/(?P<tracklist_id>\d+)/keep/$', 'close_tracklist'),
 
     url(r'^feedback/$', 'give_feedback'),
 

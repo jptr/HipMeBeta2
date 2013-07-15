@@ -11,9 +11,9 @@
   ? </p>
   <p><i> Use the <strong> Keep/Unkeep buttons </strong> next to the tracks to keep or dump propositions. </i></p>
   <p> After the closing, you won't be able to modify this mixtape anymore. It will be ready for listening and sharing. </p>
-  <form action="/close/mixtape/" method="post">
+  <form action="/mixtape/{{tracklist.id}}/keep/" method="post">
     {% csrf_token %}
-        <input type="submit" class="button expand success radius" value="Close mixtape"/>
+    <input type="submit" class="button expand success radius" value="Close mixtape"/>
   </form>
   <a class="close-reveal-modal">&#215;</a>
 </div>

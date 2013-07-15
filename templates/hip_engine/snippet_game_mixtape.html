@@ -2,8 +2,8 @@
 {% load hip_extras %}
 
 <div class="small-12 columns mixtape
-{% if tracklist.is_time_out %} top_line_grey
-{# elif tracklist.owner == request.user.get_profile or request.user.get_profile in tracklist.userto %} top_line_yellow
+{% if tracklist.is_time_out or tracklist.is_finished %} top_line_grey
+{% elif tracklist.owner == request.user.get_profile or request.user.get_profile in tracklist.userto %} top_line_yellow
 {% else %} top_line_green 
 {% endif %}" >
   
@@ -259,11 +259,39 @@
       {% endif %}
     {% endfor %}
     {% if request.user.get_profile == tracklist.owner %}
-      <li>
-        <div class="small-12 columns close_mixtape_zone">
-          <button class="button expand radius close_mixtape_btn" data-reveal-id="closeTracklistModal"> Close your mixtape </button>
-        </div>
-      </li>
+      {% if not tracklist.is_finished %}
+        <li>
+          <div class="small-12 columns close_mixtape_zone">
+            <button class="button expand radius close_mixtape_btn_1"> Close your mixtape </button>
+            <div class="row">
+              <div class="small-12 columns close_mixtape_info">
+                Are you done selecting the tracks you want to keep in your mixtape 
+                  <strong>
+                    {% if tracklist.title %}
+                      {{tracklist.title}}
+                    {% else %}
+                      #Untitled
+                    {% endif %}
+                  </strong>
+                ? <br/>
+                <i> Use the <strong> Keep/Unkeep buttons </strong> next to the tracks to keep or dump propositions. </i> <br/>
+                After closing this mixtape, you won't be able to modify it anymore.
+              </div>
+            </div>
+            <div class="row close_mixtape_form_zone">
+              <div class="small-10 columns">
+                <form action="/mixtape/{{tracklist.id}}/keep/" method="post" class="close_mixtape_form">
+                  {% csrf_token %}
+                  <input type="submit" class="button expand success radius" value="Close mixtape"/>
+                </form>
+              </div>
+              <div class="small-2 columns">
+                <button class="button expand secondary radius close_mixtape_cancel_btn"> Cancel </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
     {% endif %}
   </ul>
 

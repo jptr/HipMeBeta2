@@ -544,6 +544,7 @@ def like_mixtape(request, tracklist_id):
 @login_required
 def close_tracklist(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+    
     if tracklist.owner == request.user.get_profile():
         tracklist.is_finished = True
         tracklist.date_latest_edit = timezone.now()

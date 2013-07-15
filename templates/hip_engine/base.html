@@ -516,6 +516,26 @@
   //   });
   </script>
 
+  <script>
+    $('.close_mixtape_btn_1').each(function(i){
+      $(this).click(function(){
+        $(".close_mixtape_btn_1:eq("+ i + ")").hide();
+        $(".close_mixtape_info:eq("+ i + ")").show();
+        $(".close_mixtape_form_zone:eq("+ i + ")").show();
+      });
+    });
+  </script>
+
+  <script>
+    $('.close_mixtape_cancel_btn').each(function(i){
+      $(this).click(function(){
+        $(".close_mixtape_btn_1:eq("+ i + ")").show();
+        $(".close_mixtape_info:eq("+ i + ")").hide();
+        $(".close_mixtape_form_zone:eq("+ i + ")").hide();
+      });
+    });
+  </script>
+
 <!-- scripts profile -->
 
   <script>
