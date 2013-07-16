@@ -457,10 +457,14 @@ def add_track(request, tracklist_id):
         tracklist.tracks_initial.add(track)
     else:
         if tracklist.bundlebacks.filter(owner=request.user.get_profile()):
-            bundleback = get_object_or_404(Bundle, owner=request.user.get_profile())
+            # bundleback = get_object_or_404(Bundle, owner=request.user.get_profile())
+            bundleback = tracklist.bundlebacks.filter(owner=request.user.get_profile())[:1].get()
+            bundleback.save()
         else:
             bundleback = Bundle(owner=request.user.get_profile())
             bundleback.save()
+            tracklist.userto.add(request.user.get_profile())
+            tracklist.save()
 
         bundleback.tracks.add(track)
         bundleback.save()
