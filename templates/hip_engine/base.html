@@ -471,14 +471,16 @@
   </script>
 
   <script>
-    $('.show_add_track_form_btn').each(function(i){
-      $(this).click(function(){
-        $(".show_add_track_form_btn_zone:eq("+ i + ")").hide();
-        $(".hide_tracks_btn_zone:eq("+ i + ")").hide();
-        $(".mixtape_add_track_info:eq("+ i + ")").show();
-        $(".mixtape_add_track_form_zone:eq("+ i + ")").show();
-        $("#input_url").focus();
-      });
+    $('.count_add_track_form_btn').each(function(i){
+      if ($(".count_add_track_form_btn:eq("+ i + ")").hasClass('show_add_track_form_btn')) {
+        $(this).click(function(){
+          $(".show_add_track_form_btn_zone:eq("+ i + ")").hide();
+          $(".hide_tracks_btn_zone:eq("+ i + ")").hide();
+          $(".mixtape_add_track_info:eq("+ i + ")").show();
+          $(".mixtape_add_track_form_zone:eq("+ i + ")").show();
+          $("#input_url").focus();
+        });
+      }
     });
   </script>
 

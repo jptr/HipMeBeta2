@@ -1,6 +1,6 @@
-#mixtape_anchor { 
+.mixtape_anchor { 
   position: relative; 
-  top: 20em;
+  top: -130px;
 }
 
 .top_line_grey {
@@ -116,12 +116,7 @@
   display: none;
 }
 
-.show_add_track_form_btn {
-  height: 82px;
-  margin-bottom: 0px;
-}
-
-.cannot_show_add_track_form_btn {
+.count_add_track_form_btn {
   height: 82px;
   margin-bottom: 0px;
 }
