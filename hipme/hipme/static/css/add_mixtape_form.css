@@ -39,3 +39,7 @@
 .create_mixtape_btn {
   margin-top: 1.5em;
 }
+
+.no_following_warning {
+  color: #ee403f;
+}

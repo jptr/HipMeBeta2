@@ -1,149 +1,156 @@
 <div id="tracklistModal" class="reveal-modal medium">
-  <div class="row">
-    <div class="small-10 small-offset-1 columns">
-      <h3> New mixtape... Ignition. </h3>
-    </div>
-  </div>
-  <div class="row">
-    <div class="small-10 small-offset-1 columns">
-      <h6> Pick contributors
-        <span data-tooltip class="has-tip" title="Choose who will contribute to your mixtape. They've got 3 days to find great tunes for you."> (help) </span>
-      </h6>
-    </div>
-  </div>
-  <div class="row">
-    <div class="small-10 small-offset-1 columns">
+  {% with request.user.get_profile.get_following|length as nb_following %}
+    {% if nb_following == 0 %}
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+          <h5 class="no_following_warning text-center"> To create a mixtape, you need to follow people first. Use the search bar to find your friends on hipMe. </h5>
+        </div>
+      </div>
+    {% else %}
       <form action="/create/mixtape/" method="post">
       {% csrf_token %}
-      {% include "hip_engine/snippet_form/snippet_form_chosen.html" with form=tracklist_form %}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="small-10 small-offset-1 columns">
-      <h6> Describe your mixtape
-      <span data-tooltip class="has-tip" title="Help your buddies understand what you want in your mixtape. Give it a name and a few tags."> (help) </span>
-    </h6>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="small-10 small-offset-1 columns">
-        <input type="text" name="title" id="right-label" placeholder="Title - max 50 characters" maxlength="50">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="small-10 small-offset-1 columns">
-      <input type="text" name="tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="small-8 small-offset-2 columns">
-      <h6> Add a few tracks
-      <span data-tooltip class="has-tip" title="You may already know a few tracks that would fit in. Add them here. It'll help your friends understand what you like."> (help) </span>
-    </h6>
-    </div>
-  </div>
-
-    <div class="row add_track_row_1">
-      <div class="small-8 small-offset-2 columns">
-        <input type="button" value="Add track" class="small button expand secondary add_track_btn_1"/>
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+          <h3> New mixtape... Ignition. </h3>
+        </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+          <h6> Pick contributors - Hold <kbd>Ctrl</kbd> to pick more than one
+            <span data-tooltip class="has-tip" title="Choose who will contribute to your mixtape among people you follow. They've got 3 days to find great tunes for you."> (help) </span>
+          </h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+          {% include "hip_engine/snippet_form/snippet_form_chosen.html" with form=tracklist_form %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+          <h6> Describe your mixtape
+          <span data-tooltip class="has-tip" title="Help your buddies understand what you want in your mixtape. Give it a name and a few tags."> (help) </span>
+        </h6>
+        </div>
+      </div>
 
-    <div class="row">
-      <div class="small-8 small-offset-2 columns add_track_form_1">
-        <div class="row collapse">
-          <div class="small-3 columns">
-            <span class="prefix"> New track </span>
-          </div>
-          <div class="small-9 columns">
-            <input type="text" name="url_1" placeholder="Enter your URL..." id="create_url_1">
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+            <input type="text" name="title" id="right-label" placeholder="Title - max 50 characters" maxlength="50">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-10 small-offset-1 columns">
+          <input type="text" name="tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-8 small-offset-2 columns">
+          <h6> Add a few tracks
+          <span data-tooltip class="has-tip" title="You may already know a few tracks that would fit in. Add them here. It'll help your friends understand what you like."> (help) </span>
+        </h6>
+        </div>
+      </div>
+
+        <div class="row add_track_row_1">
+          <div class="small-8 small-offset-2 columns">
+            <input type="button" value="Add track" class="small button expand secondary add_track_btn_1"/>
           </div>
         </div>
+
         <div class="row">
-          <div class="small-5 columns">
-            <input type="text" id="create_artist_1" name="artist_1" placeholder="Artist - optional">
-          </div>
-          <div class="small-5 columns">
-            <input type="text" id="create_track_1" name="title_1" placeholder="Track name - optional">
-          </div>
-          <div class="small-2 columns">
-            <input type="button" class="small button secondary expand add_track_cancel_1" value="X">
+          <div class="small-8 small-offset-2 columns add_track_form_1">
+            <div class="row collapse">
+              <div class="small-3 columns">
+                <span class="prefix"> New track </span>
+              </div>
+              <div class="small-9 columns">
+                <input type="text" name="url_1" placeholder="Enter your URL..." id="create_url_1">
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-5 columns">
+                <input type="text" id="create_artist_1" name="artist_1" placeholder="Artist - optional">
+              </div>
+              <div class="small-5 columns">
+                <input type="text" id="create_track_1" name="title_1" placeholder="Track name - optional">
+              </div>
+              <div class="small-2 columns">
+                <input type="button" class="small button secondary expand add_track_cancel_1" value="X">
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row add_track_row_2">
-      <div class="small-8 small-offset-2 columns">
-        <input type="button" value="Add track" class="small button expand secondary add_track_btn_2"/>
-      </div>
-    </div>
+        <div class="row add_track_row_2">
+          <div class="small-8 small-offset-2 columns">
+            <input type="button" value="Add track" class="small button expand secondary add_track_btn_2"/>
+          </div>
+        </div>
+            
+        <div class="row">
+          <div class="small-8 small-offset-2 columns add_track_form_2">
+            <div class="row collapse">
+              <div class="small-3 columns">
+                <span class="prefix"> New track </span>
+              </div>
+              <div class="small-9 columns">
+                <input type="text" name="url_2" placeholder="Enter your URL..." id="create_url_2">
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-5 columns">
+                <input type="text" id="create_artist_2" name="artist_2" placeholder="Artist - optional">
+              </div>
+              <div class="small-5 columns">
+                <input type="text" id="create_track_2" name="title_2" placeholder="Track name - optional">
+              </div>
+              <div class="small-2 columns">
+                <input type="button" class="small button secondary expand add_track_cancel_2" value="X">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row add_track_row_3">
+          <div class="small-8 small-offset-2 columns">
+            <input type="button" value="Add track" class="small button expand secondary add_track_btn_3"/>
+          </div>
+        </div>
         
-    <div class="row">
-      <div class="small-8 small-offset-2 columns add_track_form_2">
-        <div class="row collapse">
-          <div class="small-3 columns">
-            <span class="prefix"> New track </span>
-          </div>
-          <div class="small-9 columns">
-            <input type="text" name="url_2" placeholder="Enter your URL..." id="create_url_2">
+        <div class="row">
+          <div class="small-8 small-offset-2 columns add_track_form_3">
+            <div class="row collapse">
+              <div class="small-3 columns">
+                <span class="prefix"> New track </span>
+              </div>
+              <div class="small-9 columns">
+                <input type="text" name="url_3" placeholder="Enter your URL..." id="create_url_3">
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-5 columns">
+                <input type="text" id="create_artist_3" name="artist_3" placeholder="Artist - optional">
+              </div>
+              <div class="small-5 columns">
+                <input type="text" id="create_track_3" name="title_3" placeholder="Track name - optional">
+              </div>
+              <div class="small-2 columns">
+                <input type="button" class="small button secondary expand add_track_cancel_3" value="X">
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
-          <div class="small-5 columns">
-            <input type="text" id="create_artist_2" name="artist_2" placeholder="Artist - optional">
-          </div>
-          <div class="small-5 columns">
-            <input type="text" id="create_track_2" name="title_2" placeholder="Track name - optional">
-          </div>
-          <div class="small-2 columns">
-            <input type="button" class="small button secondary expand add_track_cancel_2" value="X">
+          <div class="small-10 small-offset-1 columns">
+            <input type="hidden" name="form-type" value="new-tracklist" />
+            <input type="submit" class="button expand create_mixtape_btn" value="Launch this mixtape"/>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="row add_track_row_3">
-      <div class="small-8 small-offset-2 columns">
-        <input type="button" value="Add track" class="small button expand secondary add_track_btn_3"/>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="small-8 small-offset-2 columns add_track_form_3">
-        <div class="row collapse">
-          <div class="small-3 columns">
-            <span class="prefix"> New track </span>
-          </div>
-          <div class="small-9 columns">
-            <input type="text" name="url_3" placeholder="Enter your URL..." id="create_url_3">
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-5 columns">
-            <input type="text" id="create_artist_3" name="artist_3" placeholder="Artist - optional">
-          </div>
-          <div class="small-5 columns">
-            <input type="text" id="create_track_3" name="title_3" placeholder="Track name - optional">
-          </div>
-          <div class="small-2 columns">
-            <input type="button" class="small button secondary expand add_track_cancel_3" value="X">
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row">
-      <div class="small-10 small-offset-1 columns">
-        <input type="hidden" name="form-type" value="new-tracklist" />
-        <input type="submit" class="button expand create_mixtape_btn" value="Launch this mixtape"/>
-      </div>
-    </div>
-  </form>
+      </form>
+    {% endif %}
+  {% endwith %}
   <a class="close-reveal-modal close_mixtape_form">&#215;</a>
 </div>
