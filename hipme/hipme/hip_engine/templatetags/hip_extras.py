@@ -15,7 +15,7 @@ def urlize_string(query_string):
 
 @register.filter()
 def free_spots(tracklist):
-    nb_spots = 5 - tracklist.bundlebacks.all().count()
+    nb_spots = 5 - tracklist.userto.all().count()
     return nb_spots
 
 @register.filter()
