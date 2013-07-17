@@ -377,7 +377,7 @@ def create_mixtape(request):
 
         context = {
             'tracklist_list':tracklist_list,
-            'error_message_userto': "Please add some contributors to your mixtape. Resume mixtape creation by clicking on 'New Mixtape'.",
+            'error_message_userto': "You must select at least one contributor. Click the 'New Mixtape' button to start over.",
         }
         context.update(get_generic_context(request))
         context.update(get_rankings(request))
@@ -408,7 +408,7 @@ def create_mixtape(request):
                         context = {
                             'tracklist_form':tracklist_form,
                             'tracklist_list':tracklist_list,
-                            'error_message_url': "Some track urls are invalid. Please check the url fields. Resume mixtape creation by clicking on 'New Mixtape'.",
+                            'error_message_url': "Some track urls are invalid, please check them. Click the 'New Mixtape' button to start over.",
                         }
                         context.update(get_nav_context())
                         context.update(get_rankings(request))

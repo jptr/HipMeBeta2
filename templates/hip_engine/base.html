@@ -186,6 +186,21 @@
 
   <div class="small-9 columns">
 
+  {% if error_message_userto %}
+    <div data-alert class="alert-box alert top_feed_alert">
+      {{error_message_userto}}
+      <a href="#" class="close">&times;</a>
+    </div>
+  {% endif %}
+
+  {% if error_message_url %}
+    <div data-alert class="alert-box alert top_feed_alert">
+      {{error_message_url}}
+      <a href="#" class="close">&times;</a>
+    </div>
+  {% endif %}
+
+
     {% block feed_header %}
     {% endblock feed_header %}
 

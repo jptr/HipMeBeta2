@@ -113,6 +113,10 @@ textarea {
   border-bottom: 1px solid #E6E6E6;
 }
 
+.top_feed_alert {
+  margin-top: 1.7em;
+}
+
 .search_results_title {
   margin-top: 16px;
 }
