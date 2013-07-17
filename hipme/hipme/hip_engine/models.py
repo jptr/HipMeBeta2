@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 import datetime
-from datetime import timedelta
+# from datetime import timedelta
+# seems to solve total_seconds() issue when present
 from django.utils import timezone
 from hip_engine.validation_tools import get_streaming_site_from, get_stream_id
 
@@ -167,6 +168,8 @@ class Tracklist(models.Model):
     def get_time_out(self):
         timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
         secondsLeft = timeDiff.total_seconds()
+        # secondsLeft = timeDiff.seconds + (timeDiff.days * 24 * 36000)
+        # solves total_seconds issue if present
         if secondsLeft > 0:
             return False
         else:
