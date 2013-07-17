@@ -15,6 +15,7 @@ urlpatterns = patterns('hip_engine.views',
     url(r'^profile/(?P<username>\w+)/follow/$','profile_follow'),
 
     url(r'^$','landing'),
+    url(r'^betatesters/$','landing_private'),
     url(r'^feed/$','feed'),
     url(r'^login/$','landing'),
     url(r'^signup/$','landing'),
