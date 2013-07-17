@@ -3,7 +3,7 @@
 
 <div class="small-12 columns mixtape
 {% if tracklist.is_time_out or tracklist.is_finished %} top_line_grey
-{% elif tracklist.owner == request.user.get_profile or request.user.get_profile in tracklist.userto %} top_line_yellow
+{% elif tracklist.owner == request.user.get_profile or request.user.get_profile in tracklist.userto.all %} top_line_yellow
 {% else %} top_line_green 
 {% endif %}" >
   

@@ -56,8 +56,10 @@
         <li class="divider"></li>
         <li><a href="#" data-reveal-id="howItWorks"> How does it work? </a></li>
         <li class="divider"></li>
+        {% comment %}
         <li><a href="#" data-reveal-id="about"> About </a></li>
         <li class="divider"></li>
+        {% endcomment %}
       </ul>
 
       <!-- Right Nav Section -->
@@ -89,12 +91,11 @@
   <!-- Landing Content -->
 
 <div class="row landing_content">
-  <div class="small-6 small-offset-3 columns text-center">
+  <div class="small-7 columns text-center">
     <img src="{% static "img/logo_new.png" %}" class="landing_logo">
     <h1> The social game for music discovery. </h1>
-    <h3> Coming soon. </h3>
   </div>
-  <div class="small-5 columns landing_hide">
+  <div class="small-5 columns">
     <form action="/register/" method="POST">
       {% csrf_token %}
       <fieldset>
@@ -167,11 +168,13 @@
     <a class="close-reveal-modal"> &#215; </a>
   </div>
 
+  {% comment %}
   <div id="about" class="reveal-modal medium">
     <h2> It's just the beginning... </h2>
     <h4> So buckle up, Jimbo. </h4>
     <a class="close-reveal-modal"> &#215; </a>
   </div>
+  {% endcomment %}
 
   <div id="contact" class="reveal-modal medium">
     <h2> Let's get in touch! </h2>

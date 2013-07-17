@@ -16,9 +16,15 @@ active
   </li>
 {% empty %}
     {% if profile_focused == request.user.get_profile %}
-        <p> You have no pending games. Start a <button class="small top_bar_button" data-reveal-id="tracklistModal"> new mixtape </button> </p>
+	    <div data-alert class="alert-box secondary top_feed_alert">
+	      You have no pending games. Contribute to your friends' mixtapes, or start a new one!
+	      <a href="#" class="close">&times;</a>
+	    </div>
     {% else %}
-        <p> {{profile_focused.user.username}} has no pending games. </p>
+	    <div data-alert class="alert-box secondary top_feed_alert">
+	      {{profile_focused.user.username}} has no pending games. Ask him to contribute to one of your mixtapes!
+	      <a href="#" class="close">&times;</a>
+	    </div>
     {% endif %}
 {% endfor %}
 </ul>

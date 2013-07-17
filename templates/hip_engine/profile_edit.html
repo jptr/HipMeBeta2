@@ -28,15 +28,15 @@
       {% for field in psw_form %}   
         {% if forloop.first %} 
           <div class="small-3 columns">
-            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="old password">
+            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="Current password">
           </div>
         {% elif forloop.last %} 
           <div class="small-3 columns">
-            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="new password">
+            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="New password again">
           </div>
         {% else %}
           <div class="small-3 columns">
-            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="repeat new password">
+            <input type="password" id="right-label" name="{{field.name}}" value="" placeholder="New password">
           </div>
         {% endif %}
       {% endfor %}

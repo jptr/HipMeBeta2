@@ -16,9 +16,15 @@ active
   </li>
 {% empty %}
     {% if profile_focused == request.user.get_profile %}
-        <p> Your collection is empty. Like mixtapes to add them to your collection! </p>
+	    <div data-alert class="alert-box secondary top_feed_alert">
+	      Your collection is empty. Like mixtapes to add them to your collection!
+	      <a href="#" class="close">&times;</a>
+	    </div>
     {% else %}
-        <p> There are no mixtapes to be shown at the moment. </p>
+	    <div data-alert class="alert-box secondary top_feed_alert">
+	      {{profile_focused.user.username}} does not like any mixtapes. Dork.
+	      <a href="#" class="close">&times;</a>
+	    </div>
     {% endif %}
 {% endfor %}
 </ul>

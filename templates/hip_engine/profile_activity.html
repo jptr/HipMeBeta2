@@ -19,7 +19,17 @@ active
         {% endfor %}
     </ul>
 {% else %}
-<p> There are no mixtapes to be shown at the moment. </p>
+	{% if profile_focused == request.user.get_profile %}
+	    <div data-alert class="alert-box secondary top_feed_alert">
+	      You've got no activity. You're, like, dead. Go play!
+	      <a href="#" class="close">&times;</a>
+	    </div>
+    {% else %}
+	    <div data-alert class="alert-box secondary top_feed_alert">
+	      {{profile_focused.user.username}} has not done anything yet. Ask him to contribute to one of your mixtapes!
+	      <a href="#" class="close">&times;</a>
+	    </div>
+    {% endif %}
 {% endif %}
 
 <!-- End Feed Games-->
