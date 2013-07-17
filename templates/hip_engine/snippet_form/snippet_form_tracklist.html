@@ -36,13 +36,13 @@
 
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-              <input type="text" name="title" id="right-label" placeholder="Title - max 50 characters" maxlength="50">
+              <input type="text" name="title" id="create_title" placeholder="Title - max 50 characters" maxlength="50">
           </div>
         </div>
 
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            <input type="text" name="tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80">
+            <input type="text" name="tags" id="create_tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80">
           </div>
         </div>
 
@@ -152,5 +152,5 @@
       </form>
     {% endif %}
   {% endwith %}
-  <a class="close-reveal-modal close_mixtape_form">&#215;</a>
+  <a class="close-reveal-modal exit_mixtape_creation_form">&#215;</a>
 </div>
