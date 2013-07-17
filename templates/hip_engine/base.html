@@ -23,17 +23,7 @@
   <link rel="stylesheet" href="{% static "css/add_mixtape_form.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_left_nav.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
-
   <link rel="stylesheet" href="{% static "css/chosen.css" %}"/>
-
-    
-  <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
-
-  <script type="text/javascript" src="{% static 'js/jquery-1.4.1.js' %}"></script>
-  
-  {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>{% endcomment %}
-
-  {% comment %} <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>{% endcomment %}
 
 </head>
 
@@ -278,7 +268,7 @@
 
   <!-- Joyride -->
 
-  <ol class="joyride-list" data-joyride>
+  <ol class="joyride-list" data-joyride id="hipme_joyride">
     <li data-text="Next">
       <br/>
       <h4> Welcome to hipMe, the social game for music discovery. </h4>
@@ -336,13 +326,25 @@
   {% include "hip_engine/snippet_form/snippet_form_close_mixtape.html" %}
   {% include "hip_engine/snippet_rules.html" %}
 
+<!-- End Body Content -->
+
+<!-- SCRIPTS -->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
   <script>
-  document.write('<script src={% static "js/vendor/" %}' +
-  ('__proto__' in {} ? 'zepto' : 'jquery') +
-  '.js><\/script>')
+    document.write('<script src={% static "js/vendor/" %}' +
+    ('__proto__' in {} ? 'zepto' : 'jquery') +
+    '.js><\/script>')
   </script>
 
   <script src="{% static "js/foundation.min.js" %}"></script>
+  
+  <script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
+
+  {% comment %} <script type="text/javascript" src="{% static 'js/jquery-1.4.1.js' %}"></script> {% endcomment %}
+
+  <script src="https://w.soundcloud.com/player/api.js"></script>
 
 <!-- scripts mixtape creation modal-->
 
@@ -401,7 +403,9 @@
   </script>
 
   <script>
-    $('.close_mixtape_form').click(function(){
+    $('.exit_mixtape_creation_form').click(function(){
+      document.getElementById('create_title').value = '';
+      document.getElementById('create_tags').value = '';
       document.getElementById('create_url_1').value = '';
       document.getElementById('create_artist_1').value = '';
       document.getElementById('create_track_1').value = '';
@@ -742,12 +746,15 @@
 <!-- Joyride -->
 
 <script>
-  if({{request.user.get_profile.nb_connects}} == 1) {
-    $(document).foundation('joyride', 'start');
-  };
   $("#exp_tour_link").click(function(){
     $(document).foundation('joyride', 'start');
   });
+</script>
+
+<script>
+  if({{request.user.get_profile.nb_connects}} == 1) {
+    $(document).foundation('joyride', 'start');
+  };
 </script>
 
 <!-- End joyride -->
