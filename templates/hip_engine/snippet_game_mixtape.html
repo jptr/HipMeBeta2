@@ -280,7 +280,7 @@
             </div>
             <div class="row close_mixtape_form_zone">
               <div class="small-10 columns">
-                <form action="/mixtape/{{tracklist.id}}/keep/" method="post" class="close_mixtape_form">
+                <form action="/mixtape/{{tracklist.id}}/close/" method="post" class="close_mixtape_form">
                   {% csrf_token %}
                   <input type="submit" class="button expand success radius" value="Close mixtape"/>
                 </form>
