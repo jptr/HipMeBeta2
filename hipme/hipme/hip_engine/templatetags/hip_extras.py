@@ -94,11 +94,16 @@ def delta_string(timeDiff):
 @register.filter()
 def js_tracklist(tracklist):
     js_list = []
+
     for track in tracklist.tracks_initial.all():
         js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
     for bundle in tracklist.bundlebacks.all():
-        for track in bundle.tracks.all():
-            js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
+        if tracklist.is_finished:
+            for track in bundle.tracks_kept.all():
+                js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
+        else:
+            for track in bundle.tracks.all():
+                js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
     
     if js_list:
         return "[0,"+",".join(js_list)+"]"
@@ -118,11 +123,18 @@ def js_track(tracklist, current_track_id):
         track_counter += 1
     
     for bundle in tracklist.bundlebacks.all():
-        for track in bundle.tracks.all():
-            js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
-            if track.id == current_track_id:
-                index_current_track = track_counter
-            track_counter += 1
+        if tracklist.is_finished:
+            for track in bundle.tracks_kept.all():
+                js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
+                if track.id == current_track_id:
+                    index_current_track = track_counter
+                track_counter += 1
+        else:
+            for track in bundle.tracks.all():
+                js_list.append("['" + track.site_from + "','" + track.stream_id + "']")
+                if track.id == current_track_id:
+                    index_current_track = track_counter
+                track_counter += 1
     
     if js_list:
         return "["+str(index_current_track)+","+",".join(js_list)+"]"
