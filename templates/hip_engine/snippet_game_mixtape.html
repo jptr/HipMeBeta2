@@ -12,7 +12,7 @@
   </span>
   <div class="row mixtape_header">
     <div class="small-8 columns">
-      <div class="small-6 mixtape_info">
+      <span class="mixtape_info">
         {% with tracklist|free_spots as nb_spots %}
           {% if tracklist.is_time_out %}
             {% if tracklist.is_finished %}
@@ -24,7 +24,8 @@
             {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|delta_string }} left
           {% endif %}
         {% endwith %}
-      </div>
+      </span>
+      <br/>
       <text class="mixtape_title">
         {% if tracklist.title %}
           {{tracklist.title}}
