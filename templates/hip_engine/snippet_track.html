@@ -3,7 +3,7 @@
 
 <div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
   <div class="columns track
-  {% if request.user.get_profile == tracklist.owner and track not in tracklist.tracks_initial.all %} small-10 {% else %} small-12 {% endif %}">
+  {% if track not in tracklist.tracks_initial.all and not tracklist.is_finished %} small-10 {% else %} small-12 {% endif %}">
     <a href="{{ track.url }}" target="_blank">
       {% if track.site_from == 'youtube' %}
         <img src="{% static "img/icons/youtube_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;
@@ -40,22 +40,26 @@
       {% endif %}
     </a>
   </div>
-  {% if request.user.get_profile == tracklist.owner %}
+  {% if track not in tracklist.tracks_initial.all %}
     {% if not tracklist.is_finished %}
-      {% if track not in tracklist.tracks_initial.all %}
-        <div class="small-2 columns">
+      <div class="small-2 columns">
+        {% if request.user.get_profile == tracklist.owner %}
           <form action="/mixtape/{{tracklist.id}}/bundle/{{bundle.id}}/track/{{track.id}}/keep/" method="post" class="select_track_form">
             <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}"/>
             {% csrf_token %}
-            {% if track in tracklist.tracks_kept.all %}
+            {% if track in bundle.tracks_kept.all %}
               <input type="submit" class="tiny button expand success kept_track_btn" value="Kept">
               <input type="submit" class="tiny button expand alert unkeep_track_btn" value="Unkeep">
             {% else %}
               <input type="submit" class="tiny button expand keep_track_btn" value="Keep">
             {% endif %}
           </form>
-        </div>
-      {% endif %}
+        {% else %}
+          {% if track in bundle.tracks_kept.all %}
+            <div class="label expand"> Kept </div>
+          {% endif %}
+        {% endif %}
+      </div>
     {% endif %}
   {% endif %}
 </div>

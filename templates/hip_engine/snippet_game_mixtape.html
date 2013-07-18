@@ -16,9 +16,9 @@
         {% with tracklist|free_spots as nb_spots %}
           {% if tracklist.is_time_out %}
             {% if tracklist.is_finished %}
-              {{ tracklist.time_delta|delta_string }} ago
+              Closed {{ tracklist.time_delta|delta_string }} ago
             {% else %}
-              game is over &nbsp / &nbsp waiting for {{tracklist.owner.user.username}}
+              Contributions are over &nbsp / &nbsp waiting for {{tracklist.owner.user.username}}
             {% endif %}
           {% else %}
             {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|delta_string }} left
@@ -233,32 +233,61 @@
         </div>
       </li>
     {% endif %}
-    {% for bundle in tracklist.bundlebacks.all %}
-      {% if bundle.tracks.all %}
-        <li>
-          <div class="small-12 columns mixtape_bundle ">
-            <div class="row collapse">
-              <div class="small-4 columns bundle_profile">
-                {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
-              </div>
-              <div class="small-8 columns 
-                {% if bundle.tracks.all|length_is:"1" %} bundle_tracklist_1
-                {% elif bundle.tracks.all|length_is:"2" %} bundle_tracklist_2
-                {% elif bundle.tracks.all|length_is:"3" %} bundle_tracklist_3
-                {% endif %}">
-                <ul class="no-bullet">
-                  {% for track in bundle.tracks.all %}
-                    <li>
-                      {% include "hip_engine/snippet_track.html" %}
-                    </li>
-                  {% endfor %}
-                </ul>
+    {% if not tracklist.is_finished %}
+      {% for bundle in tracklist.bundlebacks.all %}
+        {% if bundle.tracks.all %}
+          <li>
+            <div class="small-12 columns mixtape_bundle ">
+              <div class="row collapse">
+                <div class="small-4 columns bundle_profile">
+                  {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
+                </div>
+                <div class="small-8 columns 
+                  {% if bundle.tracks.all|length_is:"1" %} bundle_tracklist_1
+                  {% elif bundle.tracks.all|length_is:"2" %} bundle_tracklist_2
+                  {% elif bundle.tracks.all|length_is:"3" %} bundle_tracklist_3
+                  {% endif %}">
+                  <ul class="no-bullet">
+                    {% for track in bundle.tracks.all %}
+                      <li>
+                        {% include "hip_engine/snippet_track.html" %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-      {% endif %}
-    {% endfor %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% for bundle in tracklist.bundlebacks.all %}
+        {% if bundle.tracks_kept.all %}
+          <li>
+            <div class="small-12 columns mixtape_bundle ">
+              <div class="row collapse">
+                <div class="small-4 columns bundle_profile">
+                  {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
+                </div>
+                <div class="small-8 columns 
+                  {% if bundle.tracks_kept.all|length_is:"1" %} bundle_tracklist_1
+                  {% elif bundle.tracks_kept.all|length_is:"2" %} bundle_tracklist_2
+                  {% elif bundle.tracks_kept.all|length_is:"3" %} bundle_tracklist_3
+                  {% endif %}">
+                  <ul class="no-bullet">
+                    {% for track in bundle.tracks_kept.all %}
+                      <li>
+                        {% include "hip_engine/snippet_track.html" %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
     {% if request.user.get_profile == tracklist.owner %}
       {% if not tracklist.is_finished %}
         <li>

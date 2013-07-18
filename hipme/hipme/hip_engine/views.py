@@ -498,6 +498,7 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
     track = get_object_or_404(Track, pk=track_id)
 
     if track not in tracklist.tracks_kept.all():
+        bundleback.tracks_kept.add(track)
         tracklist.tracks_kept.add(track)
 
         event = Event(main_profile = tracklist.owner, secondary_profile=request.user.get_profile(), event_type = "keep_track")
@@ -511,6 +512,7 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
         bundleback.nb_tracks_kept += 1
 
     else:
+        bundleback.tracks_kept.remove(track)
         tracklist.tracks_kept.remove(track)
         tracklist.date_latest_edit = timezone.now()
 

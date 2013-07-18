@@ -124,6 +124,7 @@ class Track(models.Model):
 class Bundle(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='bundles_created')
     tracks = models.ManyToManyField('Track', related_name='bundle_from', blank=True)
+    tracks_kept = models.ManyToManyField('Track', related_name='bundle_kept_from', blank=True)
     date_created = models.DateTimeField('date of creation', default=timezone.now())
     nb_tracks_kept = models.IntegerField(default=0)
 
