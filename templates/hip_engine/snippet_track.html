@@ -3,7 +3,7 @@
 
 <div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
   <div class="columns track
-  {% if request.user.get_profile == tracklist.owner %} small-10 {% else %} small-12 {% endif %}">
+  {% if request.user.get_profile == tracklist.owner and track not in tracklist.tracks_initial.all %} small-10 {% else %} small-12 {% endif %}">
     <a href="{{ track.url }}" target="_blank">
       {% if track.site_from == 'youtube' %}
         <img src="{% static "img/icons/youtube_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;

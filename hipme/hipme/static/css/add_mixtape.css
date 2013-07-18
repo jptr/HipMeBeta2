@@ -214,8 +214,10 @@
 }
 
 .track {
+  height: 25px;
   padding-top: 3px;
   font-size: 12px;
+  overflow: hidden;
 }
 
 .site_from_icon {
