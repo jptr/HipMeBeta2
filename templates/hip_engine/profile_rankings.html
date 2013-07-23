@@ -2,9 +2,12 @@
 {% load staticfiles %}
 
 {% block feed_header %}
-
-<h3 class="ranking_title"> Ranking </h3>
-
+	<div class="small-12 columns ranking_header">
+		<img src="{% static "img/icons/star_orange.png" %}" width="40px" class="ranking_header_img"/>
+		<h3 class="ranking_title"> Ranking </h3>
+		<h6> This is how you and the people you follow rank on hipMe. </h6>
+		<h6> Contribute to mixtapes to get points. Try to beat your friends! </h6>
+	</div>
 {% endblock feed_header %}
 
 {% block main_feed %}

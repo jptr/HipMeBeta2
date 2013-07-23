@@ -160,36 +160,6 @@
   margin-top: 32px;
 }
 
-/* Mini-profiles */
-
-.mini_profile_avatar {
-  display: inline-block;
-  width: 60px;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.mini_profile_right_section {
-  display: inline-block;
-  vertical-align: top;
-  padding-top: 5px;
-}
-
-.mini_profile_username {
-  display: inline-block;
-  vertical-align: top;
-  font-size: 12px;
-}
-
-.mini_profile_score {
-  font-size: 12px;
-  font-weight: bold;
-  color: #444444;
-  margin-left: 10px;
-}
-
-/* End mini-profiles */
-
 .bundle_tracklist_1 {
   margin-top: 44px;
 }

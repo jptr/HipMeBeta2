@@ -13,7 +13,13 @@
 
 {% block feed_nav %}
 
-<h3> {{ profile_focused.user.username }}'s followers: </h3>
+<h3 class="profile_people_header">
+    {% if profile_focused == request.user.get_profile %}
+        Your followers:
+    {% else %}
+        {{ profile_focused.user.username }}'s followers:
+    {% endif %}
+</h3>
 
 {% endblock feed_nav %}
 
@@ -26,7 +32,6 @@
         <li>
             {% include "hip_engine/snippet_profile.html" %}
                 {% if not forloop.last %}
-                <hr/>
                 {% endif %}
         </li>
     {% endfor %}

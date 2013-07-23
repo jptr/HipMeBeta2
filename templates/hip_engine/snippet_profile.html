@@ -6,37 +6,36 @@
       <div class="small-2 columns">
         <a href="/profile/{{profile_focused.user.username}}/">
           {% if profile_focused.avatar %}
-            <img src="{{MEDIA_URL}}{{ profile_focused.avatar.name }}" class="profile_avatar"/>
-          {% else %}
+            <!-- <img src="{{MEDIA_URL}}{{ profile_focused.avatar.name }}" class="profile_avatar"/> -->
             <img src="{{MEDIA_URL}}profile_pics/default.jpg" class="profile_avatar"/>
+          {% else %}
+            <img src="{% static "img/default.jpg" %}" class="profile_avatar"/>
           {% endif %}
         </a>
       </div>
-      <div class="small-10 columns">
+      <div class="small-10 columns profile_adjust_height">
         <div class="row">
           <div class="small-12 columns">
             <h3><a href="/profile/{{ profile_focused.user.username }}/" class= "left"> {{ profile_focused.user.username }} </a></h3>
-            {% if profile_focused == request.user.get_profile %}
-              <a href="/profile/{{request.user.username}}/edit/">&nbsp&nbspedit</a>
-            {% else %}
               <form action="/profile/{{profile_focused.user.username}}/follow/" method="post" class="like_btn_form">
                 {% csrf_token %}                
-                {% if profile_focused not in request.user.get_profile.get_following %}
-                  <input type="submit" class="button tiny left profile_flw_btn" value="Follow"> 
-                {% else %}
-                  <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
-                  <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
+                {% if profile_focused != request.user.get_profile %}
+                    {% if profile_focused not in request.user.get_profile.get_following %}
+                    <input type="submit" class="button tiny left profile_flw_btn" value="Follow"> 
+                  {% else %}
+                    <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
+                    <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
+                  {% endif %}
                 {% endif %}
                 <input name="next" type="hidden" value="{{request.get_full_path}}" />
               </form>
-            {% endif %}
           </div>
         </div>
         <h6>
-          <img src="{% static "img/icons/star_green.png" %}" width="20px" />
+          <img src="{% static "img/icons/star_green.png" %}" width="20px" class="profile_info_star" />
           {{ profile_focused.reputation }} point{{ profile_focused.reputation|pluralize }}
           &nbsp;|&nbsp;
-          <img src="{% static "img/icons/arrow_left_green.png" %}" width="20px" />
+          <img src="{% static "img/icons/arrow_left_green.png" %}" width="20px" class="profile_info_arw" />
           {% with profile_focused.get_followers|length as nb_followers %}
             {% if nb_followers == 0 %}
               no followers
@@ -45,14 +44,19 @@
             {% endif %}
           {% endwith %}
           &nbsp;|&nbsp;
-          <img src="{% static "img/icons/arrow_right_green.png" %}" width="20px" />
+          <img src="{% static "img/icons/arrow_right_green.png" %}" width="20px" class="profile_info_arw" />
           {% with profile_focused.get_following|length as nb_following %}
             {% if nb_following == 0 %}
               no following
             {% else %}
               <a href="/profile/{{ profile_focused.user.username }}/following/"> {{nb_following}} following </a>
             {% endif %}
-            {% endwith  %}
+          {% endwith  %}
+          {% if profile_focused == request.user.get_profile %}
+            &nbsp;|&nbsp;
+            <img src="{% static "img/icons/wheel_green.png" %}" width="20px" class="profile_info_wheel" />
+            <a class="" href="/profile/{{request.user.username}}/edit/"> edit profile </a>
+          {% endif %}
         </h6>
         <ul class="inline-list">
         </ul>

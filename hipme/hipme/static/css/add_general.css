@@ -33,13 +33,6 @@ textarea {
   margin-bottom: 0em;
 }
 
-.tag_profile {
-  width: 9em;
-  margin-bottom: 5px;
-  background-color: #ee403f;
-  color: white;
-}
-
 .tag_howitworks {
   border-radius: 3px;
   font-weight: bold;
@@ -55,43 +48,9 @@ textarea {
   color: white; 
 }
 
-.profile {
-  margin-top: 13px;
-  padding-top: 0em;
-  padding-bottom: 0em;
-}
-
 .feed_sub_nav {
   margin-top: 1em;
   font-size: 18px;
-}
-
-.profile_flw_btn {
-  margin-left: 2em;
-}
-
-.profile_flwd_btn {
-  margin-left: 2em;
-}
-
-.profile_unflw_btn {
-  display: none;
-  margin-left: 2em;
-}
-
-.label_link a {
-  color: white;
-}
-
-.edit_profile {
-  font-size: 10px;
-}
-
-.mini_profile_username {
-  color: black;
-  font-weight: bold;
-  padding-bottom: 5px;
-  font-size: 3px;
 }
 
 .no_padding_left {
@@ -120,8 +79,21 @@ textarea {
   margin-top: 16px;
 }
 
+.profile_people_header {
+  margin-top: 1.5em;
+}
+
+.ranking_header {
+  margin-top: 20px;
+}
+
+.ranking_header_img {
+  margin-bottom: 20px;
+}
+
 .ranking_title {
-  margin-top: 16px;
+  margin-left: 10px;
+  display: inline;
 }
 
 #feedback_text {

@@ -315,6 +315,7 @@ def profile_rankings(request, username):
 
         context = {'full_rankings_profile_list':profile_list,}
         context.update(get_generic_context(request))
+        context.update(get_rankings(request))
 
         return render_to_response('hip_engine/profile_rankings.html', context, context_instance=RequestContext(request))
     else:
