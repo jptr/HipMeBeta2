@@ -34,8 +34,8 @@ def parseTags(string_tags):
     return tags
 
 def get_streaming_site_from(url):
-    regex_youtube = '^(https?:\/\/)?(?:www\.)?youtube.com\/watch\?(?=.*v=[a-zA-Z0-9\-]+)v=\S+$'
-    regex_youtube_short = '^(https?:\/\/)?(?:www\.)?youtu.be\/[a-zA-Z0-9]+$'
+    regex_youtube = '^(https?:\/\/)?(?:www\.)?youtube.com\/watch\?(?=.*v=[a-zA-Z0-9\-\_]+)v=\S+$'
+    regex_youtube_short = '^(https?:\/\/)?(?:www\.)?youtu.be\/[a-zA-Z0-9\-\_]+$'
     regex_soundcloud = '^(https?:\/\/)?(?:www\.)?soundcloud.com\/[a-zA-Z0-9\-]+\/[a-zA-Z0-9\-]+(\/)?$'
     regex_grooveshark = '^(https?:\/\/)?(?:www\.)?grooveshark.com\/(#!\/)?s\/[a-zA-Z0-9\+]+\/\S+?$'
     regex_hypem = '^(https?:\/\/)?(?:www\.)?hypem.com\/track\/\S+?$'
@@ -52,8 +52,8 @@ def get_streaming_site_from(url):
         return 'unknown'
 
 def get_stream_id(url, site_from):
-    regex_youtube = '^(https?:\/\/)?(?:www\.)?youtube.com\/watch\?(?=.*v=[a-zA-Z0-9\-]+)v=(?P<id>\S+)$'
-    regex_youtube_short = '^(https?:\/\/)?(?:www\.)?youtu.be\/?(?=.*v=[a-zA-Z0-9\-]+)v=(?P<id>\S+)$'
+    regex_youtube = '^(https?:\/\/)?(?:www\.)?youtube.com\/watch\?(?=.*v=[a-zA-Z0-9\-\_]+)v=(?P<id>\S+)$'
+    regex_youtube_short = '^(https?:\/\/)?(?:www\.)?youtu.be\/?(?=.*v=[a-zA-Z0-9\-\_]+)v=(?P<id>\S+)$'
     regex_soundcloud = '^(https?:\/\/)?(?:www\.)?soundcloud.com\/[a-zA-Z0-9\-]+\/[a-zA-Z0-9\-]+(\/)?$'
     regex_grooveshark = '^(https?:\/\/)?(?:www\.)?grooveshark.com\/(#!\/)?s\/[a-zA-Z0-9\+]+\/\S+?$'
     regex_hypem = '^(https?:\/\/)?(?:www\.)?hypem.com\/track\/\S+?$'
