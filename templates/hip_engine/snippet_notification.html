@@ -7,9 +7,19 @@
     {% with tracklist.latest_event.main_profile as main_profile %}
     {% with tracklist.latest_event.secondary_profile as secondary_profile %}
       {% if event_type == "add_track" %}
-          <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> added a track to {{ secondary_profile.user.username }}'s mixtape
+          <a href="/profile/{{main_profile.user.username}}/">
+            {{ main_profile.user.username }}
+          </a> added a track to 
+          <a href="/profile/{{secondary_profile.user.username}}/">
+            {{ secondary_profile.user.username }}
+          </a>'s mixtape
       {% elif event_type == "keep_track" %}
-          <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> kept one of {{ secondary_profile.user.username }}'s tracks in his mixtape
+          <a href="/profile/{{main_profile.user.username}}/">
+            {{ main_profile.user.username }}
+          </a> kept one of
+          <a href="/profile/{{secondary_profile.user.username}}/">
+            {{ secondary_profile.user.username }}
+          </a>'s tracks in his mixtape
       {% elif event_type == "creation" %}
           <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> created a mixtape
       {% elif event_type == "closing" %}
