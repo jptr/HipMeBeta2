@@ -99,8 +99,8 @@ class Relationship(models.Model):
 
 class Track(models.Model):
     url = models.URLField(help_text='from soundcloud, youtube, hypemachine, grooveshark, deezer')
-    artist = models.CharField(max_length=200, blank=True, help_text='optionnal')
-    name = models.CharField(max_length=200, blank=True, help_text='optionnal')
+    artist = models.CharField(max_length=200, blank=True, help_text='optional')
+    name = models.CharField(max_length=200, blank=True, help_text='optional')
     bundle = models.ManyToManyField('Bundle', related_name='followed_by', null=True, blank=True)
     date_added = models.DateTimeField('date of creation', default=timezone.now())
     def __unicode__(self):
@@ -189,7 +189,7 @@ class Tracklist(models.Model):
         return u"tracklist %s created by %s - %s" % (self.id, self.owner, self.title)
 
 class Tag(models.Model):
-    name = models.CharField(max_length=40, help_text='optionnal')
+    name = models.CharField(max_length=40, help_text='optional')
     def __unicode__(self):
         return self.name
 
