@@ -498,7 +498,7 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
         bundleback.tracks_kept.add(track)
         tracklist.tracks_kept.add(track)
 
-        event = Event(main_profile = tracklist.owner, secondary_profile=request.user.get_profile(), event_type = "keep_track")
+        event = Event(main_profile = tracklist.owner, secondary_profile=bundleback.owner, event_type = "keep_track")
         event.save()
         tracklist.latest_event = event
 
