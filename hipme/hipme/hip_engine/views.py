@@ -640,8 +640,12 @@ def register(request):
     for field_key in ['username', 'email_1', 'email_2', 'password']:
         if not request.POST[field_key]:
             all_fields = False
-            if 'email' in field_key:
-                context.update({'error_message_email': "You must fill in all of the fields.",})
+            if 'email_2' in field_key:
+                context.update({'error_message_email_2': "You must fill in all of the fields.",})
+            elif 'email_1' in field_key:
+                context.update({'error_message_email_1': "You must fill in all of the fields.",})
+            elif 'password' in field_key:
+                context.update({'error_message_password': "You must fill in all of the fields.",})
             else:
                 context.update({'error_message_username': "You must fill in all of the fields.",})
     if all_fields:
@@ -654,13 +658,13 @@ def register(request):
                             login_process(request)
                             return HttpResponseRedirect(reverse('hip_engine.views.feed'))
                         else:
-                            context.update({'error_message_email': "Your email is not valid. Please try again",})
+                            context.update({'error_message_email_1': "Your email is not valid. Please try again",})
                             return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request))
                     else:
-                        context.update({'error_message_email': "Email already exists. Please choose another one",})
+                        context.update({'error_message_email_1': "Email already exists. Please choose another one",})
                         return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request)) 
                 else:
-                    context.update({'error_message_email': "Your emails do not match. Please try again",})
+                    context.update({'error_message_email_2': "Your emails do not match. Please try again",})
                     return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request))
             else:
                 context.update({'error_message_username': "Username already exists. Please choose another one.",})

@@ -108,14 +108,19 @@
         </div>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
+            {% if error_message_password %}
+              <input type="password" class="error" id="right-label" value="{{password}}" name="password" placeholder="Password">
+              <small class="error">{{error_message_password}}</small>  
+            {% else %}    
+              <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
+            {% endif %}
           </div>
         </div>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            {% if error_message_email %}
+            {% if error_message_email_1 %}
               <input type="text" class="error" id="right-label" name="email_1" value="{{email_1}}" placeholder="Email">
-              <small class="error">{{error_message_email}}</small>
+              <small class="error">{{error_message_email_1}}</small>
             {% else %}
               <input type="text" id="right-label" value="{{email_1}}" name="email_1" placeholder="Email (you won't get spammed)">
             {% endif %}
@@ -123,9 +128,9 @@
         </div>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            {% if error_message_email %}
+            {% if error_message_email_2 %}
               <input type="text" class="error" id="right-label" name="email_2" value="{{email_2}}" placeholder="Repeat Email">
-              <small class="error">{{error_message_email}}</small>
+              <small class="error">{{error_message_email_2}}</small>
             {% else %}
               <input type="text" id="right-label" value="{{email_2}}" name="email_2" placeholder="Repeat Email (no spam either...)">
             {% endif %}
