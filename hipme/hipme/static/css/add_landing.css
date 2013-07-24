@@ -18,3 +18,18 @@
 .login_error {
 	margin-top: 20px;
 }
+
+.tag_howitworks {
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
+  display: inline-block;
+  position: relative;
+  padding: 0.1875em 0.625em 0.25em;
+  font-size: 0.875em;
+  background-color: #ee403f;
+  color: white; 
+}
