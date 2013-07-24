@@ -626,9 +626,9 @@ def login_process(request):
             else:
                 return HttpResponseRedirect(reverse('hip_engine.views.feed'))
         else:
-            return render_to_response('hip_engine/landing_page_withsignup.html', {'error_message': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
+            return render_to_response('hip_engine/landing_page_withsignup.html', {'error_message_login': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
     else:
-        return render_to_response('hip_engine/landing_page_withsignup.html', {'error_message': "Your username and password do not match. Please try again.",}, context_instance=RequestContext(request))  
+        return render_to_response('hip_engine/landing_page_withsignup.html', {'error_message_login': "Your username and password do not match. Please try again.",}, context_instance=RequestContext(request))  
 
 def register(request):
     username = request.POST['username']

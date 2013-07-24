@@ -3,7 +3,7 @@
 }
 
 .landing_content {
-  margin-top: 5.8em;
+  margin-top: 70px;
   margin-bottom: 5em;
 }
 
@@ -13,4 +13,8 @@
 
 .landing_hide {
 	display: none;
+}
+
+.login_error {
+	margin-top: 20px;
 }
