@@ -131,7 +131,7 @@
         {% else %}
           {% if request.user.get_profile not in tracklist.userto.all and tracklist.owner != request.user.get_profile %}
             {% if tracklist.userto.all|length_is:"5" %}
-              <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> Mixtape full - you can't contribute... </button>
+              <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> There are 5 contributors already: no room for you... </button>
             {% else %}
               <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Jump in and add a track! </button>
             {% endif %}
