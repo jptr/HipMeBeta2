@@ -475,7 +475,7 @@ def add_track(request, tracklist_id):
 
         tracklist.bundlebacks.add(bundleback)
 
-        event = Event(main_profile = request.user.get_profile(), secondary_profile=tracklist.owner,event_type = "new_track")
+        event = Event(main_profile = bundleback.owner, secondary_profile=tracklist.owner,event_type = "new_track")
         event.save()
         tracklist.latest_event = event
 
