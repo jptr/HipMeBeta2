@@ -25,10 +25,6 @@
 
   <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
-  <link href="{% static 'css/chosen.css' %}" rel="stylesheet">
-  <script type="text/javascript" src="{% static 'js/chosen.jquery.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/chosen.jquery_ready.js' %}"></script>
-
   {{ form.media.css }}
 
   {{ form.media.js }}
@@ -209,11 +205,6 @@
   </script>
 
   <script src="{% static "js/foundation.min.js" %}"></script>
-
-  <script>
-    $(document).foundation();
-    $(".chzn-select").chosen()
-  </script>
 
 </body>
 </html>

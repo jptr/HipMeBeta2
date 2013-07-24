@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="{% static "css/add_left_nav.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_profiles.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
-  <link rel="stylesheet" href="{% static "css/chosen.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/select2.css" %}"/>
 
 </head>
 
@@ -326,7 +326,7 @@
 
 <!-- SCRIPTS -->
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
   <script>
     document.write('<script src={% static "js/vendor/" %}' +
@@ -339,6 +339,19 @@
   <script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
   {% comment %} <script type="text/javascript" src="{% static 'js/jquery-1.4.1.js' %}"></script> {% endcomment %}
+
+  <script src="{% static "js/select2.js" %}"></script>
+
+  <script>
+    $(document).ready(function() {
+      $("#contribSelect").select2({
+        width: 'resolve',
+        placeholder: "Type and find!",
+        allowClear: true,
+        maximumSelectionSize: 5
+      });
+    });
+  </script>
 
   <script src="https://w.soundcloud.com/player/api.js"></script>
 
@@ -754,12 +767,6 @@
 </script>
 
 <!-- End joyride -->
-
-  <script src="{% static "js/chosen.jquery.js" %}"  type="text/javascript"></script>
-  <script>
-    $(document).foundation();
-    $(".chzn-select").chosen()
-  </script>
 
 {% analytics "UA-38449021-1" %}
 </body>

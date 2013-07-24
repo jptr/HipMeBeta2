@@ -369,10 +369,6 @@ def test_forms(request):
 
     return render_to_response('hip_engine/forms.html', {'email_form':email_form, 'email_notif_form':email_notif_form, 'tracklist_form':tracklist_form, 'track_form':track_form}, context_instance=RequestContext(request))
 
-@login_required
-def test_chosen(request):
-    return render_to_response('hip_engine/test_chosen.html', {}, context_instance=RequestContext(request))
-
 # action views
 @login_required
 def create_mixtape(request):
