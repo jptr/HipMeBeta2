@@ -47,16 +47,35 @@ def get_tracklist_form_context(request):
     return context
 
 def get_rankings(request):
+    my_index = 0
+    in_list = False
+
     follows_queryset = request.user.get_profile().get_following()
     profile_list = list(follows_queryset.distinct().order_by('-reputation'))
+
     for index in range(len(profile_list)):
         if profile_list[index].reputation <= request.user.get_profile().reputation:
-            profile_list = profile_list[max(0, index-2):index+2]
+            profile_list.insert(index, request.user.get_profile())
+            my_index = index
+            in_list = True
             break
 
-    profile_list.insert(2, request.user.get_profile())
+    if in_list == False:
+        profile_list.append(request.user.get_profile())
+        my_index = len(profile_list)-1
 
-    context = {'ranking_profile_list':profile_list,}
+    mini_rank_list = [request.user.get_profile()]
+
+    if my_index > 0:
+        mini_rank_list.insert(0, profile_list[my_index-1])
+    if my_index > 1:
+        mini_rank_list.insert(0, profile_list[my_index-2])
+    if my_index < len(profile_list)-1:
+        mini_rank_list.append(profile_list[my_index+1])
+    if my_index < len(profile_list)-2:
+        mini_rank_list.append(profile_list[my_index+2])
+
+    context = {'ranking_profile_list':mini_rank_list,}
     return context
 
 def get_generic_context(request):
