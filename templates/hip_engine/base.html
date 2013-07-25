@@ -641,8 +641,8 @@
 
       var mixIdList;
       var hasPlayer = false;
-      var mixIter = 0;
-      var mixIterRef = 0;
+      var mixIter = 1;
+      var mixIterRef = 1;
 
     // Functions
 
@@ -652,6 +652,7 @@
         }
         mixIdList = mixIdListInput;
         mixIter = mixIdList[0] + 1;
+        mixIterRef = mixIter;
         if (mixIdList[mixIter][0] == 'youtube' || mixIdList[mixIter][0] == 'soundcloud') {
           hipmePlayTrack();
         } else {
@@ -706,7 +707,6 @@
 
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-          mixIterRef = mixIter;
           hipmePreNext();
         }
       }
@@ -718,17 +718,17 @@
 
       function hipmeNext() {
         if (mixIter + 1 != mixIdList.length) {
-          // Initiate next track
-          mixIter++;
-          if (mixIdList[mixIter][0] == 'youtube' || mixIdList[mixIter][0] == 'soundcloud'){
+          if (mixIdList[mixIter+1][0]=='youtube'||mixIdList[mixIter+1][0]=='soundcloud'){
             // Kill current player
             if (hasPlayer) {
               hipmeKill();
             }
             // Play new track
+            mixIter++;
             hipmePlayTrack();
           } else {
             // Skip unreadable tracks
+            mixIter++;
             hipmeNext();
           }
         } else {
@@ -743,17 +743,17 @@
 
       function hipmePrevious() {
         if (mixIter != 1) {
-          // Initiate prev track
-          mixIter--;
-          if (mixIdList[mixIter][0] == 'youtube' || mixIdList[mixIter][0] == 'soundcloud'){
+          if (mixIdList[mixIter-1][0]=='youtube'||mixIdList[mixIter-1][0]=='soundcloud'){
             // Kill current player
             if (hasPlayer) {
               hipmeKill();
             }
             // Play new track
+            mixIter--;
             hipmePlayTrack();
           } else {
             // Skip unreadable tracks
+            mixIter--;
             hipmePrevious();
           }
         } else {
@@ -782,11 +782,11 @@
       function hipmeKill() {
 
         // Kills YouTube player
-        if (mixIdList[mixIter][0] == 'youtube') {
+        if (mixIdList[mixIterRef][0] == 'youtube') {
           player.destroy();
 
         // Stops and hides SoundCloud player
-        } else {
+        } else if (mixIdList[mixIterRef][0] == 'soundcloud') {
           widget.pause();
           $("#sc-widget").hide();
         };
