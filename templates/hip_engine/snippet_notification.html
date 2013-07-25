@@ -25,7 +25,12 @@
       {% elif event_type == "closing" %}
           <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> closed his mixtape
       {% else %}
-          <a href="/profile/{{main_profile.user.username}}/"> {{ main_profile.user.username }} </a> added a track to {{ secondary_profile.user.username }}'s mixtape
+          <a href="/profile/{{main_profile.user.username}}/">
+            {{ main_profile.user.username }}
+          </a> added a track to
+          <a href="/profile/{{secondary_profile.user.username}}/">
+            {{ secondary_profile.user.username }}
+          </a>'s mixtape
       {% endif %}
     {% endwith %}
     {% endwith %}
