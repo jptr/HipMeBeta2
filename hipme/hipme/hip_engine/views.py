@@ -459,6 +459,11 @@ def add_track(request, tracklist_id):
 
     if request.user.get_profile() == tracklist.owner:
         tracklist.tracks_initial.add(track)
+
+        event = Event(main_profile=tracklist.owner, event_type="add_track_owner")
+        event.save()
+        tracklist.latest_event = event
+
     else:
         if tracklist.bundlebacks.filter(owner=request.user.get_profile()):
             # bundleback = get_object_or_404(Bundle, owner=request.user.get_profile())
@@ -475,7 +480,7 @@ def add_track(request, tracklist_id):
 
         tracklist.bundlebacks.add(bundleback)
 
-        event = Event(main_profile = bundleback.owner, secondary_profile=tracklist.owner,event_type = "new_track")
+        event = Event(main_profile=bundleback.owner, secondary_profile=tracklist.owner, event_type="add_track_contrib")
         event.save()
         tracklist.latest_event = event
 
