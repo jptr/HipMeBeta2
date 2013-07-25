@@ -112,10 +112,10 @@
       <!-- Player Controls -->
 
       <div id="hipme_player_controls" class="text-center">
-        <a id="hipme_player_previous" onClick="hipmePrevious()">
+        <a id="hipme_player_previous" onClick="hipmePrePrevious()">
           <img src="{% static "img/icons/backward_green.png" %}" width="32px"/>
         </a>
-        <a id="hipme_player_next" onClick="hipmeNext()">
+        <a id="hipme_player_next" onClick="hipmePreNext()">
           <img src="{% static "img/icons/forward_green.png" %}" width="32px"/>
         </a>
       </div>
@@ -640,21 +640,26 @@
     // Init for hipMe
 
       var mixIdList;
-      var mixIter = 'noPlayer';
+      var hasPlayer = false;
+      var mixIter = 0;
+      var mixIterRef = 0;
 
     // Functions
 
       function loadMix(mixIdListInput) {
-        if (mixIter != 'noPlayer') {
+        if (hasPlayer) {
           hipmeKill();
         }
         mixIdList = mixIdListInput;
         mixIter = mixIdList[0] + 1;
-        hipmePlayTrack();
+        if (mixIdList[mixIter][0] == 'youtube' || mixIdList[mixIter][0] == 'soundcloud') {
+          hipmePlayTrack();
+        } else {
+          hipmePreNext();
+        }
       }
 
       function hipmePlayTrack() {
-
         $("#hipme_player_controls").show();
 
         // if YouTube
@@ -685,9 +690,10 @@
           // Fires next video when current over (SoundCloud only)
 
           widget.bind(SC.Widget.Events.FINISH, function() {
-            hipmeNext();
+            hipmePreNext();
           });
         }
+        hasPlayer = true;
       }
 
       // Fires video when player ready (YouTube only)
@@ -700,25 +706,58 @@
 
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-          hipmeNext();
+          mixIterRef = mixIter;
+          hipmePreNext();
         }
+      }
+
+      function hipmePreNext() {
+        mixIterRef = mixIter;
+        hipmeNext();
       }
 
       function hipmeNext() {
         if (mixIter + 1 != mixIdList.length) {
-          hipmeKill();
-          // Initiates next track
+          // Initiate next track
           mixIter++;
-          hipmePlayTrack();
+          if (mixIdList[mixIter][0] == 'youtube' || mixIdList[mixIter][0] == 'soundcloud'){
+            // Kill current player
+            if (hasPlayer) {
+              hipmeKill();
+            }
+            // Play new track
+            hipmePlayTrack();
+          } else {
+            // Skip unreadable tracks
+            hipmeNext();
+          }
+        } else {
+          mixIter = mixIterRef;
         }
+      }
+
+      function hipmePrePrevious() {
+        mixIterRef = mixIter;
+        hipmePrevious();
       }
 
       function hipmePrevious() {
         if (mixIter != 1) {
-          hipmeKill();
-          // Initiates previous track
+          // Initiate prev track
           mixIter--;
-          hipmePlayTrack();
+          if (mixIdList[mixIter][0] == 'youtube' || mixIdList[mixIter][0] == 'soundcloud'){
+            // Kill current player
+            if (hasPlayer) {
+              hipmeKill();
+            }
+            // Play new track
+            hipmePlayTrack();
+          } else {
+            // Skip unreadable tracks
+            hipmePrevious();
+          }
+        } else {
+          mixIter = mixIterRef;
         }
       }
 
