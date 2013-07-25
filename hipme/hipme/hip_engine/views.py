@@ -445,6 +445,7 @@ def create_mixtape(request):
         event = Event(main_profile = request.user.get_profile(), event_type = "creation")
         event.save()
         tracklist.latest_event = event
+        tracklist.date_latest_edit = timezone.now()
 
         string_tags = request.POST.get('tags')
         if string_tags:
