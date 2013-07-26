@@ -167,7 +167,7 @@ def feed(request):
     profile_me = request.user.get_profile()
     profile_queryset = request.user.get_profile().get_following()
     tracklist_queryset = Tracklist.objects.filter(owner__in=profile_queryset)|Tracklist.objects.filter(userto__in=profile_queryset)|profile_me.tracklists_created.all()|profile_me.tracklists_contributed.all()
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:20]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -185,7 +185,7 @@ def profile(request, username):
 def profile_activity(request, username):
     profile_focused = get_object_or_404(UserProfile,user__username=username)
     tracklist_queryset = profile_focused.tracklists_created.all()|profile_focused.tracklists_contributed.all()
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:20]
 
     context = {
         'tracklist_list':tracklist_list,
@@ -200,7 +200,7 @@ def profile_activity(request, username):
 def profile_collection(request, username):
     profile_focused = get_object_or_404(UserProfile,user__username=username)
     tracklist_queryset = profile_focused.tracklist_kept.all()
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')
 
     context = {
         'tracklist_list':tracklist_list,
@@ -215,7 +215,7 @@ def profile_collection(request, username):
 def profile_pending(request, username):
     profile_focused = get_object_or_404(UserProfile,user__username=username)
     tracklist_queryset = profile_focused.tracklists_created.all()|profile_focused.tracklists_contributed.all()
-    tracklist_list = tracklist_queryset.filter(is_finished=False).distinct().order_by('-date_latest_edit')[:10]
+    tracklist_list = tracklist_queryset.filter(is_finished=False).distinct().order_by('-date_latest_edit')
 
     context = {
         'tracklist_list':tracklist_list,
