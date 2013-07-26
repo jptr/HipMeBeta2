@@ -127,7 +127,7 @@ def populate_db(request):
                     title = title, 
                     # description = description, 
                     is_finished=is_finished,
-                    latest_event= event, 
+                    latest_event=event,
                 )
                 tracklist.save()
 
@@ -413,7 +413,7 @@ def create_mixtape(request):
         for i_str in ["_1","_2","_3"]:
                 url = request.POST.get('url'+i_str)
                 artist = request.POST.get('artist'+i_str)
-                title = request.POST.get('title'+i_str)
+                name = request.POST.get('name'+i_str)
                 if url:
                     validate = URLValidator()
                     try:
@@ -421,8 +421,8 @@ def create_mixtape(request):
                         track = Track(url=url)
                         if artist:
                             track.artist = artist
-                        if title:
-                            track.title = title
+                        if name:
+                            track.name = name
                         track.save()
                         tracklist.tracks_initial.add(track)
                     except ValidationError, e:
@@ -461,20 +461,41 @@ def create_mixtape(request):
 
         tracklist.save()
 
-    if request.POST.get('next'):
-        url_next = request.POST['next']
+    if request.POST.get('next-success'):
+        url_next = request.POST['next-success']
         return HttpResponseRedirect(url_next)
     else:
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
 def add_track(request, tracklist_id):
+
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     # if tracklist.userto.filter(user=request.user):
     url = request.POST.get('url')
     artist = request.POST.get('artist')
     name = request.POST.get('name')
-    track = Track(url=url, artist=artist, name=name)
+
+    validate = URLValidator()
+    try:
+        validate(url)
+    except ValidationError, e:
+        tracklist_queryset = Tracklist.objects.all()
+        tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
+        context = {
+            'tracklist_list': tracklist_list,
+            'error_message_url': "Your track url is not valid. Please stop trying to break the internet.",
+        }
+        context.update(get_nav_context())
+        context.update(get_rankings(request))
+
+        return render_to_response('hip_engine/feed.html', context, context_instance=RequestContext(request))
+
+    track = Track(url=url)
+    if artist:
+        track.artist = artist
+    if name:
+        track.name = name
     track.save()
 
     if request.user.get_profile() == tracklist.owner:
@@ -483,6 +504,8 @@ def add_track(request, tracklist_id):
         event = Event(main_profile=tracklist.owner, event_type="add_track_owner")
         event.save()
         tracklist.latest_event = event
+        tracklist.date_latest_edit = timezone.now()
+        tracklist.save()
 
     else:
         if tracklist.bundlebacks.filter(owner=request.user.get_profile()):
@@ -503,9 +526,8 @@ def add_track(request, tracklist_id):
         event = Event(main_profile=bundleback.owner, secondary_profile=tracklist.owner, event_type="add_track_contrib")
         event.save()
         tracklist.latest_event = event
-
-    tracklist.date_latest_edit = timezone.now()
-    tracklist.save()
+        tracklist.date_latest_edit = timezone.now()
+        tracklist.save()
 
     if request.POST.get('next'):
         url_next = request.POST['next']
@@ -529,7 +551,7 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
 
         tracklist.date_latest_edit = timezone.now()
 
-        bundleback.owner.reputation += 1
+        bundleback.owner.reputation += 10
 
         bundleback.nb_tracks_kept += 1
 
@@ -538,7 +560,7 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
         tracklist.tracks_kept.remove(track)
         tracklist.date_latest_edit = timezone.now()
 
-        bundleback.owner.reputation -= 1
+        bundleback.owner.reputation -= 10
         
         bundleback.nb_tracks_kept -= 1
 
@@ -557,12 +579,12 @@ def like_mixtape(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
 
     if request.POST.get('like'):
-        tracklist.owner.reputation += 1
+        tracklist.owner.reputation += 3
         tracklist.likes += 1
         request.user.get_profile().tracklist_kept.add(tracklist)
 
     if request.POST.get('unlike'):
-        tracklist.owner.reputation -= 1
+        tracklist.owner.reputation -= 3
         tracklist.likes -= 1
         request.user.get_profile().tracklist_kept.remove(tracklist)
 

@@ -2,10 +2,23 @@
 {% load hip_extras %}
 
 <div class="small-12 columns mixtape
-{% if tracklist.is_time_out or tracklist.is_finished %} top_line_grey
-{% elif tracklist.owner == request.user.get_profile or request.user.get_profile in tracklist.userto.all %} top_line_yellow
-{% else %} top_line_green 
-{% endif %}" >
+{% if tracklist.is_finished %}
+  top_line_grey
+{% else %}
+  {% if tracklist.owner == request.user.get_profile %}
+    top_line_yellow
+  {% else %}
+    {% if tracklist.time_out %}
+      top_line_grey
+    {% else %}
+      {% if request.user.get_profile in tracklist.userto.all %}
+        top_line_yellow
+      {% else %}
+        top_line_green
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endif %} ">
   
   <span class="mixtape_anchor" >
     <a id="mx{{tracklist.id}}"></a>
@@ -21,9 +34,41 @@
               Contributions are over &nbsp / &nbsp waiting for {{tracklist.owner.user.username}}
             {% endif %}
           {% else %}
-            {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|delta_string }} left
+            {% if tracklist.is_finished %}
+              Closed {{ tracklist.time_delta|delta_string }} ago
+            {% else %}
+              {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|delta_string }} left
+            {% endif %}
           {% endif %}
         {% endwith %}
+
+{% comment %}
+          {% if tracklist.is_time_out %}
+            {% if tracklist.is_finished %}
+              Closed {{ tracklist.time_delta|delta_string }} ago
+            {% else %}
+              Contributions are over &nbsp / &nbsp waiting for {{tracklist.owner.user.username}}
+            {% endif %}
+          {% else %}
+            {% if tracklist.is_finished %}
+              Closed {{ tracklist.time_delta|delta_string }} ago
+            {% else %}
+              {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|delta_string }} left
+            {% endif %}
+          {% endif %}
+{% endcomment %}
+
+{% comment %}
+This snippet is better (factorized), but it won't work, I don't know why. Assertion error.
+          {% if tracklist.is_finished %}
+            Closed {{ tracklist.time_delta|delta_string }} ago
+          {% else if not tracklist.is_finished and tracklist.is_time_out %}
+            Contributions are over &nbsp / &nbsp waiting for {{tracklist.owner.user.username}}
+          {% else %}
+            {{ nb_spots }} free spot{{nb_spots|pluralize}} &nbsp / &nbsp {{ tracklist.time_left|delta_string }} left
+          {% endif %}
+{% endcomment %}
+
       </span>
       <br/>
       <text class="mixtape_title">
@@ -126,42 +171,47 @@
       </div>
       <div class="small-8 columns show_add_track_form_btn_zone">
 
-        {% if tracklist.is_time_out %}
-          <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> Time is over - no tracks can be added. </button>
+        {% if tracklist.is_finished %}
+          <button class="button expand radius secondary disabled cannot_show_add_track_form_btn count_add_track_form_btn"> Mixtape closed. </button>
         {% else %}
-          {% if request.user.get_profile not in tracklist.userto.all and tracklist.owner != request.user.get_profile %}
-            {% if tracklist.userto.all|length_is:"5" %}
-              <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> There are 5 contributors already: no room for you... </button>
-            {% else %}
-              <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Jump in and add a track! </button>
-            {% endif %}
-          {% elif request.user.get_profile in tracklist.userto.all %}
-            {% if tracklist|has_contributed:request.user.id %}
-              {% for bundle in tracklist.bundlebacks.all %}
-                {% if bundle.owner = request.user.get_profile %}
-                  {% if bundle.tracks.all|length_is:"0" %}
-                    <button class="button success expand radius show_add_track_form_btn count_add_track_form_btn"> {{ tracklist.owner }} wants you to contribute. <br/> Add your first track! </button>
-                  {% elif bundle.tracks.all|length_is:"1" %}
-                    <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add another track! </button>
-                  {% elif bundle.tracks.all|length_is:"2" %}
-                    <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add one last track... </button>
-                  {% else %}
-                    <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> You've already added 3 tracks. </button>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-            {% else %}
-              <button class="button success expand radius show_add_track_form_btn count_add_track_form_btn"> {{ tracklist.owner }} wants you to contribute. <br/> Add your first track! </button>
-            {% endif %}
+          {% if tracklist.is_time_out %}
+            <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> Time is over - no tracks can be added. </button>
           {% else %}
-            {% if tracklist.tracks_initial.all|length_is:"0" %}
-              <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add a track to your mixtape! </button>
-            {% elif tracklist.tracks_initial.all|length_is:"1" %}
-              <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add another track! </button>
-            {% elif tracklist.tracks_initial.all|length_is:"2" %}
-              <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add one last track... </button>
+            {% if request.user.get_profile not in tracklist.userto.all and tracklist.owner != request.user.get_profile %}
+              {% if tracklist.userto.all|length_is:"5" %}
+                <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> There are 5 contributors already: no room for you... </button>
+              {% else %}
+                <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Jump in and add a track! </button>
+              {% endif %}
+            {% elif request.user.get_profile in tracklist.userto.all %}
+              {% if tracklist|has_contributed:request.user.id %}
+                {% for bundle in tracklist.bundlebacks.all %}
+                  {% if bundle.owner = request.user.get_profile %}
+                    {% comment %} This next condition is useless, but just in case... {% endcomment %}
+                    {% if bundle.tracks.all|length_is:"0" %}
+                      <button class="button success expand radius show_add_track_form_btn count_add_track_form_btn"> {{ tracklist.owner }} wants you to contribute. <br/> Add your first track! </button>
+                    {% elif bundle.tracks.all|length_is:"1" %}
+                      <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add another track! </button>
+                    {% elif bundle.tracks.all|length_is:"2" %}
+                      <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add one last track... </button>
+                    {% else %}
+                      <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> You've already added 3 tracks. </button>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                <button class="button success expand radius show_add_track_form_btn count_add_track_form_btn"> {{ tracklist.owner }} wants you to contribute. <br/> Add your first track! </button>
+              {% endif %}
             {% else %}
-              <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> You've already added 3 tracks. </button>
+              {% if tracklist.tracks_initial.all|length_is:"0" %}
+                <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add a track to your mixtape! </button>
+              {% elif tracklist.tracks_initial.all|length_is:"1" %}
+                <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add another track! </button>
+              {% elif tracklist.tracks_initial.all|length_is:"2" %}
+                <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add one last track... </button>
+              {% else %}
+                <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> You've already added 3 tracks. </button>
+              {% endif %}
             {% endif %}
           {% endif %}
         {% endif %}
@@ -175,15 +225,12 @@
       </div>
       <div class="small-8 columns mixtape_add_track_form_zone">
         <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
-          <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}" />
+          <input name="next-success" type="hidden" value="/feed/#mx{{tracklist.id}}" />
           {% csrf_token %}
           <div class="row">
             <div class="small-10 columns">
               <div class="row collapse">
-                <div class="small-2 columns">
-                  <span class="prefix">http://</span>
-                </div>
-                <div class="small-10 columns">
+                <div class="small-12 columns">
                   <input type="text" name="url" placeholder="Track URL (SoundCloud or YouTube)" id="input_url"/>
                 </div>
               </div>
@@ -304,7 +351,7 @@
                     {% endif %}
                   </strong>
                 ? <br/>
-                <i> Use the <strong> Keep/Unkeep buttons </strong> next to the tracks to keep or dump propositions. </i> <br/>
+                Use the <strong> Keep/Unkeep buttons </strong> next to the tracks to keep or dump propositions. <br/>
                 After closing this mixtape, you won't be able to modify it anymore.
               </div>
             </div>
