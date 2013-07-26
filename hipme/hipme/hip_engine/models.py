@@ -180,7 +180,7 @@ class Tracklist(models.Model):
     time_left = property(get_time_left)
 
     def get_time_delta(self):   
-        timeDiff = timezone.now() - self.date_created
+        timeDiff = timezone.now() - self.date_latest_edit
         return timeDiff
 
     time_delta = property(get_time_delta)
