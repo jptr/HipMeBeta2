@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+{% load analytics %}
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width" />
 
   <title> hipMe! </title>
+  <link rel="icon" type="image/jpg" href="{% static "img/hipme_favicon.jpg"}" />
 
   <!-- Included CSS Files -->
 
@@ -17,10 +18,6 @@
 
   <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
   <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
-  <link rel="stylesheet" href="{% static "css/add_general.css" %}"/>
-  <link rel="stylesheet" href="{% static "css/add_mixtape.css" %}"/>
-  <link rel="stylesheet" href="{% static "css/add_mixtape_form.css" %}"/>
-  <link rel="stylesheet" href="{% static "css/add_left_nav.css" %}"/>
   <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
 
   <script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
@@ -71,7 +68,7 @@
                 <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
               </div>
               <div class="small-2 columns">
-                <input type="submit" class="alert button" value="Log In"/>  
+                <input type="submit" class="success button" value="Log In"/>  
                 <input type="hidden" name="form-type" value="sign-in" />
               </div>
             </div>
@@ -84,15 +81,26 @@
 
   <!-- End Header and Nav -->
 
+  <!-- Error messages (login) -->
+  <div class="row">
+    <div class="small-5 small-offset-7 columns text-center login_error">
+      {% if error_message_login %}
+        <div data-alert class="alert-box alert top_feed_alert">
+          {{error_message_login}}
+          <a href="#" class="close">&times;</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
   <!-- Landing Content -->
 
 <div class="row landing_content">
-  <div class="small-6 small-offset-3 columns text-center">
+  <div class="small-7 columns text-center">
     <img src="{% static "img/logo_new.png" %}" class="landing_logo">
     <h1> The social game for music discovery. </h1>
-    <h3> Coming soon... </h3>
   </div>
-  <div class="small-5 columns landing_hide">
+  <div class="small-5 columns">
     <form action="/register/" method="POST">
       {% csrf_token %}
       <fieldset>
@@ -109,14 +117,19 @@
         </div>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
+            {% if error_message_password %}
+              <input type="password" class="error" id="right-label" value="{{password}}" name="password" placeholder="Password">
+              <small class="error">{{error_message_password}}</small>  
+            {% else %}    
+              <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
+            {% endif %}
           </div>
         </div>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            {% if error_message_email %}
+            {% if error_message_email_1 %}
               <input type="text" class="error" id="right-label" name="email_1" value="{{email_1}}" placeholder="Email">
-              <small class="error">{{error_message_email}}</small>
+              <small class="error">{{error_message_email_1}}</small>
             {% else %}
               <input type="text" id="right-label" value="{{email_1}}" name="email_1" placeholder="Email (you won't get spammed)">
             {% endif %}
@@ -124,9 +137,9 @@
         </div>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            {% if error_message_email %}
+            {% if error_message_email_2 %}
               <input type="text" class="error" id="right-label" name="email_2" value="{{email_2}}" placeholder="Repeat Email">
-              <small class="error">{{error_message_email}}</small>
+              <small class="error">{{error_message_email_2}}</small>
             {% else %}
               <input type="text" id="right-label" value="{{email_2}}" name="email_2" placeholder="Repeat Email (no spam either...)">
             {% endif %}
@@ -159,7 +172,7 @@
     </p>
     <p>
       <strong> They get public recognition as great music advisors. </strong> <br/> And special badges such as 
-      <text class="tag_howitworks"> deep-house emperor </text> or <text class="tag_howitworks"> post-rock starfighter </text> for everyone to see.
+      <text class="tag_howitworks"> deep-house emperor </text> or <text class="tag_howitworks"> post-rock starfighter </text> for everyone to see (coming soon).
     </p>
     <p><strong> Now sign up and enjoy. You won't regret it. </strong></p>
     <a class="close-reveal-modal"> &#215; </a>
@@ -199,12 +212,19 @@
   <!-- End Footer -->
 
   <script>
-  document.write('<script src={% static "js/vendor/" %}' +
-  ('__proto__' in {} ? 'zepto' : 'jquery') +
-  '.js><\/script>')
+    document.write('<script src={% static "js/vendor/" %}' +
+    ('__proto__' in {} ? 'zepto' : 'jquery') +
+    '.js><\/script>')
   </script>
 
   <script src="{% static "js/foundation.min.js" %}"></script>
+  
+  <script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
+  <script>
+    $(document).foundation();
+  </script>
+
+{% analytics "UA-38449021-1" %}
 </body>
 </html>

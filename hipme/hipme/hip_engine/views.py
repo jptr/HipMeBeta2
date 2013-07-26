@@ -92,13 +92,6 @@ def landing(request):
     else:
         return feed(request)
 
-def landing_private(request):
-    if not request.user.is_authenticated():
-        redirect_to = request.GET.get('next','')
-        return render_to_response('hip_engine/landing_page_withsignup.html', {'redirect_to': redirect_to}, context_instance=RequestContext(request))
-    else:
-        return feed(request)
-
 @login_required
 def populate_db(request):
     if request.user.username == "hipmaster":
@@ -656,7 +649,7 @@ def give_feedback(request):
 
 def logout_process(request):
     logout(request)
-    return HttpResponseRedirect(reverse('hip_engine.views.landing_private'))
+    return HttpResponseRedirect(reverse('hip_engine.views.landing'))
 
 def login_process(request):
     username = request.POST['username']
@@ -673,9 +666,9 @@ def login_process(request):
             else:
                 return HttpResponseRedirect(reverse('hip_engine.views.feed'))
         else:
-            return render_to_response('hip_engine/landing_page_withsignup.html', {'error_message_login': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
+            return render_to_response('hip_engine/landing_page.html', {'error_message_login': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
     else:
-        return render_to_response('hip_engine/landing_page_withsignup.html', {'error_message_login': "Your username and password do not match. Please try again.",}, context_instance=RequestContext(request))  
+        return render_to_response('hip_engine/landing_page.html', {'error_message_login': "Your username and password do not match. Please try again.",}, context_instance=RequestContext(request))  
 
 def register(request):
     username = request.POST['username']
@@ -706,19 +699,19 @@ def register(request):
                             return HttpResponseRedirect(reverse('hip_engine.views.feed'))
                         else:
                             context.update({'error_message_email_1': "Your email is not valid. Please try again",})
-                            return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request))
+                            return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
                     else:
                         context.update({'error_message_email_1': "Email already exists. Please choose another one",})
-                        return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request)) 
+                        return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request)) 
                 else:
                     context.update({'error_message_email_2': "Your emails do not match. Please try again",})
-                    return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request))
+                    return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
             else:
                 context.update({'error_message_username': "Username already exists. Please choose another one.",})
-                return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request))
+                return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
         else:
             context.update({'error_message_username': "Username is not valid. Please use only letters, numbers, '-' and '_'.",})
-            return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request))
+            return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
     else:
-        return render_to_response('hip_engine/landing_page_withsignup.html', context, context_instance=RequestContext(request))
+        return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
 
