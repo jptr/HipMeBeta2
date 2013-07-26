@@ -714,4 +714,3 @@ def register(request):
             return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
     else:
         return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
-
