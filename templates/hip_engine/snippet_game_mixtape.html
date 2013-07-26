@@ -8,7 +8,7 @@
   {% if tracklist.owner == request.user.get_profile %}
     top_line_yellow
   {% else %}
-    {% if tracklist.time_out %}
+    {% if tracklist.is_time_out %}
       top_line_grey
     {% else %}
       {% if request.user.get_profile in tracklist.userto.all %}
