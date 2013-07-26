@@ -71,13 +71,13 @@ This snippet is better (factorized), but it won't work, I don't know why. Assert
 
       </span>
       <br/>
-      <text class="mixtape_title">
+      <div class="mixtape_title">
         {% if tracklist.title %}
           {{tracklist.title}}
         {% else %}
           #Untitled
         {% endif %}
-      </text>
+      </div>
       <ul class="inline-list mixtape_tag_list">
         {% for tag in tracklist.tags.all %}
           <li class="label radius tag_mixtape"> {{tag.name}} </li>

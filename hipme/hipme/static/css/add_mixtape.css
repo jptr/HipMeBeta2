@@ -33,7 +33,6 @@
 
 .mixtape_info {
   margin-left: -1.25em;
-  margin-bottom: 0.5em;
   background-color: #FAFAFA;
   font-size: 12px;
   font-style: italic;
@@ -44,7 +43,10 @@
 }
 
 .mixtape_title {
+  margin-top: 10px;
+  margin-bottom: 14px;
   font-size: 2em;
+  line-height: 1.2em;
 }
 
 .mixtape_tag_list {
