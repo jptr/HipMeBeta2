@@ -17,28 +17,16 @@ def generate_body_new_mixtape(user_to_mail, tracklist):
     str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
     return str1 + "\n\n" + str2 + "\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
 
-# def generate_header_bundleback(swap):
-#     return "[HipMe] " + swap.userto.user.username +" has just sent you a bundle back!"
+def generate_header_mixtape_to_close(tracklist):
+    return "[HipMe] Time is up for your mixtape " + tracklist.title + "."
 
-# def generate_body_bundleback(swap):
-#     str1 = "Hey "+ swap.userfrom.user.username + ","
-#     str2 = swap.userto.user.username+ " has just replied to your bundle !"
-#     swap_url = 'http://hipme.co/people/'+swap.userfrom.user.username+'/pending/'
-#     str3 = "Listen to it and rate it: " + swap_url
-#     str4 = "Keep da hip,"
-#     str5 = "The HipMasters."
-#     edit_url = 'http://hipme.co/people/'+swap.userfrom.user.username+'/edit/'
-#     str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
-#     return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
- 
-# def bunch_create_tracks():
-#     """Feed the database with tracks from the .txt"""
-#     file_path = join(MEDIA_ROOT, 'setup/track_db.txt')
-#     with open(file_path, 'r') as f:
-#         for line in f:
-#             line_data = line.split("_")
-#             artist = line_data[0]
-#             name = line_data[1]
-#             url = line_data[2]
-#             sg = Song(url=url, artist=artist, name=name)
-#             sg.save()
+def generate_body_mixtape_to_close(user_to_mail, tracklist):
+    str1 = "Hey "+ user_to_mail.user.username + ","
+    mixtape_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/pending/'
+    str2 = "Time is up for your mixtape " + tracklist.title + ". Go check it out: " + mixtape_url
+    str3 = "Pick the tracks you want to keep in that mixtape, then don't forget to close it! Contributors get points when you keep one of their tracks."
+    str4 = "Keep da hip,"
+    str5 = "The HipMasters."
+    edit_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/edit/'
+    str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
+    return str1 + "\n\n" + str2 + "\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
