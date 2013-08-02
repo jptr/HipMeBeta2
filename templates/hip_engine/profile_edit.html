@@ -51,61 +51,62 @@
 </p>
 
 <p>
-<form action="" method="POST">
-    {% csrf_token %}
+  <form action="" method="POST">
+  {% csrf_token %}
     <fieldset>
       <legend>Update Email</legend>
     {% for field in email_form %}
       <div class="row">
-          <div class="small-9 columns">
-            <input type="text" id="right-label" value="" placeholder="New Email Address">
-          </div>
-          <div class="small-3 columns">
-            <input type="hidden" name="form-type" value="email-form" />
-            <input type="hidden" name="" value="Update">
-            <input type="submit" class="button postfix" value="Update">
-          </div>
+        <div class="small-9 columns">
+          <input type="text" id="right-label" value="" placeholder="New Email Address">
+        </div>
+        <div class="small-3 columns">
+          <input type="hidden" name="form-type" value="email-form" />
+          <input type="hidden" name="" value="Update">
+          <input type="submit" class="button postfix" value="Update">
+        </div>
       </div>
     {% endfor %}
     </fieldset>
-</form>
+  </form>
 </p>
 
-{% comment %}
 <p>
-<form action="" method="POST">
+  <form action="" method="POST">
   {% csrf_token %}
-  <fieldset>
-    <legend>Toggle Email Notification</legend>
-    {% for field in email_notif_form %}
+    <fieldset>
+      <legend>Toggle Email Notification</legend>
+        {% for field in email_notif_form %}
           <div class="row">
-              <div class="small-6 columns">
-                <span class="prefix">{{ field.label }}</span>    
-              </div>
-              <div class="small-6 columns">
-                <div class="switch">
-                  {% if field.value == "True" %}
-                    <input id="x" name="switch-x" type="radio" checked>
-                    <label for="x" onclick="">No</label>
-
-                    <input id="x1" name="switch-x" type="radio">
-                    <label for="x1" onclick="">Yes</label>
-                  {% else %}
-                    <input id="x" name="switch-x" type="radio">
-                    <label for="x" onclick="">No</label>
-
-                    <input id="x1" name="switch-x" type="radio" checked>
-                    <label for="x1" onclick="">Yes</label>
-                  {% endif %}
-                  <span></span>
-                </div>    
-              </div>  
+            <div class="small-7 columns">
+              <span class="prefix">{{ field.label }}</span>    
             </div>
+            <div class="small-2 columns">
+              <div class="switch round small">
+                {% if field.value == "True" %}
+                  <input id="x" name="switch-x" type="radio" checked>
+                  <label for="x" onclick="">No</label>
+                  <input id="x1" name="switch-x" type="radio">
+                  <label for="x1" onclick="">Yes</label>
+                {% else %}
+                  <input id="x" name="switch-x" type="radio">
+                  <label for="x" onclick="">No</label>
+                  <input id="x1" name="switch-x" type="radio" checked>
+                  <label for="x1" onclick="">Yes</label>
+                {% endif %}
+                <span></span>
+              </div>    
+            </div>
+            <div class="small-3 columns">
+              <input type="hidden" name="form-type" value="email-notif-form" />
+              <input type="hidden" name="" value="Update">
+              <input type="submit" class="button postfix" value="Update">
+            </div> 
           </div>
-    {% endfor %}
-  </fieldset>
-</form>
+        </div>
+      {% endfor %}
+    </fieldset>
+  </form>
 </p>
-{% endcomment %}
 
 {% endblock main_feed %}

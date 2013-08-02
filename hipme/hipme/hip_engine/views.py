@@ -19,6 +19,7 @@ from hip_engine.search_tools import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
 from hip_engine.tools import rescale_square
+from hip_engine.mailer import generate_header_new_mixtape, generate_body_new_mixtape
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
@@ -453,6 +454,11 @@ def create_mixtape(request):
                     tracklist.tags.add(tag)
 
         tracklist.save()
+
+    for user_to_mail in tracklist.userto.all():
+        if user_to_mail.is_email_notified:
+            from django.core.mail import send_mail
+            send_mail(generate_header_new_mixtape(tracklist), generate_body_new_mixtape(user_to_mail, tracklist), 'HipMe', [user_to_mail.user.email])
 
     if request.POST.get('next-success'):
         url_next = request.POST['next-success']
