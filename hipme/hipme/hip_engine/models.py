@@ -163,11 +163,11 @@ class Tracklist(models.Model):
     likes = models.IntegerField(default=0)
 
     def get_time_left(self):
-        timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
+        timeDiff = datetime.timedelta(days=7) + self.date_created - timezone.now()
         return timeDiff
 
     def get_time_out(self):
-        timeDiff = datetime.timedelta(days=3) + self.date_created - timezone.now()
+        timeDiff = datetime.timedelta(days=7) + self.date_created - timezone.now()
         # secondsLeft = timeDiff.total_seconds()
         secondsLeft = timeDiff.seconds + (timeDiff.days * 24 * 36000)
         # solves total_seconds issue if present
