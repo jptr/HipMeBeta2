@@ -10,7 +10,7 @@ def generate_body_new_mixtape(user_to_mail, tracklist):
     str1 = "Hey "+ user_to_mail.user.username + ","
     mixtape_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/pending/'
     str2 = tracklist.owner.user.username + " created a new mixtape called " + tracklist.title + ", and he/she asked you to contribute! Go check it out: " + mixtape_url
-    str3 = "Add tracks to that mixtape. If "+ tracklist.owner.user.username + " keeps your tracks in his mixtape, you'll get points and get higher in the rankings..."
+    str3 = "Add tracks to that mixtape. If "+ tracklist.owner.user.username + " keeps your tracks in his mixtape, you get points, and you go up in the rankings!"
     str4 = "Keep da hip,"
     str5 = "The HipMasters."
     edit_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/edit/'
