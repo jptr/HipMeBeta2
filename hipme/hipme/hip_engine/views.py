@@ -290,7 +290,7 @@ def profile_edit(request, username):
                     email_form.save() 
                     return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
             elif request.POST['form-type'] == "email-notif-form":
-                email_notif_form = ProfileEmailNotificationForm(request.POST, instance=u)
+                email_notif_form = ProfileEmailNotificationForm(request.POST, instance=request.user)
                 if email_notif_form.is_valid():
                     email_notif_form.save() 
                     return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
