@@ -71,6 +71,23 @@
   </form>
 </p>
 
+<form enctype="multipart/form-data" action="/profile/{{ request.user.username }}/edit/" method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <legend> E-mail notifications </legend>
+      <div class="row">
+        <div class="small-9 columns">
+          {{ email_notif_form }}
+        </div>
+        <div class="small-3 columns">
+          <input type="hidden" name="form-type" value="email-notif-form" />
+          <input type="submit" class="button postfix" value="Update"/>
+        </div>
+      </div>
+    </fieldset>
+</form>
+
+{% comment %}
 <p>
   <form action="" method="POST">
   {% csrf_token %}
@@ -108,5 +125,6 @@
     </fieldset>
   </form>
 </p>
+{% endcomment %}
 
 {% endblock main_feed %}

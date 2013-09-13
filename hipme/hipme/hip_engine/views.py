@@ -264,6 +264,7 @@ def profile_following(request, username):
 @login_required
 def profile_edit(request, username):
     if (username == request.user.username):
+
         email_form = UserEmailForm(instance=request.user)
         email_notif_form = ProfileEmailNotificationForm(instance=request.user)
         image_form = ProfileImageForm(instance=request.user.get_profile())
@@ -284,7 +285,7 @@ def profile_edit(request, username):
                     im = rescale_square(im, 256)
                     im.save(im_path, "JPEG")
             elif request.POST['form-type'] == "email-form":
-                email_form = UserEmailForm(request.POST, instance=u)
+                email_form = UserEmailForm(request.POST, instance=request.user)
                 if email_form.is_valid():
                     email_form.save() 
                     return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))

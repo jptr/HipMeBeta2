@@ -29,7 +29,7 @@ class UserProfile(models.Model):
     tracklist_kept = models.ManyToManyField('Tracklist', related_name='kept_by', blank=True)
     reputation = models.IntegerField(default=0)
     url = models.URLField(blank=True)
-    is_email_notified = models.BooleanField('Do you want to get email notifications?', default=True)
+    is_email_notified = models.BooleanField('Get email notifications?', default=True)
     nb_connects = models.IntegerField(default=0, verbose_name=u'nb of connections')
     def __unicode__(self):
         return self.user.username
