@@ -18,7 +18,7 @@ def generate_body_new_mixtape(user_to_mail, tracklist):
     return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
 
 def generate_header_mixtape_to_close(tracklist):
-    return "[HipMe] Time is up for your mixtape " + tracklist.title + "."
+    return "[HipMe] Time is up for your mixtape '" + tracklist.title + "'."
 
 def generate_body_mixtape_to_close(user_to_mail, tracklist):
     str1 = "Hey "+ user_to_mail.user.username + ","

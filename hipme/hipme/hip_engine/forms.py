@@ -22,7 +22,6 @@ class UserRegistrationForm(ModelForm):
         model = User
         fields = ('username','email','password',)
 
-
 class TracklistForm(ModelForm):
     class Meta:
         model = Tracklist

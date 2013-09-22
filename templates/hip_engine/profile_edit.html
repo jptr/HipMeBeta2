@@ -20,7 +20,7 @@
 </p>
 
 <p>
-<form action="" method="POST">
+<form action="/profile/{{profile_focused.user.username}}/edit/" method="POST">
     {% csrf_token %}
     <fieldset>
       <legend>Change password</legend>
@@ -51,7 +51,7 @@
 </p>
 
 <p>
-  <form action="" method="POST">
+  <form action="/profile/{{profile_focused.user.username}}/edit/" method="POST">
   {% csrf_token %}
     <fieldset>
       <legend>Update Email</legend>
@@ -71,7 +71,7 @@
   </form>
 </p>
 
-<form enctype="multipart/form-data" action="/profile/{{ request.user.username }}/edit/" method="POST">
+<form action="/profile/{{profile_focused.user.username}}/edit/" method="POST">
     {% csrf_token %}
     <fieldset>
       <legend> E-mail notifications </legend>
@@ -89,10 +89,10 @@
 
 {% comment %}
 <p>
-  <form action="" method="POST">
+  <form action="/profile/{{profile_focused.user.username}}/edit/" method="POST">
   {% csrf_token %}
     <fieldset>
-      <legend>Toggle Email Notification</legend>
+      <legend>Email notifications</legend>
         {% for field in email_notif_form %}
           <div class="row">
             <div class="small-7 columns">
@@ -116,7 +116,6 @@
             </div>
             <div class="small-3 columns">
               <input type="hidden" name="form-type" value="email-notif-form" />
-              <input type="hidden" name="" value="Update">
               <input type="submit" class="button postfix" value="Update">
             </div> 
           </div>

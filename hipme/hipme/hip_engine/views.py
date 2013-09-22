@@ -47,6 +47,31 @@ def get_tracklist_form_context(request):
     context = {'tracklist_form':tracklist_form, }
     return context
 
+def suggest_profiles(request):
+    from django.db.models import Count
+    suggested_profiles =  []
+    second_degree_followings = []
+
+    following_queryset = request.user.get_profile().get_following()
+    if following_queryset:
+        followings_username = [following.user.username for following in following_queryset] 
+        followings_username.append(request.user.get_profile())
+        for following in following_queryset:
+            second_degree_followings += list(following.get_following().exclude(user__username__in=followings_username))
+
+        suggested_profiles_with_count = []
+        for following in set(second_degree_followings):
+            suggested_profiles_with_count.append((following, second_degree_followings.count(following)))
+        suggested_profiles_with_count.sort(key = lambda x: -x[1])
+        suggested_profiles = list(zip(*suggested_profiles_with_count)[0])[:10]
+
+    else:
+        # if no friends, suggest 10 most connected users
+        suggested_profiles = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships')[:10])
+
+    context = {"suggested_profiles":suggested_profiles,}
+    return render_to_response('hip_engine/suggested_profiles.html', context, context_instance=RequestContext(request))
+
 def get_rankings(request):
     my_index = 0
     in_list = False
@@ -266,7 +291,7 @@ def profile_edit(request, username):
     if (username == request.user.username):
 
         email_form = UserEmailForm(instance=request.user)
-        email_notif_form = ProfileEmailNotificationForm(instance=request.user)
+        email_notif_form = ProfileEmailNotificationForm(instance=request.user.get_profile())
         image_form = ProfileImageForm(instance=request.user.get_profile())
         psw_form = PasswordChangeForm(request.user)
 
@@ -290,7 +315,7 @@ def profile_edit(request, username):
                     email_form.save() 
                     return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
             elif request.POST['form-type'] == "email-notif-form":
-                email_notif_form = ProfileEmailNotificationForm(request.POST, instance=request.user)
+                email_notif_form = ProfileEmailNotificationForm(request.POST, instance=request.user.get_profile())
                 if email_notif_form.is_valid():
                     email_notif_form.save() 
                     return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
@@ -335,11 +360,13 @@ def profile_rankings(request, username):
     else:
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
-def get_search_results(query_string):
-    profile_query = get_query(query_string, ['user__username',])
+def get_search_results(query_string):  
     tracklist_query = get_query(query_string, ['title', 'tags__name', 'owner__user__username', 'tracks_initial__artist', 'tracks_initial__name', 'tracks_kept__artist', 'tracks_kept__name'])
     found_tracklists = Tracklist.objects.filter(tracklist_query).distinct().order_by('-date_latest_edit')
+
+    profile_query = get_query(query_string, ['user__username',])
     found_profiles = UserProfile.objects.filter(profile_query).distinct().order_by('user__username')
+
     return found_tracklists, found_profiles
 
 def get_search_context(request):
@@ -349,6 +376,9 @@ def get_search_context(request):
     if ('q' in request.GET) and request.GET['q'].strip():
         query_string = request.GET['q']
         found_tracklists, found_profiles = get_search_results(query_string)
+    else:
+        found_tracklists = Tracklist.objects.all().order_by('-date_latest_edit')
+        found_profiles = UserProfile.objects.all().exclude(user__username=request.user.username).order_by('user__username')
 
     context = {
         'query_string': query_string, 

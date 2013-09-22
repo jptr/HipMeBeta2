@@ -1,0 +1,27 @@
+{% extends "hip_engine/search_base.html" %}
+{% load staticfiles %}
+
+{% block feed_header %}
+<h3 class="search_results_title"> Suggested people</h3>
+{% endblock feed_header %}
+
+{% block feed_nav %}
+{% endblock feed_nav %}
+
+{% block main_feed %}
+
+<!-- Results in people -->
+
+{% if suggested_profiles %}
+    <ul class="no-bullet">
+        {% for profile_focused in suggested_profiles %}
+        <li>
+            {% include "hip_engine/snippet_profile.html" %}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+	<p> No suggested people. </p>
+{% endif %}
+
+{% endblock main_feed %}

@@ -101,7 +101,7 @@ This snippet is better (factorized), but it won't work, I don't know why. Assert
 
         </div>
         <div class="small-6 columns">
-          <form action="/mixtape/{{tracklist.id}}/like/" method="post" class="like_btn_form">
+          <form action="/mixtape/{{tracklist.id}}/like/" method="post" class="like_btn_form" id="like_form">
           {% csrf_token %}
             {% if tracklist in request.user.get_profile.tracklist_kept.all %}
               <button class="button disabled radius expand liked_mxtp_btn"> Liked </button>
