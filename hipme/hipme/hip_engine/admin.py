@@ -1,4 +1,4 @@
-from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship, Suggestion
+from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship, Suggestion, SavedEmail
 from django.contrib import admin
 
 class TracklistCreatedInline(admin.TabularInline):
@@ -59,6 +59,9 @@ class RelationshipAdmin(admin.ModelAdmin):
 class SuggestionAdmin(admin.ModelAdmin):
     list_display=('get_summary','submit_date','kind','userfrom')
 
+class SavedEmailAdmin(admin.ModelAdmin):
+    list_display=('__unicode__','submit_date')
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
@@ -69,3 +72,4 @@ admin.site.register(Event, EventAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Relationship, RelationshipAdmin)
 admin.site.register(Suggestion, SuggestionAdmin)
+admin.site.register(SavedEmail, SavedEmailAdmin)

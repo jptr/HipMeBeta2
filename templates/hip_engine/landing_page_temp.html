@@ -99,58 +99,48 @@
   <div class="small-7 columns text-center">
     <img src="{% static "img/logo_new.png" %}" class="landing_logo">
     <h1> The social game for music discovery. </h1>
+    <h3> Coming soon. Very soon. </h3>
   </div>
-  <div class="small-5 columns">
-    <form action="/register/" method="POST">
+  <div class="small-4 small-offset-1 columns landing_form_temp">
+    <form action="/saveemail/" method="POST">
       {% csrf_token %}
       <fieldset>
-        <legend class="sign_up_legend"> Jump in! </legend>
+        <legend class="sign_up_legend"> Stay tuned! </legend>
         <div class="row">
           <div class="small-10 small-offset-1 columns">
-            {% if error_message_username %}
-              <input type="text" class="error" id="right-label" value="{{username}}" name="username" placeholder="Username">
-              <small class="error">{{error_message_username}}</small>  
-            {% else %}                    
-              <input type="text" id="right-label" value="{{username}}" name="username" placeholder="Username">
+            <p> We'll let you know about the release. No lolcats. </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-10 small-offset-1 columns">
+            <input type="text" value="{{email_temp}}" name="email_temp" placeholder="Email">
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-10 small-offset-1 columns">
+            <input type="submit" class="button expand" value="Go."/>  
+            <input type="hidden" name="form-type" value="saveemail" />
+          </div>
+        </div>
+        {% if error_message_saved_email or info_message_saved_email %}
+          <div class="row">
+            {% if error_message_saved_email %}
+              <div class="small-10 small-offset-1 columns text-center login_error">
+                <div data-alert class="alert-box alert top_feed_alert">
+                  {{error_message_saved_email}}
+                  <a href="#" class="close">&times;</a>
+                </div>
+              </div>
+            {% elif info_message_saved_email %}
+              <div class="small-10 small-offset-1 columns text-center login_error">
+                <div data-alert class="alert-box success top_feed_alert">
+                  {{info_message_saved_email}}
+                  <a href="#" class="close">&times;</a>
+                </div>
+              </div>
             {% endif %}
           </div>
-        </div>
-        <div class="row">
-          <div class="small-10 small-offset-1 columns">
-            {% if error_message_password %}
-              <input type="password" class="error" id="right-label" value="{{password}}" name="password" placeholder="Password">
-              <small class="error">{{error_message_password}}</small>  
-            {% else %}    
-              <input type="password" id="right-label" value="{{password}}" name="password" placeholder="Password">
-            {% endif %}
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-10 small-offset-1 columns">
-            {% if error_message_email_1 %}
-              <input type="text" class="error" id="right-label" name="email_1" value="{{email_1}}" placeholder="Email">
-              <small class="error">{{error_message_email_1}}</small>
-            {% else %}
-              <input type="text" id="right-label" value="{{email_1}}" name="email_1" placeholder="Email (you won't get spammed)">
-            {% endif %}
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-10 small-offset-1 columns">
-            {% if error_message_email_2 %}
-              <input type="text" class="error" id="right-label" name="email_2" value="{{email_2}}" placeholder="Repeat Email">
-              <small class="error">{{error_message_email_2}}</small>
-            {% else %}
-              <input type="text" id="right-label" value="{{email_2}}" name="email_2" placeholder="Repeat Email (no spam either...)">
-            {% endif %}
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-10 small-offset-1 columns">
-            <input type="submit" class="button large expand" value="Sign Up"/>  
-            <input type="hidden" name="form-type" value="sign-up" />
-          </div>
-        </div>
+        {% endif %}
       </fieldset>
     </form>
   </div>
@@ -189,7 +179,7 @@
   <div id="contact" class="reveal-modal medium">
     <h2> Let's get in touch! </h2>
     <h4> We love feedback, advice, congratulations etc. </h4>
-    <p> E-mail us at <a href="mailto:hipmail.me@gmail.com"> hipmail.me@gmail.com</a>, or ping us on <a href="https://www.facebook.com/hipmemusic" target="_blank">Facebook</a>! We'll get back to you so very very soon. </p>
+    <p> E-mail us at <a href="mailto:hipmail.me@gmail.com"> hipmail.me@gmail.com</a>, or ping us on <a href="https://www.facebook.com/hipmemusic" target="_blank">Facebook</a>! We'll get back to you supersoon. </p>
     <a class="close-reveal-modal"> &#215; </a>
   </div>
 

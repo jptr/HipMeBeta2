@@ -14,7 +14,7 @@ from django.conf import settings
 from settings import MEDIA_ROOT
 from os.path import join
 
-from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship, Suggestion
+from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, Event, Relationship, Suggestion, SavedEmail
 from hip_engine.search_tools import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
@@ -114,9 +114,23 @@ def get_generic_context(request):
 def landing(request):
     if not request.user.is_authenticated():
         redirect_to = request.GET.get('next','')
-        return render_to_response('hip_engine/landing_page.html', {'redirect_to': redirect_to}, context_instance=RequestContext(request))
+        return render_to_response('hip_engine/landing_page_temp.html', {'redirect_to': redirect_to}, context_instance=RequestContext(request))
     else:
         return feed(request)
+
+def save_email(request):
+    semail_text = request.POST['email_temp']
+    context = {}
+
+    if validateEmail(semail_text):
+        semail = SavedEmail(email = request.POST['email_temp'], submit_date = timezone.now())
+        semail.save()
+        context.update({'info_message_saved_email': "Awesome, you're in.",})
+        return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
+
+    else:
+        context.update({'error_message_saved_email': "Your email is not valid. Please try again.",})
+        return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
 
 @login_required
 def populate_db(request):
@@ -735,13 +749,13 @@ def register(request):
                             login_process(request)
                             return HttpResponseRedirect(reverse('hip_engine.views.feed'))
                         else:
-                            context.update({'error_message_email_1': "Your email is not valid. Please try again",})
+                            context.update({'error_message_email_1': "Your email is not valid. Please try again.",})
                             return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
                     else:
-                        context.update({'error_message_email_1': "Email already exists. Please choose another one",})
+                        context.update({'error_message_email_1': "Email already exists. Please choose another one.",})
                         return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request)) 
                 else:
-                    context.update({'error_message_email_2': "Your emails do not match. Please try again",})
+                    context.update({'error_message_email_2': "Your emails do not match. Please try again.",})
                     return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
             else:
                 context.update({'error_message_username': "Username already exists. Please choose another one.",})

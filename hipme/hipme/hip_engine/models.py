@@ -205,3 +205,9 @@ class Suggestion(models.Model):
         else:
             return self.body
     get_summary.short_description = 'extract'
+
+class SavedEmail(models.Model):
+    email = models.CharField(max_length=200)
+    submit_date = models.DateTimeField('submit date', default=timezone.now())
+    def __unicode__(self):
+        return self.email

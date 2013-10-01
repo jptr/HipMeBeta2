@@ -37,6 +37,7 @@ urlpatterns = patterns('hip_engine.views',
     url(r'^mixtape/(?P<tracklist_id>\d+)/close/$', 'close_tracklist'),
 
     url(r'^feedback/$', 'give_feedback'),
+    url(r'^saveemail/$', 'save_email'),
 
     #admin action views
     url(r'^populate/db/$', 'populate_db'),
