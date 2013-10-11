@@ -49,22 +49,30 @@ def get_tracklist_form_context(request):
 
 def suggest_profiles(request):
     from django.db.models import Count
+
     suggested_profiles =  []
     second_degree_followings = []
-
     following_queryset = request.user.get_profile().get_following()
+
     if following_queryset:
+        # if has friends, take 10 most connected second degree following
         followings_username = [following.user.username for following in following_queryset] 
         followings_username.append(request.user.get_profile())
+        
         for following in following_queryset:
             second_degree_followings += list(following.get_following().exclude(user__username__in=followings_username))
-
-        suggested_profiles_with_count = []
-        for following in set(second_degree_followings):
-            suggested_profiles_with_count.append((following, second_degree_followings.count(following)))
-        suggested_profiles_with_count.sort(key = lambda x: -x[1])
-        suggested_profiles = list(zip(*suggested_profiles_with_count)[0])[:10]
-
+        
+        if len(second_degree_followings) != 0:
+            suggested_profiles_with_count = []
+            
+            for following in set(second_degree_followings):
+                suggested_profiles_with_count.append((following, second_degree_followings.count(following)))
+            suggested_profiles_with_count.sort(key = lambda x: -x[1])
+            suggested_profiles = list(zip(*suggested_profiles_with_count)[0])[:10]
+        
+        else:
+            # if no second degree followings, suggest 10 most connected users
+            suggested_profiles = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships')[:10])
     else:
         # if no friends, suggest 10 most connected users
         suggested_profiles = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships')[:10])
