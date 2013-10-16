@@ -78,6 +78,9 @@ def suggest_profiles(request):
         suggested_profiles = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships')[:10])
 
     context = {"suggested_profiles":suggested_profiles,}
+    context.update(get_generic_context(request))
+    context.update(get_rankings(request))
+
     return render_to_response('hip_engine/suggested_profiles.html', context, context_instance=RequestContext(request))
 
 def get_rankings(request):
