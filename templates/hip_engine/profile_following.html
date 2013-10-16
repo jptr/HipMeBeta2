@@ -15,7 +15,13 @@
 
 <h3 class="profile_people_header">
     {% if profile_focused == request.user.get_profile %}
-        You follow:
+        {% with profile_focused.get_following|length as nb_following %}
+            {% if nb_following == 0 %}
+                You follow no one.
+            {% else %}
+                You follow:
+            {% endif %}
+        {% endwith %}
     {% else %}
         {{ profile_focused.user.username }} follows:
     {% endif %}
