@@ -80,6 +80,10 @@ textarea {
   display: inline;
 }
 
+.sugg_profiles_header_img{
+  margin-bottom: 13px;
+}
+
 #feedback_text {
   height: 10em;
 }
