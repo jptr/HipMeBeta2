@@ -51,13 +51,13 @@ def suggest_profiles(request):
     from django.db.models import Count
 
     suggested_profiles =  []
-    second_degree_followings = []
     following_queryset = request.user.get_profile().get_following()
 
     if following_queryset:
         # if has friends, take 10 most connected second degree following
         followings_username = [following.user.username for following in following_queryset] 
         followings_username.append(request.user.get_profile())
+        second_degree_followings = []
         
         for following in following_queryset:
             second_degree_followings += list(following.get_following().exclude(user__username__in=followings_username))
@@ -71,11 +71,19 @@ def suggest_profiles(request):
             suggested_profiles = list(zip(*suggested_profiles_with_count)[0])[:10]
         
         else:
-            # if no second degree followings, suggest 10 most connected users
-            suggested_profiles = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships')[:10])
+            # if no second degree followings (should not happen much... but did)
+            # suggest 10 most connected users on hipme not followed yet.
+            all_users_sorted = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships'))
+            suggested_profiles = []
+            for person in all_users_sorted:
+                if len(suggested_profiles) >= 10:
+                    break
+                elif person != request.user.get_profile() and person not in request.user.get_profile().get_following():
+                    suggested_profiles.append(person)
+
     else:
         # if no friends, suggest 10 most connected users
-        suggested_profiles = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships')[:10])
+        suggested_profiles = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships').exclude(user=request.user.get_profile())[:10])
 
     context = {"suggested_profiles":suggested_profiles,}
     context.update(get_generic_context(request))
