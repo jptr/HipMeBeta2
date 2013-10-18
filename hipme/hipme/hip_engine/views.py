@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from django.forms.models import inlineformset_factory, modelformset_factory
 from hip_engine.forms import ProfileImageForm, ProfileEmailNotificationForm, UserEmailForm, TracklistForm, TrackForm
@@ -768,6 +769,8 @@ def register(request):
                         if validateEmail(email_1):
                             user = User.objects.create_user(username, email_1, password)
                             login_process(request)
+                            messages.info(request, 'Welcome to hipMe!', extra_tags='welcome_message_line1')
+                            messages.info(request, 'First, follow a few of the people below. Then check out your stream, contribute to mixtapes, and start your own!')
                             return HttpResponseRedirect(reverse('hip_engine.views.suggest_profiles'))
                         else:
                             context.update({'error_message_email_1': "Your email is not valid. Please try again.",})

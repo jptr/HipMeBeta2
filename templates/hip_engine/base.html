@@ -333,7 +333,7 @@
 
 <!-- SCRIPTS -->
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
 
   <script>
     document.write('<script src={% static "js/vendor/" %}' +
@@ -342,17 +342,28 @@
   </script>
 
   <script src="{% static "js/foundation.min.js" %}"></script>
-  
+  <script src="{% static "js/foundation/foundation.joyride.js" %}"></script>
+  <script src="{% static "js/foundation/foundation.cookie.js" %}"></script>
   <script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
   <script>
     $(document).foundation();
   </script>
 
-  {% comment %} <script type="text/javascript" src="{% static 'js/jquery-1.4.1.js' %}"></script> {% endcomment %}
+  <script>
+    $("#exp_tour_link").click(function(){
+      $(document).foundation('joyride', 'start');
+    });
+  </script>
+
+<script type="text/javascript">
+  $(document).foundation('joyride', 'start');
+</script>
+
+
+<!-- Select2 -->
 
   <script src="{% static "js/select2.js" %}"></script>
-
   <script>
     $(document).ready(function() {
       $("#contribSelect").select2({
@@ -363,6 +374,8 @@
       });
     });
   </script>
+
+<!-- SC -->
 
   <script src="https://w.soundcloud.com/player/api.js"></script>
 
@@ -801,22 +814,6 @@
     </script>
 
 <!-- End scripts player -->
-
-<!-- Joyride -->
-
-<script>
-  $("#exp_tour_link").click(function(){
-    $(document).foundation('joyride', 'start');
-  });
-</script>
-
-<script>
-  if({{request.user.get_profile.nb_connects}} == 1) {
-    $(document).foundation('joyride', 'start');
-  };
-</script>
-
-<!-- End joyride -->
 
 {% analytics "UA-38449021-1" %}
 </body>

@@ -1,12 +1,23 @@
-{% extends "hip_engine/search_base.html" %}
+{% extends "hip_engine/base.html" %}
 {% load staticfiles %}
 
 {% block feed_header %}
 
 <div class="row">
+    <div class="small-8 columns ranking_header">
+        {% if messages %}
+            <div data-alert class="alert-box welcome_alert">
+                {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }} </div>
+                {% endfor %}
+                <a href="#" class="close">&times;</a>
+            </div>
+        {% endif %}
+    </div>
 	<div class="small-12 columns ranking_header">
 		<img src="{% static "img/icons/arrow_right_green.png" %}" width="48px" class="sugg_profiles_header_img"/>
 		<h3 class="ranking_title"> People you should follow... </h3>
+        <br/> 
 	</div>
 </div>
 {% endblock feed_header %}

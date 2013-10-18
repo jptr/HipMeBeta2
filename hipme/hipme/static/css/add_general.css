@@ -46,6 +46,14 @@ textarea {
   margin-top: 1.7em;
 }
 
+.welcome_alert {
+  margin-top: 5px;
+}
+
+.welcome_message_line1{
+  margin-bottom: 14px;
+}
+
 .search_results_title {
   margin-top: 16px;
 }
