@@ -83,7 +83,9 @@
         <li class="has-dropdown"><a href="#"> More </a>
           <ul class="dropdown">
             <li><a href="/profile/{{request.user}}/edit"> Edit profile </a></li>
+            {% comment %}
             <li><a id="exp_tour_link"> Explanatory tour </a></li>
+            {% endcomment %}
             <li><a data-reveal-id="rulesModal"> Rules </a></li>
             <li><a href="/logout/process/"> Log out </a></li>
           </ul>
@@ -269,6 +271,8 @@
 
   <!-- Joyride -->
 
+  {% comment %}
+
   <ol class="joyride-list" data-joyride id="hipme_joyride">
     <li data-text="Next">
       <br/>
@@ -323,6 +327,8 @@
     </li>
   </ol>
 
+  {% endcomment %}
+
 </div>
 
   {% include "hip_engine/snippet_form/snippet_form_tracklist.html" %}
@@ -342,8 +348,10 @@
   </script>
 
   <script src="{% static "js/foundation.min.js" %}"></script>
+  {% comment %}
   <script src="{% static "js/foundation/foundation.joyride.js" %}"></script>
   <script src="{% static "js/foundation/foundation.cookie.js" %}"></script>
+  {% endcomment %}
   <script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
 
   <script>
@@ -351,13 +359,13 @@
   </script>
 
   <script>
-    $("#exp_tour_link").click(function(){
-      $(document).foundation('joyride', 'start');
-    });
+    // $("#exp_tour_link").click(function(){
+    //   $(document).foundation('joyride', 'start');
+    // });
   </script>
 
 <script type="text/javascript">
-  $(document).foundation('joyride', 'start');
+  // $(document).foundation('joyride', 'start');
 </script>
 
 
