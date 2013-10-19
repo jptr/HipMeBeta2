@@ -51,6 +51,11 @@ textarea {
 }
 
 .welcome_message_line1{
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.welcome_message_line2{
   margin-bottom: 14px;
 }
 
