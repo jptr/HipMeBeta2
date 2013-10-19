@@ -71,15 +71,13 @@ def suggest_profiles(request):
             suggested_profiles_with_count.sort(key = lambda x: -x[1])
             suggested_profiles = list(zip(*suggested_profiles_with_count)[0])[:10]
         
-        else:
-            # if no second degree followings (should not happen much... but did)
+        if len(suggested_profiles) < 10:
             # suggest 10 most connected users on hipme not followed yet.
             all_users_sorted = list(UserProfile.objects.annotate(num_relationships=Count('relationships')).order_by('-num_relationships'))
-            suggested_profiles = []
             for person in all_users_sorted:
                 if len(suggested_profiles) >= 10:
                     break
-                elif person != request.user.get_profile() and person not in request.user.get_profile().get_following():
+                elif person != request.user.get_profile() and person not in request.user.get_profile().get_following() and person not in suggested_profiles:
                     suggested_profiles.append(person)
 
     else:

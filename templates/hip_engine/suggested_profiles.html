@@ -16,7 +16,7 @@
     </div>
 	<div class="small-12 columns ranking_header">
 		<img src="{% static "img/icons/arrow_right_green.png" %}" width="48px" class="sugg_profiles_header_img"/>
-		<h3 class="ranking_title"> People you should follow... </h3>
+		<h3 class="ranking_title"> People you should follow: </h3>
         <br/> 
 	</div>
 </div>
@@ -38,7 +38,7 @@
         {% endfor %}
     </ul>
 {% else %}
-	<p> No suggested people. </p>
+	<p> We have no suggestions for you. </p>
 {% endif %}
 
 {% endblock main_feed %}
