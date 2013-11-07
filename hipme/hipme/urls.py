@@ -6,9 +6,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
-import django_cron
-django_cron.autodiscover()
-
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('hip_engine.urls')),

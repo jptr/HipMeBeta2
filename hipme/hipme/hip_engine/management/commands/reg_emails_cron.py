@@ -6,7 +6,7 @@ from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, 
 from hip_engine.mailer import generate_header_new_mixtape, generate_body_new_mixtape
 
 # your custom command must reference the base management classes like this:
-class Command(NoArgsCommand):
+class Command_timed_emails(NoArgsCommand):
     help = 'Checks for e-mails to be sent to users'
 
     # send e-mail when time's up : owner needs to pick kept songs and close the mixtape.
