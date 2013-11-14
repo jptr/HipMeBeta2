@@ -6,9 +6,10 @@ from hip_engine.models import User, UserProfile, Track, Bundle, Tracklist, Tag, 
 from hip_engine.mailer import generate_header_new_mixtape, generate_body_new_mixtape
 
 # your custom command must reference the base management classes like this:
+# (this class MUST be called "Command")
 class Command(NoArgsCommand):
 
     # send e-mail when time's up : owner needs to pick kept songs and close the mixtape.
     def handle_noargs(self, **options):
         send_mail('Subject', 'Body', 'test@ex.com', ['sim.frr@gmail.com'], fail_silently = False)
-        self.stdout.write('mail envoyé')
+        self.stdout.write('mail envoye')
