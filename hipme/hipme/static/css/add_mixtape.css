@@ -19,7 +19,7 @@
   background-color: #e6e6e6;
   padding-top: 0.875em;
   padding-bottom: 0.875em;
-  margin-top: 1.375em;
+  margin-top: 0.5em;
   margin-bottom: 1.375em;
 }
 
@@ -103,6 +103,11 @@
 }
 
 .display_tracks_btn {
+  height: 82px;
+  margin-bottom: 0px;
+}
+
+.display_tracks_btn_disabled {
   height: 82px;
   margin-bottom: 0px;
 }

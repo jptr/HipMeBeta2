@@ -28,6 +28,23 @@ def has_tracks(tracklist):
     return False
 
 @register.filter()
+def display_tracks_label(tracklist):
+    num_tracks = 0
+    if tracklist.tracks_initial.all():
+        num_tracks += tracklist.tracks_initial.all().count()
+    for bundle in tracklist.bundlebacks.all():
+        if bundle.tracks.all():
+            num_tracks += bundle.tracks.all().count()
+    if num_tracks == 0:
+        return "No tracks yet"
+    if num_tracks == 1:
+        return "Show 1 track"
+    if num_tracks > 9:
+        return "Show tracks"
+    return "Show "+str(num_tracks) +" tracks"
+    
+
+@register.filter()
 def has_contributed(tracklist, user_id):
     for bundle in tracklist.bundlebacks.all():
         if bundle.tracks.all() and bundle.owner.user.id == user_id:
