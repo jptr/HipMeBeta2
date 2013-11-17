@@ -20,7 +20,7 @@ from hip_engine.search_tools import get_query
 
 from hip_engine.validation_tools import validateEmail, validateUsername, parseTags
 from hip_engine.tools import rescale_square
-from hip_engine.mailer import generate_header_new_mixtape, generate_body_new_mixtape
+from hip_engine.mailer import *
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
@@ -518,10 +518,10 @@ def create_mixtape(request):
 
         tracklist.save()
 
-    for user_to_mail in tracklist.userto.all():
-        if user_to_mail.is_email_notified:
+    for profile_to_mail in tracklist.userto.all():
+        if profile_to_mail.is_email_notified:
             from django.core.mail import send_mail
-            send_mail(generate_header_new_mixtape(tracklist), generate_body_new_mixtape(user_to_mail, tracklist), 'HipMe', [user_to_mail.user.email])
+            send_mail(generate_header_new_mixtape(tracklist), generate_body_new_mixtape(profile_to_mail, tracklist), 'HipMe', [profile_to_mail.user.email])
 
     if request.POST.get('next-success'):
         url_next = request.POST['next-success']
@@ -683,9 +683,29 @@ def close_tracklist(request, tracklist_id):
 @login_required
 def profile_follow(request, username):
     profile_focused = get_object_or_404(UserProfile, user__username=username)
+    profile_user = request.user.get_profile()
 
-    if profile_focused not in request.user.get_profile().get_following():
-        request.user.get_profile().add_following(profile_focused)
+    if profile_focused not in profile_user.get_following():
+        profile_user.add_following(profile_focused)
+        if profile_focused.is_email_notified:
+            from django.core.mail import send_mail
+            follow_back = False
+            if profile_user in profile_focused.get_following():
+                follow_back = True
+            send_mail(
+                generate_header_new_follower(
+                profile_user.user, 
+                profile_focused.user, 
+                follow_back
+                ), 
+                generate_body_new_follower(
+                profile_user.user, 
+                profile_focused.user,
+                follow_back
+                ), 
+                'HipMe',
+                [profile_focused.user.email]
+                )
     else:
         request.user.get_profile().remove_following(profile_focused) 
     
