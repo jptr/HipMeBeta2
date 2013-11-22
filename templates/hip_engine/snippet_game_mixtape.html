@@ -90,7 +90,7 @@ This snippet is better (factorized), but it won't work, I don't know why. Assert
           <button
             class="button success radius expand play_mxtp_btn"
             onClick="loadMix({{ tracklist|js_tracklist }})">
-            Listen
+          Listen
           </button>
 
          {% comment %}  <a href="vraN7vNHjM8" class=
@@ -107,7 +107,7 @@ This snippet is better (factorized), but it won't work, I don't know why. Assert
               <button class="button disabled radius expand liked_mxtp_btn"> Liked </button>
               <input type="submit" class="button expand radius unlike_mxtp_btn" name="unlike" value="Unlike">
             {% else %}
-              <input type="submit" class="button expand radius like_mxtp_btn" name="like" value="Like">
+              <input type="submit" class="button expand radius like_mxtp_btn" name="like" value="Like" title="Add this mixtape to your collection">
             {% endif %}
             <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}" />
           </form>
@@ -162,7 +162,7 @@ This snippet is better (factorized), but it won't work, I don't know why. Assert
         {% comment %}
         {% if tracklist|has_tracks %}
         {% endcomment %}
-          <button class="button expand radius display_tracks_btn dropdown">&nbsp<img src="{% static "img/icons/eye_white.png" %}" width="24px" />&nbsp;&nbsp;{{tracklist|display_tracks_label}}</button>
+          <button class="button expand radius display_tracks_btn dropdown">{{tracklist|display_tracks_label}}</button>
         {% comment %}
         {% else %}
           <button class="button expand secondary disabled radius display_tracks_btn"> No tracks yet </button>
