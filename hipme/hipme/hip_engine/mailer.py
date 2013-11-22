@@ -35,13 +35,19 @@ def generate_body_new_follower(user_following, user_to_mail, follow_back):
     return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
 
 def generate_header_mixtape_to_close(tracklist):
-    return "[hipme] Time is up for your mixtape '" + tracklist.title + "'."
+    if tracklist.title:
+        return "[hipme] Time is up for your mixtape '" + tracklist.title + "'."
+    else:
+        return "[hipme] Time is up for one of your mixtapes"
 
 def generate_body_mixtape_to_close(user_to_mail, tracklist):
     str1 = "Hey "+ user_to_mail.user.username + ","
     mixtape_url = 'http://hipme.fm/profile/'+ user_to_mail.user.username +'/pending/'
-    str2 = "Time is up for your mixtape " + tracklist.title + ". Go check it out: " + mixtape_url
-    str3 = "Pick the tracks you want to keep in that mixtape, then don't forget to close it! Contributors get points when you keep one of their tracks."
+    if tracklist.title:
+        str2 = "Time is up for your mixtape " + tracklist.title + ". Go check it out: " + mixtape_url
+    else:
+        str2 = "Time is up for one of your mixtapes. Go check it out: " + mixtape_url
+    str3 = "Pick the tracks you want to keep in this mixtape, then don't forget to close it! Contributors get points when you keep one of their tracks."
     str4 = "Keep da hip,"
     str5 = "The hipmasters."
     edit_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/edit/'
