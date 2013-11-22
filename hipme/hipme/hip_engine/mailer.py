@@ -73,3 +73,17 @@ def generate_body_contribute(user_to_mail, tracklist):
     edit_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/edit/'
     str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
     return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
+
+def generate_header_come_back():
+    return "[hipme] We haven't seen you in a while!"
+
+def generate_body_come_back(user_to_mail):
+    str1 = "Hey "+ user_to_mail.user.username + ", long time no see!"
+    feed_url = 'http://hipme.fm/'
+    str2 = "Have you stopped looking for great music? Your friends haven't. Find out what's been happening on hipme.fm while you weren't there: " + feed_url
+    str3 = "Go create new mixtapes and ask your friends to put great music in them. Or just improve your ranking by contributing to their mixtapes! The more tracks they keep, the more points you get."
+    str4 = "Keep da hip,"
+    str5 = "The hipmasters."
+    edit_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/edit/'
+    str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
+    return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
