@@ -17,8 +17,8 @@ class Command(NoArgsCommand):
             # if 2 days left and tracklist not closed yet
             if tl.time_left < delta0 and tl.time_left > delta1 and not tl.is_finished:
                 for bundle in tl.bundlebacks.all:
-                    # if contributor has not contributed yet and wants emails
                     user_to_mail = bundle.owner
+                    # if contributor has not contributed yet and wants emails
                     if not bundle.tracks.all and user_to_mail.is_email_notified:
                         send_mail(generate_header_contribute(tl), generate_body_contribute(user_to_mail, tl), 'HipMe', [user_to_mail.user.email])
 

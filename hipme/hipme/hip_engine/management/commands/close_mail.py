@@ -18,7 +18,7 @@ class Command(NoArgsCommand):
         delta1 = timedelta(hours=-1)
 
         for tl in Tracklist.objects.all():
-            user_mail_to = tl.owner
+            user_to_mail = tl.owner
 
             # if in the delta and if not already closed and if user wants emails
             if tl.time_left < delta0 and tl.time_left > delta1 and not tl.is_finished and user_to_mail.is_email_notified:
