@@ -2,3 +2,7 @@
 
 00 * * * * python ~/hipme/hipme/manage.py close_mail
 00 * * * * python ~/hipme/hipme/manage.py contribute_mail
+
+// tous les jours à 19h, lance la commande come_back_mail
+
+00 19 * * * python ~/hipme/hipme/manage.py come_back_mail
