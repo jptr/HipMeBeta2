@@ -162,12 +162,7 @@ This snippet is better (factorized), but it won't work, I don't know why. Assert
         {% comment %}
         {% if tracklist|has_tracks %}
         {% endcomment %}
-          <button class="button expand radius 
-            {% if display_tracks_label == "No tracks yet" %}
-              disabled secondary
-            {% else %}
-              dropdown
-            {% endif %} display_tracks_btn">{{tracklist|display_tracks_label}}</button>
+          <button class="button expand radius dropdown display_tracks_btn">{{tracklist|display_tracks_label}}</button>
         {% comment %}
         {% else %}
           <button class="button expand secondary disabled radius display_tracks_btn"> No tracks yet </button>
