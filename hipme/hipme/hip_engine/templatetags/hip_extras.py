@@ -39,8 +39,6 @@ def display_tracks_label(tracklist):
         return "No tracks yet"
     if num_tracks == 1:
         return "Show 1 track"
-    if num_tracks > 9:
-        return "Show tracks"
     return "Show "+str(num_tracks) +" tracks"
     
 
