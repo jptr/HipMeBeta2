@@ -9,7 +9,6 @@ from hip_engine.mailer import generate_header_new_mixtape, generate_body_new_mix
 # (this class MUST be called "Command")
 class Command(NoArgsCommand):
 
-    # send e-mail when time's up : owner needs to pick kept songs and close the mixtape.
     def handle_noargs(self, **options):
         send_mail('Subject', 'Body', 'test@ex.com', ['sim.frr@gmail.com'], fail_silently = False)
         self.stdout.write('mail envoye')

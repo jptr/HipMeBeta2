@@ -1,0 +1,4 @@
+// toutes les heures pile, lance les commandes close_mail et contribute_mail
+
+00 * * * * python ~/hipme/hipme/manage.py close_mail
+00 * * * * python ~/hipme/hipme/manage.py contribute_mail
