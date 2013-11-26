@@ -36,7 +36,7 @@ def display_tracks_label(tracklist):
         if bundle.tracks.all():
             num_tracks += bundle.tracks.all().count()
     if num_tracks == 0:
-        return "No tracks"
+        return "No tracks yet"
     if num_tracks == 1:
         return "Show 1 track"
     return "Show "+str(num_tracks) +" tracks"
