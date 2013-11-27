@@ -76,6 +76,8 @@
             </div>
           </form>
         </li>
+        <li class="divider"></li>
+        <li><a href="/user/password/reset/"> Forgot password? </a></li>
       </ul>
     </section>
   </nav>
@@ -96,6 +98,8 @@
   </div>
 
   <!-- Landing Content -->
+
+{% block content %}
 
 <div class="row landing_content">
   <div class="small-7 columns text-center">
@@ -147,25 +151,30 @@
   </div>
 </div>
 
+{% endblock %}
+
   <!-- End Landing Content -->
 
   <div id="howItWorks" class="reveal-modal medium">
     <h2> It's all just a game. </h2>
     <h4> Here is the gist of it. </h4>
     <p>
-      1 - Start a mixtape with a few tracks you like, taken from YouTube or SoundCloud. <br/>
-      2 - Ask friends to fill in the mixtape with other tracks. </br>
-      3 - You select the tracks you want to keep in your playlist. </br>
-      4 - Each track you keep gets points to the contributor. Easy, right? </br>
+      1. <text class="tag_howitworksgreen">start</text> a mixtape with a few tracks you like, taken from YouTube or SoundCloud. <br/>
+      2. ask friends to <text class="tag_howitworksgreen">fill in</text> the mixtape with other tracks. </br>
+      3. <text class="tag_howitworksgreen">select</text> the tracks you want to keep in your playlist. Each track you keep gets <text class="tag_howitworksgreen">points</text> to the contributor.</br>
+      <h4>Easy, right? </h4>
     </p>
     <p>
       <strong> You get a great mixtape, handcrafted by your friends.</strong> <br/> They know you well, they know best what you like.
     </p>
     <p>
-      <strong> They get public recognition as great music advisors. </strong> <br/> And special badges such as 
+      {% comment %}
+      <strong> They get public recognition as great music advisors. </strong> 
+      <br/> And special badges such as 
       <text class="tag_howitworks"> deep-house emperor </text> or <text class="tag_howitworks"> post-rock starfighter </text> for everyone to see (coming soon).
+      {% endcomment %}
     </p>
-    <p><strong> Now sign up and enjoy. You won't regret it. </strong></p>
+    <p><h4> Now sign up and enjoy. You won't regret it. </h4></p>
     <a class="close-reveal-modal"> &#215; </a>
   </div>
 
