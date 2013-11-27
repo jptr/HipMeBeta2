@@ -521,7 +521,7 @@ def create_mixtape(request):
     for profile_to_mail in tracklist.userto.all():
         if profile_to_mail.is_email_notified:
             from django.core.mail import send_mail
-            send_mail(generate_header_new_mixtape(tracklist), generate_body_new_mixtape(profile_to_mail, tracklist), 'HipMe', [profile_to_mail.user.email])
+            send_mail(generate_header_new_mixtape(tracklist), generate_body_new_mixtape(profile_to_mail, tracklist), 'HipMe', [profile_to_mail.user.email], fail_silently=True)
 
     if request.POST.get('next-success'):
         url_next = request.POST['next-success']
@@ -704,7 +704,8 @@ def profile_follow(request, username):
                 follow_back
                 ), 
                 'HipMe',
-                [profile_focused.user.email]
+                [profile_focused.user.email], 
+                fail_silently=True
                 )
     else:
         request.user.get_profile().remove_following(profile_focused) 

@@ -76,6 +76,8 @@
             </div>
           </form>
         </li>
+        <li class="divider"></li>
+        <li><a href="/user/password/reset/"> Forgot password? </a></li>
       </ul>
     </section>
   </nav>
@@ -96,6 +98,8 @@
   </div>
 
   <!-- Landing Content -->
+
+{% block content %}
 
 <div class="row landing_content">
   <div class="small-7 columns text-center">
@@ -157,6 +161,8 @@
   </div>
 </div>
 
+{% endblock %}
+
   <!-- End Landing Content -->
 
   <div id="howItWorks" class="reveal-modal medium">
@@ -176,6 +182,23 @@
       <text class="tag_howitworks"> deep-house emperor </text> or <text class="tag_howitworks"> post-rock starfighter </text> for everyone to see (coming soon).
     </p>
     <p><strong> Now sign up and enjoy. You won't regret it. </strong></p>
+    <a class="close-reveal-modal"> &#215; </a>
+  </div>
+
+  <div id="forgotPassword" class="reveal-modal medium">
+    <h4>Forgot password?</h4>
+    <form action="/user/password/reset/" method="post">
+      <fieldset>
+        <legend>Enter your email or username</legend>
+        <div class="row">
+          <div class="small-8 columns">
+            <input type="text" placeholder="email or username">
+          </div>
+          <div class="small-4 columns">
+            <input type="submit" class="button postfix" value="Submit"/>
+          </div>
+      </fieldset>
+    </form>
     <a class="close-reveal-modal"> &#215; </a>
   </div>
 

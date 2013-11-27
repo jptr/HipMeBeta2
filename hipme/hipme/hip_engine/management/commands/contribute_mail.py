@@ -20,5 +20,5 @@ class Command(NoArgsCommand):
                     # if contributor has not contributed yet and wants emails
                     if not tl.bundlebacks.filter(owner=user_to_mail) and user_to_mail.is_email_notified:
                         print "caca"
-                        send_mail(generate_header_contribute(user_to_mail), generate_body_contribute(user_to_mail, tl), 'HipMe', [user_to_mail.user.email])
+                        send_mail(generate_header_contribute(user_to_mail), generate_body_contribute(user_to_mail, tl), 'HipMe', [user_to_mail.user.email], fail_silently=True)
 

@@ -10,5 +10,5 @@ from hip_engine.mailer import generate_header_new_mixtape, generate_body_new_mix
 class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
-        send_mail('Subject', 'Body', 'test@ex.com', ['sim.frr@gmail.com'], fail_silently = False)
+        send_mail('Subject', 'Body', 'test@ex.com', ['sim.frr@gmail.com'], , fail_silently=True)
         self.stdout.write('mail envoye')

@@ -22,5 +22,5 @@ class Command(NoArgsCommand):
 
             # if in the delta and if not already closed and if user wants emails
             if tl.time_left < delta0 and tl.time_left > delta1 and not tl.is_finished and user_to_mail.is_email_notified:
-                send_mail(generate_header_mixtape_to_close(tl), generate_body_mixtape_to_close(user_to_mail, tl), 'HipMe', [user_to_mail.user.email])
+                send_mail(generate_header_mixtape_to_close(tl), generate_body_mixtape_to_close(user_to_mail, tl), 'HipMe', [user_to_mail.user.email], fail_silently=True)
 

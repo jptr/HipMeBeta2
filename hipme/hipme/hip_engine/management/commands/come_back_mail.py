@@ -15,4 +15,4 @@ class Command(NoArgsCommand):
             delta_last_login_days = delta_last_login.days
             # if it's been 10, 20, 30... (and not 0) days the user did not show up, e-mail
             if delta_last_login_days % 10 == 0 and delta_last_login_days != 0:
-                send_mail(generate_header_come_back(), generate_body_come_back(user_to_mail), 'HipMe', [user_to_mail.user.email])
+                send_mail(generate_header_come_back(), generate_body_come_back(user_to_mail), 'HipMe', [user_to_mail.user.email], fail_silently=True)
