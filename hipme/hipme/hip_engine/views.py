@@ -787,6 +787,8 @@ def register(request):
                     if not User.objects.filter(email=email_1):
                         if validateEmail(email_1):
                             user = User.objects.create_user(username, email_1, password)
+                            from django.core.mail import send_mail
+                            send_mail(generate_header_signup(user), generate_body_signup(user), 'HipMe', [user.email], fail_silently=True)
                             login_process(request)
                             messages.info(request, 'Welcome to hipMe, the social game for music discovery.', extra_tags='welcome_message_line1')
                             messages.info(request, 'Create mixtapes and ask your friends to contribute with great music...', extra_tags='welcome_message_line2')

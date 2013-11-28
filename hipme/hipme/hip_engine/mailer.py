@@ -87,3 +87,21 @@ def generate_body_come_back(user_to_mail):
     edit_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/edit/'
     str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
     return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
+
+def generate_header_signup(user):
+    return "[hipme] Hey" + user.username + ", welcome to hipme.fm!"
+
+def generate_body_signup(user):
+    str1 = "Hey "+ user.username + ", welcome aboard!"
+    feed_url = 'http://hipme.fm/'
+    str2 = "This is where it happens:" + feed_url
+    str3 = "Go create mixtapes and ask your friends to put great music in them. Or just improve your ranking by contributing to their mixtapes! The more tracks they keep, the more points you get."
+    fb_url = 'https://www.facebook.com/hipmemusic'
+    str7 = "We're trying to change the way people discover music, and we need your help. Get in touch and give us as much feedback as possible! There's a big feedback button on hipme.fm. You can also ping us at hipmail.me@gmail.com, or through Facebook:" + fb_url
+    str4 = "Keep da hip,"
+    str5 = "The hipmasters."
+    edit_url = 'http://hipme.fm/profile/'+user_to_mail.user.username+'/edit/'
+    str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
+    return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
+
+
