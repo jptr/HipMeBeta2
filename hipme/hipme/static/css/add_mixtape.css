@@ -1,6 +1,7 @@
-.mixtape_anchor { 
+.mixtape_anchor {
+  display: block;
   position: relative; 
-  top: -130px;
+  top: -125px;
 }
 
 .top_line_grey {
