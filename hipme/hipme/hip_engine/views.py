@@ -787,13 +787,13 @@ def register(request):
                     if not User.objects.filter(email=email_1):
                         if validateEmail(email_1):
                             user = User.objects.create_user(username, email_1, password)
-                            from django.core.mail import send_mail
-                            send_mail(generate_header_signup(user), generate_body_signup(user), 'HipMe', [user.email], fail_silently=True)
                             login_process(request)
                             messages.info(request, 'Welcome to hipMe, the social game for music discovery.', extra_tags='welcome_message_line1')
                             messages.info(request, 'Create mixtapes and ask your friends to contribute with great music...', extra_tags='welcome_message_line2')
                             messages.info(request, 'Or contribute to your friends\' mixtapes, you\'ll get points if they keep your tracks!', extra_tags='welcome_message_line2')
                             messages.info(request, 'First, follow a few of the people below. Then check out your stream and start playing!')
+                            from django.core.mail import send_mail
+                            send_mail(generate_header_signup(user), generate_body_signup(user), 'HipMe', [user.email], fail_silently=True)
                             return HttpResponseRedirect(reverse('hip_engine.views.suggest_profiles'))
                         else:
                             context.update({'error_message_email_1': "Your email is not valid. Please try again.",})
