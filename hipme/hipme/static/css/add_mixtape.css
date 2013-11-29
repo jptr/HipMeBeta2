@@ -43,11 +43,19 @@
   padding-bottom: 0.25em;
 }
 
-.mixtape_title {
+.mixtape_title_and_owner {
   margin-top: 10px;
   margin-bottom: 14px;
+  line-height: 2em;
+}
+
+.mixtape_title {
   font-size: 2em;
-  line-height: 1.2em;
+}
+
+.mixtape_owner {
+  font-size: 1em;
+  white-space: nowrap;
 }
 
 .mixtape_tag_list {
