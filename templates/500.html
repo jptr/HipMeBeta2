@@ -1,25 +1,21 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="{{MEDIA_URL}}css/hipme_header.css" />
-        <link rel="stylesheet" href="{{MEDIA_URL}}css/hipme_all.css" />
-        <link rel="stylesheet" href="{{MEDIA_URL}}css/hipme_coming_soon.css" />
-        <title> HipMe - Swap, Rate, Discover Tunes. </title>
-    </head>
+{% load analytics %}
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
 
-    <body>
-        <div id="page">
-            <header>
-                <div id="banner_logo" class="banner_button">
-                    <a href="/home/">
-                        <img src="{{MEDIA_URL}}img/banner_logo.png" alt="banner_logo" class="banner_img"/>
-                    </a>
-                </div>
-            </header>
-            <div class="error_img">
-                <img src="{{MEDIA_URL}}img/500.png" width="30%" alt="404"/>
-            </div>
-        </div>
-    </body>
-</html>
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title> hipme </title>
+  <link rel="shortcut icon" type="image/jpg" href="{% static "img/hipme-favicon-16.jpg"}" />
+
+</head>
+
+<body>
+  <h1> 500 - Dammit! You broke hipme.fm! </h1>
+  <h3> There's been a server error. Please unplug your toaster and try again. If it breaks the interwebs again, please let us know. </h3>
+  <h3><i> -- The hipmasters </i></h3>
+</body>
