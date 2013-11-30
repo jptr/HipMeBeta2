@@ -788,10 +788,10 @@ def register(request):
                         if validateEmail(email_1):
                             user = User.objects.create_user(username, email_1, password)
                             login_process(request)
-                            messages.info(request, 'Welcome to hipMe, the social game for music discovery.', extra_tags='welcome_message_line1')
-                            messages.info(request, 'Create mixtapes and ask your friends to contribute with great music...', extra_tags='welcome_message_line2')
-                            messages.info(request, 'Or contribute to your friends\' mixtapes, you\'ll get points if they keep your tracks!', extra_tags='welcome_message_line2')
-                            messages.info(request, 'First, follow a few of the people below. Then check out your stream and start playing!')
+                            messages.info(request, 'Welcome to hipme.fm!', extra_tags='welcome_message_line1')
+                            messages.info(request, 'Discover great music: create mixtapes and ask your friends to put their best tracks in them...', extra_tags='welcome_message_line2')
+                            messages.info(request, 'Or put tracks into their mixtapes: the more they like your recommendations, the higher you rank!', extra_tags='welcome_message_line2')
+                            messages.info(request, 'First, find friends below and follow them. Then check out your stream and start playing!', extra_tags='welcome_message_line3')
                             from django.core.mail import send_mail
                             send_mail(generate_header_signup(user), generate_body_signup(user), 'HipMe', [user.email], fail_silently=True)
                             return HttpResponseRedirect(reverse('hip_engine.views.suggest_profiles'))

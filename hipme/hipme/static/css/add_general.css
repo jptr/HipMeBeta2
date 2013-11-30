@@ -57,12 +57,20 @@ textarea {
 }
 
 .welcome_message_line1{
-  font-size: 20px;
+  font-size: 28px;
+  margin-top: 6px;
   margin-bottom: 14px;
 }
 
 .welcome_message_line2{
+  font-size: 16px;
+  font-weight: normal;
   margin-bottom: 14px;
+}
+
+.welcome_message_line3{
+  font-size: 16px;
+  font-weight: normal;margin-bottom: 6px;
 }
 
 .search_results_title {
