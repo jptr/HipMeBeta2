@@ -1,0 +1,32 @@
+{% extends "hip_engine/base.html" %}
+{% load staticfiles %}
+
+{% block feed_header %}
+
+{% comment %}
+<div data-alert class="alert-box secondary">
+    Check out your friends' last updates! New mixtapes, contributions, comments...
+    <a href="#" class="close">&times;</a>
+</div>
+{% endcomment %}
+
+
+{% endblock feed_header %}
+
+{% block main_feed %}
+
+<!-- Feed -->
+
+<ul class="no-bullet">
+    <li>
+        {% include "hip_engine/snippet_edit_mixtape.html" %}
+    </li>
+</ul>
+
+<div class="small-12 columns">
+    <button class="button postfix">Save mixtape</button>
+</div>
+
+<!-- End Feed -->
+
+{% endblock main_feed %}

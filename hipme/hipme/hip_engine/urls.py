@@ -28,6 +28,9 @@ urlpatterns += patterns('hip_engine.views',
     url(r'^profile/(?P<username>\w+)/rankings/$','profile_rankings'),
     url(r'^profile/(?P<username>\w+)/follow/$','profile_follow'),
 
+    url(r'^mixtape/(?P<tracklist_id>\d+)/$', 'display_mixtape'),
+    url(r'^mixtape/(?P<tracklist_id>\d+)/edit/$', 'edit_mixtape'),
+
     url(r'^$','landing'),
     url(r'^feed/$','feed'),
     url(r'^login/$','landing'),

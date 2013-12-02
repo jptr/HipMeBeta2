@@ -28,6 +28,15 @@ def has_tracks(tracklist):
     return False
 
 @register.filter()
+def string_tag(tracklist):
+    tags = []
+    for tag in tracklist.tags.all():
+        tags.append(tag.name)
+    if len(tags)==0:
+        return ""
+    return " ,".join(tags)
+
+@register.filter()
 def display_tracks_label(tracklist):
     num_tracks = 0
     if tracklist.tracks_initial.all():
@@ -41,7 +50,6 @@ def display_tracks_label(tracklist):
         return "Show 1 track"
     return "Show "+str(num_tracks) +" tracks"
     
-
 @register.filter()
 def has_contributed(tracklist, user_id):
     for bundle in tracklist.bundlebacks.all():

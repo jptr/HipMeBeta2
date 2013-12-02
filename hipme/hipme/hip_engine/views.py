@@ -530,6 +530,18 @@ def create_mixtape(request):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
+def display_mixtape(request, tracklist_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+    return render_to_response('hip_engine/mixtape_display.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
+
+@login_required
+def edit_mixtape(request, tracklist_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+    if tracklist.owner.user == request.user:
+        return render_to_response('hip_engine/mixtape_edit.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
+    return render_to_response('hip_engine/mixtape_display.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
+
+@login_required
 def add_track(request, tracklist_id):
 
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
