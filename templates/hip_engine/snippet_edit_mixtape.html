@@ -1,210 +1,62 @@
 {% load staticfiles %}
 {% load hip_extras %}
 
-<div class="small-12 columns mixtape
-{% if tracklist.is_finished %}
-  top_line_grey
-{% else %}
-  {% if tracklist.owner == request.user.get_profile %}
-    top_line_yellow
+<form action="/mixtape/{{tracklist.id}}/edit/" method="POST">
+{% csrf_token %}
+
+  <div class="small-12 columns mixtape
+  {% if tracklist.is_finished %}
+    top_line_grey
   {% else %}
-    {% if tracklist.is_time_out %}
-      top_line_grey
+    {% if tracklist.owner == request.user.get_profile %}
+      top_line_yellow
     {% else %}
-      {% if request.user.get_profile in tracklist.userto.all %}
-        top_line_yellow
+      {% if tracklist.is_time_out %}
+        top_line_grey
       {% else %}
-        top_line_green
+        {% if request.user.get_profile in tracklist.userto.all %}
+          top_line_yellow
+        {% else %}
+          top_line_green
+        {% endif %}
       {% endif %}
     {% endif %}
-  {% endif %}
-{% endif %} ">
+  {% endif %} ">
   
-  <a class="mixtape_anchor" id="mx{{tracklist.id}}"></a>
-  <div class="row mixtape_header">
-    <div class="small-8 columns">
-      <span class="mixtape_edit_info">
-          edit title
-      </span>
-      <br/>
-      <div class="mixtape_title_and_owner">
-        <span class="mixtape_title">
-            <input type="text" name="title" id="edit_title" placeholder="Title - max 50 characters" maxlength="50" value="{{tracklist.title}}">
+    <a class="mixtape_anchor" id="mx{{tracklist.id}}"></a>
+    <div class="row mixtape_header">
+      <div class="small-8 columns">
+        <span class="mixtape_edit_info">
+            edit title
         </span>
-      </div>
-      <span class="mixtape_edit_info">
-          edit tags
-      </span>
-      <br/>
-      <div class="mixtape_title_and_owner">
-          <input type="text" name="tags" id="create_tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80", value="{{ tracklist|string_tag }}">
-      </div>
-    </div>
-    <div class="small-4 columns">
-      <div class="row">
-        <div class="small-6 columns">
-          <button
-            class="button success radius expand play_mxtp_btn"
-            onClick="loadMix({{ tracklist|js_tracklist }})">
-          Listen
-          </button>
-        </div>
-        <div class="small-6 columns">
-          <form action="/mixtape/{{tracklist.id}}/like/" method="post" class="like_btn_form" id="like_form">
-          {% csrf_token %}
-            {% if tracklist in request.user.get_profile.tracklist_kept.all %}
-              <button class="button disabled radius expand liked_mxtp_btn"> Liked </button>
-              <input type="submit" class="button expand radius unlike_mxtp_btn" name="unlike" value="Unlike">
-            {% else %}
-              <input type="submit" class="button expand radius like_mxtp_btn" name="like" value="Like" title="Add this mixtape to your collection">
-            {% endif %}
-            <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}" />
-          </form>
-        </div>
-        {% comment %}
-        <div class="small-6 columns text-center play_mxtp_stats">
-          <img src="{% static "img/icons/play_orange.png" %}" width="32px"/>
-             {{ tracklist.listenings }}
-        </div>
-        {% endcomment %}
-        <div class="small-6 small-offset-6 columns text-center like_mxtp_stats">
-          <img src="{% static "img/icons/heart_green.png" %}" width="24px" />
-            {{ tracklist.likes }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="small-12 columns mixtape_summary">
-    <div class="row">
-      <div class="small-2 columns mixtape_header_owner">
-        <a href="/profile/{{tracklist.owner.user.username}}/">
-          {% if tracklist.owner.avatar %}
-            <img src="{{MEDIA_URL}}{{ tracklist.owner.avatar.name }}" title="{{tracklist.owner.user.username}}" width="82px"/>
-          {% else %}
-            <img src="{{MEDIA_URL}}profile_pics/default.jpg" title="{{tracklist.owner.user.username}}" width="82px"/>
-          {% endif %}
-        </a>
-      </div>
-      <div class="small-6 columns mixtape_header_contributors_and_featuring">
-        <ul class="inline-list mixtape_header_contributors">
-          {% for user_profile in tracklist.userto.all %}
-            <li>
-              <a href="/profile/{{user_profile.user.username}}/">
-                {% if user_profile.avatar %}
-                  <img src="{{MEDIA_URL}}{{ user_profile.avatar.name }}" title="{{user_profile.user.username}}" width="50px"/>
-                {% else %}
-                  <img src="{{MEDIA_URL}}profile_pics/default.jpg" title="{{user_profile.user.username}}" width="50px"/>
-                {% endif %}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
         <br/>
-        <div class="mixtape_featuring">
-          {% if tracklist|featuring_string %}
-            featuring {{ tracklist|featuring_string }}
-          {% endif %}
+        <div class="mixtape_title_and_owner">
+          <span class="mixtape_title">
+              <input type="text" name="title" id="edit_title" placeholder="Title - max 50 characters" maxlength="50" value="{{tracklist.title}}">
+          </span>
+        </div>
+        <span class="mixtape_edit_info">
+            edit tags
+        </span>
+        <br/>
+        <div class="mixtape_title_and_owner">
+            <input type="text" name="tags" id="create_tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80", value="{{ tracklist|string_tag }}">
         </div>
       </div>
-      <div class="small-4 columns display_tracks_btn_zone">
-        <button class="button expand radius dropdown display_tracks_btn">{{tracklist|display_tracks_label}}</button>
-      </div>
-      <div class="small-8 columns show_add_track_form_btn_zone">
 
-        {% if tracklist.is_finished %}
-          <button class="button expand radius secondary disabled cannot_show_add_track_form_btn count_add_track_form_btn"> Mixtape closed. </button>
-        {% else %}
-          {% if tracklist.is_time_out %}
-            <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> Time is over - no tracks can be added. </button>
-          {% else %}
-            {% if request.user.get_profile not in tracklist.userto.all and tracklist.owner != request.user.get_profile %}
-              {% if tracklist.userto.all|length_is:"5" %}
-                <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> There are 5 contributors already.<br/> No room for you... </button>
-              {% else %}
-                <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Jump in and add a track! </button>
-              {% endif %}
-            {% elif request.user.get_profile in tracklist.userto.all %}
-              {% if tracklist|has_contributed:request.user.id %}
-                {% for bundle in tracklist.bundlebacks.all %}
-                  {% if bundle.owner = request.user.get_profile %}
-                    {% comment %} This next condition is useless, but just in case... {% endcomment %}
-                    {% if bundle.tracks.all|length_is:"0" %}
-                      <button class="button success expand radius show_add_track_form_btn count_add_track_form_btn"> {{ tracklist.owner }} wants you to contribute. <br/> Add your first track! </button>
-                    {% elif bundle.tracks.all|length_is:"1" %}
-                      <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add another track! </button>
-                    {% elif bundle.tracks.all|length_is:"2" %}
-                      <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add one last track... </button>
-                    {% else %}
-                      <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> You've already added 3 tracks. </button>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-              {% else %}
-                <button class="button success expand radius show_add_track_form_btn count_add_track_form_btn"> {{ tracklist.owner }} wants you to contribute. <br/> Add your first track! </button>
-              {% endif %}
-            {% else %}
-              {% if tracklist.tracks_initial.all|length_is:"0" %}
-                <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add a track to your mixtape! </button>
-              {% elif tracklist.tracks_initial.all|length_is:"1" %}
-                <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add another track! </button>
-              {% elif tracklist.tracks_initial.all|length_is:"2" %}
-                <button class="button expand radius show_add_track_form_btn count_add_track_form_btn"> Add one last track... </button>
-              {% else %}
-                <button class="button expand radius disabled cannot_show_add_track_form_btn count_add_track_form_btn"> You've already added 3 tracks. </button>
-              {% endif %}
-            {% endif %}
-          {% endif %}
-        {% endif %}
-
-      </div>
-      <div class="small-4 columns hide_tracks_btn_zone">
-        <button class="button expand radius secondary hide_tracks_btn dropup"> Hide tracks </button>
-      </div>
-      <div class="small-4 columns mixtape_add_track_info text-right">
-        hipMe can only play music from SoundCloud and YouTube.
-      </div>
-      <div class="small-8 columns mixtape_add_track_form_zone">
-        <form action="/mixtape/{{tracklist.id}}/add/track/" class="mixtape_add_track_form" method="post">
-          <input name="next-success" type="hidden" value="/feed/#mx{{tracklist.id}}" />
-          {% csrf_token %}
-          <div class="row">
-            <div class="small-10 columns">
-              <div class="row collapse">
-                <div class="small-12 columns">
-                  <input type="text" name="url" placeholder="Track URL (SoundCloud or YouTube)" id="input_url"/>
-                </div>
-              </div>
-            </div>
-            <div class="small-2 columns">
-              <input type="submit" class="button postfix expand mixtape_add_track_btn" value="Add"/>
-            </div>
-          </div>
-          <div class="row ">
-            <div class="small-5 columns ">
-              <input type="text" name="artist" placeholder="Artist"/>
-            </div>
-            <div class="small-5 columns">
-              <input type="text" name="name" placeholder="Name"/>
-            </div>
-            <div class="small-2 columns">
-              <input type="button" value="X" class="button postfix secondary expand mixtape_add_track_cancel" />
-            </div>
-          </div>
-        </form>
-      </div>
     </div>
-  </div>
 
-  <ul class="no-bullet bundle_list">
+    <div class="row mixtape_header">
+      <span class="mixtape_edit_info">
+          edit tracks you added
+      </span>
+
+  <ul class="no-bullet">
     {% if tracklist.tracks_initial.all %}
       <li>
-        <div class="small-12 columns mixtape_bundle mixtape_bundlego">
+        <div class="small-12 columns mixtape_bundle mixtape_edit_bundlego">
           <div class="row collapse">
-            <div class="small-4 columns bundle_profile">
-              {% include "hip_engine/snippet_mini_profile_mixtape_owner.html" %}
-            </div>
-            <div class="small-8 columns
+            <div class="small-12 columns
               {% if tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1
               {% elif tracklist.tracks_initial.all|length_is:"2" %} bundle_tracklist_2
               {% elif tracklist.tracks_initial.all|length_is:"3" %} bundle_tracklist_3
@@ -221,96 +73,14 @@
         </div>
       </li>
     {% endif %}
-    {% if not tracklist.is_finished %}
-      {% for bundle in tracklist.bundlebacks.all %}
-        {% if bundle.tracks.all %}
-          <li>
-            <div class="small-12 columns mixtape_bundle ">
-              <div class="row collapse">
-                <div class="small-4 columns bundle_profile">
-                  {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
-                </div>
-                <div class="small-8 columns 
-                  {% if bundle.tracks.all|length_is:"1" %} bundle_tracklist_1
-                  {% elif bundle.tracks.all|length_is:"2" %} bundle_tracklist_2
-                  {% elif bundle.tracks.all|length_is:"3" %} bundle_tracklist_3
-                  {% endif %}">
-                  <ul class="no-bullet">
-                    {% for track in bundle.tracks.all %}
-                      <li>
-                        {% include "hip_engine/snippet_track.html" %}
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-        {% endif %}
-      {% endfor %}
-    {% else %}
-      {% for bundle in tracklist.bundlebacks.all %}
-        {% if bundle.tracks_kept.all %}
-          <li>
-            <div class="small-12 columns mixtape_bundle ">
-              <div class="row collapse">
-                <div class="small-4 columns bundle_profile">
-                  {% include "hip_engine/snippet_mini_profile_mixtape_bundler.html" %}
-                </div>
-                <div class="small-8 columns 
-                  {% if bundle.tracks_kept.all|length_is:"1" %} bundle_tracklist_1
-                  {% elif bundle.tracks_kept.all|length_is:"2" %} bundle_tracklist_2
-                  {% elif bundle.tracks_kept.all|length_is:"3" %} bundle_tracklist_3
-                  {% endif %}">
-                  <ul class="no-bullet">
-                    {% for track in bundle.tracks_kept.all %}
-                      <li>
-                        {% include "hip_engine/snippet_track.html" %}
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-    {% if request.user.get_profile == tracklist.owner %}
-      {% if not tracklist.is_finished %}
-        <li>
-          <div class="small-12 columns close_mixtape_zone">
-            <button class="button expand radius close_mixtape_btn_1"> Close your mixtape </button>
-            <div class="row">
-              <div class="small-12 columns close_mixtape_info">
-                Are you done selecting the tracks you want to keep in your mixtape 
-                  <strong>
-                    {% if tracklist.title %}
-                      {{tracklist.title}}
-                    {% else %}
-                      #Untitled
-                    {% endif %}
-                  </strong>
-                ? <br/>
-                Use the <strong> Keep/Unkeep buttons </strong> next to the tracks to keep or dump propositions. <br/>
-                After closing this mixtape, you won't be able to modify it anymore.
-              </div>
-            </div>
-            <div class="row close_mixtape_form_zone">
-              <div class="small-10 columns">
-                <form action="/mixtape/{{tracklist.id}}/close/" method="post" class="close_mixtape_form">
-                  {% csrf_token %}
-                  <input type="submit" class="button expand success radius" value="Close mixtape"/>
-                </form>
-              </div>
-              <div class="small-2 columns">
-                <button class="button expand secondary radius close_mixtape_cancel_btn"> Cancel </button>
-              </div>
-            </div>
-          </div>
-        </li>
-      {% endif %}
-    {% endif %}
   </ul>
 
+  </div>
+
 </div>
+
+<div class="small-12 columns">
+    <input type="submit" class="button postfix" value="Save Mixtape">
+</div>
+
+</form>

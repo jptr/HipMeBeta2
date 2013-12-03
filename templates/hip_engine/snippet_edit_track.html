@@ -2,8 +2,8 @@
 {% load hip_extras %}
 
 <div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
-  <div class="columns track
-  {% if track not in tracklist.tracks_initial.all and not tracklist.is_finished %} small-10 {% else %} small-12 {% endif %}">
+  <div class="columns track_edit small-12">
+    <div class="columns small-1">
     <a href="{{ track.url }}" target="_blank">
       {% if track.site_from == 'youtube' %}
         <img src="{% static "img/icons/youtube_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;
@@ -30,29 +30,15 @@
         href = "{{ track.url }}" target = "_blank"
       {% endif %}>
     </a>
-    <input type="text" id="edit_artist_1" name="artist_1" placeholder="Artist (opt.)" value="{{ track.artist }}">
-    <input type="text" id="edit_track_1" name="name_1" placeholder="Track title (opt.)" value="{{track.name}}">
+    </div>
+    <div class="columns small-2">
+      <input type="text" id="edit_artist_1" name="artist_1" placeholder="Artist (opt.)" value="{{ track.artist }}">
+    </div>
+    <div class="columns small-2">
+      <input type="text" id="edit_track_1" name="name_1" placeholder="Track title (opt.)" value="{{track.name}}">
+    </div>
+    <div class="columns small-7">
+      <input type="text" id="edit_track_1" name="name_1" placeholder="Track title (opt.)" value="{{track.url}}">
+    </div>
   </div>
-  {% if track not in tracklist.tracks_initial.all %}
-    {% if not tracklist.is_finished %}
-      <div class="small-2 columns">
-        {% if request.user.get_profile == tracklist.owner %}
-          <form action="/mixtape/{{tracklist.id}}/bundle/{{bundle.id}}/track/{{track.id}}/keep/" method="post" class="select_track_form">
-            <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}"/>
-            {% csrf_token %}
-            {% if track in bundle.tracks_kept.all %}
-              <input type="submit" class="tiny button expand success kept_track_btn" value="Kept">
-              <input type="submit" class="tiny button expand alert unkeep_track_btn" value="Unkeep">
-            {% else %}
-              <input type="submit" class="tiny button expand keep_track_btn" value="Keep">
-            {% endif %}
-          </form>
-        {% else %}
-          {% if track in bundle.tracks_kept.all %}
-            <div class="label secondary"> Kept </div>
-          {% endif %}
-        {% endif %}
-      </div>
-    {% endif %}
-  {% endif %}
 </div>

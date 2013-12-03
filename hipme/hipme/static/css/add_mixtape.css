@@ -44,7 +44,7 @@
 }
 
 .mixtape_edit_info {
-  margin-left: -1.25em;
+  margin-left: -1.0em;
   background-color: #FAFAFA;
   font-size: 16px;
   font-style: italic;
@@ -183,6 +183,13 @@
   background-color: #FAFAFA;
 }
 
+.mixtape_edit_bundlego {
+  height: 124px;
+  margin-bottom: 3px;
+  margin-top: 10px;
+  background-color: #FAFAFA;
+}
+
 .bundle_profile {
   margin-top: 32px;
 }
@@ -217,6 +224,13 @@
   height: 25px;
   padding-top: 3px;
   font-size: 12px;
+  overflow: hidden;
+}
+
+.track_edit {
+  height: 40px;
+  padding-top: 3px;
+  font-size: 14px;
   overflow: hidden;
 }
 

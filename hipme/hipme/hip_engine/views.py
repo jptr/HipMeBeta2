@@ -447,7 +447,7 @@ def test_forms(request):
 
 # action views
 @login_required
-def create_mixtape(request):
+def mixtape_create(request):
     userto = request.POST.get('tracklist-userto')
     if not userto:
         profile_me = request.user.get_profile()
@@ -530,14 +530,36 @@ def create_mixtape(request):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
-def display_mixtape(request, tracklist_id):
+def mixtape_display(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     return render_to_response('hip_engine/mixtape_display.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
 
 @login_required
-def edit_mixtape(request, tracklist_id):
+def mixtape_edit(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     if tracklist.owner.user == request.user:
+        if request.POST:
+            title = request.POST.get('title')
+            if title:
+                tracklist.title = title
+
+            string_tags = request.POST.get('tags')
+            tracklist.tags.clear()
+            if string_tags:
+                tags = parseTags(string_tags)
+                for tag_name in tags:
+                    if Tag.objects.filter(name=tag_name):
+                        tag = get_object_or_404(Tag, name=tag_name)
+                        tracklist.tags.add(tag)
+                    else:
+                        tag = Tag(name=tag_name)
+                        tag.save()
+                        tracklist.tags.add(tag)
+
+            tracklist.save()
+
+            return HttpResponseRedirect(reverse('hip_engine.views.mixtape_display', args=(tracklist_id,)))
+
         return render_to_response('hip_engine/mixtape_edit.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
     return render_to_response('hip_engine/mixtape_display.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
 
