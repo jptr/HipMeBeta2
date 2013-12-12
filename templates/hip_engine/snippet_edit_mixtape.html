@@ -1,31 +1,30 @@
 {% load staticfiles %}
 {% load hip_extras %}
 
-<form action="/mixtape/{{tracklist.id}}/edit/" method="POST">
-{% csrf_token %}
-
-  <div class="small-12 columns mixtape
-  {% if tracklist.is_finished %}
-    top_line_grey
+<div class="small-12 columns mixtape
+{% if tracklist.is_finished %}
+  top_line_grey
+{% else %}
+  {% if tracklist.owner == request.user.get_profile %}
+    top_line_yellow
   {% else %}
-    {% if tracklist.owner == request.user.get_profile %}
-      top_line_yellow
+    {% if tracklist.is_time_out %}
+      top_line_grey
     {% else %}
-      {% if tracklist.is_time_out %}
-        top_line_grey
+      {% if request.user.get_profile in tracklist.userto.all %}
+        top_line_yellow
       {% else %}
-        {% if request.user.get_profile in tracklist.userto.all %}
-          top_line_yellow
-        {% else %}
-          top_line_green
-        {% endif %}
+        top_line_green
       {% endif %}
     {% endif %}
-  {% endif %} ">
-  
+  {% endif %}
+{% endif %} ">
+
+  <form action="/mixtape/{{tracklist.id}}/edit/" method="POST">
+  {% csrf_token %}
     <a class="mixtape_anchor" id="mx{{tracklist.id}}"></a>
     <div class="row mixtape_header">
-      <div class="small-8 columns">
+      <div class="small-12 columns">
         <span class="mixtape_edit_info">
             edit title
         </span>
@@ -42,45 +41,39 @@
         <div class="mixtape_title_and_owner">
             <input type="text" name="tags" id="create_tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80", value="{{ tracklist|string_tag }}">
         </div>
+        <span class="mixtape_edit_info">
+            edit tracks you added
+        </span>
       </div>
-
     </div>
 
-    <div class="row mixtape_header">
-      <span class="mixtape_edit_info">
-          edit tracks you added
-      </span>
-
-  <ul class="no-bullet">
-    {% if tracklist.tracks_initial.all %}
-      <li>
-        <div class="small-12 columns mixtape_bundle mixtape_edit_bundlego">
-          <div class="row collapse">
-            <div class="small-12 columns
-              {% if tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1
-              {% elif tracklist.tracks_initial.all|length_is:"2" %} bundle_tracklist_2
-              {% elif tracklist.tracks_initial.all|length_is:"3" %} bundle_tracklist_3
-              {% endif %}">
-              <ul class="no-bullet">
-                {% for track in tracklist.tracks_initial.all %}
-                  <li>
-                    {% include "hip_engine/snippet_edit_track.html" %}
-                  </li>
-                {% endfor %}
-              </ul>
+    <ul class="no-bullet">
+      {% if tracklist.tracks_initial.all %}
+        <li>
+          <div class="small-12 columns mixtape_bundle mixtape_edit_bundlego">
+            <div class="row collapse">
+              <div class="small-12 columns
+                {% if tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1
+                {% elif tracklist.tracks_initial.all|length_is:"2" %} bundle_tracklist_2
+                {% elif tracklist.tracks_initial.all|length_is:"3" %} bundle_tracklist_3
+                {% endif %}">
+                <ul class="no-bullet">
+                  {% for track in tracklist.tracks_initial.all %}
+                    <li>
+                      {% include "hip_engine/snippet_edit_track.html" %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
-    {% endif %}
-  </ul>
+        </li>
+      {% endif %}
+    </ul>
+    <div class="small-12 columns">
+        <input type="submit" class="button postfix" value="Save Mixtape">
+    </div>
 
-  </div>
-
+  </form>
+  
 </div>
-
-<div class="small-12 columns">
-    <input type="submit" class="button postfix" value="Save Mixtape">
-</div>
-
-</form>

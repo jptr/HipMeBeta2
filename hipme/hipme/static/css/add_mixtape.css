@@ -4,6 +4,10 @@
   top: -125px;
 }
 
+.single_mixtape_padder {
+  height: 1em;
+}
+
 .top_line_grey {
   border-top: 5px solid #444444;
 }
