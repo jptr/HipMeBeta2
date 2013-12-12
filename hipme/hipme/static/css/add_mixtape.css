@@ -73,6 +73,10 @@
   white-space: nowrap;
 }
 
+.link_in_mixtape:hover {
+  color: #00c09a;
+}
+
 .mixtape_tag_list {
   margin-left: -1.2em;
   margin-top: 0.2em;
