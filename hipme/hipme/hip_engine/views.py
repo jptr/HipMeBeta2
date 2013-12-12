@@ -532,10 +532,19 @@ def mixtape_create(request):
 @login_required
 def mixtape_display(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
-    return render_to_response('hip_engine/mixtape_display.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
+    context = {
+        "tracklist":tracklist,
+    }
+    context.update(get_rankings(request))
+    context.update(get_nav_context())
+    return render_to_response('hip_engine/mixtape_display.html', context, context_instance=RequestContext(request))
 
 @login_required
 def mixtape_edit(request, tracklist_id):
+
+    context = get_rankings(request)
+    context.update(get_nav_context())
+
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     if tracklist.owner.user == request.user:
         if request.POST:
@@ -559,9 +568,11 @@ def mixtape_edit(request, tracklist_id):
             tracklist.save()
 
             return HttpResponseRedirect(reverse('hip_engine.views.mixtape_display', args=(tracklist_id,)))
-
-        return render_to_response('hip_engine/mixtape_edit.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
-    return render_to_response('hip_engine/mixtape_display.html', {"tracklist":tracklist,}, context_instance=RequestContext(request))
+        
+        context.update({"tracklist":tracklist,})
+        return render_to_response('hip_engine/mixtape_edit.html', context, context_instance=RequestContext(request))
+    context.update({"tracklist":tracklist,})
+    return render_to_response('hip_engine/mixtape_display.html', context, context_instance=RequestContext(request))
 
 @login_required
 def add_track(request, tracklist_id):
