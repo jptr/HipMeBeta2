@@ -34,7 +34,7 @@ def string_tag(tracklist):
         tags.append(tag.name)
     if len(tags)==0:
         return ""
-    return " ,".join(tags)
+    return ", ".join(tags)
 
 @register.filter()
 def display_tracks_label(tracklist):
