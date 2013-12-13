@@ -30,7 +30,10 @@
             {% if tracklist.is_finished %}
               Closed {{ tracklist.time_delta|delta_string }} ago
             {% else %}
-              Contributions are over &nbsp / &nbsp waiting for {{tracklist.owner.user.username}}
+              Contributions are over &nbsp / &nbsp waiting for
+              <a href="/profile/{{tracklist.owner.user.username}}/" class="link_in_mixtape">
+                {{tracklist.owner.user.username}}
+              </a>
             {% endif %}
           {% else %}
             {% if tracklist.is_finished %}
@@ -45,7 +48,7 @@
       <br/>
       <div class="mixtape_title_and_owner">
         <span class="mixtape_title">
-          <a href="/mixtape/{{tracklist.id}}/">
+          <a href="/mixtape/{{tracklist.id}}/" class ="link_in_mixtape">
             {% if tracklist.title %}
               {{tracklist.title}}
             {% else %}
@@ -53,16 +56,18 @@
             {% endif %}
           </a>
         </span>
-        <span class="mixtape_owner">
-          by {{tracklist.owner.user.username}}
-        </span>
-        <span class="mixtape_owner">
-          {% if tracklist.owner.user == request.user %}
-            -
+        {% if tracklist.owner.user == request.user %}
+          <span class="mixtape_edit_link">
             <a href="/mixtape/{{tracklist.id}}/edit/" class="link_in_mixtape"> edit </a>
-          {% endif %}
-        </span>
-
+          </span>
+        {% else %}
+          <span class="mixtape_owner">
+            by 
+            <a href="/profile/{{tracklist.owner.user.username}}/" class="link_in_mixtape">
+              {{tracklist.owner.user.username}}
+            </a>
+          </span>
+        {% endif %}
       </div>
       <ul class="inline-list mixtape_tag_list">
         {% for tag in tracklist.tags.all %}
