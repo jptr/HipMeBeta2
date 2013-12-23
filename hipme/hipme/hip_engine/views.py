@@ -531,7 +531,8 @@ def mixtape_create(request):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
-def tag_display(request, tag_name):
+def tag_display(request, urlized_tag_name):
+    tag_name = " ".join(urlized_tag_name.split("+"))
     tag = get_object_or_404(Tag, name=tag_name)
     tracklist_queryset = Tracklist.objects.filter(tags=tag)
     tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:20]

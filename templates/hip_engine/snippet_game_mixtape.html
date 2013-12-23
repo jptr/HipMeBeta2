@@ -72,7 +72,7 @@
       <ul class="inline-list mixtape_tag_list">
         {% for tag in tracklist.tags.all %}
           <li class="label radius tag_mixtape"> 
-            <a href="/tag/{{tag.name}}/">
+            <a href="/tag/{{tag.name|urlize_string}}/">
               {{tag.name}}
             </a>
           </li>
@@ -107,7 +107,7 @@
         </div>
         {% endcomment %}
         <div class="small-6 small-offset-6 columns text-center like_mxtp_stats">
-          <img src="{% static "img/icons/heart_green.png" %}" width="24px" />
+          <img src="{% static "img/icons/heart_green.png" %}" width="24px" /> 
             {{ tracklist.likes }}
         </div>
       </div>

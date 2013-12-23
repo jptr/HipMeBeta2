@@ -31,7 +31,7 @@ urlpatterns += patterns('hip_engine.views',
     url(r'^mixtape/(?P<tracklist_id>\d+)/$', 'mixtape_display'),
     url(r'^mixtape/(?P<tracklist_id>\d+)/edit/$', 'mixtape_edit'),
 
-    url(r'^tag/(?P<tag_name>\w+)/$', 'tag_display'),
+    url(r'^tag/(?P<urlized_tag_name>[A-Za-z0-9_\+]+)/$', 'tag_display'),
 
     url(r'^$','landing'),
     url(r'^feed/$','feed'),
