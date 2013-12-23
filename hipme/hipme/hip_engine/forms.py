@@ -7,6 +7,11 @@ class ProfileImageForm(ModelForm):
         model = UserProfile
         fields = ('avatar',)
 
+class UserUsernameForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ('username',)
+
 class UserEmailForm(ModelForm):
     class Meta:
         model = User

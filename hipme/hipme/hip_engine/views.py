@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from django.forms.models import inlineformset_factory, modelformset_factory
-from hip_engine.forms import ProfileImageForm, ProfileEmailNotificationForm, UserEmailForm, TracklistForm, TrackForm
+from hip_engine.forms import ProfileImageForm, ProfileEmailNotificationForm, UserEmailForm, UserUsernameForm, TracklistForm, TrackForm
 
 from PIL import Image
 from django.conf import settings
@@ -132,7 +132,7 @@ def get_generic_context(request):
 def landing(request):
     if not request.user.is_authenticated():
         redirect_to = request.GET.get('next','')
-        return render_to_response('hip_engine/landing_page_temp.html', {'redirect_to': redirect_to}, context_instance=RequestContext(request))
+        return render_to_response('hip_engine/landing_page.html', {'redirect_to': redirect_to}, context_instance=RequestContext(request))
     else:
         return feed(request)
 
@@ -144,11 +144,11 @@ def save_email(request):
         semail = SavedEmail(email = request.POST['email_temp'], submit_date = timezone.now())
         semail.save()
         context.update({'info_message_saved_email': "Awesome, you're in.",})
-        return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
+        return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
 
     else:
         context.update({'error_message_saved_email': "Your email is not valid. Please try again.",})
-        return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
+        return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
 
 @login_required
 def populate_db(request):
@@ -288,11 +288,8 @@ def profile_pending(request, username):
 def profile_followers(request, username):
     profile_focused = get_object_or_404(UserProfile, user__username=username)
     followers_list = profile_focused.get_followers()
-    tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
-        'tracklist_list':tracklist_list,
         'followers_list':followers_list,
     }
     context.update(get_profile_context(username))
@@ -305,11 +302,8 @@ def profile_followers(request, username):
 def profile_following(request, username):
     profile_focused = get_object_or_404(UserProfile,user__username=username)
     following_list = profile_focused.get_following()
-    tracklist_queryset = Tracklist.objects.filter(owner = request.user.get_profile()).filter(is_finished=False)|Tracklist.objects.filter(userto = request.user.get_profile()).filter(is_finished=False)
-    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
 
     context = {
-        'tracklist_list':tracklist_list,
         'following_list':following_list,
     }
     context.update(get_profile_context(username))
@@ -322,6 +316,7 @@ def profile_following(request, username):
 def profile_edit(request, username):
     if (username == request.user.username):
 
+        username_form = UserUsernameForm(instance=request.user)
         email_form = UserEmailForm(instance=request.user)
         email_notif_form = ProfileEmailNotificationForm(instance=request.user.get_profile())
         image_form = ProfileImageForm(instance=request.user.get_profile())
@@ -341,6 +336,11 @@ def profile_edit(request, username):
                     im = Image.open(im_path)
                     im = rescale_square(im, 256)
                     im.save(im_path, "JPEG")
+            elif request.POST['form-type'] == "username-form":
+                username_form = UserUsernameForm(request.POST, instance=request.user)
+                if username_form.is_valid():
+                    username_form.save() 
+                    return HttpResponseRedirect(reverse('hip_engine.views.profile_edit', args=(request.user.username,)))
             elif request.POST['form-type'] == "email-form":
                 email_form = UserEmailForm(request.POST, instance=request.user)
                 if email_form.is_valid():
@@ -362,6 +362,7 @@ def profile_edit(request, username):
             'email_notif_form':email_notif_form,
             'image_form':image_form,
             'psw_form':psw_form,
+            'username_form':username_form,
         }
         context.update(get_profile_context(username))
         context.update(get_generic_context(request))
@@ -528,6 +529,20 @@ def mixtape_create(request):
         return HttpResponseRedirect(url_next)
     else:
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+
+@login_required
+def tag_display(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    tracklist_queryset = Tracklist.objects.filter(tags=tag)
+    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:20]
+
+    context = {
+        "tag_name":tag.name,
+        "tracklist_list":tracklist_list,
+    }
+    context.update(get_rankings(request))
+    context.update(get_nav_context())
+    return render_to_response('hip_engine/tag_display.html', context, context_instance=RequestContext(request))
 
 @login_required
 def mixtape_display(request, tracklist_id):
@@ -821,9 +836,9 @@ def login_process(request):
             else:
                 return HttpResponseRedirect(reverse('hip_engine.views.feed'))
         else:
-            return render_to_response('hip_engine/landing_page_temp.html', {'error_message_login': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
+            return render_to_response('hip_engine/landing_page.html', {'error_message_login': "Sorry, your account has been disabled.",}, context_instance=RequestContext(request)) 
     else:
-        return render_to_response('hip_engine/landing_page_temp.html', {'error_message_login': "Your username and password do not match. Please try again.",}, context_instance=RequestContext(request))  
+        return render_to_response('hip_engine/landing_page.html', {'error_message_login': "Your username and password do not match. Please try again.",}, context_instance=RequestContext(request))  
 
 def register(request):
     username = request.POST['username']
@@ -860,18 +875,35 @@ def register(request):
                             return HttpResponseRedirect(reverse('hip_engine.views.suggest_profiles'))
                         else:
                             context.update({'error_message_email_1': "Your email is not valid. Please try again.",})
-                            return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
+                            return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
                     else:
                         context.update({'error_message_email_1': "Email already exists. Please choose another one.",})
-                        return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request)) 
+                        return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request)) 
                 else:
                     context.update({'error_message_email_2': "Your emails do not match. Please try again.",})
-                    return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
+                    return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
             else:
                 context.update({'error_message_username': "Username already exists. Please choose another one.",})
-                return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
+                return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
         else:
             context.update({'error_message_username': "Username is not valid. Please use only letters, numbers, '-' and '_'.",})
-            return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
+            return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
     else:
-        return render_to_response('hip_engine/landing_page_temp.html', context, context_instance=RequestContext(request))
+        return render_to_response('hip_engine/landing_page.html', context, context_instance=RequestContext(request))
+
+## admin ##
+@login_required
+def reset_reputation(request):
+    if request.user.username == "hipmaster":
+        for profile in UserProfile.objects.all():
+            profile.reputation = 0
+            profile.save()
+    return feed(request)
+
+@login_required
+def reset_nb_connects(request):
+    if request.user.username == "hipmaster":
+        for profile in UserProfile.objects.all():
+            profile.nb_connects = 0
+            profile.save()
+    return feed(request)

@@ -10,7 +10,7 @@
 <form enctype="multipart/form-data" action="/profile/{{profile_focused.user.username}}/edit/" method="POST">
     {% csrf_token %}
     <fieldset>
-      <legend>Change profile picture</legend>
+      <legend>Edit profile picture</legend>
       {{ image_form }}
       <input type="hidden" name="form-type" value="image-form" />
       <strong> 20 Ko < size <  1 Mo </strong>
@@ -18,6 +18,28 @@
     </fieldset>
 </form>
 </p>
+
+{% comment %}
+ <p>
+  <form action="/profile/{{profile_focused.user.username}}/edit/" method="POST">
+  {% csrf_token %}
+    <fieldset>
+      <legend>Edit Username</legend>
+    {% for field in username_form %}
+      <div class="row">
+        <div class="small-9 columns">
+          <input type="text" id="right-label" value="{{request.user.username}}" placeholder="New Username">
+        </div>
+        <div class="small-3 columns">
+          <input type="hidden" name="form-type" value="username-form" />
+          <input type="submit" class="button postfix" value="Update">
+        </div>
+      </div>
+    {% endfor %}
+    </fieldset>
+  </form>
+</p>
+{% endcomment %}
 
 <p>
 <form action="/profile/{{profile_focused.user.username}}/edit/" method="POST">
@@ -42,7 +64,6 @@
       {% endfor %}
         <div class="small-3 columns">
           <input type="hidden" name="form-type" value="psw-form" />
-          <input type="hidden" name="" value="Update">
           <input type="submit" class="button postfix" value="Update">
         </div>
       </div>
@@ -62,7 +83,6 @@
         </div>
         <div class="small-3 columns">
           <input type="hidden" name="form-type" value="email-form" />
-          <input type="hidden" name="" value="Update">
           <input type="submit" class="button postfix" value="Update">
         </div>
       </div>

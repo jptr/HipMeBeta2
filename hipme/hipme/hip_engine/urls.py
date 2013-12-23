@@ -31,6 +31,8 @@ urlpatterns += patterns('hip_engine.views',
     url(r'^mixtape/(?P<tracklist_id>\d+)/$', 'mixtape_display'),
     url(r'^mixtape/(?P<tracklist_id>\d+)/edit/$', 'mixtape_edit'),
 
+    url(r'^tag/(?P<tag_name>\w+)/$', 'tag_display'),
+
     url(r'^$','landing'),
     url(r'^feed/$','feed'),
     url(r'^login/$','landing'),
@@ -57,4 +59,7 @@ urlpatterns += patterns('hip_engine.views',
 
     #admin action views
     url(r'^populate/db/$', 'populate_db'),
+
+    url(r'^reset/reputation/$', 'reset_reputation'),
+    url(r'^reset/connects/$', 'reset_nb_connects'),
 )

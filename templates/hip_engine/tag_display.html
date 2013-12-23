@@ -1,0 +1,26 @@
+{% extends "hip_engine/base.html" %}
+{% load staticfiles %}
+
+{% block feed_header %}
+
+<h3 class="search_results_title">All '{{tag_name}}' mixtapes</h3>
+
+{% endblock feed_header %}
+
+{% block main_feed %}
+
+<!-- Results in mixtapes -->
+
+{% if tracklist_list %}
+    <ul class="no-bullet">
+        {% for tracklist in tracklist_list %}
+        <li>
+            {% include "hip_engine/snippet_game_mixtape.html" %}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p> No '{{tag_name}}' mixtapes </p>
+{% endif %}
+
+{% endblock main_feed %}

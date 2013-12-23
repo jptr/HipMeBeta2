@@ -71,7 +71,11 @@
       </div>
       <ul class="inline-list mixtape_tag_list">
         {% for tag in tracklist.tags.all %}
-          <li class="label radius tag_mixtape"> {{tag.name}} </li>
+          <li class="label radius tag_mixtape"> 
+            <a href="/tag/{{tag.name}}/">
+              {{tag.name}}
+            </a>
+          </li>
         {% endfor %}
       </ul>
     </div>
