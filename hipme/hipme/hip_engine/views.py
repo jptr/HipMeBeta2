@@ -565,9 +565,27 @@ def mixtape_edit(request, tracklist_id):
                         tag.save()
                         tracklist.tags.add(tag)
 
+            for i, track in enumerate(tracklist.tracks_initial.all()):
+                url = request.POST.get('url_'+str(i+1))
+                validate = URLValidator()
+                try:
+                    validate(url)
+                    track.url = url
+                    track.artist = request.POST.get('artist_'+str(i+1))
+                    track.name = request.POST.get('name_'+str(i+1))
+                    track.save()
+                except ValidationError, e:
+                    tracklist_queryset = Tracklist.objects.all()
+                    tracklist_list = tracklist_queryset.distinct().order_by('-date_latest_edit')[:10]
+                    context.update({
+                        'error_message_url': "Your track url is not valid. Please try again!",
+                        'tracklist':tracklist,
+                        })
+                    return render_to_response('hip_engine/mixtape_edit.html', context, context_instance=RequestContext(request))
+
             tracklist.save()
 
-            return HttpResponseRedirect(reverse('hip_engine.views.mixtape_display', args=(tracklist_id,)))
+            # return HttpResponseRedirect(reverse('hip_engine.views.mixtape_display', args=(tracklist_id,)))
         
         context.update({"tracklist":tracklist,})
         return render_to_response('hip_engine/mixtape_edit.html', context, context_instance=RequestContext(request))

@@ -31,14 +31,16 @@
       {% endif %}>
     </a>
     </div>
-    <div class="columns small-2">
-      <input type="text" id="edit_artist_1" name="artist_1" placeholder="Artist (opt.)" value="{{ track.artist }}">
-    </div>
-    <div class="columns small-2">
-      <input type="text" id="edit_track_1" name="name_1" placeholder="Track title (opt.)" value="{{track.name}}">
-    </div>
-    <div class="columns small-7">
-      <input type="text" id="edit_track_1" name="name_1" placeholder="Track title (opt.)" value="{{track.url}}">
-    </div>
+    {% with track_index=forloop.counter|stringformat:"s" %}
+      <div class="columns small-2">
+        <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "artist_"|add:track_index }}" placeholder="Artist (opt.)" value="{{ track.artist }}">
+      </div>
+      <div class="columns small-2">
+        <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "name_"|add:track_index }}" placeholder="Track title (opt.)" value="{{track.name}}">
+      </div>
+      <div class="columns small-7">
+        <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "url_"|add:track_index }}" placeholder="Track title (opt.)" value="{{track.url}}">
+      </div>
+    {% endwith %}
   </div>
 </div>
