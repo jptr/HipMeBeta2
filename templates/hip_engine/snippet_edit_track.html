@@ -1,0 +1,46 @@
+{% load staticfiles %}
+{% load hip_extras %}
+
+<div class="row track_container {% if forloop.last %} track_container_no_border-bottom {% endif %}">
+  <div class="columns track_edit small-12">
+    <div class="columns small-1">
+    <a href="{{ track.url }}" target="_blank">
+      {% if track.site_from == 'youtube' %}
+        <img src="{% static "img/icons/youtube_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;
+      {% elif track.site_from == 'soundcloud' %}
+        <img src="{% static "img/icons/soundcloud_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;
+      {% elif track.site_from == 'grooveshark' %}
+        <img src="{% static "img/icons/grooveshark_green.png" %}" width="24px" class="site_from_icon"/>&nbsp;
+      {% else %}
+        <img src="{% static "img/icons/note_green.png" %}" width="20px" class="site_from_icon"/>&nbsp;
+      {% endif %}
+    </a>
+    <a
+    {% if track.site_from == 'youtube' or track.site_from == 'soundcloud' %}
+    onClick = "loadMix({{ tracklist|js_track:track.id }})"
+    {% else %}
+    href = "{{ track.url }}" target = "_blank"
+    {% endif %}>
+      <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
+    </a>
+    <a class="track_text"
+      {% if track.site_from == 'youtube' or track.site_from == 'soundcloud' %}
+        onClick="loadMix({{ tracklist|js_track:track.id }})"
+      {% else %}
+        href = "{{ track.url }}" target = "_blank"
+      {% endif %}>
+    </a>
+    </div>
+    {% with track_index=forloop.counter|stringformat:"s" %}
+      <div class="columns small-2">
+        <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "artist_"|add:track_index }}" placeholder="Artist (opt.)" value="{{ track.artist }}">
+      </div>
+      <div class="columns small-2">
+        <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "name_"|add:track_index }}" placeholder="Track title (opt.)" value="{{track.name}}">
+      </div>
+      <div class="columns small-7">
+        <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "url_"|add:track_index }}" placeholder="Track title (opt.)" value="{{track.url}}">
+      </div>
+    {% endwith %}
+  </div>
+</div>
