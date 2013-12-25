@@ -20,60 +20,55 @@
   {% endif %}
 {% endif %} ">
 
-  <form action="/mixtape/{{tracklist.id}}/edit/" method="POST">
+  <form action="/mixtape/{{tracklist.id}}/edit/" method="POST" class="mixtape_edit_form">
   {% csrf_token %}
-    <a class="mixtape_anchor" id="mx{{tracklist.id}}"></a>
-    <div class="row mixtape_header">
+    <div class="row">
       <div class="small-12 columns">
-        <span class="mixtape_edit_info">
-            edit title
-        </span>
-        <br/>
-        <div class="mixtape_title_and_owner">
-          <span class="mixtape_title">
-              <input type="text" name="title" id="edit_title" placeholder="Title - max 50 characters" maxlength="50" value="{{tracklist.title}}">
-          </span>
-        </div>
-        <span class="mixtape_edit_info">
-            edit tags
-        </span>
-        <br/>
-        <div class="mixtape_title_and_owner">
-            <input type="text" name="tags" id="create_tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80", value="{{ tracklist|string_tag }}">
-        </div>
-        <span class="mixtape_edit_info">
-            edit tracks you added
+        <span class="mixtape_info mixtape_edit_info">
+          edit the title
         </span>
       </div>
-    </div>
-
-    <ul class="no-bullet">
-      {% if tracklist.tracks_initial.all %}
-        <li>
-          <div class="small-12 columns mixtape_bundle mixtape_edit_bundlego">
-            <div class="row collapse">
-              <div class="small-12 columns
-                {% if tracklist.tracks_initial.all|length_is:"1" %} bundle_tracklist_1
-                {% elif tracklist.tracks_initial.all|length_is:"2" %} bundle_tracklist_2
-                {% elif tracklist.tracks_initial.all|length_is:"3" %} bundle_tracklist_3
-                {% endif %}">
-                <ul class="no-bullet">
-                  {% for track in tracklist.tracks_initial.all %}
-                    <li>
-                      {% include "hip_engine/snippet_edit_track.html" %}
-                    </li>
-                  {% endfor %}
-                </ul>
+      <div class="small-12 columns mixtape_edit_input">
+        <input type="text" name="title" id="edit_title" placeholder="Title - max 50 characters" maxlength="50" value="{{tracklist.title}}">
+      </div>
+      <div class="small-12 columns">
+        <span class="mixtape_info mixtape_edit_info">
+          edit the tags
+        </span>
+      </div>
+      <div class="small-12 columns mixtape_edit_input">
+        <input type="text" name="tags" id="create_tags" placeholder='Tags - separated by commas. ex: "Summer House, Poney Jazz"' maxlength="80", value="{{ tracklist|string_tag }}">
+      </div>
+      <div class="small-12 columns">
+        <span class="mixtape_info mixtape_edit_info">
+          edit the tracks you added
+        </span>
+      </div>
+      <div class="small-12 columns mixtape_edit_input">
+        <div class="row">
+          {% for track in tracklist.tracks_initial.all %}
+            {% with track_index=forloop.counter|stringformat:"s" %}
+              <div class="columns small-3">
+                <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "artist_"|add:track_index }}" placeholder="Artist (opt.)" value="{{ track.artist }}">
               </div>
-            </div>
+              <div class="columns small-3">
+                <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "name_"|add:track_index }}" placeholder="Track title (opt.)" value="{{track.name}}">
+              </div>
+              <div class="columns small-6">
+                <input type="text" id="{{ "edit_track_"|add:track_index }}" name="{{ "url_"|add:track_index }}" placeholder="Track title (opt.)" value="{{track.url}}">
+              </div>
+            {% endwith %}
+          {% endfor %}
+          <div class="small-12 columns mixtape_edit_italic">
+            {% if not tracklist.tracks_initial.all|length_is:"3" %}
+              To add more tracks to your mixtape, use the normal mixtape view.
+            {% endif %}
           </div>
-        </li>
-      {% endif %}
-    </ul>
-    <div class="small-12 columns">
-        <input type="submit" class="button postfix" value="Save Mixtape">
+        </div>
+      </div>
+      <div class="small-12 columns mixtape_edit_save_btn">
+        <input type="submit" class="button expand" value="Save your changes">
+      </div>
     </div>
-
   </form>
-  
 </div>

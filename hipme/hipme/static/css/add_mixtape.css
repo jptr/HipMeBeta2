@@ -275,33 +275,33 @@
   padding-bottom: 0px;
 }
 
+/* EDIT MIXTAPE */
+
 .mixtape_edit_link {
   text-decoration: underline;
 }
 
 .mixtape_edit_info {
-  margin-left: -1.0em;
-  background-color: #FAFAFA;
   font-size: 16px;
+  margin-left: -0.95em;
+}
+
+.mixtape_edit_input {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.mixtape_edit_save_btn {
+  margin-top: 16px;
+  margin-bottom: 0px;
+}
+
+.mixtape_edit_form {
+  margin-bottom: 0px;
+}
+
+.mixtape_edit_italic {
   font-style: italic;
-  padding-left: 1.25em;
-  padding-top: 0.25em;
-  padding-right: 1.25em;
-  padding-bottom: 0.25em;
-}
-
-.mixtape_edit_bundlego {
-  height: 124px;
-  margin-bottom: 3px;
-  margin-top: 10px;
-  background-color: #FAFAFA;
-}
-
-.track_edit {
-  height: 40px;
-  padding-top: 3px;
-  font-size: 14px;
-  overflow: hidden;
 }
 
 /* Dropup */
