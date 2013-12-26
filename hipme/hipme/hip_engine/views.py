@@ -692,7 +692,7 @@ def mixtape_keep_track(request, tracklist_id, bundle_id, track_id):
 
         tracklist.date_latest_edit = timezone.now()
 
-        bundleback.owner.reputation += 10
+        bundleback.owner.reputation += 5
 
         bundleback.nb_tracks_kept += 1
 
@@ -701,7 +701,7 @@ def mixtape_keep_track(request, tracklist_id, bundle_id, track_id):
         tracklist.tracks_kept.remove(track)
         tracklist.date_latest_edit = timezone.now()
 
-        bundleback.owner.reputation -= 10
+        bundleback.owner.reputation -= 5
         
         bundleback.nb_tracks_kept -= 1
 
@@ -720,12 +720,12 @@ def mixtape_like(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
 
     if request.POST.get('like'):
-        tracklist.owner.reputation += 3
+        tracklist.owner.reputation += 1
         tracklist.likes += 1
         request.user.get_profile().tracklist_kept.add(tracklist)
 
     if request.POST.get('unlike'):
-        tracklist.owner.reputation -= 3
+        tracklist.owner.reputation -= 1
         tracklist.likes -= 1
         request.user.get_profile().tracklist_kept.remove(tracklist)
 
