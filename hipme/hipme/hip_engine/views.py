@@ -601,7 +601,7 @@ def mixtape_edit(request, tracklist_id):
 
             tracklist.save()
 
-            # return HttpResponseRedirect(reverse('hip_engine.views.mixtape_display', args=(tracklist_id,)))
+            return HttpResponseRedirect(reverse('hip_engine.views.mixtape_display', args=(tracklist_id,)))
         
         context.update({"tracklist":tracklist,})
         return render_to_response('hip_engine/mixtape_edit.html', context, context_instance=RequestContext(request))
