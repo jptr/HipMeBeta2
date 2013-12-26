@@ -609,7 +609,7 @@ def mixtape_edit(request, tracklist_id):
     return render_to_response('hip_engine/mixtape_display.html', context, context_instance=RequestContext(request))
 
 @login_required
-def add_track(request, tracklist_id):
+def mixtape_add_track(request, tracklist_id):
 
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     # if tracklist.userto.filter(user=request.user):
@@ -677,7 +677,7 @@ def add_track(request, tracklist_id):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
-def keep_track(request, tracklist_id, bundle_id, track_id):
+def mixtape_keep_track(request, tracklist_id, bundle_id, track_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     bundleback = get_object_or_404(Bundle, pk=bundle_id)
     track = get_object_or_404(Track, pk=track_id)
@@ -716,7 +716,7 @@ def keep_track(request, tracklist_id, bundle_id, track_id):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
-def like_mixtape(request, tracklist_id):
+def mixtape_like(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
 
     if request.POST.get('like'):
@@ -740,7 +740,7 @@ def like_mixtape(request, tracklist_id):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
-def close_tracklist(request, tracklist_id):
+def mixtape_close(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     
     if tracklist.owner == request.user.get_profile():
