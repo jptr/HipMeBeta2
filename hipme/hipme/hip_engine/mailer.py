@@ -30,7 +30,7 @@ def generate_body_new_follower(user_following, user_to_mail, follow_back):
     follower_url = 'http://hipme.fm/profile/'+user_following.username
     follow_back_str = "back " if follow_back else ""
     str2 = user_following.username + " is now following you "+follow_back_str+"on hipme."
-    str3 = "Here is a link to his profile: " + follower_url
+    str3 = "Check out his profile: " + follower_url
     str4 = "Keep da hip,"
     str5 = "The hipmasters."
     edit_url = 'http://hipme.fm/profile/'+user_to_mail.username+'/edit/'
@@ -94,15 +94,14 @@ def generate_header_signup(user):
 def generate_body_signup(user):
     str1 = "Hey "+ user.username + ", welcome aboard!"
     feed_url = 'http://hipme.fm/'
-    str2 = "This is where you're spending your free time now: " + feed_url
-    str3 = "hipme is for discovering music while trying to be the best music advisor. Create mixtapes and ask your friends to put great music in them, or just improve your ranking by contributing to theirs! The more tracks they keep, the more points you get."
+    str2 = "Great music is just one click away:  " + feed_url
+    str3 = "hipme is where you and your friends discover music together. Put tracks into each other's mixtapes, and try to be the best music advisor!"
     fb_url = 'https://www.facebook.com/hipmemusic'
-    str7 = "We're trying to change the way people discover music, and we need your feedback. There's a big button for that on hipme.fm. You can also ping us at hipmail.me@gmail.com, or through Facebook (like and share too!): " + fb_url
-    str8 = "But first, find and follow your friends, get a nice profile pic, then go play!"
+    str7 = "We need your advice to improve hipme. Use the feedback button, or ping us at hipmail.me@gmail.com or on Facebook: " + fb_url
     str4 = "Keep da hip,"
     str5 = "The hipmasters."
     edit_url = 'http://hipme.fm/profile/'+user.username+'/edit/'
     str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
-    return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str7 + "\n\n" + str8 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
+    return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str7 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
 
 
