@@ -1,0 +1,111 @@
+a {
+  color: #444444;
+}
+
+textarea {
+  resize: none;
+}
+
+.page_content {
+  margin-top: 20px;
+  min-height: 620px;
+}
+
+.top_bar_button {
+  margin-top: 0.5em;
+}
+
+.contain-to-grid .top-bar {
+  margin-bottom: 0em;
+}
+
+.feed_sub_nav {
+  margin-top: 1em;
+  font-size: 18px;
+}
+
+.no_padding_left {
+  padding-left: 0px;
+}
+
+.profile_avatar {
+  margin-top: 9px;
+}
+
+.coul {
+  border: solid 1px fuchsia;
+}
+
+.notif {
+  margin-top: 1.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid #E6E6E6;
+  /*border-bottom: 1px solid #E6E6E6;*/
+}
+
+.notif_date {
+  float: right;
+  color: #BBBBBB;
+}
+
+.top_feed_alert {
+  margin-top: 1.7em;
+}
+
+.welcome_alert {
+  margin-top: 5px;
+}
+
+.welcome_message_line1{
+  font-size: 28px;
+  margin-top: 6px;
+  margin-bottom: 14px;
+}
+
+.welcome_message_line2{
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 14px;
+}
+
+.welcome_message_line3{
+  font-size: 16px;
+  font-weight: normal;margin-bottom: 6px;
+}
+
+.search_results_title {
+  margin-top: 16px;
+}
+
+.profile_people_header {
+  margin-top: 1.5em;
+}
+
+.ranking_header {
+  margin-top: 20px;
+}
+
+.ranking_header_img {
+  margin-bottom: 20px;
+}
+
+.ranking_title {
+  margin-left: 10px;
+  display: inline;
+}
+
+.sugg_profiles_header_img{
+  margin-bottom: 13px;
+}
+
+#feedback_text {
+  height: 10em;
+}
+
+.feedback_title {
+  margin-bottom: 2em;
+}
+
+.feedback_submit {
+  margin-top: 2em;
+}

@@ -1,0 +1,82 @@
+/* Profile top */
+
+.tag_profile {
+  width: 9em;
+  margin-bottom: 5px;
+  background-color: #ee403f;
+  color: white;
+}
+
+.profile {
+  margin-top: 15px;
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+
+.profile_adjust_height {
+  margin-top: 15px;
+}
+
+.profile_info_star {
+  margin-bottom: 7px;
+}
+
+.profile_info_arw {
+  margin-bottom: 2px;
+}
+
+.profile_info_wheel {
+  margin-bottom: 4px;
+}
+
+.profile_flw_btn {
+  margin-left: 2em;
+  width: 80px;
+}
+
+.profile_flwd_btn {
+  margin-left: 2em;
+  width: 80px;
+}
+
+.profile_unflw_btn {
+  display: none;
+  margin-left: 2em;
+  width: 80px;
+}
+
+/* Mini-profiles */
+
+.mini_profile_avatar {
+  display: inline-block;
+  width: 60px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.mini_profile_right_section {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 5px;
+  height: 56px;
+  width: 126px;
+  overflow: hidden;
+}
+
+.mini_profile_username {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.mini_profile_score {
+  font-size: 12px;
+  font-weight: bold;
+  color: #444444;
+  margin-left: 10px;
+}
+
+.mini_profile_score_icon {
+  margin-bottom: 5px;
+}
