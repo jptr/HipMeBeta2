@@ -62,4 +62,8 @@ urlpatterns += patterns('hip_engine.views',
 
     url(r'^reset/reputation/$', 'reset_reputation'),
     url(r'^reset/connects/$', 'reset_nb_connects'),
+
+    url(r'^mail/welcome/$', 'mail_welcome'),
+    url(r'^mail/welcome/send/$', 'mail_welcome_send'),
+    url(r'^mail/welcome/success/$', 'mail_welcome_success'),
 )

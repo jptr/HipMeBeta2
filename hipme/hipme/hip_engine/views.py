@@ -782,7 +782,7 @@ def profile_follow(request, username):
                 profile_focused.user,
                 follow_back
                 ), 
-                'HipMe',
+                'hipme',
                 [profile_focused.user.email], 
                 fail_silently=True
                 )
@@ -872,7 +872,7 @@ def register(request):
                             messages.info(request, 'Or put tracks into their mixtapes: the more they like your recommendations, the higher you rank!', extra_tags='welcome_message_line2')
                             messages.info(request, 'First, find friends below and follow them. Then check out your stream and start playing!', extra_tags='welcome_message_line3')
                             from django.core.mail import send_mail
-                            send_mail(generate_header_signup(user), generate_body_signup(user), 'HipMe', [user.email], fail_silently=True)
+                            send_mail(generate_header_signup(user), generate_body_signup(user), 'hipme', [user.email], fail_silently=True)
                             return HttpResponseRedirect(reverse('hip_engine.views.suggest_profiles'))
                         else:
                             context.update({'error_message_email_1': "Your email is not valid. Please try again.",})
@@ -908,3 +908,44 @@ def reset_nb_connects(request):
             profile.nb_connects = 0
             profile.save()
     return feed(request)
+
+@login_required
+def mail_welcome(request):
+    saved_emails = []
+    for smail in SavedEmail.objects.all():
+        saved_emails.append(smail.email)
+    context = {
+    "welcome_header":generate_header_welcome(),
+    "welcome_body":generate_body_welcome(),
+    "mails": ", ".join(saved_emails),
+    }
+    return render_to_response('hip_engine/welcome_mail.html', context, context_instance=RequestContext(request))
+
+@login_required
+def mail_welcome_send(request):
+    saved_emails = []
+    if request.user.username == "hipmaster":
+        from django.core.mail import send_mail
+        for smail in SavedEmail.objects.all():
+            send_mail(
+                generate_header_welcome(), 
+                generate_body_welcome(),
+                'hipme',
+                [smail.email],
+                fail_silently=True
+                )
+            saved_emails.append(smail.email)
+    context = {
+    "mails": ", ".join(saved_emails)
+    }
+    return render_to_response('hip_engine/welcome_mail_success.html', context, context_instance=RequestContext(request))
+
+@login_required
+def mail_welcome_success(request):
+    saved_emails = []
+    for smail in SavedEmail.objects.all():
+        saved_emails.append(smail.email)
+    context = {
+    "mails": ", ".join(saved_emails)
+    }
+    return render_to_response('hip_engine/welcome_mail_success.html', context, context_instance=RequestContext(request))

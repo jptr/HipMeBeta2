@@ -1,0 +1,14 @@
+<p>
+    Header: "{{welcome_header}}" <br><br>
+    ---------- <br><br>
+    Body: "{{welcome_body}}" <br><br><br>
+    ---------- <br>
+    ---------- <br><br>
+    Send this mail to all saved emails (this may take a while):<br>
+    {{mails}}<br>
+</p>
+
+<form action="/mail/welcome/send/" method="POST" class="mixtape_edit_form">
+    {% csrf_token %}
+    <input type="submit" class="button expand" value="SEND TO ALL SAVED EMAILS">
+</form>

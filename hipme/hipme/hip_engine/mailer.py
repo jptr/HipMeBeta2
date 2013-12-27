@@ -104,4 +104,8 @@ def generate_body_signup(user):
     str6 = "Don't forget that you can always go to the settings page to edit your account data and your notification preferences: " + edit_url
     return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str7 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
 
+def generate_header_welcome():
+    return "header welcome"
 
+def generate_body_welcome():
+    return "body welcome"
