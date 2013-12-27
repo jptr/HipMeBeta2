@@ -199,7 +199,6 @@
     </div>
   {% endif %}
 
-
     {% block feed_header %}
     {% endblock feed_header %}
 
@@ -702,6 +701,7 @@
 
       function hipmePlayTrack() {
         $("#hipme_player_controls").show();
+        hasPlayer = true;
 
         // if YouTube
 
@@ -714,7 +714,7 @@
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
           }
-        });
+          });
 
         // else if SoundCloud
 
@@ -734,7 +734,8 @@
             hipmePreNext();
           });
         }
-        hasPlayer = true;
+        alert(mixIter);
+        alert(mixIterRef); 
       }
 
       // Fires video when player ready (YouTube only)
@@ -764,11 +765,12 @@
               hipmeKill();
             }
             // Play new track
-            mixIter++;
+            mixIter+=1;
+            mixIterRef = mixIter;
             hipmePlayTrack();
           } else {
             // Skip unreadable tracks
-            mixIter++;
+            mixIter+=1;
             hipmeNext();
           }
         } else {
@@ -789,11 +791,11 @@
               hipmeKill();
             }
             // Play new track
-            mixIter--;
+            mixIter-=1;
             hipmePlayTrack();
           } else {
             // Skip unreadable tracks
-            mixIter--;
+            mixIter-=1;
             hipmePrevious();
           }
         } else {
@@ -813,6 +815,7 @@
         if (mixIdList[mixIter][0] == 'youtube') {
           player.playVideo();
         } else {
+          $("#sc-widget").show();
           widget.play();
         };
       }
