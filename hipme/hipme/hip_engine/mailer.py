@@ -105,7 +105,16 @@ def generate_body_signup(user):
     return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str7 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
 
 def generate_header_welcome():
-    return "header welcome"
+    return "[hipme] We are ready. Are you?"
 
 def generate_body_welcome():
-    return "body welcome"
+    str1 = "Hi all,"
+    str2 = "The moment you've all been waiting for has finally arrived: our brand-new beta version is out!"
+    feed_url = 'http://hipme.fm/'
+    str3 = "hipme is where your friends make you discover music, while you try to be the best music advisor. Go check it out: " + feed_url
+    fb_url = 'https://www.facebook.com/hipmemusic'
+    str4 = "Keep in mind that this is a beta version. It's far from perfect, but you can help us make it better. Give us as much feedback as possible through the big button on hipme.fm, or drop us a line at hipmail.me@gmail.com or on Facebook: "+ fb_url
+    str5 = "Keep da hip,"
+    str6 = "The hipmasters."
+
+    return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 + "\n\n" + str5 +"\n"+ str6
