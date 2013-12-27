@@ -12,10 +12,109 @@
   <title> hipme </title>
   <link rel="shortcut icon" type="image/jpg" href="{% static "img/hipme-favicon-16.jpg"}" />
 
+  <!-- Included CSS Files -->
+
+  {% load staticfiles %}
+
+  <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/foundation.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_general.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_mixtape.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_mixtape_form.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_left_nav.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_profiles.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/add_landing.css" %}"/>
+  <link rel="stylesheet" href="{% static "css/select2.css" %}"/>
+
 </head>
 
 <body>
-  <h1> 404 - Dammit! You broke hipme.fm! </h1>
-  <h3> This URL does not exist. Please try again what you were doing. If it breaks the interwebs again, please let us know. </h3>
-  <h3><i> -- The hipmasters </i></h3>
+
+  <!-- Header and Nav -->
+
+<div class="fixed contain-to-grid">
+  <nav class="top-bar">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name" id="site_title">
+        <a href="/feed/"> 
+          <img src="{% static "img/hipme-logo-white-topbar.png" %}"/> 
+        </a>
+      </li>
+      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-form">
+          <form action="/search/" method="get">
+            <div class="row collapse">
+              <div id="nav_search_bar" class="small-8 columns">
+                <input type="text" name="q">
+              </div>
+              <div class="small-4 columns">
+                <input type="submit" class="button" value="Search">
+              </div>
+            </div>
+          </form>
+        </li>
+      </ul>
+    </section>
+  </nav>
+</div>
+
+  <!-- End Header and Nav -->
+
+<div class="row page_content">
+
+  <!-- Main Feed -->
+
+  <div class="small-9 columns">
+
+    {% block feed_header %}
+    {% endblock feed_header %}
+
+    {% block feed_nav %}
+    {% endblock feed_nav %}
+
+    {% block main_feed %}
+      <h2>&nbsp;</h2>
+      <h1>404 - Dammit!</h1>
+      <h2>You broke hipme.fm! </h2>
+      <h3>This URL does not exist. Please try again what you were doing. If it breaks the interwebs again, please let us know. </h3>
+      <h3><i> -- The hipmasters </i></h3>
+    {% endblock main_feed %}
+
+  </div>
+
+  <!-- End Main Feed -->
+
+  <!-- Footer -->
+
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-8 columns">
+          <p> Handcrafted in Paris. Powered by YouTube and SoundCloud. </p>
+        </div>
+        <div class="large-4 columns">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Feedback modal -->
+
+</div>
+
+{% include "hip_engine/snippet_rules.html" %}
+
+
+<!-- End scripts player -->
+
+{% analytics "UA-38449021-2" %}
 </body>
+</html>
