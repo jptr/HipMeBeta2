@@ -6,3 +6,4 @@ wsgi.py
 manage.py
 settings_site.py
 settings_site_old.py
+sqlite3.db
