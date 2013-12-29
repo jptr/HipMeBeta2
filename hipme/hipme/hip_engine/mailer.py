@@ -58,7 +58,7 @@ def generate_body_mixtape_to_close(user_to_mail, tracklist):
     return str1 + "\n\n" + str2 + "\n\n" + str3 + "\n\n" + str4 +"\n"+ str5 + "\n\n" + str6
 
 def generate_header_contribute(user_to_mail):
-    return "[hipme] 2 days left to contribute to " + user_to_mail.user.username + "'s mixtape!"
+    return "[hipme] 2 days left to contribute to " + tracklist.owner.user.username + "'s mixtape!"
 
 def generate_body_contribute(user_to_mail, tracklist):
     str1 = "Hey "+ user_to_mail.user.username + ","
