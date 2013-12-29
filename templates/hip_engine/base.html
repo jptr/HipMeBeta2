@@ -726,7 +726,7 @@
           });
 
           // Fires next video when current over (SoundCloud only)
-          // This first line avoids a loop (event FINISH always true, always fires hipmeNext() => skips many tracks)
+          // This first line avoids a loop (before: event FINISH always true, always fires hipmeNext() => skips many tracks)
           widget.unbind(SC.Widget.Events.FINISH);
           widget.bind(SC.Widget.Events.FINISH, function() {
             hipmeNext();
