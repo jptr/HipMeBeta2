@@ -134,7 +134,7 @@ class Bundle(models.Model):
 class Event(models.Model):
     main_profile = models.ForeignKey(UserProfile, related_name='main_events')
     secondary_profile = models.ForeignKey(UserProfile, related_name='secondary_events', null=True)
-    date = models.DateTimeField('date', default=timezone.now())
+    date = models.DateTimeField('date', default=timezone.now)
     event_type = models.CharField(max_length=20)
     def __unicode__(self):
         return u"event %s - %s by %s" % (self.id, self.event_type, self.main_profile)
@@ -150,8 +150,8 @@ class Tracklist(models.Model):
     title = models.CharField(max_length=50, blank=True, help_text='max 50 characters')
     description = models.CharField(max_length=200, blank=True, help_text='max 200 characters')
 
-    date_created = models.DateTimeField('date of creation', default=timezone.now())
-    date_latest_edit = models.DateTimeField('date of latest edit', default=timezone.now())
+    date_created = models.DateTimeField('date of creation', default=timezone.now)
+    date_latest_edit = models.DateTimeField('date of latest edit', default=timezone.now)
     latest_event = models.ForeignKey(Event, blank=True)
 
     tracks_initial = models.ManyToManyField('Track', related_name='tracklist_from', blank=True)
