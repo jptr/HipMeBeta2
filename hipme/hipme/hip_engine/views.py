@@ -39,7 +39,26 @@ def get_nav_context():
 
 def get_profile_context(username):
     profile_focused = get_object_or_404(UserProfile,user__username=username)
-    return {'profile_focused':profile_focused, }
+
+    # three main tags
+    tag_name_dic = {}
+    tracklist_queryset = profile_focused.tracklists_created.all()|profile_focused.tracklists_contributed.all()
+    for tracklist in tracklist_queryset:
+        for tag in tracklist.tags.all():
+            if tag.name in tag_name_dic:
+                tag_name_dic[tag.name]+=1
+            else:
+                tag_name_dic[tag.name]=1
+    
+    tag_name_list = []
+    if tag_name_dic:
+        tag_name_tuples = tag_name_dic.items()
+        sorted_tag_name_tuples = sorted(tag_name_tuples,key=lambda x: -x[1])
+        tag_name_list = zip(*sorted_tag_name_tuples)[0][:3]
+
+    # tag_name_list = zip(*tag_name_tuples)[1]
+
+    return {'profile_focused':profile_focused, 'tag_name_list':tag_name_list}
 
 def get_tracklist_form_context(request):
     event = get_object_or_404(Event, pk=1)
@@ -740,6 +759,34 @@ def mixtape_like(request, tracklist_id):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
+def mixtape_ajax_like(request, tracklist_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+
+    tracklist.owner.reputation += 1
+    tracklist.likes += 1
+    request.user.get_profile().tracklist_kept.add(tracklist)
+
+    tracklist.owner.save()
+    tracklist.save()
+    request.user.get_profile().save()
+
+    return HttpResponseRedirect()
+
+@login_required
+def mixtape_ajax_unlike(request, tracklist_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+
+    tracklist.owner.reputation -= 1
+    tracklist.likes -= 1
+    request.user.get_profile().tracklist_kept.remove(tracklist)
+
+    tracklist.owner.save()
+    tracklist.save()
+    request.user.get_profile().save()
+
+    return HttpResponseRedirect()
+
+@login_required
 def mixtape_close(request, tracklist_id):
     tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
     
@@ -914,6 +961,8 @@ def mail_welcome(request):
     saved_emails = []
     for smail in SavedEmail.objects.all():
         saved_emails.append(smail.email)
+    for user in User.objects.all():
+        saved_emails.append(user.email)
     context = {
     "welcome_header":generate_header_welcome(),
     "welcome_body":generate_body_welcome(),
@@ -935,6 +984,15 @@ def mail_welcome_send(request):
                 fail_silently=True
                 )
             saved_emails.append(smail.email)
+        for user in User.objects.all():
+            send_mail(
+                generate_header_welcome(), 
+                generate_body_welcome(),
+                'hipme',
+                [user.email],
+                fail_silently=True
+                )
+            saved_emails.append(user.email)
     context = {
     "mails": ", ".join(saved_emails)
     }
@@ -945,6 +1003,8 @@ def mail_welcome_success(request):
     saved_emails = []
     for smail in SavedEmail.objects.all():
         saved_emails.append(smail.email)
+    for user in User.objects.all():
+        saved_emails.append(user.email)
     context = {
     "mails": ", ".join(saved_emails)
     }

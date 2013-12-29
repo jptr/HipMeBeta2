@@ -480,23 +480,106 @@
 <!-- scripts mixtape game -->
 
  <script>
-    $('.liked_mxtp_btn').each(function(i){
-      $(this).mouseover(function(){
-        $(".liked_mxtp_btn:eq("+ i + ")").hide();
-        $(".unlike_mxtp_btn:eq("+ i + ")").show();
-      });
-    });
-  </script>
 
-   <script>
-    $('.unlike_mxtp_btn').each(function(i){
-      $(this).mouseout(function(){
-        $(".unlike_mxtp_btn:eq("+ i + ")").hide();
-        $(".liked_mxtp_btn:eq("+ i + ")").show();
-      });
+    $('.like_mxtp_btn').mouseover(function(){
+      var mixtape_id = $(this).parent().attr('id');
+      var btn_label = document.getElementById("like_btn_mx"+mixtape_id).value;
+      if (btn_label=="Liked")
+      {
+        document.getElementById("like_btn_mx"+mixtape_id).value="Unlike";
+        $("#like_btn_mx"+mixtape_id).toggleClass('disabled');
+      }
     });
-  </script>
 
+    $('.like_mxtp_btn').mouseout(function(){
+      var mixtape_id = $(this).parent().attr('id');
+      var btn_label = document.getElementById("like_btn_mx"+mixtape_id).value;
+      if (btn_label=="Unlike")
+      {
+        document.getElementById("like_btn_mx"+mixtape_id).value="Liked";
+        $("#like_btn_mx"+mixtape_id).toggleClass('disabled');
+      }
+    });
+
+    $('.like_btn_form').click(function(){
+
+      var curr_elem = $(this);
+      var mixtape_id = $(this).attr('id');
+      var action_type = document.getElementById("action-type-mx"+mixtape_id).value;
+
+      if(action_type=="like")
+      {
+        document.getElementById("like_btn_mx"+mixtape_id).value="Liked";
+        $("#like_btn_mx"+mixtape_id).toggleClass('disabled');
+
+        document.getElementById("action-type-mx"+mixtape_id).value="unlike";
+        
+        var likes_div = $(curr_elem).parent().parent().find("a");
+        likes_div.text(likes_div.text()*1+1);
+        
+        var url_like = "/mixtape/"+mixtape_id+"/ajaxlike/";
+        var data = {};
+        var args = { type:"POST", url:url_like, data:data, complete:like_complete};
+        $.ajax(args);
+      }
+
+      if(action_type=="unlike")
+      {
+        document.getElementById("like_btn_mx"+mixtape_id).value="Like";
+        $("#liked_btn_mx"+mixtape_id).toggleClass('disabled');
+
+        document.getElementById("action-type-mx"+mixtape_id).value="like";
+        
+        var likes_div = $(curr_elem).parent().parent().find("a");
+        likes_div.text(likes_div.text()*1-1);
+        
+        var url_unlike = "/mixtape/"+mixtape_id+"/ajaxunlike/";
+        var data = {};
+        var args = { type:"POST", url:url_unlike, data:data, complete:like_complete};
+        $.ajax(args);
+      }
+      
+      return false;
+    });
+
+    var like_complete = function(res, status) {
+      // if (status == "success") 
+      // {
+      //   alert("successfully liked/unliked");
+      // }
+    }
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+  </script>
 
  <script>
     $('.kept_track_btn').each(function(i){
@@ -734,8 +817,6 @@
             hipmePreNext();
           });
         }
-        alert(mixIter);
-        alert(mixIterRef); 
       }
 
       // Fires video when player ready (YouTube only)

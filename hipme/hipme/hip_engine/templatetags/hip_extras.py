@@ -1,5 +1,5 @@
 from django import template
-from hip_engine.models import Track, Bundle, Tracklist
+from hip_engine.models import Track, Bundle, Tracklist, UserProfile
 from django.utils import timezone
 
 register = template.Library()
@@ -35,6 +35,14 @@ def string_tag(tracklist):
     if len(tags)==0:
         return ""
     return ", ".join(tags)
+
+@register.filter()
+def likes_string(tracklist):
+    profile_queryset = UserProfile.objects.filter(tracklist_kept=tracklist).distinct().order_by('user__username')
+    username_list = []
+    for profile in profile_queryset:
+        username_list.append(profile.user.username)
+    return ", ".join(username_list)
 
 @register.filter()
 def display_tracks_label(tracklist):

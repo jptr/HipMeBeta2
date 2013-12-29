@@ -89,15 +89,15 @@
           </button>
         </div>
         <div class="small-6 columns">
-          <form action="/mixtape/{{tracklist.id}}/like/" method="post" class="like_btn_form" id="like_form">
-          {% csrf_token %}
-            {% if tracklist in request.user.get_profile.tracklist_kept.all %}
-              <button class="button disabled radius expand liked_mxtp_btn"> Liked </button>
-              <input type="submit" class="button expand radius unlike_mxtp_btn" name="unlike" value="Unlike">
+          <form method="post" class="like_btn_form" id="{{tracklist.id}}">
+            {% csrf_token %}
+            {% if tracklist in request.user.get_profile.tracklist_kept.all %}       
+              <input type="hidden" name="action-type" id="action-type-mx{{tracklist.id}}" value="unlike">
+              <input type="submit" class="button expand radius like_mxtp_btn disabled" value="Liked" name="like" id="like_btn_mx{{tracklist.id}}">
             {% else %}
-              <input type="submit" class="button expand radius like_mxtp_btn" name="like" value="Like" title="Add this mixtape to your collection">
-            {% endif %}
-            <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}" />
+              <input type="hidden" name="action-type" id="action-type-mx{{tracklist.id}}" value="like">
+              <input type="submit" class="button expand radius like_mxtp_btn" value="Like" name="like" id="like_btn_mx{{tracklist.id}}">
+            {% endif %}  
           </form>
         </div>
         {% comment %}
@@ -107,8 +107,18 @@
         </div>
         {% endcomment %}
         <div class="small-6 small-offset-6 columns text-center like_mxtp_stats">
-          <img src="{% static "img/icons/heart_green.png" %}" width="24px" /> 
-            {{ tracklist.likes }}
+          <img src="{% static "img/icons/heart_green.png" %}" width="24px"/>
+            {% if tracklist.likes > 0 %}
+              <span data-tooltip class="has-tip" title="{{tracklist|likes_string}}">
+                <a id="nb_likes">
+                  {{ tracklist.likes }}
+                </a>
+              </span>
+            {% else %}
+              <a id="nb_likes">
+                {{ tracklist.likes }}
+              </a>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -351,6 +361,5 @@
       {% endif %}
     {% endif %}
   </ul>
-  {{ tracklist|js_tracklist }}
 
 </div>

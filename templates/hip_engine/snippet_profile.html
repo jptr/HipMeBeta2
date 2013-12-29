@@ -57,8 +57,17 @@
             <a class="" href="/profile/{{request.user.username}}/edit/"> edit profile </a>
           {% endif %}
         </h6>
-        <ul class="inline-list">
-        </ul>
+        {% if tag_name_list %}
+          <ul class="inline-list">
+              {% for tag_name in tag_name_list %}
+                <li class="label radius tag_mixtape"> 
+                  <a href="/tag/{{tag_name}}/">
+                    {{tag_name}}
+                  </a>
+                </li>
+              {% endfor %}
+          </ul>
+        {% endif %}
       </div>
     </div>
   </div>

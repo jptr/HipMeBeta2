@@ -80,9 +80,17 @@
   margin-bottom: 0px;
 }
 
-.unlike_mxtp_btn {
+.like_mxtp_btn_off {
   display: none;
 }
+
+.liked_mxtp_btn_off {
+  display: none;
+}
+
+/*.unlike_mxtp_btn {
+  display: none;
+}*/
 
 .like_mxtp_stats {
   font-weight: bold;
