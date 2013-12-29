@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load hip_extras %}
 
 <div class="row">
   <div class="small-12 columns profile">
@@ -61,7 +62,7 @@
           <ul class="inline-list">
               {% for tag_name in tag_name_list %}
                 <li class="label radius tag_mixtape"> 
-                  <a href="/tag/{{tag_name}}/">
+                  <a href="/tag/{{tag_name|urlize_string}}/">
                     {{tag_name}}
                   </a>
                 </li>
