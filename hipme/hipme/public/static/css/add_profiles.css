@@ -1,12 +1,5 @@
 /* Profile top */
 
-.tag_profile {
-  width: 9em;
-  margin-bottom: 5px;
-  background-color: #ee403f;
-  color: white;
-}
-
 .profile {
   margin-top: 15px;
   padding-top: 0em;
@@ -14,7 +7,6 @@
 }
 
 .profile_adjust_height {
-  margin-top: 15px;
 }
 
 .profile_info_star {
@@ -31,17 +23,20 @@
 
 .profile_flw_btn {
   margin-left: 2em;
+  margin-bottom: 0px;
   width: 80px;
 }
 
 .profile_flwd_btn {
   margin-left: 2em;
+  margin-bottom: 0px;
   width: 80px;
 }
 
 .profile_unflw_btn {
   display: none;
   margin-left: 2em;
+  margin-bottom: 0px;
   width: 80px;
 }
 
