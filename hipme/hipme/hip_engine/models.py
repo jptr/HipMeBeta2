@@ -102,7 +102,7 @@ class Track(models.Model):
     artist = models.CharField(max_length=200, blank=True, help_text='optional')
     name = models.CharField(max_length=200, blank=True, help_text='optional')
     bundle = models.ManyToManyField('Bundle', related_name='followed_by', null=True, blank=True)
-    date_added = models.DateTimeField('date of creation', default=timezone.now())
+    date_added = models.DateTimeField('date of creation', default=timezone.now)
     def __unicode__(self):
         if self.artist and not self.name:
             return u"song %s - %s - unknown name" % (self.id, self.artist)
@@ -125,7 +125,7 @@ class Bundle(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='bundles_created')
     tracks = models.ManyToManyField('Track', related_name='bundle_from', blank=True)
     tracks_kept = models.ManyToManyField('Track', related_name='bundle_kept_from', blank=True)
-    date_created = models.DateTimeField('date of creation', default=timezone.now())
+    date_created = models.DateTimeField('date of creation', default=timezone.now)
     nb_tracks_kept = models.IntegerField(default=0)
 
     def __unicode__(self):
@@ -197,7 +197,7 @@ class Suggestion(models.Model):
     userfrom = models.ForeignKey(UserProfile)
     body = models.TextField(max_length=1000)
     kind = models.TextField(max_length=16, default="")
-    submit_date = models.DateTimeField('submit date', default=timezone.now())
+    submit_date = models.DateTimeField('submit date', default=timezone.now)
 
     def get_summary(self):
         if len(self.body)>60:
@@ -208,6 +208,6 @@ class Suggestion(models.Model):
 
 class SavedEmail(models.Model):
     email = models.CharField(max_length=200)
-    submit_date = models.DateTimeField('submit date', default=timezone.now())
+    submit_date = models.DateTimeField('submit date', default=timezone.now)
     def __unicode__(self):
         return self.email
