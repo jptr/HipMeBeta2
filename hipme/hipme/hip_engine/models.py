@@ -200,8 +200,8 @@ class Suggestion(models.Model):
     submit_date = models.DateTimeField('submit date', default=timezone.now)
 
     def get_summary(self):
-        if len(self.body)>60:
-            return self.body[:57]+"..."
+        if len(self.body)>140:
+            return self.body[:137]+"..."
         else:
             return self.body
     get_summary.short_description = 'extract'

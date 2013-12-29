@@ -39,7 +39,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_filter = ('is_email_notified',)
 
 class TracklistAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__','is_finished', 'is_time_out', 'date_created','date_latest_edit')
+    list_display = ('title','owner','__unicode__','is_finished', 'is_time_out', 'date_created','date_latest_edit')
 
 class TrackAdmin(admin.ModelAdmin):
     list_display = ('__unicode__','get_site_from','artist','name', 'date_added')
@@ -51,13 +51,13 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('__unicode__',)
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__',)
+    list_display = ('event_type','main_profile','secondary_profile','date','__unicode__',)
 
 class RelationshipAdmin(admin.ModelAdmin):
     list_display = ('__unicode__',)
 
 class SuggestionAdmin(admin.ModelAdmin):
-    list_display=('get_summary','submit_date','kind','userfrom')
+    list_display=('kind','userfrom', 'get_summary','submit_date',)
 
 class SavedEmailAdmin(admin.ModelAdmin):
     list_display=('__unicode__','submit_date')
