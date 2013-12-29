@@ -726,9 +726,9 @@
           });
 
           // Fires next video when current over (SoundCloud only)
-
+          // This first line avoids a loop (event FINISH always true, always fires hipmeNext() => skips many tracks)
+          widget.unbind(SC.Widget.Events.FINISH);
           widget.bind(SC.Widget.Events.FINISH, function() {
-            widget.unbind(SC.Widget.Events.FINISH);
             hipmeNext();
           });
         }
@@ -775,6 +775,7 @@
             hipmeKill();
             // Play new track
             mixIter-=1;
+            mixIterRef = mixIter;
             hipmePlayTrack();
           } else {
             // Skip unreadable tracks
