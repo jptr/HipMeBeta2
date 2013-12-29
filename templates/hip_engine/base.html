@@ -698,7 +698,6 @@
       }
 
       function hipmePlayTrack() {
-        alert(mixIter)
         $("#hipme_player_controls").show();
 
         // if YouTube
@@ -816,7 +815,7 @@
           // Stops and hides SoundCloud player
           } else if (mixIdList[mixIterRef][0] == 'soundcloud') {
             widget.pause();
-            // $("#sc-widget").hide();
+            $("#sc-widget").hide();
           };
         }
       }
