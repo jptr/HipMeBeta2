@@ -31,7 +31,7 @@ urlpatterns += patterns('hip_engine.views',
     url(r'^mixtape/(?P<tracklist_id>\d+)/$', 'mixtape_display'),
     url(r'^mixtape/(?P<tracklist_id>\d+)/edit/$', 'mixtape_edit'),
 
-    url(r'^tag/(?P<urlized_tag_name>[A-Za-z0-9_\+]+)/$', 'tag_display'),
+    url(r'^tag/(?P<urlized_tag_name>[A-Za-z0-9_\+\-]+)/$', 'tag_display'),
 
     url(r'^$','landing'),
     url(r'^feed/$','feed'),
@@ -56,6 +56,8 @@ urlpatterns += patterns('hip_engine.views',
 
     url(r'^mixtape/(?P<tracklist_id>\d+)/ajaxlike/$', 'mixtape_ajax_like'),
     url(r'^mixtape/(?P<tracklist_id>\d+)/ajaxunlike/$', 'mixtape_ajax_unlike'),
+
+    url(r'^mixtape/(?P<tracklist_id>\d+)/bundle/(?P<bundle_id>\d+)/track/(?P<track_id>\d+)/ajaxkeep/$', 'mixtape_ajax_keep_track'),
 
     url(r'^feedback/$', 'give_feedback'),
     url(r'^saveemail/$', 'save_email'),

@@ -481,6 +481,64 @@
 
  <script>
 
+    $('.keep_track_btn').mouseover(function(){
+      var keep_track_id = $(this).parent().attr('id');
+      var btn_label = document.getElementById("keep_btn_id"+keep_track_id).value;
+      if (btn_label=="Kept")
+      {
+        document.getElementById("keep_btn_id"+keep_track_id).value="Unkeep";
+        $("#keep_btn_id"+keep_track_id).toggleClass('alert');
+        $("#keep_btn_id"+keep_track_id).toggleClass('success');
+      }
+    });
+
+    $('.keep_track_btn').mouseout(function(){
+      var keep_track_id = $(this).parent().attr('id');
+      var btn_label = document.getElementById("keep_btn_id"+keep_track_id).value;
+      if (btn_label=="Unkeep")
+      {
+        document.getElementById("keep_btn_id"+keep_track_id).value="Kept";
+        $("#keep_btn_id"+keep_track_id).toggleClass('success');
+        $("#keep_btn_id"+keep_track_id).toggleClass('alert');
+      }
+    });
+
+    $('.keep_track_form').click(function(){
+
+      var curr_elem = $(this);
+      var keep_track_id = $(this).attr('id');
+
+      var btn_label = document.getElementById("keep_btn_id"+keep_track_id).value;
+
+      if(btn_label=="Keep")
+      {
+        document.getElementById("keep_btn_id"+keep_track_id).value="Unkeep";
+        $("#keep_btn_id"+keep_track_id).toggleClass('alert');
+      }
+
+      if(btn_label=="Unkeep")
+      {
+        document.getElementById("keep_btn_id"+keep_track_id).value="Keep";
+        $("#keep_btn_id"+keep_track_id).toggleClass('alert');
+      }
+
+      
+      var ids = keep_track_id.split("-");
+      var url_keep = "/mixtape/"+ids[0]+"/bundle/"+ids[1]+"/track/"+ids[2]+"/ajaxkeep/";
+      var data = {};
+      var args = { type:"POST", url:url_keep, data:data, complete:keep_complete};
+      $.ajax(args);
+      
+      return false;
+    });
+
+    var keep_complete = function(res, status) {
+      // if (status == "success") 
+      // {
+      //   alert("successfully liked/unliked");
+      // }
+    }
+
     $('.like_mxtp_btn').mouseover(function(){
       var mixtape_id = $(this).parent().attr('id');
       var btn_label = document.getElementById("like_btn_mx"+mixtape_id).value;
@@ -581,33 +639,16 @@
 
   </script>
 
- <script>
-    $('.kept_track_btn').each(function(i){
-      $(this).mouseover(function(){
-        $(".kept_track_btn:eq("+ i + ")").hide();
-        $(".unkeep_track_btn:eq("+ i + ")").show();
-      });
-    });
-  </script>
-
- <script>
-    $('.unkeep_track_btn').each(function(i){
-      $(this).mouseout(function(){
-        $(".kept_track_btn:eq("+ i + ")").show();
-        $(".unkeep_track_btn:eq("+ i + ")").hide();
-      });
-    });
-  </script>
-
   <script>
     $('.display_tracks_btn').each(function(i){
       $(this).click(function(){
         $(".mixtape_header_owner:eq("+ i + ")").hide();
         $(".mixtape_header_contributors_and_featuring:eq("+ i + ")").hide();
         $(".display_tracks_btn_zone:eq("+ i + ")").hide();
-        $(".show_add_track_form_btn_zone:eq("+ i + ")").show();
-        $(".hide_tracks_btn_zone:eq("+ i + ")").show();
-        $(".bundle_list:eq("+ i + ")").show();
+        $(".show_add_track_form_btn_zone:eq("+ i + ")").show(100);
+        $(".hide_tracks_btn_zone:eq("+ i + ")").fadeIn(100);
+        $(".bundle_list:eq("+ i + ")").fadeIn(200);
+        
       });
     });
   </script>
@@ -618,9 +659,9 @@
         $(".show_add_track_form_btn_zone:eq("+ i + ")").hide();
         $(".hide_tracks_btn_zone:eq("+ i + ")").hide();
         $(".bundle_list:eq("+ i + ")").hide();
-        $(".mixtape_header_owner:eq("+ i + ")").show();
-        $(".mixtape_header_contributors_and_featuring:eq("+ i + ")").show();
-        $(".display_tracks_btn_zone:eq("+ i + ")").show();
+        $(".mixtape_header_owner:eq("+ i + ")").fadeIn(200);
+        $(".mixtape_header_contributors_and_featuring:eq("+ i + ")").fadeIn(200);
+        $(".display_tracks_btn_zone:eq("+ i + ")").fadeIn(100);
       });
     });
   </script>

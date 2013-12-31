@@ -80,17 +80,9 @@
   margin-bottom: 0px;
 }
 
-.like_mxtp_btn_off {
+.unlike_mxtp_btn {
   display: none;
 }
-
-.liked_mxtp_btn_off {
-  display: none;
-}
-
-/*.unlike_mxtp_btn {
-  display: none;
-}*/
 
 .like_mxtp_stats {
   font-weight: bold;
@@ -242,24 +234,13 @@
   margin-left: 5px;
 }
 
-.select_track_form {
+.keep_track_form {
   margin: 0px;
   padding: 0px;
   margin-right: 20px;
 }
 
 .keep_track_btn {
-  margin: 0px;
-  padding: 0px;
-}
-
-.kept_track_btn {
-  margin: 0px;
-  padding: 0px;
-}
-
-.unkeep_track_btn {
-  display: none;
   margin: 0px;
   padding: 0px;
 }

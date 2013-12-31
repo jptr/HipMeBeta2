@@ -43,6 +43,7 @@ def get_profile_context(username):
     # three main tags
     tag_name_dic = {}
     tracklist_queryset = profile_focused.tracklists_created.all()|profile_focused.tracklists_contributed.all()
+    tracklist_queryset = tracklist_queryset.distinct()
     for tracklist in tracklist_queryset:
         for tag in tracklist.tags.all():
             if tag.name in tag_name_dic:
@@ -54,9 +55,11 @@ def get_profile_context(username):
     if tag_name_dic:
         tag_name_tuples = tag_name_dic.items()
         sorted_tag_name_tuples = sorted(tag_name_tuples,key=lambda x: -x[1])
-        tag_name_list = zip(*sorted_tag_name_tuples)[0][:3]
+        for i, item in enumerate(sorted_tag_name_tuples):
+            if item[1]<2:
+                break
 
-    # tag_name_list = zip(*tag_name_tuples)[1]
+        tag_name_list = zip(*sorted_tag_name_tuples)[0][:min(i,3)]
 
     return {'profile_focused':profile_focused, 'tag_name_list':tag_name_list}
 
@@ -733,6 +736,41 @@ def mixtape_keep_track(request, tracklist_id, bundle_id, track_id):
         return HttpResponseRedirect(url_next)
     else:
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
+
+@login_required
+def mixtape_ajax_keep_track(request, tracklist_id, bundle_id, track_id):
+    tracklist = get_object_or_404(Tracklist, pk=tracklist_id)
+    bundleback = get_object_or_404(Bundle, pk=bundle_id)
+    track = get_object_or_404(Track, pk=track_id)
+
+    if track not in tracklist.tracks_kept.all():
+        bundleback.tracks_kept.add(track)
+        tracklist.tracks_kept.add(track)
+
+        event = Event(main_profile = tracklist.owner, secondary_profile=bundleback.owner, event_type = "keep_track")
+        event.save()
+        tracklist.latest_event = event
+
+        tracklist.date_latest_edit = timezone.now()
+
+        bundleback.owner.reputation += 5
+
+        bundleback.nb_tracks_kept += 1
+
+    else:
+        bundleback.tracks_kept.remove(track)
+        tracklist.tracks_kept.remove(track)
+        tracklist.date_latest_edit = timezone.now()
+
+        bundleback.owner.reputation -= 5
+        
+        bundleback.nb_tracks_kept -= 1
+
+    tracklist.save()
+    bundleback.owner.save()
+    bundleback.save()
+
+    return HttpResponseRedirect()
 
 @login_required
 def mixtape_like(request, tracklist_id):

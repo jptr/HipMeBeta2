@@ -44,14 +44,16 @@
     {% if not tracklist.is_finished %}
       <div class="small-2 columns">
         {% if request.user.get_profile == tracklist.owner %}
-          <form action="/mixtape/{{tracklist.id}}/bundle/{{bundle.id}}/track/{{track.id}}/keep/" method="post" class="select_track_form">
-            <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}"/>
+            {% comment %}
+              action="/mixtape/{{tracklist.id}}/bundle/{{bundle.id}}/track/{{track.id}}/keep/"
+              <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}"/>
+            {% endcomment %}
+          <form  method="post" class="keep_track_form" id="{{tracklist.id}}-{{bundle.id}}-{{track.id}}">
             {% csrf_token %}
             {% if track in bundle.tracks_kept.all %}
-              <input type="submit" class="tiny button expand success kept_track_btn" value="Kept">
-              <input type="submit" class="tiny button expand alert unkeep_track_btn" value="Unkeep">
+              <input type="submit" class="tiny button expand success keep_track_btn" value="Kept" id="keep_btn_id{{tracklist.id}}-{{bundle.id}}-{{track.id}}">
             {% else %}
-              <input type="submit" class="tiny button expand keep_track_btn" value="Keep">
+              <input type="submit" class="tiny button expand keep_track_btn" value="Keep" id="keep_btn_id{{tracklist.id}}-{{bundle.id}}-{{track.id}}">
             {% endif %}
           </form>
         {% else %}
