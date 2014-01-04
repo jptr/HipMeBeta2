@@ -51,7 +51,10 @@ def display_tracks_label(tracklist):
         num_tracks += tracklist.tracks_initial.all().count()
     for bundle in tracklist.bundlebacks.all():
         if bundle.tracks.all():
-            num_tracks += bundle.tracks.all().count()
+            if tracklist.is_finished:
+                num_tracks += bundle.tracks_kept.all().count()
+            else:
+                num_tracks += bundle.tracks.all().count()
     if num_tracks == 0:
         return "No tracks yet"
     if num_tracks == 1:
