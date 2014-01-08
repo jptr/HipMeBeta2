@@ -58,7 +58,7 @@
 
       <!-- Right Nav Section -->
       <ul class="right">
-        <li id="nav_profile">
+        <li class="has-dropdown" id="nav_profile">
           <a href="/profile/{{ request.user.username }}/"> 
             {% if request.user.get_profile.avatar %}
               <img src="{{MEDIA_URL}}{{ request.user.get_profile.avatar.name }}" alt="profile_top_img" class="profile_top_img" width="32"/>
@@ -67,6 +67,11 @@
             {% endif %}
             {{ request.user.username }}
           </a>
+          <ul class="dropdown">
+            <li><a href="/profile/{{profile_focused.user.username}}/activity/"> All activity </a></li>
+            <li><a href="/profile/{{profile_focused.user.username}}/pending/"> Pending games </a></li>
+            <li><a href="/profile/{{profile_focused.user.username}}/collection/"> Likes </a></li>
+          </ul>
         </li>
         <li class="divider"></li>
         <li class="has-form">
@@ -166,7 +171,7 @@
         <!-- Left stats -->
 
         <div class="small-12 columns hipme_site_stats">
-          <h5> hipMe! </h5>
+          <h5> hipme </h5>
           <ul class="no-bullet">
             <li> {{nb_mixtapes}} mixtapes created </li>
             <li> {{nb_users}} registered users </li>
@@ -480,7 +485,6 @@
 <!-- scripts mixtape game -->
 
  <script>
-
     $('.keep_track_btn').mouseover(function(){
       var keep_track_id = $(this).parent().attr('id');
       var btn_label = document.getElementById("keep_btn_id"+keep_track_id).value;
