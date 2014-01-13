@@ -485,6 +485,64 @@
 <!-- scripts mixtape game -->
 
  <script>
+    $('.profile_flw_btn').mouseover(function(){
+      var user_id = $(this).parent().attr('id');
+      var btn_label = document.getElementById("flw_btn_user"+user_id).value;
+      if (btn_label=="Followed")
+      {
+        document.getElementById("flw_btn_user"+user_id).value="Unfollow";
+        $("#flw_btn_user"+user_id).toggleClass('disabled');
+        $("#flw_btn_user"+user_id).toggleClass('alert');
+      }
+    });
+
+    $('.profile_flw_btn').mouseout(function(){
+      var user_id = $(this).parent().attr('id');
+      var btn_label = document.getElementById("flw_btn_user"+user_id).value;
+      if (btn_label=="Unfollow")
+      {
+        document.getElementById("flw_btn_user"+user_id).value="Followed";
+        $("#flw_btn_user"+user_id).toggleClass('disabled');
+        $("#flw_btn_user"+user_id).toggleClass('alert');
+      }
+    });
+
+    $('.flw_btn_form').click(function(){
+
+      var curr_elem = $(this);
+      var user_id = $(this).attr('id');
+
+      var btn_label = document.getElementById("flw_btn_user"+user_id).value;
+
+      if(btn_label=="Follow")
+      {
+        document.getElementById("flw_btn_user"+user_id).value="Unfollow";
+        $("#flw_btn_user"+user_id).toggleClass('alert');
+        $("#flw_btn_user"+user_id).toggleClass('secondary');
+      }
+
+      if(btn_label=="Unfollow")
+      {
+        document.getElementById("flw_btn_user"+user_id).value="Follow";
+        $("#flw_btn_user"+user_id).toggleClass('alert');
+        $("#flw_btn_user"+user_id).toggleClass('secondary');
+      }
+
+      var url_follow = "/profile/"+user_id+"/ajaxfollow/";
+      var data = {};
+      var args = { type:"POST", url:url_follow, data:data, complete:follow_complete};
+      $.ajax(args);
+      
+      return false;
+    });
+
+    var follow_complete = function(res, status) {
+      // if (status == "success") 
+      // {
+      //   alert("successfully liked/unliked");
+      // }
+    }
+
     $('.keep_track_btn').mouseover(function(){
       var keep_track_id = $(this).parent().attr('id');
       var btn_label = document.getElementById("keep_btn_id"+keep_track_id).value;
@@ -741,21 +799,21 @@
 <!-- scripts profile -->
 
   <script>
-    $('.profile_flwd_btn').each(function(i){
-      $(this).mouseover(function(){
-        $(".profile_flwd_btn:eq("+ i + ")").hide();
-        $(".profile_unflw_btn:eq("+ i + ")").show();
-      });
-    });
+    // $('.profile_flwd_btn').each(function(i){
+    //   $(this).mouseover(function(){
+    //     $(".profile_flwd_btn:eq("+ i + ")").hide();
+    //     $(".profile_unflw_btn:eq("+ i + ")").show();
+    //   });
+    // });
   </script>
 
   <script>
-    $('.profile_unflw_btn').each(function(i){
-      $(this).mouseout(function(){
-        $(".profile_unflw_btn:eq("+ i + ")").hide();
-        $(".profile_flwd_btn:eq("+ i + ")").show();
-      });
-    });
+    // $('.profile_unflw_btn').each(function(i){
+    //   $(this).mouseout(function(){
+    //     $(".profile_unflw_btn:eq("+ i + ")").hide();
+    //     $(".profile_flwd_btn:eq("+ i + ")").show();
+    //   });
+    // });
   </script>
 
 <!-- scripts left ranking -->

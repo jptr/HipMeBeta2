@@ -17,17 +17,17 @@
         <div class="row">
           <div class="small-12 columns">
             <h3><a href="/profile/{{ profile_focused.user.username }}/" class= "left"> {{ profile_focused.user.username }} </a></h3>
-              <form action="/profile/{{profile_focused.user.username}}/follow/" method="post" class="like_btn_form">
-                {% csrf_token %}                
+              <form method="post" class="flw_btn_form" id="{{profile_focused.id}}">
+                {% csrf_token %}
                 {% if profile_focused != request.user.get_profile %}
-                    {% if profile_focused not in request.user.get_profile.get_following %}
-                    <input type="submit" class="button tiny left profile_flw_btn" value="Follow"> 
+                  {% if profile_focused not in request.user.get_profile.get_following %}      
+                    <input type="hidden" name="action-type" id="action-type-user{{profile_focused.id}}" value="follow">
+                    <input type="submit" class="button tiny left profile_flw_btn" value="Follow" name="follow" id="flw_btn_user{{profile_focused.id}}">
                   {% else %}
-                    <button class="tiny secondary disabled left profile_flwd_btn"> Followed </button>
-                    <input type="submit" class="button tiny secondary left profile_unflw_btn" value="Unfollow">
+                    <input type="hidden" name="action-type" id="action-type-user{{profile_focused.id}}" value="unfollow">
+                    <input type="submit" class="button tiny secondary disabled left profile_flw_btn" value="Followed" name="follow" id="flw_btn_user{{profile_focused.id}}">
                   {% endif %}
                 {% endif %}
-                <input name="next" type="hidden" value="{{request.get_full_path}}" />
               </form>
           </div>
         </div>

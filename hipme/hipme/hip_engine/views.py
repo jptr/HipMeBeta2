@@ -883,6 +883,40 @@ def profile_follow(request, username):
         return HttpResponseRedirect(reverse('hip_engine.views.feed'))
 
 @login_required
+def profile_ajax_follow(request, user_id):
+    profile_focused = get_object_or_404(UserProfile, user__pk=user_id)
+    profile_user = request.user.get_profile()
+
+    if profile_focused not in profile_user.get_following():
+        profile_user.add_following(profile_focused)
+        if profile_focused.is_email_notified:
+            from django.core.mail import send_mail
+            follow_back = False
+            if profile_user in profile_focused.get_following():
+                follow_back = True
+            # send_mail(
+            #     generate_header_new_follower(
+            #     profile_user.user, 
+            #     profile_focused.user, 
+            #     follow_back
+            #     ), 
+            #     generate_body_new_follower(
+            #     profile_user.user, 
+            #     profile_focused.user,
+            #     follow_back
+            #     ), 
+            #     'hipme',
+            #     [profile_focused.user.email], 
+            #     fail_silently=True
+            #     )
+    else:
+        request.user.get_profile().remove_following(profile_focused) 
+    
+    request.user.get_profile().save()
+
+    return HttpResponseRedirect()
+
+@login_required
 def give_feedback(request):
     if request.method == "POST":
         if request.POST['body']:
