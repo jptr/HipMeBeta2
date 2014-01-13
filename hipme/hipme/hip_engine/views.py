@@ -894,21 +894,21 @@ def profile_ajax_follow(request, user_id):
             follow_back = False
             if profile_user in profile_focused.get_following():
                 follow_back = True
-            # send_mail(
-            #     generate_header_new_follower(
-            #     profile_user.user, 
-            #     profile_focused.user, 
-            #     follow_back
-            #     ), 
-            #     generate_body_new_follower(
-            #     profile_user.user, 
-            #     profile_focused.user,
-            #     follow_back
-            #     ), 
-            #     'hipme',
-            #     [profile_focused.user.email], 
-            #     fail_silently=True
-            #     )
+            send_mail(
+                generate_header_new_follower(
+                profile_user.user, 
+                profile_focused.user, 
+                follow_back
+                ), 
+                generate_body_new_follower(
+                profile_user.user, 
+                profile_focused.user,
+                follow_back
+                ), 
+                'hipme',
+                [profile_focused.user.email], 
+                fail_silently=True
+                )
     else:
         request.user.get_profile().remove_following(profile_focused) 
     

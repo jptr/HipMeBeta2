@@ -26,7 +26,6 @@ urlpatterns += patterns('hip_engine.views',
     url(r'^profile/(?P<username>[a-zA-Z0-9\-_]+)/following/$','profile_following'),
     url(r'^profile/(?P<username>[a-zA-Z0-9\-_]+)/edit/$','profile_edit'),
     url(r'^profile/(?P<username>[a-zA-Z0-9\-_]+)/rankings/$','profile_rankings'),
-    url(r'^profile/(?P<username>[a-zA-Z0-9\-_]+)/follow/$','profile_follow'),
 
     url(r'^mixtape/(?P<tracklist_id>\d+)/$', 'mixtape_display'),
     url(r'^mixtape/(?P<tracklist_id>\d+)/edit/$', 'mixtape_edit'),
@@ -58,6 +57,8 @@ urlpatterns += patterns('hip_engine.views',
     url(r'^mixtape/(?P<tracklist_id>\d+)/ajaxunlike/$', 'mixtape_ajax_unlike'),
 
     url(r'^mixtape/(?P<tracklist_id>\d+)/bundle/(?P<bundle_id>\d+)/track/(?P<track_id>\d+)/ajaxkeep/$', 'mixtape_ajax_keep_track'),
+
+    url(r'^profile/(?P<user_id>\d+)/ajaxfollow/$','profile_ajax_follow'),
 
     url(r'^feedback/$', 'give_feedback'),
     url(r'^saveemail/$', 'save_email'),
