@@ -349,6 +349,7 @@
               <div class="small-10 columns">
                 <form action="/mixtape/{{tracklist.id}}/close/" method="post" class="close_mixtape_form">
                   {% csrf_token %}
+                  <input name="next" type="hidden" value="{{request.get_full_path}}#mx{{tracklist.id}}"/>
                   <input type="submit" class="button expand success radius" value="Close mixtape"/>
                 </form>
               </div>
