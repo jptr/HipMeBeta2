@@ -68,9 +68,9 @@
             {{ request.user.username }}
           </a>
           <ul class="dropdown">
-            <li><a href="/profile/{{profile_focused.user.username}}/activity/"> All activity </a></li>
-            <li><a href="/profile/{{profile_focused.user.username}}/pending/"> Pending games </a></li>
-            <li><a href="/profile/{{profile_focused.user.username}}/collection/"> Likes </a></li>
+            <li><a href="/profile/{{request.user.username}}/activity/"> All activity </a></li>
+            <li><a href="/profile/{{request.user.username}}/pending/"> Pending games </a></li>
+            <li><a href="/profile/{{request.user.username}}/collection/"> Likes </a></li>
           </ul>
         </li>
         <li class="divider"></li>
