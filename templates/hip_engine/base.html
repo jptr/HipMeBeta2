@@ -118,10 +118,10 @@
       <!-- Player Controls -->
 
       <div id="hipme_player_controls" class="text-center">
-        <a id="hipme_player_previous" onClick="hipmePrevious()">
+        <a id="hipme_player_previous" onClick="hipmePrevious()" title="or press the left arrow">
           <img src="{% static "img/icons/backward_green.png" %}" width="32px"/>
         </a>
-        <a id="hipme_player_next" onClick="hipmeNext()">
+        <a id="hipme_player_next" onClick="hipmeNext()" title="or press the right arrow">
           <img src="{% static "img/icons/forward_green.png" %}" width="32px"/>
         </a>
       </div>
@@ -866,6 +866,7 @@
 
       var mixIdList;
       var hasPlayer = false;
+      var isPlaying = false;
       var mixIter = 1;
       var mixIterRef = 1;
 
@@ -909,6 +910,7 @@
 
           widget.bind(SC.Widget.Events.READY, function() {
             widget.play();
+            isPlaying = true;
           });
 
           // Fires next video when current over (SoundCloud only)
@@ -925,6 +927,7 @@
 
       function onPlayerReady(event) {
         event.target.playVideo();
+        isPlaying = true;
       }
 
       // Fires next video when current over (YouTube only)
@@ -979,6 +982,7 @@
         } else {
           widget.pause();
         };
+        isPlaying = false;
       }
 
       function hipmePlay() {
@@ -988,6 +992,7 @@
           $("#sc-widget").show();
           widget.play();
         };
+        isPlaying = true;
       }
 
       // Kills player when changing song
@@ -1010,6 +1015,30 @@
     </script>
 
 <!-- End scripts player -->
+
+<!-- Keyboard controls for player -->
+
+    <script>
+      $(document.documentElement).keydown(function (event) {
+        // 37 = left, 39 = right, 32 = space
+        if (event.keyCode == 37) {
+          hipmePrevious();
+        } else if (event.keyCode == 39) {
+          hipmeNext();
+        } else if (event.keyCode == 32) {
+          // preventDefault() removes the browser-defined default action for spacebar.
+          // It's nested in the if structure because otherwise it removes all actions, e.g. cmd+R
+          event.preventDefault();
+          if (isPlaying == true) {
+            hipmePause();
+          } else {
+            hipmePlay();
+          };
+        };
+      });
+    </script>
+
+<!-- End keyboard controls for player -->
 
 {% analytics "UA-38449021-2" %}
 </body>
