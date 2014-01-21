@@ -921,6 +921,7 @@
           });
         }
         hasPlayer = true;
+        colorTrack();
       }
 
       // Fires video when player ready (YouTube only)
@@ -1010,6 +1011,21 @@
             $("#sc-widget").hide();
           };
         }
+      }
+
+      function colorTrack() {
+        var htmlTrackArray = $(".track_text");
+        var currentPlayingTrack = 0;
+        for (var i = 0, len = htmlTrackArray.length; i < len; i++) {
+          if (htmlTrackArray[i].id == mixIdList[mixIterRef][1]) {
+            alert('found');
+            currentPlayingTrack = htmlTrackArray[i].id;
+            // htmlTrackArray[i].addClass('track_is_playing');
+            // htmlTrackArray[i].hide();
+            break;
+          }
+        }
+        // $("#currentPlayingTrack").hide();
       }
 
     </script>

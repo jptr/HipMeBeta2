@@ -245,6 +245,10 @@
   padding: 0px;
 }
 
+.track_is_playing {
+  color: red;
+}
+
 .close_mixtape_zone {
   background-color: #FAFAFA;
   padding-top: 18px;

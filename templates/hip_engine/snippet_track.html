@@ -23,7 +23,7 @@
     {% endif %}>
       <img src="{% static "img/icons/play_round_green.png" %}" width="20px" class="track_play_btn"/>
     </a>
-    <a class="track_text"
+    <a id="{{track.url}}" class="track_text"
       {% if track.site_from == 'youtube' or track.site_from == 'soundcloud' %}
         onClick="loadMix({{ tracklist|js_track:track.id }})"
       {% else %}
